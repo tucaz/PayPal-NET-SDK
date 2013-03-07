@@ -1,0 +1,11 @@
+
+#build files
+obj
+bin
+
+
+#IDE files
+*.user
+*.suo
+*.pdb
+*.bak
