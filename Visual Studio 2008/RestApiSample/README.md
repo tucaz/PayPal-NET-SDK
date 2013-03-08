@@ -146,19 +146,13 @@ Clicking on the NuGet Toolbar Install Package will pop up for NuGet Install Argu
 Example NuGet Install:
 Enter Arguments: 
 *******************************************
+install RestApiSDK -excludeVersion -outputDirectory .\Packages
 
 install PayPalCoreSDK -excludeversion -outputDirectory .\Packages
 		
 install Newtonsoft.Json -excludeversion -outputDirectory .\Packages
 	
 *******************************************
-
-
-Libraries
----------
-*	In lib folder
-	*	RestApiSDK.dll - Version 0.5.0.0
-
 	
 Namespaces
 ----------
