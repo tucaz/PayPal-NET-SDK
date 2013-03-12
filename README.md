@@ -9,7 +9,7 @@ Prerequisites
    *   Note: NuGet 2.2 requires .NET Framework 4.0
 
 
-The PayPal PaymantSDK for .NET
+The PayPal PaymentSDK for .NET
 ----------------------------
 
 	
