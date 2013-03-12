@@ -17,7 +17,7 @@ To make an API call
 --------------------
    *   Add references to 
    *   RestApiSDK 0.5.0.0 
-   *   PayPalCoreSDK.dll 1.1.0.0
+   *   PayPalCoreSDK.dll 
    *   Newtonsoft.Json.dll
    *   log4net.dll 1.2.10.0
    *   Refer to the App.config file configuration file settings		
