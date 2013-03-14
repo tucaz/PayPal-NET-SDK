@@ -58,24 +58,24 @@ namespace PayPal
             string osHeader = string.Empty;
             if (JCS.OSVersionInfo.OSBits.Equals(JCS.OSVersionInfo.SoftwareArchitecture.Bit64))
             {
-                osHeader += "b=" + 64 + ";";
+                osHeader += "bit=" + 64 + ";";
             }
             else if (JCS.OSVersionInfo.OSBits.Equals(JCS.OSVersionInfo.SoftwareArchitecture.Bit32))
             {
-                osHeader += "b=" + 32 + ";";
+                osHeader += "bit=" + 32 + ";";
             }
             else
             {
-                osHeader += "b=" + "Unknown" + ";";
+                osHeader += "bit=" + "Unknown" + ";";
             }
 
-            osHeader += "OS=" + JCS.OSVersionInfo.Name + " " + JCS.OSVersionInfo.Version + ";";
+            osHeader += "os=" + JCS.OSVersionInfo.Name + " " + JCS.OSVersionInfo.Version + ";";
             return osHeader;
         }
 
         private string GetDotNetVersionHeader()
         {
-            string DotNetVersionHeader = "lang=" + ".NET;" + "V=" + Environment.Version.ToString().Trim();
+            string DotNetVersionHeader = "lang=" + "DOTNET;" + "v=" + Environment.Version.ToString().Trim();
             return DotNetVersionHeader;
         }          
     }

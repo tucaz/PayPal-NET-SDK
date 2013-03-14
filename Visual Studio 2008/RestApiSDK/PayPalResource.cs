@@ -32,9 +32,9 @@ namespace PayPal
                                                   HttpStatusCode.ServiceUnavailable,
                                                 });
 
-        public const string SdkID = "ID";
+        public const string SdkID = "rest-sdk-dotnet";
 
-        public const string SdkVersion = "1.0";
+        public const string SdkVersion = "0.5.0";
 
         public static T ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payLoad)
         {
