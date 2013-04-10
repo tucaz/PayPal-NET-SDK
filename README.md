@@ -8,22 +8,17 @@ Prerequisites
    *   NuGet 2.2
    *   Note: NuGet 2.2 requires .NET Framework 4.0
 
-
-The PayPal PaymentSDK for .NET
-----------------------------
-
 	
 To make an API call
 --------------------
-   *   Add references to 
-   *   RestApiSDK 0.5.0.0 
-   *   PayPalCoreSDK.dll 1.1.1.0
-   *   Newtonsoft.Json.dll
-   *   log4net.dll 1.2.10.0
+   *  Add references to the following libraries in your project.
+      *   RestApiSDK 0.5.0.0 
+      *   PayPalCoreSDK.dll 1.1.1.0
+      *   Newtonsoft.Json.dll
+      *   log4net.dll 1.2.10.0
    *   Refer to the App.config file configuration file settings		
-   *   Create 'accesstoken' from 'ClientID' and 'ClientSecret' using 'OAuthTokenCredential' and set the same in resource as follows,
+   *   Create 'accesstoken' from 'ClientID' and 'ClientSecret' using `OAuthTokenCredential` and set the same in resource as follows,
 
-		// ###AccessToken
 		// Retrieve the access token from
 		// OAuthTokenCredential by passing in
 		// ClientID and ClientSecret
@@ -57,16 +52,12 @@ To make an API call
 		pymnt.Create(accessToken);
 ```
 
-App.Config Configuration:
-------------------
+App.Config Configuration
+------------------------
    *   endpoint
    *   ClientID
    *   ClientSecret
 
-
-License
--------
-   *   PayPal, Inc. SDK License - LICENSE.txt
 
 NuGet 
 -----
@@ -77,3 +68,7 @@ Here is how you can get NuGet working on your IDE -
 
    * [Installing NuGet in Visual Studio 2005 & 2008] (https://github.com/paypal/sdk-core-dotnet/wiki/Using-Nuget-in-Visual-Studio-2005-&-2008)
    * [Installing NuGet in Visual Studio 2010 & 2012] (https://github.com/paypal/sdk-core-dotnet/wiki/Using-Nuget-in-Visual-Studio-2010-&-2012)
+
+License
+-------
+   *   PayPal, Inc. SDK License - LICENSE.txt
