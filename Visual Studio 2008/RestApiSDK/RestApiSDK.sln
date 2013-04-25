@@ -8,26 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{874306AB-298B-4391-ACEF-768F9E52BF7B}"
 	ProjectSection(SolutionItems) = preProject
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
-		RestApiSDK.vsmdi = RestApiSDK.vsmdi
-		RestApiSDK1.vsmdi = RestApiSDK1.vsmdi
-		RestApiSDK10.vsmdi = RestApiSDK10.vsmdi
-		RestApiSDK11.vsmdi = RestApiSDK11.vsmdi
-		RestApiSDK12.vsmdi = RestApiSDK12.vsmdi
-		RestApiSDK13.vsmdi = RestApiSDK13.vsmdi
-		RestApiSDK2.vsmdi = RestApiSDK2.vsmdi
-		RestApiSDK3.vsmdi = RestApiSDK3.vsmdi
-		RestApiSDK4.vsmdi = RestApiSDK4.vsmdi
-		RestApiSDK5.vsmdi = RestApiSDK5.vsmdi
-		RestApiSDK6.vsmdi = RestApiSDK6.vsmdi
-		RestApiSDK7.vsmdi = RestApiSDK7.vsmdi
-		RestApiSDK8.vsmdi = RestApiSDK8.vsmdi
-		RestApiSDK9.vsmdi = RestApiSDK9.vsmdi
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = RestApiSDK13.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

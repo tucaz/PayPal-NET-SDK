@@ -145,6 +145,30 @@ namespace PayPal.Api.Payments
 			string payLoad = string.Empty;
 			return PayPalResource.ConfigureAndExecute<Refund>(accessToken, HttpMethod.GET, resourcePath, payLoad);
 		}
+		
+		/// <summary>
+		/// Get call for Refund.
+		/// GET /v1/payments/refund/:refundId
+        /// <param name="apiContext">APIContext required for the call</param>
+	 	/// <param name="refundId">RefundId</param>
+		/// <returns>Returns Refund object</returns>
+		/// </summary>
+		public static Refund Get(APIContext apiContext, string refundId)
+		{
+			if (string.IsNullOrEmpty(apiContext.AccessToken))
+			{
+				throw new ArgumentNullException("AccessToken cannot be null");
+			}
+			if (String.IsNullOrEmpty(refundId))
+			{
+				throw new System.ArgumentNullException("refundId cannot be null or empty");
+			}
+			string pattern = "v1/payments/refund/{0}";
+			object[] container = new Object[] { refundId };
+			string resourcePath = SDKUtil.FormatURIPath(pattern, container);
+			string payLoad = string.Empty;
+			return PayPalResource.ConfigureAndExecute<Refund>(apiContext, HttpMethod.GET, resourcePath, payLoad);
+		}
 
 		/// <summary>
 		/// Converts the object to JSON string

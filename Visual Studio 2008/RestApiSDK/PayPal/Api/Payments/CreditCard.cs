@@ -179,6 +179,10 @@ namespace PayPal.Api.Payments
 		/// </summary>
 		public CreditCard Create(APIContext apiContext)
 		{
+			if (string.IsNullOrEmpty(apiContext.AccessToken))
+			{
+				throw new ArgumentNullException("AccessToken cannot be null");
+			}
 			string resourcePath = "v1/vault/credit-card";
 			string payLoad = this.ConvertToJson();	
 		return PayPalResource.ConfigureAndExecute<CreditCard>(apiContext, HttpMethod.POST, resourcePath, payLoad);
@@ -202,6 +206,30 @@ namespace PayPal.Api.Payments
 			string resourcePath = SDKUtil.FormatURIPath(pattern, container);
 			string payLoad = string.Empty;
 			return PayPalResource.ConfigureAndExecute<CreditCard>(accessToken, HttpMethod.GET, resourcePath, payLoad);
+		}
+		
+		/// <summary>
+		/// Get call for CreditCard.
+		/// GET /v1/vault/credit-card/:creditCardId
+        /// <param name="apiContext">APIContext required for the call</param>
+	 	/// <param name="creditCardId">CreditCardId</param>
+		/// <returns>Returns CreditCard object</returns>
+		/// </summary>
+		public static CreditCard Get(APIContext apiContext, string creditCardId)
+		{
+			if (string.IsNullOrEmpty(apiContext.AccessToken))
+			{
+				throw new ArgumentNullException("AccessToken cannot be null");
+			}
+			if (String.IsNullOrEmpty(creditCardId))
+			{
+				throw new System.ArgumentNullException("creditCardId cannot be null or empty");
+			}
+			string pattern = "v1/vault/credit-card/{0}";
+			object[] container = new Object[] { creditCardId };
+			string resourcePath = SDKUtil.FormatURIPath(pattern, container);
+			string payLoad = string.Empty;
+			return PayPalResource.ConfigureAndExecute<CreditCard>(apiContext, HttpMethod.GET, resourcePath, payLoad);
 		}
 
 		/// <summary>

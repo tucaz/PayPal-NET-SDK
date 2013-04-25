@@ -68,7 +68,7 @@ namespace RestApiSDKUnitTest
         {
             get
             {
-                string clntID = ConfigManager.Instance.GetProperty("ClientID");
+                string clntID = ConfigManager.Instance.GetProperties()["ClientID"];
                 return clntID;
             }
         }
@@ -77,7 +77,7 @@ namespace RestApiSDKUnitTest
         {
             get
             {
-                string clntSecret = ConfigManager.Instance.GetProperty("ClientSecret");
+                string clntSecret = ConfigManager.Instance.GetProperties()["ClientSecret"];
                 return clntSecret;
             }
         }
@@ -169,8 +169,8 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void stateTest()
         {
-            CreditCard target = GetCreateCreditCard();
-            string expected = "ok";
+            CreditCard target = GetCreditCard();
+            string expected = "New York";
             string actual = target.state;
             Assert.AreEqual(expected, actual);
         }

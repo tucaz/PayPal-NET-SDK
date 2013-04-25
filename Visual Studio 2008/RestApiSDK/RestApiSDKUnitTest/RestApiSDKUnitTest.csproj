@@ -40,7 +40,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Packages\Newtonsoft.Json\lib\net35\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PayPalCoreSDK, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="PayPalCoreSDK, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Packages\PayPalCoreSDK\lib\PayPalCoreSDK.dll</HintPath>
     </Reference>
@@ -63,17 +63,14 @@
     <Compile Include="AmountDetailsTest.cs" />
     <Compile Include="AmountTest.cs" />
     <Compile Include="AuthorizationTest.cs" />
-    <Compile Include="APIContextTest.cs" />
     <Compile Include="CaptureTest.cs" />
     <Compile Include="CreditCardTest.cs" />
     <Compile Include="CreditCardTokenTest.cs" />
     <Compile Include="FundingInstrumentTest.cs" />
-    <Compile Include="HttpConnectionTest.cs" />
     <Compile Include="ItemListTest.cs" />
     <Compile Include="ItemTest.cs" />
     <Compile Include="JsonFormatterTest.cs" />
     <Compile Include="LinkTest.cs" />
-    <Compile Include="OAuthTokenCredentialTest.cs" />
     <Compile Include="PayeeTest.cs" />
     <Compile Include="PayerInfoTest.cs" />
     <Compile Include="PayerTest.cs" />
@@ -86,7 +83,6 @@
     <Compile Include="RedirectUrlsTest.cs" />
     <Compile Include="RefundTest.cs" />
     <Compile Include="ResourceTest.cs" />
-    <Compile Include="RESTConfigurationTest.cs" />
     <Compile Include="SDKUtilTest.cs" />
     <Compile Include="ShippingAddressTest.cs" />
     <Compile Include="SubTransactionTest.cs" />

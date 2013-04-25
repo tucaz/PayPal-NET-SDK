@@ -65,7 +65,7 @@ namespace RestApiSDKUnitTest
         {
             get
             {
-                string clntID = ConfigManager.Instance.GetProperty("ClientID");
+                string clntID = ConfigManager.Instance.GetProperties()["ClientID"];
                 return clntID;
             }
         }
@@ -74,7 +74,7 @@ namespace RestApiSDKUnitTest
         {
             get
             {
-                string clntSecret = ConfigManager.Instance.GetProperty("ClientSecret");
+                string clntSecret = ConfigManager.Instance.GetProperties()["ClientSecret"];
                 return clntSecret;
             }
         }

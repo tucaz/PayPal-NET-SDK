@@ -112,6 +112,30 @@ namespace PayPal.Api.Payments
 			string payLoad = string.Empty;
 			return PayPalResource.ConfigureAndExecute<Sale>(accessToken, HttpMethod.GET, resourcePath, payLoad);
 		}
+		
+		/// <summary>
+		/// Get call for Sale.
+		/// GET /v1/payments/sale/:saleId
+        /// <param name="apiContext">APIContext required for the call</param>
+	 	/// <param name="saleId">SaleId</param>
+		/// <returns>Returns Sale object</returns>
+		/// </summary>
+		public static Sale Get(APIContext apiContext, string saleId)
+		{
+			if (string.IsNullOrEmpty(apiContext.AccessToken))
+			{
+				throw new ArgumentNullException("AccessToken cannot be null");
+			}
+			if (String.IsNullOrEmpty(saleId))
+			{
+				throw new System.ArgumentNullException("saleId cannot be null or empty");
+			}
+			string pattern = "v1/payments/sale/{0}";
+			object[] container = new Object[] { saleId };
+			string resourcePath = SDKUtil.FormatURIPath(pattern, container);
+			string payLoad = string.Empty;
+			return PayPalResource.ConfigureAndExecute<Sale>(apiContext, HttpMethod.GET, resourcePath, payLoad);
+		}
 
 		/// <summary>
 		/// Refund call for Sale.
@@ -135,6 +159,10 @@ namespace PayPal.Api.Payments
 		/// </summary>
 		public Refund Refund(APIContext apiContext, Refund refund)
 		{
+			if (string.IsNullOrEmpty(apiContext.AccessToken))
+			{
+				throw new ArgumentNullException("AccessToken cannot be null");
+			}
 			if (refund == null)
 			{
 				throw new System.ArgumentNullException("refund cannot be null");

@@ -141,6 +141,37 @@ namespace PayPal.Api.Payments
 			string payLoad = string.Empty;
 			return PayPalResource.ConfigureAndExecute<PaymentHistory>(accessToken, HttpMethod.GET, resourcePath, payLoad);
 		}
+		
+		/// <summary>
+		/// Get call for Payment.
+		/// GET /v1/payments/payment?count=:count&start_id=:start_id&start_index=:start_index&start_time=:start_time&end_time=:end_time&payee_id=:payee_id&sort_by=:sort_by&sort_order=:sort_order
+		/// <param name="apiContext">APIContext required for the call</param>
+		/// <param name="parameters">Dictionary holding query string name and values
+		/// having the following values for keys
+		/// count,
+		/// start_id,
+		/// start_index,
+		/// start_time,
+		/// end_time,
+		/// payee_id,
+		/// sort_by,
+		/// sort_order,
+		/// All other keys are ignored
+		/// </param>
+		/// <returns>Returns PaymentHistory object</returns>
+		/// </summary>
+		public static PaymentHistory Get(APIContext apiContext, Dictionary<String, String> parameters)
+		{
+			if (string.IsNullOrEmpty(apiContext.AccessToken))
+			{
+				throw new ArgumentNullException("AccessToken cannot be null");
+			}
+			string pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
+			object[] container = new object[] { parameters };
+			string resourcePath = SDKUtil.FormatURIPath(pattern, container);
+			string payLoad = string.Empty;
+			return PayPalResource.ConfigureAndExecute<PaymentHistory>(apiContext, HttpMethod.GET, resourcePath, payLoad);
+		}
 
 		/// <summary>
 		/// Get call for Payment.
@@ -156,6 +187,26 @@ namespace PayPal.Api.Payments
 			string resourcePath = SDKUtil.FormatURIPath(pattern, container);
 			string payLoad = string.Empty;
 			return PayPalResource.ConfigureAndExecute<PaymentHistory>(accessToken, HttpMethod.GET, resourcePath, payLoad);
+		}
+		
+		/// <summary>
+		/// Get call for Payment.
+		/// GET /v1/payments/payment?count=:count&start_id=:start_id&start_index=:start_index&start_time=:start_time&end_time=:end_time&payee_id=:payee_id&sort_by=:sort_by&sort_order=:sort_order
+        /// <param name="apiContext">APIContext required for the call</param>
+		/// <param name="parameters">Container for query strings</param>
+		/// <returns>Returns PaymentHistory object</returns>
+		/// </summary>
+		public static PaymentHistory Get(APIContext apiContext, QueryParameters parameters)
+		{
+			if (string.IsNullOrEmpty(apiContext.AccessToken))
+			{
+				throw new ArgumentNullException("AccessToken cannot be null");
+			}
+			string pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
+			object[] container = new object[] { parameters };
+			string resourcePath = SDKUtil.FormatURIPath(pattern, container);
+			string payLoad = string.Empty;
+			return PayPalResource.ConfigureAndExecute<PaymentHistory>(apiContext, HttpMethod.GET, resourcePath, payLoad);
 		}
 
 		/// <summary>
@@ -178,6 +229,10 @@ namespace PayPal.Api.Payments
 		/// </summary>
 		public Payment Create(APIContext apiContext)
 		{
+			if (string.IsNullOrEmpty(apiContext.AccessToken))
+			{
+				throw new ArgumentNullException("AccessToken cannot be null");
+			}
 			string resourcePath = "v1/payments/payment";
 			string payLoad = this.ConvertToJson();	
 		return PayPalResource.ConfigureAndExecute<Payment>(apiContext, HttpMethod.POST, resourcePath, payLoad);
@@ -202,6 +257,30 @@ namespace PayPal.Api.Payments
 			string payLoad = string.Empty;
 			return PayPalResource.ConfigureAndExecute<Payment>(accessToken, HttpMethod.GET, resourcePath, payLoad);
 		}
+		
+		/// <summary>
+		/// Get call for Payment.
+		/// GET /v1/payments/payment/:paymentId
+        /// <param name="apiContext">APIContext required for the call</param>
+	 	/// <param name="paymentId">PaymentId</param>
+		/// <returns>Returns Payment object</returns>
+		/// </summary>
+		public static Payment Get(APIContext apiContext, string paymentId)
+		{
+			if (string.IsNullOrEmpty(apiContext.AccessToken))
+			{
+				throw new ArgumentNullException("AccessToken cannot be null");
+			}
+			if (String.IsNullOrEmpty(paymentId))
+			{
+				throw new System.ArgumentNullException("paymentId cannot be null or empty");
+			}
+			string pattern = "v1/payments/payment/{0}";
+			object[] container = new Object[] { paymentId };
+			string resourcePath = SDKUtil.FormatURIPath(pattern, container);
+			string payLoad = string.Empty;
+			return PayPalResource.ConfigureAndExecute<Payment>(apiContext, HttpMethod.GET, resourcePath, payLoad);
+		}
 
 		/// <summary>
 		/// Execute call for Payment.
@@ -225,6 +304,10 @@ namespace PayPal.Api.Payments
 		/// </summary>
 		public Payment Execute(APIContext apiContext, PaymentExecution paymentExecution)
 		{
+			if (string.IsNullOrEmpty(apiContext.AccessToken))
+			{
+				throw new ArgumentNullException("AccessToken cannot be null");
+			}
 			if (paymentExecution == null)
 			{
 				throw new System.ArgumentNullException("paymentExecution cannot be null");
