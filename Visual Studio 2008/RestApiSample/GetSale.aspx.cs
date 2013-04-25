@@ -36,7 +36,8 @@ namespace RestApiSample
                 // It is not mandatory to generate Access Token on a per call basis.
                 // Typically the access token can be generated once and
                 // reused within the expiry window
-                string accessToken = new OAuthTokenCredential(ConfigManager.Instance.GetProperty("ClientID"), ConfigManager.Instance.GetProperty("ClientSecret")).GetAccessToken();
+                string accessToken = new OAuthTokenCredential(ConfigManager.Instance.GetProperties()["ClientID"], ConfigManager.Instance.GetProperties()["ClientSecret"]).GetAccessToken();
+
                 // ### Sale
                 // Pass an AccessToken and the ID of the sale
                 // transaction from your payment resource.
