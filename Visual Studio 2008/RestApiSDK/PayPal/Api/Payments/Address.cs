@@ -1,112 +1,93 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Collections.Generic;
+using PayPal;
+using PayPal.Util;
 using PayPal.Api.Payments;
 
 namespace PayPal.Api.Payments
 {
-
-	/// <summary>
-	/// 
-    /// </summary>
-	public class Address : Resource  
+	public class Address
 	{
-
 		/// <summary>
-		/// line1
-    	/// </summary>
+		/// Line 1 of the Address (eg. number, street, etc).
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string line1
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// line2
-    	/// </summary>
+		/// Optional line 2 of the Address (eg. suite, apt #, etc.).
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string line2
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// city
-    	/// </summary>
+		/// City name.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string city
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// state
-    	/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string state
-		{
-			get;
-			set;
-		}
-		
-
-		/// <summary>
-		/// postal_code
-    	/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string postal_code
-		{
-			get;
-			set;
-		}
-		
-
-		/// <summary>
-		/// country_code
-    	/// </summary>
+		/// 2 letter country code.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string country_code
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// type
-    	/// </summary>
+		/// Zip code or equivalent is usually required for countries that have them. For list of countries that do not have postal codes please refer to http://en.wikipedia.org/wiki/Postal_code.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string type
+		public string postal_code
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// phone
-    	/// </summary>
+		/// 2 letter code for US states, and the equivalent for other countries.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string state
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// Phone number in E.123 format.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string phone
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public new string ConvertToJson() 
+		public string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}
-    	
 	}
 }
+
+

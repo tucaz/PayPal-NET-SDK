@@ -58,9 +58,9 @@ namespace RestApiSDKUnitTest
         //
         #endregion
 
-        private AmountDetails GetAmountDetails()
+        private Details GetDetails()
         {
-            AmountDetails amntDetails = new AmountDetails();
+            Details amntDetails = new Details();
             amntDetails.tax = "15";
             amntDetails.fee = "2";
             amntDetails.shipping = "10";
@@ -72,7 +72,7 @@ namespace RestApiSDKUnitTest
         {
             Amount amnt = new Amount();
             amnt.currency = "USD";
-            amnt.details = GetAmountDetails();
+            amnt.details = GetDetails();
             amnt.total = "100";
             return amnt;
         }
@@ -96,8 +96,8 @@ namespace RestApiSDKUnitTest
         public void detailsTest()
         {
             Amount target = GetAmount();
-            AmountDetails expected = GetAmountDetails();
-            AmountDetails actual = target.details;
+            Details expected = GetDetails();
+            Details actual = target.details;
             Assert.AreEqual(expected.subtotal, actual.subtotal);
             Assert.AreEqual(expected.fee, actual.fee);
             Assert.AreEqual(expected.shipping, actual.shipping);
@@ -123,9 +123,11 @@ namespace RestApiSDKUnitTest
         public void ConvertToJsonTest()
         {
             Amount target = GetAmount();
-            string expected = "{\"total\":\"100\",\"currency\":\"USD\",\"details\":{\"subtotal\":\"75\",\"tax\":\"15\",\"shipping\":\"10\",\"fee\":\"2\"}}";
-            string actual = target.ConvertToJson();
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual("100", target.total);
+            Assert.AreEqual("USD", target.currency);
+            Assert.AreEqual("75", target.details.subtotal);
+            Assert.AreEqual("10", target.details.shipping);
+            Assert.AreEqual("15", target.details.tax);
         }
 
         /// <summary>

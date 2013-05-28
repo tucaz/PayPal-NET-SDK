@@ -1,169 +1,148 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Collections;
+using System.Collections.Generic;
 using PayPal;
 using PayPal.Util;
 using PayPal.Api.Payments;
 
 namespace PayPal.Api.Payments
 {
-
-	/// <summary>
-	/// 
-    /// </summary>
-	public class CreditCard : Resource  
+	public class CreditCard
 	{
-
 		/// <summary>
-		/// id
-    	/// </summary>
+		/// ID of the credit card being saved for later use.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string id
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// valid_until
-    	/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string valid_until
-		{
-			get;
-			set;
-		}
-		
-
-		/// <summary>
-		/// state
-    	/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string state
-		{
-			get;
-			set;
-		}
-		
-
-		/// <summary>
-		/// payer_id
-    	/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string payer_id
-		{
-			get;
-			set;
-		}
-		
-
-		/// <summary>
-		/// type
-    	/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string type
-		{
-			get;
-			set;
-		}
-		
-
-		/// <summary>
-		/// number
-    	/// </summary>
+		/// Card number.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string number
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// expire_month
-    	/// </summary>
+		/// Type of the Card (eg. Visa, Mastercard, etc.).
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string expire_month
+		public string type
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// expire_year
-    	/// </summary>
+		/// card expiry month with value 1 - 12.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string expire_year
+		public int expire_month
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// cvv2
-    	/// </summary>
+		/// 4 digit card expiry year
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public int expire_year
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// Card validation code. Only supported when making a Payment but not when saving a credit card for future use.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string cvv2
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// first_name
-    	/// </summary>
+		/// Card holder's first name.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string first_name
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// last_name
-    	/// </summary>
+		/// Card holder's last name.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string last_name
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// billing_address
-    	/// </summary>
+		/// Billing Address associated with this card.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public Address billing_address
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// links
-    	/// </summary>
+		/// A unique identifier of the payer generated and provided by the facilitator. This is required when creating or using a tokenized funding instrument.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Link> links
+		public string payer_id
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// Create call for CreditCard.
-		/// POST /v1/vault/credit-card
-        /// <param name="accessToken">Access Token</param>
-		/// <returns>Returns CreditCard object</returns>
+		/// State of the funding instrument.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string state
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// Date/Time until this resource can be used fund a payment.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string valid_until
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// 
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public List<Links> links
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// Creates a new Credit Card Resource (aka Tokenize).
 		/// </summary>
 		public CreditCard Create(string accessToken)
 		{
@@ -172,73 +151,88 @@ namespace PayPal.Api.Payments
 		}
 		
 		/// <summary>
-		/// Create call for CreditCard.
-		/// POST /v1/vault/credit-card
-        /// <param name="apiContext">APIContext used for the API call</param>
-		/// <returns>Returns CreditCard object</returns>
+		/// Creates a new Credit Card Resource (aka Tokenize).
 		/// </summary>
 		public CreditCard Create(APIContext apiContext)
 		{
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
-				throw new ArgumentNullException("AccessToken cannot be null");
+				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
 			string resourcePath = "v1/vault/credit-card";
-			string payLoad = this.ConvertToJson();	
-		return PayPalResource.ConfigureAndExecute<CreditCard>(apiContext, HttpMethod.POST, resourcePath, payLoad);
-		}		
-
+			string payLoad = this.ConvertToJson();
+			return PayPalResource.ConfigureAndExecute<CreditCard>(apiContext, HttpMethod.POST, resourcePath, payLoad);
+		}
+	
 		/// <summary>
-		/// Get call for CreditCard.
-		/// GET /v1/vault/credit-card/:creditCardId
-        /// <param name="accessToken">Access Token</param>
-	 	/// <param name="creditCardId">CreditCardId</param>
-		/// <returns>Returns CreditCard object</returns>
+		/// Obtain the Credit Card resource for the given identifier.
 		/// </summary>
 		public static CreditCard Get(string accessToken, string creditCardId)
 		{
-			if (String.IsNullOrEmpty(creditCardId))
-			{
-				throw new System.ArgumentNullException("creditCardId cannot be null or empty");
-			}
-			string pattern = "v1/vault/credit-card/{0}";
-			object[] container = new Object[] { creditCardId };
-			string resourcePath = SDKUtil.FormatURIPath(pattern, container);
-			string payLoad = string.Empty;
-			return PayPalResource.ConfigureAndExecute<CreditCard>(accessToken, HttpMethod.GET, resourcePath, payLoad);
+			APIContext apiContext = new APIContext(accessToken);
+			return Get(apiContext, creditCardId);
 		}
 		
 		/// <summary>
-		/// Get call for CreditCard.
-		/// GET /v1/vault/credit-card/:creditCardId
-        /// <param name="apiContext">APIContext required for the call</param>
-	 	/// <param name="creditCardId">CreditCardId</param>
-		/// <returns>Returns CreditCard object</returns>
+		/// Obtain the Credit Card resource for the given identifier.
 		/// </summary>
 		public static CreditCard Get(APIContext apiContext, string creditCardId)
 		{
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
-				throw new ArgumentNullException("AccessToken cannot be null");
+				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
-			if (String.IsNullOrEmpty(creditCardId))
+			if (creditCardId == null)
 			{
-				throw new System.ArgumentNullException("creditCardId cannot be null or empty");
+				throw new ArgumentNullException("creditCardId cannot be null");
 			}
+			object[] parameters = new object[] {creditCardId};
 			string pattern = "v1/vault/credit-card/{0}";
-			object[] container = new Object[] { creditCardId };
-			string resourcePath = SDKUtil.FormatURIPath(pattern, container);
-			string payLoad = string.Empty;
+			string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+			string payLoad = "";
 			return PayPalResource.ConfigureAndExecute<CreditCard>(apiContext, HttpMethod.GET, resourcePath, payLoad);
 		}
-
+	
+		/// <summary>
+		/// Delete the Credit Card resource for the given identifier. Returns 204 No Content when the card is deleted successfully.
+		/// </summary>
+		public void Delete(string accessToken)
+		{
+			APIContext apiContext = new APIContext(accessToken);
+			Delete(apiContext);
+			return;
+		}
+		
+		/// <summary>
+		/// Delete the Credit Card resource for the given identifier. Returns 204 No Content when the card is deleted successfully.
+		/// </summary>
+		public void Delete(APIContext apiContext)
+		{
+			if (string.IsNullOrEmpty(apiContext.AccessToken))
+			{
+				throw new ArgumentNullException("AccessToken cannot be null or empty");
+			}
+			if (this.id == null)
+			{
+				throw new ArgumentNullException("Id cannot be null");
+			}
+            apiContext.MaskRequestId = true;
+			object[] parameters = new object[] {this.id};
+			string pattern = "v1/vault/credit-card/{0}";
+			string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+			string payLoad = "";
+			PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.DELETE, resourcePath, payLoad);
+			return;
+		}
+	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public new string ConvertToJson() 
+		public string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}
-    	
 	}
 }
+
+

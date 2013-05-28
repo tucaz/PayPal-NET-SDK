@@ -1,48 +1,44 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Collections;
+using System.Collections.Generic;
+using PayPal;
+using PayPal.Util;
 using PayPal.Api.Payments;
 
 namespace PayPal.Api.Payments
 {
-
-	/// <summary>
-	/// 
-    /// </summary>
-	public class ItemList : Resource  
+	public class ItemList
 	{
-
 		/// <summary>
-		/// items
-    	/// </summary>
+		/// List of items.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public List<Item> items
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// shipping_address
-    	/// </summary>
+		/// Shipping address.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public ShippingAddress shipping_address
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public new string ConvertToJson() 
+		public string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}
-    	
 	}
 }
+
+

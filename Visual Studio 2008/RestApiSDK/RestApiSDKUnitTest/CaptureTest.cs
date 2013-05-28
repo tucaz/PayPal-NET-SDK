@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using PayPal.Api.Payments;
+using PayPal.Manager;
+using PayPal;
 
 namespace RestApiSDKUnitTest
 {
@@ -12,6 +14,33 @@ namespace RestApiSDKUnitTest
     public class CaptureTest
     {
         private TestContext testContextInstance;
+
+        private string ClientID
+        {
+            get
+            {
+                string clntID = PayPal.Manager.ConfigManager.Instance.GetProperties()["ClientID"];
+                return clntID;
+            }
+        }
+
+        private string ClientSecret
+        {
+            get
+            {
+                string clntSecret = ConfigManager.Instance.GetProperties()["ClientSecret"];
+                return clntSecret;
+            }
+        }
+
+        private string AccessToken
+        {
+            get
+            {
+                string tokenAccess = new OAuthTokenCredential(ClientID, ClientSecret).GetAccessToken();
+                return tokenAccess;
+            }
+        }
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -59,20 +88,20 @@ namespace RestApiSDKUnitTest
         //
         #endregion
 
-        private List<Link> GetLinkList()
+        private List<Links> GetLinksList()
         {
-            Link lnk = new Link();
+            Links lnk = new Links();
             lnk.href = "http://www.paypal.com";
             lnk.method = "POST";
             lnk.rel = "authorize";
-            List<Link> lnks = new List<Link>();
+            List<Links> lnks = new List<Links>();
             lnks.Add(lnk);
             return lnks;
         }
 
-        private AmountDetails GetAmountDetails()
+        private Details GetDetails()
         {
-            AmountDetails amntDetails = new AmountDetails();
+            Details amntDetails = new Details();
             amntDetails.tax = "15";
             amntDetails.fee = "2";
             amntDetails.shipping = "10";
@@ -84,7 +113,7 @@ namespace RestApiSDKUnitTest
         {
             Amount amnt = new Amount();
             amnt.currency = "USD";
-            amnt.details = GetAmountDetails();
+            amnt.details = GetDetails();
             amnt.total = "100";
             return amnt;
         }
@@ -93,12 +122,10 @@ namespace RestApiSDKUnitTest
         {
             Capture cap = new Capture();
             cap.amount = GetAmount();
-            cap.authorization_id = "005";
             cap.create_time = "2013-01-15T15:10:05.123Z";
-            cap.description = "Description";
             cap.state = "Authorized";
             cap.parent_payment = "1000";
-            cap.links = GetLinkList();
+            cap.links = GetLinksList();
             cap.id = "001";
             return cap;
         }
@@ -134,8 +161,8 @@ namespace RestApiSDKUnitTest
         public void linksTest()
         {
             Capture target = GetCapture();
-            List<Link> expected = GetLinkList();
-            List<Link> actual = target.links;
+            List<Links> expected = GetLinksList();
+            List<Links> actual = target.links;
             Assert.AreEqual(expected.Count, actual.Count);
             Assert.AreEqual(expected.Capacity, actual.Capacity);
         }
@@ -153,18 +180,6 @@ namespace RestApiSDKUnitTest
         }
 
         /// <summary>
-        ///A test for description
-        ///</summary>
-        [TestMethod()]
-        public void descriptionTest()
-        {
-            Capture target = GetCapture();
-            string expected = "Description";
-            string actual = target.description;
-            Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
         ///A test for create_time
         ///</summary>
         [TestMethod()]
@@ -173,18 +188,6 @@ namespace RestApiSDKUnitTest
             Capture target = GetCapture();
             string expected = "2013-01-15T15:10:05.123Z";
             string actual = target.create_time;
-            Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
-        ///A test for authorization_id
-        ///</summary>
-        [TestMethod()]
-        public void authorization_idTest()
-        {
-            Capture target = GetCapture();
-            string expected = "005";
-            string actual = target.authorization_id;
             Assert.AreEqual(expected, actual);
         }
 
@@ -212,9 +215,9 @@ namespace RestApiSDKUnitTest
         public void ConvertToJsonTest()
         {
             Capture target = GetCapture();
-            string expected = "{\"id\":\"001\",\"create_time\":\"2013-01-15T15:10:05.123Z\",\"state\":\"Authorized\",\"amount\":{\"total\":\"100\",\"currency\":\"USD\",\"details\":{\"subtotal\":\"75\",\"tax\":\"15\",\"shipping\":\"10\",\"fee\":\"2\"}},\"parent_payment\":\"1000\",\"authorization_id\":\"005\",\"description\":\"Description\",\"links\":[{\"href\":\"http://www.paypal.com\",\"rel\":\"authorize\",\"method\":\"POST\"}]}";
             string actual = target.ConvertToJson();
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual("Authorized", target.state);
+            Assert.AreEqual("001", target.id);
         }
 
         /// <summary>
@@ -225,6 +228,118 @@ namespace RestApiSDKUnitTest
         {
             Capture target = new Capture();
             Assert.IsNotNull(target);
+        }
+
+        /// <summary>
+        ///A test for Get Capture
+        ///</summary>
+        [TestMethod()]
+        public void GetCaptureTest()
+        {
+            Payment payment = GetPaymentObject(AccessToken);
+            string authorizationId = payment.transactions[0].related_resources[0].authorization.id;
+            Authorization authorization = Authorization.Get(AccessToken, authorizationId);
+            Capture capture = new Capture();
+            Amount amount = new Amount();
+            amount.total = "1";
+            amount.currency = "USD";
+            capture.amount = amount;
+            Capture response = authorization.Capture(AccessToken, capture);
+            Capture returnCapture = Capture.Get(AccessToken, response.id);
+            Assert.AreEqual(response.id, returnCapture.id);
+        }
+
+        /// <summary>
+        ///A test for Refund a Capture
+        ///</summary>
+        [TestMethod()]
+        public void RefundCaptureTest()
+        {
+            Payment payment = GetPaymentObject(AccessToken);
+            string authorizationId = payment.transactions[0].related_resources[0].authorization.id;
+            Authorization authorization = Authorization.Get(AccessToken, authorizationId);
+            Capture capture = new Capture();
+            Amount amount = new Amount();
+            amount.total = "1";
+            amount.currency = "USD";
+            capture.amount = amount;
+            Capture response = authorization.Capture(AccessToken, capture);
+            Refund refund = new Refund();
+            Amount rAmount = new Amount();
+            rAmount.total = "1";
+            rAmount.currency = "USD";
+            refund.amount = rAmount;
+            Refund responseRefund = response.Refund(AccessToken, refund);
+            Assert.AreEqual("completed", responseRefund.state);
+        }
+
+        /// <summary>
+        ///A test for Get Capture using null Id
+        ///</summary>
+        [TestMethod()]
+        public void GetCaptureNullIdTest()
+        {
+            try
+            {
+                Capture returnCapture = Capture.Get(AccessToken, null);
+            }
+            catch (System.ArgumentNullException exe)
+            {
+                Assert.IsNotNull(exe);
+            }
+        }
+
+
+        private Payment GetPaymentObject(string accessToken)
+        {
+            Payment target = new Payment();
+            target.intent = "authorize";
+            CreditCard creditCard = GetCreditCard();
+            List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
+            FundingInstrument fundingInstrument = new FundingInstrument();
+            fundingInstrument.credit_card = creditCard;
+            fundingInstruments.Add(fundingInstrument);
+            Payer payer = new Payer();
+            payer.payment_method = "credit_card";
+            payer.funding_instruments = fundingInstruments;
+            List<Transaction> transacts = new List<Transaction>();
+            Transaction trans = new Transaction();
+            trans.amount = GetAmount();
+            transacts.Add(trans);
+            target.transactions = transacts;
+            target.payer = payer;
+            Payment actual = target.Create(accessToken);
+            return actual;
+        }
+
+        private Address GetAddress()
+        {
+            Address addrss = new Address();
+            addrss.line1 = "2211";
+            addrss.line2 = "N 1st St";
+            addrss.city = "San Jose";
+            addrss.phone = "408-456-0392";
+            addrss.postal_code = "95131";
+            addrss.state = "California";
+            addrss.country_code = "US";
+            return addrss;
+        }
+
+        public CreditCard GetCreditCard()
+        {
+            CreditCard credCard = new CreditCard();
+            credCard.cvv2 = "962";
+            credCard.expire_month = 01;
+            credCard.expire_year = 2015;
+            credCard.first_name = "John";
+            credCard.last_name = "Doe";
+            credCard.number = "4825854086744369";
+            credCard.type = "visa";
+            credCard.state = "New York";
+            credCard.payer_id = "008";
+            credCard.id = "002";
+            credCard.billing_address = GetAddress();
+            return credCard;
         }
     }
 }
