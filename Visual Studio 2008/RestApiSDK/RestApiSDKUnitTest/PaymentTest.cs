@@ -4,6 +4,7 @@ using PayPal.Api.Payments;
 using PayPal;
 using PayPal.Manager;
 using System;
+using PayPal.Util;
 
 
 namespace RestApiSDKUnitTest
@@ -177,6 +178,20 @@ namespace RestApiSDKUnitTest
             Dictionary<string, string> containerDictionary = new Dictionary<string, string>();
             containerDictionary.Add("count", "10");
             PaymentHistory paymentHistory = Payment.List(apiContext, containerDictionary);
+            Assert.AreEqual(10, paymentHistory.count);
+        }
+
+        /// <summary>
+        ///A test for Get PaymentHistory
+        ///</summary>
+        [TestMethod()]
+        public void GetPaymentHistoryQueryParameters()
+        {
+            string accessToken = AccessToken;
+            APIContext apiContext = new APIContext(accessToken);
+            QueryParameters queryParameters = new QueryParameters();
+            queryParameters.SetCount("10");
+            PaymentHistory paymentHistory = Payment.Get(apiContext, queryParameters);
             Assert.AreEqual(10, paymentHistory.count);
         }
 
