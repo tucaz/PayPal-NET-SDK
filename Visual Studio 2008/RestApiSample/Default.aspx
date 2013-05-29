@@ -163,6 +163,81 @@
                     <a href="Source/PaymentWithSavedCard.aspx.html" class="source imagelink">Source</a>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Get Authorization
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="GetAuthorization.aspx" class="execute imagelink">Execute</a>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="Source/GetAuthorization.aspx.html" class="source imagelink">Source</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Capture Authorization
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="AuthorizationCapture.aspx" class="execute imagelink">Execute</a>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="Source/AuthorizationCapture.aspx.html" class="source imagelink">Source</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Void Authorization
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="AuthorizationVoid.aspx" class="execute imagelink">Execute</a>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="Source/AuthorizationVoid.aspx.html" class="source imagelink">Source</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Get Capture
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="GetCapture.aspx" class="execute imagelink">Execute</a>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="Source/GetCapture.aspx.html" class="source imagelink">Source</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Refund Capture
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="RefundCapture.aspx" class="execute imagelink">Execute</a>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="Source/RefundCapture.aspx.html" class="source imagelink">Source</a>
+                </td>
+            </tr>
         </tbody>
     </table>
 </body>

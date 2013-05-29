@@ -94,12 +94,12 @@ namespace RestApiSample
                 redirUrls.cancel_url = baseURI + "guid=" + guid;
                 redirUrls.return_url = baseURI + "guid=" + guid;
 
-                // ###AmountDetails
+                // ###Details
                 // Let's you specify details of a payment amount.
-                AmountDetails amntDetails = new AmountDetails();
-                amntDetails.tax = "15";
-                amntDetails.shipping = "10";
-                amntDetails.subtotal = "75";
+                Details details = new Details();
+                details.tax = "15";
+                details.shipping = "10";
+                details.subtotal = "75";
 
                 // ###Amount
                 // Let's you specify a payment amount.
@@ -107,7 +107,7 @@ namespace RestApiSample
                 amnt.currency = "USD";
                 // Total must be equal to sum of shipping, tax and subtotal.
                 amnt.total = "100";
-                amnt.details = amntDetails;
+                amnt.details = details;
 
                 // ###Transaction
                 // A transaction defines the contract of a
@@ -166,7 +166,7 @@ namespace RestApiSample
 
                     while (links.MoveNext())
                     {
-                        Link lnk = links.Current;
+                        Links lnk = links.Current;
                         if (lnk.rel.ToLower().Trim().Equals("approval_url"))
                         {
                             CurrContext.Items.Add("RedirectURL", lnk.href);

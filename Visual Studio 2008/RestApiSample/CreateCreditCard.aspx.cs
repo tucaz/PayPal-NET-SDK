@@ -37,8 +37,8 @@ namespace RestApiSample
             // A resource representing a credit card that can be
             // used to fund a payment.
             CreditCard credtCard = new CreditCard();
-            credtCard.expire_month = "11";
-            credtCard.expire_year = "2018";
+            credtCard.expire_month = 11;
+            credtCard.expire_year = 2018;
             credtCard.number = "4417119669820331";
             credtCard.type = "visa";
 

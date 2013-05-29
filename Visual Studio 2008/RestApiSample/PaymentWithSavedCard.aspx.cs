@@ -35,12 +35,12 @@ namespace RestApiSample
             CreditCardToken credCardToken = new CreditCardToken();
             credCardToken.credit_card_id = "CARD-5BT058015C739554AKE2GCEI";
 
-            // ###AmountDetails
+            // ###Details
             // Let's you specify details of a payment amount.
-            AmountDetails amntDetails = new AmountDetails();
-            amntDetails.shipping = "1";
-            amntDetails.subtotal = "5";
-            amntDetails.tax = "1";
+            Details details = new Details();
+            details.shipping = "1";
+            details.subtotal = "5";
+            details.tax = "1";
 
             // ###Amount
             // Let's you specify a payment amount.
@@ -48,7 +48,7 @@ namespace RestApiSample
             amnt.currency = "USD";
             // Total must be equal to the sum of shipping, tax and subtotal.
             amnt.total = "7";
-            amnt.details = amntDetails;
+            amnt.details = details;
 
             // ###Transaction
             // A transaction defines the contract of a
