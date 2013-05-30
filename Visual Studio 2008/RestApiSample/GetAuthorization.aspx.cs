@@ -1,6 +1,6 @@
 ﻿// #GetAuthorization Sample
-// This sample code demonstrates how you 
-// retrieve an Authorization
+// This sample code demonstrates how to 
+// retrieve an Authorization resource
 // API used: GET /v1/payments/authorization/{id}
 using System;
 using System.Collections;

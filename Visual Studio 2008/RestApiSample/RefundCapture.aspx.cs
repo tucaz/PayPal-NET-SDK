@@ -1,6 +1,6 @@
 ﻿// #RefundCapture Sample
-// This sample code demonstrates how you 
-// Refund on a Capture
+// This sample code demonstrates how to do a 
+// Refund on a Capture resource
 // API used: POST /v1/payments/capture/{capture_id}/refund
 using System;
 using System.Collections;
@@ -51,7 +51,6 @@ namespace RestApiSample
                 // Create a Capture object
                 // by doing a capture on
                 // Authorization object
-                // and retrieve the Id
                 Capture capture = GetCapture(accessToken, authorization);
 
                 /// ###Refund

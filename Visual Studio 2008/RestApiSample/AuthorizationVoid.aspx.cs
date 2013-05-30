@@ -1,7 +1,7 @@
-﻿// #AuthorizationCapture Sample
+﻿// #AuthorizationVoid Sample
 // The sample code demonstrates
-// how to do a Void an
-// Authorization
+// how to Void an
+// Authorization resource
 // API used: POST /v1/payments/authorization/{authorization_id}/void 
 using System;
 using System.Collections;
@@ -58,8 +58,7 @@ namespace RestApiSample
             {
                 CurrContext.Items.Add("Error", ex.Message);
             }
-            CurrContext.Items.Add("RequestJson", JObject.Parse(authorization.ConvertToJson()).ToString(Formatting.Indented));
-
+            
             Server.Transfer("~/Response.aspx");
 
         }

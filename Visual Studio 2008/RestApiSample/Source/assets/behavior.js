@@ -14,6 +14,221 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["//"],
           "name": "CSharp"
         },
+        "sourcePath": "c:\\repos\\git-paypal\\groc\\sample-code\\AuthorizationCapture.aspx.cs",
+        "projectPath": "AuthorizationCapture.aspx.cs",
+        "targetPath": "AuthorizationCapture.aspx",
+        "title": "AuthorizationCapture.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "AccessToken",
+            "slug": "accesstoken"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Authorization",
+            "slug": "authorization"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Amount",
+            "slug": "amount"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "IsFinalCapture",
+            "slug": "isfinalcapture"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Address",
+                "slug": "address"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "CreditCard",
+                "slug": "creditcard"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Details",
+                "slug": "details"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Amount",
+                "slug": "amount"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Transaction",
+                "slug": "transaction"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "FundingInstrument",
+                "slug": "fundinginstrument"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Payer",
+                "slug": "payer"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Payment",
+                "slug": "payment"
+              },
+              "depth": 3
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "singleLineComment": ["//"],
+          "name": "CSharp"
+        },
+        "sourcePath": "c:\\repos\\git-paypal\\groc\\sample-code\\AuthorizationVoid.aspx.cs",
+        "projectPath": "AuthorizationVoid.aspx.cs",
+        "targetPath": "AuthorizationVoid.aspx",
+        "title": "AuthorizationVoid.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "AccessToken",
+            "slug": "accesstoken"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Authorization",
+            "slug": "authorization"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Address",
+            "slug": "address"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "CreditCard",
+            "slug": "creditcard"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Details",
+            "slug": "details"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Amount",
+            "slug": "amount"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Transaction",
+            "slug": "transaction"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "FundingInstrument",
+            "slug": "fundinginstrument"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Payer",
+            "slug": "payer"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Payment",
+            "slug": "payment"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "singleLineComment": ["//"],
+          "name": "CSharp"
+        },
         "sourcePath": "c:\\repos\\git-paypal\\groc\\sample-code\\CreateCreditCard.aspx.cs",
         "projectPath": "CreateCreditCard.aspx.cs",
         "targetPath": "CreateCreditCard.aspx",
@@ -64,6 +279,221 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["//"],
           "name": "CSharp"
         },
+        "sourcePath": "c:\\repos\\git-paypal\\groc\\sample-code\\GetAuthorization.aspx.cs",
+        "projectPath": "GetAuthorization.aspx.cs",
+        "targetPath": "GetAuthorization.aspx",
+        "title": "GetAuthorization.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "AccessToken",
+            "slug": "accesstoken"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Authorization",
+            "slug": "authorization"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Address",
+            "slug": "address"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "CreditCard",
+            "slug": "creditcard"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Details",
+            "slug": "details"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Amount",
+            "slug": "amount"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Transaction",
+            "slug": "transaction"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "FundingInstrument",
+            "slug": "fundinginstrument"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Payer",
+            "slug": "payer"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Payment",
+            "slug": "payment"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "singleLineComment": ["//"],
+          "name": "CSharp"
+        },
+        "sourcePath": "c:\\repos\\git-paypal\\groc\\sample-code\\GetCapture.aspx.cs",
+        "projectPath": "GetCapture.aspx.cs",
+        "targetPath": "GetCapture.aspx",
+        "title": "GetCapture.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "AccessToken",
+            "slug": "accesstoken"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Authorization",
+            "slug": "authorization"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Amount",
+            "slug": "amount"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "IsFinalCapture",
+            "slug": "isfinalcapture"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Address",
+                "slug": "address"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "CreditCard",
+                "slug": "creditcard"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Details",
+                "slug": "details"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Amount",
+                "slug": "amount"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Transaction",
+                "slug": "transaction"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "FundingInstrument",
+                "slug": "fundinginstrument"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Payer",
+                "slug": "payer"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Payment",
+                "slug": "payment"
+              },
+              "depth": 3
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "singleLineComment": ["//"],
+          "name": "CSharp"
+        },
         "sourcePath": "c:\\repos\\git-paypal\\groc\\sample-code\\GetCreditCard.aspx.cs",
         "projectPath": "GetCreditCard.aspx.cs",
         "targetPath": "GetCreditCard.aspx",
@@ -74,22 +504,11 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         {
           "type": "heading",
           "data": {
-            "level": 1,
-            "title": "GetCreditCard Sample",
-            "slug": "getcreditcard-sample"
+            "level": 3,
+            "title": "AccessToken",
+            "slug": "accesstoken"
           },
-          "depth": 1,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "AccessToken",
-                "slug": "accesstoken"
-              },
-              "depth": 3
-            }
-          ]
+          "depth": 3
         }
       ]
     }, {
@@ -242,8 +661,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "AmountDetails",
-                "slug": "amountdetails"
+                "title": "Details",
+                "slug": "details"
               },
               "depth": 3
             }, {
@@ -381,8 +800,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "AmountDetails",
-                "slug": "amountdetails"
+                "title": "Details",
+                "slug": "details"
               },
               "depth": 3
             }, {
@@ -457,8 +876,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 3,
-            "title": "AmountDetails",
-            "slug": "amountdetails"
+            "title": "Details",
+            "slug": "details"
           },
           "depth": 3
         }, {
@@ -517,6 +936,131 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "slug": "api-context"
           },
           "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "singleLineComment": ["//"],
+          "name": "CSharp"
+        },
+        "sourcePath": "c:\\repos\\git-paypal\\groc\\sample-code\\RefundCapture.aspx.cs",
+        "projectPath": "RefundCapture.aspx.cs",
+        "targetPath": "RefundCapture.aspx",
+        "title": "RefundCapture.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "AccessToken",
+            "slug": "accesstoken"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Authorization",
+            "slug": "authorization"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Amount",
+            "slug": "amount"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Amount",
+            "slug": "amount"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "IsFinalCapture",
+            "slug": "isfinalcapture"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Address",
+                "slug": "address"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "CreditCard",
+                "slug": "creditcard"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Details",
+                "slug": "details"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Amount",
+                "slug": "amount"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Transaction",
+                "slug": "transaction"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "FundingInstrument",
+                "slug": "fundinginstrument"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Payer",
+                "slug": "payer"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Payment",
+                "slug": "payment"
+              },
+              "depth": 3
+            }
+          ]
         }
       ]
     }, {

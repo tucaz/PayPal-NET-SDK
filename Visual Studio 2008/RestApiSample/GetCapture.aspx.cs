@@ -1,6 +1,6 @@
 ﻿// #GetCapture Sample
-// This sample code demonstrates how you 
-// retrieve a Capture
+// This sample code demonstrates how to 
+// retrieve a Capture resource
 // API used: GET /v1/payments/capture/{capture_id}
 using System;
 using System.Collections;
