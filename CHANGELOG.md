@@ -1,6 +1,10 @@
 CHANGE LOG
 ==========
-
+V0.7.0 (May 30, 2013)
+-----------------------
+   * Added support for Auth and Capture APIs
+   * Types Modified to match the API Spec
+   
 V0.6.0 (April 26, 2013)
 -----------------------
    * Added support for dynamic configuration of SDK (Upgraded sdk-core-dotnet dependency to V1.3.0)
