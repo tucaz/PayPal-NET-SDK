@@ -1,182 +1,133 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Collections;
+using System.Collections.Generic;
 using PayPal;
 using PayPal.Util;
 using PayPal.Api.Payments;
 
 namespace PayPal.Api.Payments
 {
-
-	/// <summary>
-	/// 
-    /// </summary>
-	public class Refund : Resource  
+	public class Refund
 	{
-
 		/// <summary>
-		/// id
-    	/// </summary>
+		/// Identifier of the refund transaction.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string id
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// create_time
-    	/// </summary>
+		/// Time the resource was created.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string create_time
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// update_time
-    	/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string update_time
-		{
-			get;
-			set;
-		}
-		
-
-		/// <summary>
-		/// state
-    	/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string state
-		{
-			get;
-			set;
-		}
-		
-
-		/// <summary>
-		/// amount
-    	/// </summary>
+		/// Details including both refunded amount (to Payer) and refunded fee (to Payee).If amount is not specified, it's assumed to be full refund.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public Amount amount
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// sale_id
-    	/// </summary>
+		/// State of the refund transaction.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string state
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// ID of the Sale transaction being refunded. 
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string sale_id
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// capture_id
-    	/// </summary>
+		/// ID of the Capture transaction being refunded. 
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string capture_id
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// parent_payment
-    	/// </summary>
+		/// ID of the Payment resource that this transaction is based on.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string parent_payment
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// description
-    	/// </summary>
+		/// 
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string description
+		public List<Links> links
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// links
-    	/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Link> links
-		{
-			get;
-			set;
-		}
-		
-
-		/// <summary>
-		/// Get call for Refund.
-		/// GET /v1/payments/refund/:refundId
-        /// <param name="accessToken">Access Token</param>
-	 	/// <param name="refundId">RefundId</param>
-		/// <returns>Returns Refund object</returns>
+		/// Obtain the Refund transaction resource for the given identifier.
 		/// </summary>
 		public static Refund Get(string accessToken, string refundId)
 		{
-			if (String.IsNullOrEmpty(refundId))
-			{
-				throw new System.ArgumentNullException("refundId cannot be null or empty");
-			}
-			string pattern = "v1/payments/refund/{0}";
-			object[] container = new Object[] { refundId };
-			string resourcePath = SDKUtil.FormatURIPath(pattern, container);
-			string payLoad = string.Empty;
-			return PayPalResource.ConfigureAndExecute<Refund>(accessToken, HttpMethod.GET, resourcePath, payLoad);
+			APIContext apiContext = new APIContext(accessToken);
+			return Get(apiContext, refundId);
 		}
 		
 		/// <summary>
-		/// Get call for Refund.
-		/// GET /v1/payments/refund/:refundId
-        /// <param name="apiContext">APIContext required for the call</param>
-	 	/// <param name="refundId">RefundId</param>
-		/// <returns>Returns Refund object</returns>
+		/// Obtain the Refund transaction resource for the given identifier.
 		/// </summary>
 		public static Refund Get(APIContext apiContext, string refundId)
 		{
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
-				throw new ArgumentNullException("AccessToken cannot be null");
+				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
-			if (String.IsNullOrEmpty(refundId))
+			if (refundId == null)
 			{
-				throw new System.ArgumentNullException("refundId cannot be null or empty");
+				throw new ArgumentNullException("refundId cannot be null");
 			}
+			object[] parameters = new object[] {refundId};
 			string pattern = "v1/payments/refund/{0}";
-			object[] container = new Object[] { refundId };
-			string resourcePath = SDKUtil.FormatURIPath(pattern, container);
-			string payLoad = string.Empty;
+			string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+			string payLoad = "";
 			return PayPalResource.ConfigureAndExecute<Refund>(apiContext, HttpMethod.GET, resourcePath, payLoad);
 		}
-
+	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public new string ConvertToJson() 
+		public string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}
-    	
 	}
 }
+
+

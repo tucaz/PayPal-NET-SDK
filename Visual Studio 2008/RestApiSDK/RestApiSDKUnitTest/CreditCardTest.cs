@@ -90,13 +90,13 @@ namespace RestApiSDKUnitTest
                 return tokenAccess;
             }
         }
-        private List<Link> GetLinkList()
+        private List<Links> GetLinkList()
         {
-            Link lnk = new Link();
+            Links lnk = new Links();
             lnk.href = "http://www.paypal.com";
             lnk.method = "POST";
             lnk.rel = "authorize";
-            List<Link> lnks = new List<Link>();
+            List<Links> lnks = new List<Links>();
             lnks.Add(lnk);
             return lnks;
         }
@@ -111,7 +111,6 @@ namespace RestApiSDKUnitTest
             addrss.postal_code = "95131";
             addrss.state = "California";
             addrss.country_code = "US";
-            addrss.type = "E-commerce";
             return addrss;
         }
 
@@ -119,8 +118,8 @@ namespace RestApiSDKUnitTest
         {
             CreditCard credCard = new CreditCard();
             credCard.cvv2 = "962";
-            credCard.expire_month = "01";
-            credCard.expire_year = "2015";
+            credCard.expire_month = 01;
+            credCard.expire_year = 2015;
             credCard.first_name = "John";
             credCard.last_name = "Doe";
             credCard.number = "4825854086744369";
@@ -131,37 +130,6 @@ namespace RestApiSDKUnitTest
             credCard.billing_address = GetAddress();
             return credCard;
         }
-
-        public CreditCard GetCreateCreditCard()
-        {
-            CreditCard credCard = GetCreditCard();
-            CreditCard crdtCard = credCard.Create(AccessToken);
-            return crdtCard;
-        }                 
-
-        /// <summary>
-        ///A test for valid_until
-        ///</summary>
-        //[TestMethod()]
-        //public void valid_untilTest()
-        //{
-        //    CreditCard target = GetCreditCard();
-        //    string expected = "01/2015";
-        //    string actual = target.valid_until;
-        //    Assert.AreEqual(expected, actual);
-        //}
-
-        ///// <summary>
-        /////A test for type
-        /////</summary>
-        //[TestMethod()]
-        //public void typeTest()
-        //{
-        //    CreditCard target = GetCreditCard();
-        //    string expected = "Authorized";
-        //    string actual = target.type;
-        //    Assert.AreEqual(expected, actual);
-        //}
 
         /// <summary>
         ///A test for state
@@ -243,8 +211,8 @@ namespace RestApiSDKUnitTest
         public void expire_yearTest()
         {
             CreditCard target = GetCreditCard();
-            string expected = "2015";
-            string actual = target.expire_year;
+            int expected = 2015;
+            int actual = target.expire_year;
             Assert.AreEqual(expected, actual);
         }
 
@@ -255,8 +223,8 @@ namespace RestApiSDKUnitTest
         public void expire_monthTest()
         {
             CreditCard target = GetCreditCard();
-            string expected = "01";
-            string actual = target.expire_month;
+            int expected = 01;
+            int actual = target.expire_month;
             Assert.AreEqual(expected, actual);
         }
 
@@ -288,7 +256,6 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected.phone, actual.phone);
             Assert.AreEqual(expected.postal_code, actual.postal_code);
             Assert.AreEqual(expected.state, actual.state);
-            Assert.AreEqual(expected.type, actual.type);
         }
 
         /// <summary>
@@ -312,5 +279,57 @@ namespace RestApiSDKUnitTest
             CreditCard target = new CreditCard();
             Assert.IsNotNull(target);
         }
+
+        /// <summary>
+        ///A test for Create Credit Card
+        ///</summary>
+        [TestMethod()]
+        public void CreateCreditCardTest()
+        {
+            CreditCard creditCard = GetCreditCard();
+            CreditCard createdCreditCard = creditCard.Create(AccessToken);
+            Assert.AreEqual("ok", createdCreditCard.state);
+        }
+
+        /// <summary>
+        ///A test for Get CreditCard
+        ///</summary>
+        [TestMethod()]
+        public void GetCreditCardTest()
+        {
+            CreditCard creditCard = GetCreditCard();
+            CreditCard createdCreditCard = creditCard.Create(AccessToken);
+            CreditCard retrievedCreditCard = CreditCard.Get(AccessToken, createdCreditCard.id);
+            Assert.AreEqual(createdCreditCard.id, retrievedCreditCard.id);
+        }
+
+        /// <summary>
+        ///A test for Delete CreditCard
+        ///</summary>
+        [TestMethod()]
+        public void DeleteCreditCardTest()
+        {
+            CreditCard creditCard = GetCreditCard();
+            CreditCard createdCreditCard = creditCard.Create(AccessToken);
+            CreditCard retrievedCreditCard = CreditCard.Get(AccessToken, createdCreditCard.id);
+            retrievedCreditCard.Delete(AccessToken);
+        }
+
+        /// <summary>
+        ///A test for Get CreditCard for null Id
+        ///</summary>
+        [TestMethod()]
+        public void GetCreditCardForNullIdTest()
+        {
+            try
+            {
+                CreditCard retrievedCreditCard = CreditCard.Get(AccessToken, null);
+            }
+            catch (System.ArgumentNullException exe)
+            {
+                Assert.IsNotNull(exe);
+            }
+        }
+
     }
 }

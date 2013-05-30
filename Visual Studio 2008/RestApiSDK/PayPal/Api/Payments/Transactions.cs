@@ -1,17 +1,25 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Collections.Generic;
+using PayPal;
+using PayPal.Util;
 using PayPal.Api.Payments;
 
 namespace PayPal.Api.Payments
 {
-
-	/// <summary>
-	/// 
-    /// </summary>
-	public class Resource 
+	public class Transactions
 	{
-
+		/// <summary>
+		/// Amount being collected.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public Amount amount
+		{
+			get;
+			set;
+		}
+	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
@@ -19,6 +27,7 @@ namespace PayPal.Api.Payments
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}
-    	
 	}
 }
+
+

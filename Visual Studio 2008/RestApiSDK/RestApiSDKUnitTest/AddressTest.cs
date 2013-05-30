@@ -68,7 +68,6 @@ namespace RestApiSDKUnitTest
             addrss.postal_code = "95131";
             addrss.state = "California";
             addrss.country_code = "US";
-            addrss.type = "E-commerce";
             return addrss;
         }
 
@@ -89,9 +88,13 @@ namespace RestApiSDKUnitTest
         public void ConvertToJsonTest()
         {
             Address target = GetAddress();
-            string expected = "{\"line1\":\"2211\",\"line2\":\"N 1st St\",\"city\":\"San Jose\",\"state\":\"California\",\"postal_code\":\"95131\",\"country_code\":\"US\",\"type\":\"E-commerce\",\"phone\":\"408-456-0392\"}";
             string actual = target.ConvertToJson();
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual("2211", target.line1);
+            Assert.AreEqual("N 1st St", target.line2);
+            Assert.AreEqual("San Jose", target.city);
+            Assert.AreEqual("California", target.state);
+            Assert.AreEqual("95131", target.postal_code);
+            Assert.AreEqual("US", target.country_code);
         }
 
         /// <summary>
@@ -178,16 +181,5 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for type
-        ///</summary>
-        [TestMethod()]
-        public void typeTest()
-        {
-            Address target = GetAddress();
-            string expected = "E-commerce";
-            string actual = target.type;
-            Assert.AreEqual(expected, actual);
-        }
     }
 }

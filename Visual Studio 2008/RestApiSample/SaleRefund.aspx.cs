@@ -48,7 +48,7 @@ namespace RestApiSample
             // Create a Sale object with the
             // given sale transaction id.
             Sale sale = new Sale();
-            sale.id = "4V7971043K262623A";
+            sale.id = "03W403310B593121A";
             try
             {
                 // ###AccessToken
@@ -82,7 +82,7 @@ namespace RestApiSample
                 CurrContext.Items.Add("Error", ex.Message);
             }
             CurrContext.Items.Add("RequestJson",
-                  JObject.Parse(sale.ConvertToJson()).ToString(Formatting.Indented));
+                  JObject.Parse(refund.ConvertToJson()).ToString(Formatting.Indented));
             Server.Transfer("~/Response.aspx");
         }
     }

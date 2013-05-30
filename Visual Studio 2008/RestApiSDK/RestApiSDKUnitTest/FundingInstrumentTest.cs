@@ -108,7 +108,6 @@ namespace RestApiSDKUnitTest
             addrss.postal_code = "95131";
             addrss.state = "California";
             addrss.country_code = "US";
-            addrss.type = "E-commerce";
             return addrss;
         }
 
@@ -116,8 +115,8 @@ namespace RestApiSDKUnitTest
         {
             CreditCard credCard = new CreditCard();
             credCard.cvv2 = "962";
-            credCard.expire_month = "01";
-            credCard.expire_year = "2015";
+            credCard.expire_month = 01;
+            credCard.expire_year = 2015;
             credCard.first_name = "John";
             credCard.last_name = "Doe";
             credCard.number = "4825854086744369";

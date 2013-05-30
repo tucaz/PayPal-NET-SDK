@@ -1,68 +1,84 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Collections;
+using System.Collections.Generic;
+using PayPal;
+using PayPal.Util;
 using PayPal.Api.Payments;
 
 namespace PayPal.Api.Payments
 {
-
-	/// <summary>
-	/// 
-    /// </summary>
-	public class SubTransaction : Resource  
+	public class HyperSchema
 	{
-
 		/// <summary>
-		/// sale
-    	/// </summary>
+		/// 
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Sale sale
+		public List<Links> links
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// authorization
-    	/// </summary>
+		/// 
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Authorization authorization
+		public string fragmentResolution
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// refund
-    	/// </summary>
+		/// 
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Refund refund
+		public bool readOnly
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// capture
-    	/// </summary>
+		/// 
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Capture capture
+		public string contentEncoding
 		{
 			get;
 			set;
 		}
-		
-
+	
+		/// <summary>
+		/// 
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string pathStart
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// 
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string mediaType
+		{
+			get;
+			set;
+		}
+	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public new string ConvertToJson() 
+		public string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}
-    	
 	}
 }
+
+

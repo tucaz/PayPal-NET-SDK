@@ -49,19 +49,19 @@ namespace RestApiSample
             CreditCard crdtCard = new CreditCard();
             crdtCard.billing_address = billingAddress;
             crdtCard.cvv2 = "874";
-            crdtCard.expire_month = "11";
-            crdtCard.expire_year = "2018";
+            crdtCard.expire_month = 11;
+            crdtCard.expire_year = 2018;
             crdtCard.first_name = "Joe";
             crdtCard.last_name = "Shopper";
             crdtCard.number = "4417119669820331";
             crdtCard.type = "visa";
 
-            // ###AmountDetails
+            // ###Details
             // Let's you specify details of a payment amount.
-            AmountDetails amntDetails = new AmountDetails();
-            amntDetails.shipping = "1";
-            amntDetails.subtotal = "5";
-            amntDetails.tax = "1";
+            Details details = new Details();
+            details.shipping = "1";
+            details.subtotal = "5";
+            details.tax = "1";
 
             // ###Amount
             // Let's you specify a payment amount.
@@ -69,7 +69,7 @@ namespace RestApiSample
             amnt.currency = "USD";
             // Total must be equal to sum of shipping, tax and subtotal.
             amnt.total = "7";
-            amnt.details = amntDetails;
+            amnt.details = details;
 
             // ###Transaction
             // A transaction defines the contract of a

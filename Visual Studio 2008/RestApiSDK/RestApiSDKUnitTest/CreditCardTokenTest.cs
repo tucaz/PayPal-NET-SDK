@@ -63,6 +63,8 @@ namespace RestApiSDKUnitTest
             CreditCardToken credCardToken = new CreditCardToken();
             credCardToken.credit_card_id = "CARD-8PV12506MG6587946KEBHH4A";
             credCardToken.payer_id = "009";
+            credCardToken.expire_month = 10;
+            credCardToken.expire_year = 2015;
             return credCardToken;
         }
 
@@ -97,7 +99,7 @@ namespace RestApiSDKUnitTest
         public void ConvertToJsonTest()
         {
             CreditCardToken target = GetCreditCardToken();
-            string expected = "{\"credit_card_id\":\"CARD-8PV12506MG6587946KEBHH4A\",\"payer_id\":\"009\"}";
+            string expected = "{\"credit_card_id\":\"CARD-8PV12506MG6587946KEBHH4A\",\"payer_id\":\"009\",\"expire_month\":10,\"expire_year\":2015}";
             string actual = target.ConvertToJson();
             Assert.AreEqual(expected, actual);
         }

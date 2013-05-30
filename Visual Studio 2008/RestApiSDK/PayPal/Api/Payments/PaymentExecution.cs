@@ -1,48 +1,44 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Collections;
+using System.Collections.Generic;
+using PayPal;
+using PayPal.Util;
 using PayPal.Api.Payments;
 
 namespace PayPal.Api.Payments
 {
-
-	/// <summary>
-	/// 
-    /// </summary>
-	public class PaymentExecution : Resource  
+	public class PaymentExecution
 	{
-
 		/// <summary>
-		/// payer_id
-    	/// </summary>
+		/// PayPal assigned Payer ID returned in the approval return url.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string payer_id
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// transactions
-    	/// </summary>
+		/// If the amount needs to be updated after obtaining the PayPal Payer info (eg. shipping address), it can be updated using this element.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Amount> transactions
+		public List<Transactions> transactions
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public new string ConvertToJson() 
+		public string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}
-    	
 	}
 }
+
+

@@ -1,59 +1,54 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Collections;
+using System.Collections.Generic;
+using PayPal;
+using PayPal.Util;
 using PayPal.Api.Payments;
 
 namespace PayPal.Api.Payments
 {
-
-	/// <summary>
-	/// 
-    /// </summary>
-	public class Payer : Resource  
+	public class Payer
 	{
-
 		/// <summary>
-		/// payment_method
-    	/// </summary>
+		/// Payment method being used - PayPal Wallet payment or Direct Credit card.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string payment_method
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// payer_info
-    	/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public PayerInfo payer_info
-		{
-			get;
-			set;
-		}
-		
-
-		/// <summary>
-		/// funding_instruments
-    	/// </summary>
+		/// List of funding instruments from where the funds of the current payment come from. Typically a credit card.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public List<FundingInstrument> funding_instruments
 		{
 			get;
 			set;
 		}
-		
-
+	
+		/// <summary>
+		/// Information related to the Payer. In case of PayPal Wallet payment, this information will be filled in by PayPal after the user approves the payment using their PayPal Wallet. 
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public PayerInfo payer_info
+		{
+			get;
+			set;
+		}
+	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public new string ConvertToJson() 
+		public string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}
-    	
 	}
 }
+
+

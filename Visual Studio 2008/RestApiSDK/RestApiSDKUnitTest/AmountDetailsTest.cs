@@ -4,11 +4,11 @@ using PayPal.Api.Payments;
 namespace RestApiSDKUnitTest
 {
     /// <summary>
-    ///This is a test class for AmountDetailsTest and is intended
-    ///to contain all AmountDetailsTest Unit Tests
+    ///This is a test class for DetailsTest and is intended
+    ///to contain all DetailsTest Unit Tests
     ///</summary>
     [TestClass()]
-    public class AmountDetailsTest
+    public class DetailsTest
     {
         private TestContext testContextInstance;
 
@@ -58,9 +58,9 @@ namespace RestApiSDKUnitTest
         //
         #endregion
 
-        private AmountDetails GetAmountDetails()
+        private Details GetDetails()
         {
-            AmountDetails amntDetails = new AmountDetails();
+            Details amntDetails = new Details();
             amntDetails.tax = "15";
             amntDetails.fee = "2";
             amntDetails.shipping = "10";
@@ -74,7 +74,7 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void taxTest()
         {
-            AmountDetails target = GetAmountDetails();
+            Details target = GetDetails();
             string expected = "15";
             string actual = target.tax;
             Assert.AreEqual(expected, actual);
@@ -86,7 +86,7 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void subtotalTest()
         {
-            AmountDetails target = GetAmountDetails();
+            Details target = GetDetails();
             string expected = "75";
             string actual = target.subtotal;
             Assert.AreEqual(expected, actual);
@@ -98,7 +98,7 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void shippingTest()
         {
-            AmountDetails target = GetAmountDetails();
+            Details target = GetDetails();
             string expected = "10";
             string actual = target.shipping;
             Assert.AreEqual(expected, actual);
@@ -110,7 +110,7 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void feeTest()
         {
-            AmountDetails target = GetAmountDetails();
+            Details target = GetDetails();
             string expected = "2";
             string actual = target.fee;
             Assert.AreEqual(expected, actual);
@@ -122,19 +122,20 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void ConvertToJsonTest()
         {
-            AmountDetails target = GetAmountDetails();
-            string expected = "{\"subtotal\":\"75\",\"tax\":\"15\",\"shipping\":\"10\",\"fee\":\"2\"}";
-            string actual = target.ConvertToJson();
-            Assert.AreEqual(expected, actual);
+            Details target = GetDetails();
+            Assert.AreEqual("75", target.subtotal);
+            Assert.AreEqual("15", target.tax);
+            Assert.AreEqual("10", target.shipping);
+            Assert.AreEqual("2", target.fee);
         }
 
         /// <summary>
-        ///A test for AmountDetails Constructor
+        ///A test for Details Constructor
         ///</summary>
         [TestMethod()]
-        public void AmountDetailsConstructorTest()
+        public void DetailsConstructorTest()
         {
-            AmountDetails target = new AmountDetails();
+            Details target = new Details();
             Assert.IsNotNull(target);
         }
     }

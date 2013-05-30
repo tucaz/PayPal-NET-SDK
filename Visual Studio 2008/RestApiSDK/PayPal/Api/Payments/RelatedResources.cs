@@ -1,68 +1,63 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Collections.Generic;
+using PayPal;
+using PayPal.Util;
 using PayPal.Api.Payments;
 
 namespace PayPal.Api.Payments
 {
-
-	/// <summary>
-	/// 
-    /// </summary>
-	public class AmountDetails : Resource  
+	public class RelatedResources
 	{
-
 		/// <summary>
-		/// subtotal
-    	/// </summary>
+		/// A sale transaction
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string subtotal
+		public Sale sale
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// tax
-    	/// </summary>
+		/// An authorization transaction
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string tax
+		public Authorization authorization
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// shipping
-    	/// </summary>
+		/// A capture transaction
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string shipping
+		public Capture capture
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// fee
-    	/// </summary>
+		/// A refund transaction
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string fee
+		public Refund refund
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public new string ConvertToJson() 
+		public string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}
-    	
 	}
 }
+
+

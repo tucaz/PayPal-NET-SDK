@@ -1,81 +1,84 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Collections;
+using System.Collections.Generic;
+using PayPal;
+using PayPal.Util;
 using PayPal.Api.Payments;
 
 namespace PayPal.Api.Payments
 {
-
-	/// <summary>
-	/// 
-    /// </summary>
-	public class Transaction : Resource  
+	public class Transaction
 	{
-
 		/// <summary>
-		/// amount
-    	/// </summary>
+		/// Amount being collected.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public Amount amount
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// payee
-    	/// </summary>
+		/// Recepient of the funds in this transaction.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public Payee payee
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// description
-    	/// </summary>
+		/// Description of what is being paid for.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string description
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// item_list
-    	/// </summary>
+		/// List of items being paid for.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public ItemList item_list
 		{
 			get;
 			set;
 		}
-		
-
+	
 		/// <summary>
-		/// related_resources
-    	/// </summary>
+		/// List of financial transactions (Sale, Authorization, Capture, Refund) related to the payment.
+		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<SubTransaction> related_resources
+		public List<RelatedResources> related_resources
 		{
 			get;
 			set;
 		}
-		
-
+	
+		/// <summary>
+		/// Additional transactions for complex payment (Parallel and Chained) scenarios.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public List<Transaction> transactions
+		{
+			get;
+			set;
+		}
+	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public new string ConvertToJson() 
+		public string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}
-    	
 	}
 }
+
+
