@@ -1,5 +1,11 @@
 CHANGE LOG
 ==========
+
+V0.7.1 (June 2, 2013)
+-----------------------
+
+   * Bug fix release for "internal server error" issues in OAuth calls.
+   
 V0.7.0 (May 30, 2013)
 -----------------------
    * Added support for Auth and Capture APIs
