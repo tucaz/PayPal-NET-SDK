@@ -105,14 +105,16 @@ namespace RestApiSample
                 // It is not mandatory to generate Access Token on a per call basis.
                 // Typically the access token can be generated once and
                 // reused within the expiry window
-                string accessToken = new OAuthTokenCredential(ConfigManager.Instance.GetProperties()["ClientID"], ConfigManager.Instance.GetProperties()["ClientSecret"]).GetAccessToken();
+                string accessToken = new OAuthTokenCredential("EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM", "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM", Configuration.GetConfig()).GetAccessToken();
 
                 // ### Api Context
                 // Pass in a `ApiContext` object to authenticate 
                 // the call and to send a unique request id 
                 // (that ensures idempotency). The SDK generates
                 // a request id if you do not pass one explicitly. 
-                APIContext apiContext = new APIContext(accessToken);
+                APIContext context = new APIContext(accessToken);
+                context.Config = Configuration.GetConfig();
+
                 // Use this variant if you want to pass in a request id  
                 // that is meaningful in your application, ideally 
                 // a order id.
@@ -125,7 +127,7 @@ namespace RestApiSample
                 // Create a payment by posting to the APIService
                 // using a valid AccessToken
                 // The return object contains the status;
-                Payment createdPayment = pymnt.Create(apiContext);
+                Payment createdPayment = pymnt.Create(context);
                 CurrContext.Items.Add("ResponseJson", JObject.Parse(createdPayment.ConvertToJson()).ToString(Formatting.Indented));
             }
             catch (PayPal.Exception.PayPalException ex)

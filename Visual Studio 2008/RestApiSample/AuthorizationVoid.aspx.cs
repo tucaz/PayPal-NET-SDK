@@ -4,20 +4,9 @@
 // Authorization resource
 // API used: POST /v1/payments/authorization/{authorization_id}/void 
 using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
 using PayPal.Api.Payments;
 using PayPal;
-using PayPal.Manager;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -38,20 +27,27 @@ namespace RestApiSample
                 // ClientID and ClientSecret
                 // It is not mandatory to generate Access Token on a per call basis.
                 // Typically the access token can be generated once and
-                // reused within the expiry window
-                string accessToken = new OAuthTokenCredential(ConfigManager.Instance.GetProperties()["ClientID"], ConfigManager.Instance.GetProperties()["ClientSecret"]).GetAccessToken();
-
+                // reused within the expiry window                
+                string accessToken = new OAuthTokenCredential("EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM", "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM", Configuration.GetConfig()).GetAccessToken();
+                                                    
                 // ###Authorization
                 // Retrieve a Authorization object
                 // by making a Payment with intent
                 // as 'authorize'
                 authorization = GetAuthorization(accessToken);
 
+                // ### Api Context
+                // Pass in a `ApiContext` object to authenticate 
+                // the call and to send a unique request id 
+                // (that ensures idempotency). The SDK generates
+                // a request id if you do not pass one explicitly. 
+                APIContext context = new APIContext(accessToken);
+                context.Config = Configuration.GetAcctAndConfig();
+            
                 // Void an Authorization
                 // by POSTing to 
                 // URI v1/payments/authorization/{authorization_id}/void
-                Authorization returnAuthorization = authorization.Void(accessToken);
-
+                Authorization returnAuthorization = authorization.Void(context);
                 CurrContext.Items.Add("ResponseJson", JObject.Parse(returnAuthorization.ConvertToJson()).ToString(Formatting.Indented));
             }
             catch (PayPal.Exception.PayPalException ex)
@@ -149,10 +145,18 @@ namespace RestApiSample
             pymnt.payer = payr;
             pymnt.transactions = transactions;
 
+            // ### Api Context
+            // Pass in a `ApiContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+            APIContext context = new APIContext(accessToken);
+            context.Config = Configuration.GetAcctAndConfig();
+
             // Create a payment by posting to the APIService
             // using a valid AccessToken
             // The return object contains the status;
-            Payment createdPayment = pymnt.Create(accessToken);
+            Payment createdPayment = pymnt.Create(context);
 
             return createdPayment.transactions[0].related_resources[0].authorization;
         }

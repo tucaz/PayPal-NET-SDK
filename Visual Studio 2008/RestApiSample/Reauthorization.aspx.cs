@@ -37,7 +37,15 @@ namespace RestApiSample
                 // It is not mandatory to generate Access Token on a per call basis.
                 // Typically the access token can be generated once and
                 // reused within the expiry window
-                string accessToken = new OAuthTokenCredential(ConfigManager.Instance.GetProperties()["ClientID"], ConfigManager.Instance.GetProperties()["ClientSecret"]).GetAccessToken();
+                string accessToken = new OAuthTokenCredential("EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM", "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM", Configuration.GetConfig()).GetAccessToken();
+
+                 // ### Api Context
+                // Pass in a `ApiContext` object to authenticate 
+                // the call and to send a unique request id 
+                // (that ensures idempotency). The SDK generates
+                // a request id if you do not pass one explicitly. 
+                APIContext context = new APIContext(accessToken);
+                context.Config = Configuration.GetAcctAndConfig();
 
                 // ###Reauthorization
                 // Retrieve a authorization id from authorization object
@@ -45,14 +53,13 @@ namespace RestApiSample
                 // as `authorize`. You can reauthorize a payment only once 4 to 29
                 // days after 3-day honor period for the original authorization
                 // expires.
-                authorization = Authorization.Get(accessToken, "7GH53639GA425732B");
+                authorization = Authorization.Get(context, "7GH53639GA425732B");
                 Amount reauthorizeAmount = new Amount();
                 reauthorizeAmount.currency = "USD";
                 reauthorizeAmount.total = "1";
                 authorization.amount = reauthorizeAmount;
-                Authorization reauthorization = authorization.Reauthorize(accessToken);
+                Authorization reauthorization = authorization.Reauthorize(context);
                 CurrContext.Items.Add("ResponseJson", JObject.Parse(reauthorization.ConvertToJson()).ToString(Formatting.Indented));
-
             }
             catch (PayPal.Exception.PayPalException ex)
             {

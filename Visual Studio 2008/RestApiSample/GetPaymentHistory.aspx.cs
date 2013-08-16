@@ -7,19 +7,8 @@
 // payments list.
 // API used: GET /v1/payments/payments
 using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
 using PayPal;
-using PayPal.Manager;
 using PayPal.Api.Payments;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
@@ -40,12 +29,21 @@ namespace RestApiSample
                 // ClientID and ClientSecret
                 // It is not mandatory to generate Access Token on a per call basis.
                 // Typically the access token can be generated once and
-                // reused within the expiry window
-                string accessToken = new OAuthTokenCredential(ConfigManager.Instance.GetProperties()["ClientID"], ConfigManager.Instance.GetProperties()["ClientSecret"]).GetAccessToken();
+                // reused within the expiry window                
+                string accessToken = new OAuthTokenCredential("EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM", "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM", Configuration.GetConfig()).GetAccessToken();
+                
+                // ### Api Context
+                // Pass in a `ApiContext` object to authenticate 
+                // the call and to send a unique request id 
+                // (that ensures idempotency). The SDK generates
+                // a request id if you do not pass one explicitly. 
+                APIContext context = new APIContext(accessToken);
+                context.Config = Configuration.GetAcctAndConfig();
 
                 var parameters = new QueryParameters();
                 parameters.SetCount("10");
                 parameters.SetStartIndex("5");
+
                 // ###Retrieve
                 // Retrieve the PaymentHistory object by calling the
                 // static `Get` method
@@ -54,8 +52,8 @@ namespace RestApiSample
                 // query parameters for paginations and filtering.
                 // Refer the API documentation
                 // for valid values for keys
-                PaymentHistory paymentHistory = Payment.Get(accessToken, parameters);
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(paymentHistory.ConvertToJson()).ToString(Formatting.Indented));
+                PaymentHistory payHistory = Payment.List(context, Configuration.GetConfig());
+                CurrContext.Items.Add("ResponseJson", JObject.Parse(payHistory.ConvertToJson()).ToString(Formatting.Indented));
             }
             catch (PayPal.Exception.PayPalException ex)
             {

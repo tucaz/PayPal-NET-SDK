@@ -39,7 +39,15 @@ namespace RestApiSample
                 // It is not mandatory to generate Access Token on a per call basis.
                 // Typically the access token can be generated once and
                 // reused within the expiry window
-                string accessToken = new OAuthTokenCredential(ConfigManager.Instance.GetProperties()["ClientID"], ConfigManager.Instance.GetProperties()["ClientSecret"]).GetAccessToken();
+                string accessToken = new OAuthTokenCredential("EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM", "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM", Configuration.GetConfig()).GetAccessToken();
+
+                // ### Api Context
+                // Pass in a `ApiContext` object to authenticate 
+                // the call and to send a unique request id 
+                // (that ensures idempotency). The SDK generates
+                // a request id if you do not pass one explicitly. 
+                APIContext context = new APIContext(accessToken);
+                context.Config = Configuration.GetConfig();
 
                 // ###Authorization
                 // Retrieve a Authorization object
@@ -68,7 +76,7 @@ namespace RestApiSample
                 // Do a Refund by
                 // POSTing to 
                 // URI v1/payments/capture/{capture_id}/refund
-                Refund responseRefund = capture.Refund(accessToken, refund);
+                Refund responseRefund = capture.Refund(context, refund);
                 CurrContext.Items.Add("ResponseJson", JObject.Parse(responseRefund.ConvertToJson()).ToString(Formatting.Indented));
 
             }
@@ -98,9 +106,17 @@ namespace RestApiSample
             // instrument. Default is ‘false’.
             capture.is_final_capture = true;
 
+            // ### Api Context
+            // Pass in a `ApiContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+            APIContext context = new APIContext(accessToken);
+            context.Config = Configuration.GetAcctAndConfig();
+
             // Capture by POSTing to
             // URI v1/payments/authorization/{authorization_id}/capture
-            Capture responseCapture = authorization.Capture(accessToken, capture);
+            Capture responseCapture = authorization.Capture(context, capture);
 
             return responseCapture;
         }
@@ -191,10 +207,18 @@ namespace RestApiSample
             pymnt.payer = payr;
             pymnt.transactions = transactions;
 
+            // ### Api Context
+            // Pass in a `ApiContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+            APIContext context = new APIContext(accessToken);
+            context.Config = Configuration.GetAcctAndConfig();
+
             // Create a payment by posting to the APIService
             // using a valid AccessToken
             // The return object contains the status;
-            Payment createdPayment = pymnt.Create(accessToken);
+            Payment createdPayment = pymnt.Create(context);
 
             return createdPayment.transactions[0].related_resources[0].authorization;
         }

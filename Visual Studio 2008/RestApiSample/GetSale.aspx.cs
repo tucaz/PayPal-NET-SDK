@@ -3,19 +3,8 @@
 // details of completed Sale Transaction.
 // API used: /v1/payments/sale/{sale-id}
 using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
 using PayPal;
-using PayPal.Manager;
 using PayPal.Api.Payments;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
@@ -36,14 +25,21 @@ namespace RestApiSample
                 // It is not mandatory to generate Access Token on a per call basis.
                 // Typically the access token can be generated once and
                 // reused within the expiry window
-                string accessToken = new OAuthTokenCredential(ConfigManager.Instance.GetProperties()["ClientID"], ConfigManager.Instance.GetProperties()["ClientSecret"]).GetAccessToken();
+                string accessToken = new OAuthTokenCredential("EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM", "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM", Configuration.GetConfig()).GetAccessToken();
 
+                // ### Api Context
+                // Pass in a `ApiContext` object to authenticate 
+                // the call and to send a unique request id 
+                // (that ensures idempotency). The SDK generates
+                // a request id if you do not pass one explicitly. 
+                APIContext context = new APIContext(accessToken);
+                context.Config = Configuration.GetAcctAndConfig();
+                
                 // ### Sale
                 // Pass an AccessToken and the ID of the sale
                 // transaction from your payment resource.
-                Sale s = Sale.Get(accessToken, "4V7971043K262623A");
-                CurrContext.Items.Add("ResponseJson",
-                    JObject.Parse(s.ConvertToJson()).ToString(Formatting.Indented));
+                Sale selling = Sale.Get(context, "4V7971043K262623A");
+                CurrContext.Items.Add("ResponseJson", JObject.Parse(selling.ConvertToJson()).ToString(Formatting.Indented));
             }
             catch (PayPal.Exception.PayPalException ex)
             {

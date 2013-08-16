@@ -32,11 +32,11 @@
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Packages\log4net\lib\2.0\log4net.dll</HintPath>
+      <HintPath>packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Packages\Newtonsoft.Json\lib\net35\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.4.5.11\lib\net35\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PayPalCoreSDK, Version=1.3.4.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="RestApiSDK, Version=0.7.3.0, Culture=neutral, processorArchitecture=MSIL" />
@@ -80,6 +80,14 @@
     <Compile Include="AuthorizationVoid.aspx.designer.cs">
       <DependentUpon>AuthorizationVoid.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reauthorization.aspx.cs">
+      <DependentUpon>Reauthorization.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reauthorization.aspx.designer.cs">
+      <DependentUpon>Reauthorization.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\Configuration.cs" />
     <Compile Include="CreateCreditCard.aspx.cs">
       <DependentUpon>CreateCreditCard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -196,33 +204,34 @@
     <Content Include="Global.asax" />
     <Content Include="Images\edt-format-source-button.png" />
     <Content Include="Images\play_button.png" />
-    <Content Include="Packages\log4net\lib\1.0\log4net.dll" />
-    <Content Include="Packages\log4net\lib\1.0\log4net.xml" />
-    <Content Include="Packages\log4net\lib\1.1\log4net.dll" />
-    <Content Include="Packages\log4net\lib\1.1\log4net.xml" />
-    <Content Include="Packages\log4net\lib\2.0\log4net.dll" />
-    <Content Include="Packages\log4net\lib\2.0\log4net.xml" />
-    <Content Include="Packages\Newtonsoft.Json\lib\net20\Newtonsoft.Json.dll" />
-    <Content Include="Packages\Newtonsoft.Json\lib\net20\Newtonsoft.Json.xml" />
-    <Content Include="Packages\Newtonsoft.Json\lib\net35\Newtonsoft.Json.dll" />
-    <Content Include="Packages\Newtonsoft.Json\lib\net35\Newtonsoft.Json.xml" />
-    <Content Include="Packages\Newtonsoft.Json\lib\net40\Newtonsoft.Json.dll" />
-    <Content Include="Packages\Newtonsoft.Json\lib\net40\Newtonsoft.Json.xml" />
-    <Content Include="Packages\Newtonsoft.Json\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll" />
-    <Content Include="Packages\Newtonsoft.Json\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.xml" />
-    <Content Include="Packages\Newtonsoft.Json\lib\sl3-wp\Newtonsoft.Json.dll" />
-    <Content Include="Packages\Newtonsoft.Json\lib\sl3-wp\Newtonsoft.Json.xml" />
-    <Content Include="Packages\Newtonsoft.Json\lib\sl4-windowsphone71\Newtonsoft.Json.dll" />
-    <Content Include="Packages\Newtonsoft.Json\lib\sl4-windowsphone71\Newtonsoft.Json.xml" />
-    <Content Include="Packages\Newtonsoft.Json\lib\sl4\Newtonsoft.Json.dll" />
-    <Content Include="Packages\Newtonsoft.Json\lib\sl4\Newtonsoft.Json.xml" />
-    <Content Include="Packages\Newtonsoft.Json\lib\winrt45\Newtonsoft.Json.dll" />
-    <Content Include="Packages\Newtonsoft.Json\lib\winrt45\Newtonsoft.Json.xml" />
-    <Content Include="Packages\PayPalCoreSDK\lib\PayPalCoreSDK.dll" />
-    <Content Include="Packages\RestApiSDK\lib\RestApiSDK.dll" />
+    <Content Include="packages\log4net.1.2.10\lib\1.0\log4net.dll" />
+    <Content Include="packages\log4net.1.2.10\lib\1.0\log4net.xml" />
+    <Content Include="packages\log4net.1.2.10\lib\1.1\log4net.dll" />
+    <Content Include="packages\log4net.1.2.10\lib\1.1\log4net.xml" />
+    <Content Include="packages\log4net.1.2.10\lib\2.0\log4net.dll" />
+    <Content Include="packages\log4net.1.2.10\lib\2.0\log4net.xml" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\net20\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\net20\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\net35\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\net35\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\sl3-wp\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\sl3-wp\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\sl4-windowsphone71\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\sl4-windowsphone71\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\sl4\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\sl4\Newtonsoft.Json.xml" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\winrt45\Newtonsoft.Json.dll" />
+    <Content Include="packages\Newtonsoft.Json.4.5.11\lib\winrt45\Newtonsoft.Json.xml" />
+    <Content Include="packages\PayPalCoreSDK.1.3.4\lib\PayPalCoreSDK.dll" />
+    <Content Include="packages\RestApiSDK.0.7.3\lib\RestApiSDK.dll" />
     <Content Include="PaymentWithCreditCard.aspx" />
     <Content Include="PaymentWithPayPal.aspx" />
     <Content Include="PaymentWithSavedCard.aspx" />
+    <Content Include="Reauthorization.aspx" />
     <Content Include="RefundCapture.aspx" />
     <Content Include="Response.aspx" />
     <Content Include="SaleRefund.aspx" />
@@ -248,11 +257,10 @@
     <Content Include="Source\SaleRefund.aspx.html" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Packages\log4net\log4net.nupkg" />
-    <None Include="Packages\Newtonsoft.Json\Newtonsoft.Json.nupkg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
+    <None Include="packages\log4net.1.2.10\log4net.1.2.10.nupkg" />
+    <None Include="packages\Newtonsoft.Json.4.5.11\Newtonsoft.Json.4.5.11.nupkg" />
+    <None Include="packages\PayPalCoreSDK.1.3.4\PayPalCoreSDK.1.3.4.nupkg" />
+    <None Include="packages\RestApiSDK.0.7.3\RestApiSDK.0.7.3.nupkg" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
