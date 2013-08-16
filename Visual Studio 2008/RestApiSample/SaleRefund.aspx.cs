@@ -48,7 +48,7 @@ namespace RestApiSample
             // Create a Sale object with the
             // given sale transaction id.
             Sale sale = new Sale();
-            sale.id = "03W403310B593121A";
+            sale.id = "4V7971043K262623A";
             try
             {
                 // ###AccessToken

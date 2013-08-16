@@ -27,7 +27,7 @@ namespace RestApiSample
                 // Typically the access token can be generated once and
                 // reused within the expiry window
                 string accessToken = new OAuthTokenCredential("EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM", "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM", Configuration.GetConfig()).GetAccessToken();
-
+                               
                 // ### Api Context
                 // Pass in a `ApiContext` object to authenticate 
                 // the call and to send a unique request id 
@@ -39,7 +39,7 @@ namespace RestApiSample
                 // Retrieve the CreditCard object by calling the
                 // static 'Get' method on the CreditCard class
                 // by passing a valid AccessToken and CreditCard ID
-                CreditCard card = CreditCard.Get(context, "CARD-5BT058015C739554AKE2GCEI");
+                CreditCard card = CreditCard.Get(context, "CARD-5MY32504F4899612AKIHAQHY");
                 CurrContext.Items.Add("ResponseJson", JObject.Parse(card.ConvertToJson()).ToString(Formatting.Indented));
             }
             catch (PayPal.Exception.PayPalException ex)

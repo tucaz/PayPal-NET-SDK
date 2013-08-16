@@ -33,7 +33,7 @@ namespace RestApiSample
             // A resource representing a credit card that can be
             // used to fund a payment.
             CreditCardToken credCardToken = new CreditCardToken();
-            credCardToken.credit_card_id = "CARD-5BT058015C739554AKE2GCEI";
+            credCardToken.credit_card_id = "CARD-5MY32504F4899612AKIHAQHY";
 
             // ###Details
             // Let's you specify details of a payment amount.
