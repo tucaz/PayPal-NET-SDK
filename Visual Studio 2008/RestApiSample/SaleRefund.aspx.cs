@@ -35,7 +35,7 @@ namespace RestApiSample
             // refunded. Create the refund object, if the refund is partial
             Amount amount = new Amount();
             amount.currency = "USD";
-            amount.total = "7.00";
+            amount.total = "0.01";
 
             // ###Refund
             // A refund transaction.
@@ -48,7 +48,7 @@ namespace RestApiSample
             // Create a Sale object with the
             // given sale transaction id.
             Sale sale = new Sale();
-            sale.id = "4V7971043K262623A";
+            sale.id = "7X350557WR366683S";
             try
             {
                 // ###AccessToken
