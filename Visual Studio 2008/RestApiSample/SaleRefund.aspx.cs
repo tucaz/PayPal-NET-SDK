@@ -35,7 +35,7 @@ namespace RestApiSample
             // refunded. Create the refund object, if the refund is partial
             Amount amount = new Amount();
             amount.currency = "USD";
-            amount.total = "0.01";
+            amount.total = "7.00";
 
             // ###Refund
             // A refund transaction.

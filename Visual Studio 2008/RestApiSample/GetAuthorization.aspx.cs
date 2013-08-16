@@ -144,10 +144,18 @@ namespace RestApiSample
             pymnt.payer = payr;
             pymnt.transactions = transactions;
 
+            // ### Api Context
+            // Pass in a `ApiContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+            APIContext context = new APIContext(accessToken);
+            context.Config = Configuration.GetConfig();
+
             // Create a payment by posting to the APIService
             // using a valid AccessToken
             // The return object contains the status;
-            Payment createdPayment = pymnt.Create(accessToken);
+            Payment createdPayment = pymnt.Create(context);
 
             return createdPayment.transactions[0].related_resources[0].authorization.id;
         }
