@@ -3,26 +3,19 @@ using PayPal.Api.Payments;
 
 namespace RestApiSDKUnitTest
 {
-    /// <summary>
-    ///This is a test class for DetailsTest and is intended
-    ///to contain all DetailsTest Unit Tests
-    ///</summary>
     [TestClass()]
     public class DetailsTest
     {
         private Details GetDetails()
         {
-            Details amntDetails = new Details();
-            amntDetails.tax = "15";
-            amntDetails.fee = "2";
-            amntDetails.shipping = "10";
-            amntDetails.subtotal = "75";
-            return amntDetails;
+            Details detail = new Details();
+            detail.tax = "15";
+            detail.fee = "2";
+            detail.shipping = "10";
+            detail.subtotal = "75";
+            return detail;
         }
 
-        /// <summary>
-        ///A test for tax
-        ///</summary>
         [TestMethod()]
         public void TaxTest()
         {
@@ -32,9 +25,6 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for subtotal
-        ///</summary>
         [TestMethod()]
         public void SubtotalTest()
         {
@@ -44,9 +34,6 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for shipping
-        ///</summary>
         [TestMethod()]
         public void ShippingTest()
         {
@@ -56,9 +43,6 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for fee
-        ///</summary>
         [TestMethod()]
         public void FeeTest()
         {
@@ -68,9 +52,6 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for ConvertToJson
-        ///</summary>
         [TestMethod()]
         public void ConvertToJsonTest()
         {
@@ -79,16 +60,14 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual("15", target.tax);
             Assert.AreEqual("10", target.shipping);
             Assert.AreEqual("2", target.fee);
+            Assert.IsFalse(target.ToString().Length == 0);
         }
 
-        /// <summary>
-        ///A test for Details Constructor
-        ///</summary>
         [TestMethod()]
-        public void DetailsConstructorTest()
+        public void ToStringTest()
         {
-            Details target = new Details();
-            Assert.IsNotNull(target);
+            Details target = GetDetails();
+            Assert.IsFalse(target.ToString().Length == 0);
         }
     }
 }

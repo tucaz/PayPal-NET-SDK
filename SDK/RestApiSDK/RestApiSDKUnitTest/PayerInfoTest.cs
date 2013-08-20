@@ -3,13 +3,40 @@ using PayPal.Api.Payments;
 
 namespace RestApiSDKUnitTest
 {
-    /// <summary>
-    ///This is a test class for PayerInfoTest and is intended
-    ///to contain all PayerInfoTest Unit Tests
-    ///</summary>
     [TestClass()]
     public class PayerInfoTest
     {
-      
+        private ShippingAddress CreateShippingAddress()
+        {
+            ShippingAddress shipping = new ShippingAddress();
+            shipping.recipient_name = "PayPalUser";
+            return shipping;
+        }
+
+        private PayerInfo CreatePayerInfo()
+        {
+            PayerInfo info = new PayerInfo();
+            info.first_name = "Joe";
+            info.last_name = "Shopper";
+            info.email = "Joe.Shopper@email.com";
+            info.payer_id = "100";
+            info.phone = "12345";
+            info.shipping_address = CreateShippingAddress();
+            return info;
+        }
+        
+        [TestMethod()]
+        public void ConvertToJsonTest()
+        {
+            PayerInfo info = CreatePayerInfo();
+            Assert.IsFalse(info.ConvertToJson().Length == 0);
+        }
+
+        [TestMethod()]
+        public void ToStringTest()
+        {
+            PayerInfo info = CreatePayerInfo();
+            Assert.IsFalse(info.ToString().Length == 0);
+        }
     }
 }

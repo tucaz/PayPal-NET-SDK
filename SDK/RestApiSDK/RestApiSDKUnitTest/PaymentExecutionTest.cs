@@ -4,10 +4,6 @@ using PayPal.Api.Payments;
 
 namespace RestApiSDKUnitTest
 {
-    /// <summary>
-    ///This is a test class for PaymentExecutionTest and is intended
-    ///to contain all PaymentExecutionTest Unit Tests
-    ///</summary>
     [TestClass()]
     public class PaymentExecutionTest
     {
@@ -30,21 +26,21 @@ namespace RestApiSDKUnitTest
             return amnt;
         }
 
-        public Transactions CreateTransactions()
+        private Transactions CreateTransactions()
         {
             Transactions transactions = new Transactions();
             transactions.amount = GetAmount();
             return transactions;
         }
 
-        public ShippingAddress CreateShippingAddress()
+        private ShippingAddress CreateShippingAddress()
         {
             ShippingAddress shipping = new ShippingAddress();
             shipping.recipient_name = "PayPalUser";
             return shipping;
         }
 
-        public PayerInfo CreatePayerInfo()
+        private PayerInfo CreatePayerInfo()
         {
             PayerInfo payerInfo = new PayerInfo();
             payerInfo.first_name = "Joe";
@@ -56,7 +52,7 @@ namespace RestApiSDKUnitTest
             return payerInfo;
         }
 
-        public PaymentExecution CreatePaymentExecution()
+        private PaymentExecution CreatePaymentExecution()
         {
             List<Transactions> transactions = new List<Transactions>();
             transactions.Add(CreateTransactions());
@@ -74,14 +70,14 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void TestConvertToJson()
+        public void ConvertToJsonTest()
         {
             PaymentExecution execution = CreatePaymentExecution();
             Assert.IsFalse(execution.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void TestToString()
+        public void ToStringTest()
         {
             PaymentExecution execution = CreatePaymentExecution();
             Assert.IsFalse(execution.ToString().Length == 0);

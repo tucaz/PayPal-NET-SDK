@@ -1,17 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api.Payments;
 
-
 namespace RestApiSDKUnitTest
 {
-    /// <summary>
-    ///This is a test class for ShippingAddressTest and is intended
-    ///to contain all ShippingAddressTest Unit Tests
-    ///</summary>
     [TestClass()]
     public class ShippingAddressTest
     {
-        public ShippingAddress CreateShippingAddress()
+        private ShippingAddress CreateShippingAddress()
         {
             ShippingAddress shipping = new ShippingAddress();
             shipping.recipient_name = "PayPalUser";
@@ -19,21 +14,21 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void TestShippingAddress()
+        public void ShippingAddressObjectTest()
         {
             ShippingAddress shipping = CreateShippingAddress();
             Assert.AreEqual(shipping.recipient_name, "PayPalUser");
         }
 
         [TestMethod()]
-        public void TestToJSON()
+        public void ConvertToJsonTest()
         {
             ShippingAddress shipping = CreateShippingAddress();
             Assert.IsFalse(shipping.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void TestToString()
+        public void ToStringTest()
         {
             ShippingAddress shipping = CreateShippingAddress();
             Assert.IsFalse(shipping.ToString().Length == 0);

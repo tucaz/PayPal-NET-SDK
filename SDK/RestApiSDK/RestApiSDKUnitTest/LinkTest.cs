@@ -3,44 +3,39 @@ using PayPal.Api.Payments;
 
 namespace RestApiSDKUnitTest
 {
-    /// <summary>
-    ///This is a test class for LinkTest and is intended
-    ///to contain all LinkTest Unit Tests
-    ///</summary>
     [TestClass()]
     public class LinksTest
     {
-        public Links CreateLinks()
+        private Links CreateLinks()
         {
             Links link = new Links();
-            link.href = "http://microsoft.com/";
+            link.href = "http://paypal.com/";
             link.method = "GET";
             link.rel = "authorize";
             return link;
         }
 
         [TestMethod()]
-        public void TestLinks()
+        public void LinksObjectTest()
         {
             Links link = CreateLinks();
-            Assert.AreEqual(link.href, "http://microsoft.com/");
+            Assert.AreEqual(link.href, "http://paypal.com/");
             Assert.AreEqual(link.method, "GET");
             Assert.AreEqual(link.rel, "authorize");
         }
 
         [TestMethod()]
-        public void TestConvertToJson()
+        public void ConvertToJsonTest()
         {
             Links link = CreateLinks();
             Assert.IsFalse(link.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void TestToString()
+        public void ToStringTest()
         {
             Links link = CreateLinks();
             Assert.IsFalse(link.ToString().Length == 0);
-        }
- 
+        } 
     }
 }

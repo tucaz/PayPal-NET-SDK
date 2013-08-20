@@ -5,11 +5,7 @@ using PayPal.Api.Payments;
 using PayPal.Manager;
 
 namespace RestApiSDKUnitTest
-{  
-    /// <summary>
-    ///This is a test class for PayerTest and is intended
-    ///to contain all PayerTest Unit Tests
-    ///</summary>
+{
     [TestClass()]
     public class PayerTest
     {
@@ -40,48 +36,40 @@ namespace RestApiSDKUnitTest
             }
         }
 
-        public ShippingAddress CreateShippingAddress()
+        private ShippingAddress CreateShippingAddress()
         {
             ShippingAddress shipping = new ShippingAddress();
             shipping.recipient_name = "PayPalUser";
             return shipping;
         }
 
-        public PayerInfo CreatePayerInfo()
+        private PayerInfo CreatePayerInfo()
         {
-            PayerInfo payerInfo = new PayerInfo();
-            payerInfo.first_name = "Joe";
-            payerInfo.last_name = "Shopper";
-            payerInfo.email = "Joe.Shopper@email.com";
-            payerInfo.payer_id = "100";
-            payerInfo.phone = "12345";
-            payerInfo.shipping_address = CreateShippingAddress();
-            return payerInfo;
+            PayerInfo info = new PayerInfo();
+            info.first_name = "Joe";
+            info.last_name = "Shopper";
+            info.email = "Joe.Shopper@email.com";
+            info.payer_id = "100";
+            info.phone = "12345";
+            info.shipping_address = CreateShippingAddress();
+            return info;
         }
 
-        public CreditCard CreateCreditCard()
+        private CreditCard CreateCreditCard()
         {
-            CreditCard credCard = new CreditCard();
-            credCard.cvv2 = "962";
-            credCard.expire_month = 01;
-            credCard.expire_year = 2015;
-            credCard.first_name = "John";
-            credCard.last_name = "Doe";
-            credCard.number = "4825854086744369";
-            credCard.type = "visa";
-            credCard.state = "New York";
-            credCard.payer_id = "008";
-            credCard.id = "002";
-
-            CreditCard CrdtCard = credCard.Create(AccessToken);
-            return CrdtCard;
-        }
-
-        private CreditCard GetCreditCard()
-        {
-            CreditCard credCard = CreateCreditCard();
-            return credCard;
-        }
+            CreditCard card = new CreditCard();
+            card.cvv2 = "962";
+            card.expire_month = 01;
+            card.expire_year = 2015;
+            card.first_name = "John";
+            card.last_name = "Doe";
+            card.number = "4825854086744369";
+            card.type = "visa";
+            card.state = "New York";
+            card.payer_id = "008";
+            card.id = "002";
+            return card.Create(AccessToken);
+        }       
 
         private CreditCardToken GetCreditCardToken()
         {
@@ -94,12 +82,12 @@ namespace RestApiSDKUnitTest
         private FundingInstrument GetFundingInstrument()
         {
             FundingInstrument fundInstrument = new FundingInstrument();
-            fundInstrument.credit_card = GetCreditCard();
+            fundInstrument.credit_card = CreateCreditCard();
             fundInstrument.credit_card_token = GetCreditCardToken();
             return fundInstrument;
         }
 
-        public Payer CreatePayer()
+        private Payer CreatePayer()
         {
             List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
             fundingInstruments.Add(GetFundingInstrument());
@@ -111,7 +99,7 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void TestPayer()
+        public void PayerObjectTest()
         {
             Payer pay = CreatePayer();
             Assert.AreEqual(pay.payment_method, "credit_card");
@@ -120,14 +108,14 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void TestToJSON()
+        public void ConvertToJsonTest()
         {
             Payer pay = CreatePayer();
             Assert.IsFalse(pay.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void TestToString()
+        public void ToStringTest()
         {
             Payer pay = CreatePayer();
             Assert.IsFalse(pay.ToString().Length == 0);

@@ -1,24 +1,19 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using PayPal;
 using PayPal.Manager;
 using PayPal.Api.Payments;
 
 namespace RestApiSDKUnitTest
 {
-    /// <summary>
-    ///This is a test class for FundingInstrumentTest and is intended
-    ///to contain all FundingInstrumentTest Unit Tests
-    ///</summary>
     [TestClass()]
     public class FundingInstrumentTest
     {
-        private string ClientID
+        private string ClientId
         {
             get
             {
-                string clntID = ConfigManager.Instance.GetProperties()["ClientID"];
-                return clntID;
+                string Id = ConfigManager.Instance.GetProperties()["ClientID"];
+                return Id;
             }
         }
 
@@ -26,8 +21,8 @@ namespace RestApiSDKUnitTest
         {
             get
             {
-                string clntSecret = ConfigManager.Instance.GetProperties()["ClientSecret"];
-                return clntSecret;
+                string secret = ConfigManager.Instance.GetProperties()["ClientSecret"];
+                return secret;
             }
         }
 
@@ -35,17 +30,17 @@ namespace RestApiSDKUnitTest
         {
             get
             {
-                string tokenAccess = new OAuthTokenCredential(ClientID, ClientSecret).GetAccessToken();
-                return tokenAccess;
+                string token = new OAuthTokenCredential(ClientId, ClientSecret).GetAccessToken();
+                return token;
             }
         }
 
         private CreditCardToken GetCreditCardToken()
         {
-            CreditCardToken credCardToken = new CreditCardToken();
-            credCardToken.credit_card_id = "CARD-8PV12506MG6587946KEBHH4A";
-            credCardToken.payer_id = "009";
-            return credCardToken;
+            CreditCardToken card = new CreditCardToken();
+            card.credit_card_id = "CARD-8PV12506MG6587946KEBHH4A";
+            card.payer_id = "009";
+            return card;
         }       
 
         private Address GetAddress()
@@ -61,47 +56,42 @@ namespace RestApiSDKUnitTest
             return addrss;
         }
 
-        public CreditCard CreateCreditCard()
+        private CreditCard CreateCreditCard()
         {
-            CreditCard credCard = new CreditCard();
-            credCard.cvv2 = "962";
-            credCard.expire_month = 01;
-            credCard.expire_year = 2015;
-            credCard.first_name = "John";
-            credCard.last_name = "Doe";
-            credCard.number = "4825854086744369";
-            credCard.type = "visa";
-            credCard.state = "New York";
-            credCard.payer_id = "008";
-            credCard.id = "002";
-
-            CreditCard CrdtCard = credCard.Create(AccessToken);
-            return CrdtCard;
-        }
-
-        private CreditCard GetCreditCard()
-        {
-            CreditCard credCard = CreateCreditCard();
-            return credCard;
-        }      
+            CreditCard card = new CreditCard();
+            card.cvv2 = "962";
+            card.expire_month = 01;
+            card.expire_year = 2015;
+            card.first_name = "John";
+            card.last_name = "Doe";
+            card.number = "4825854086744369";
+            card.type = "visa";
+            card.state = "New York";
+            card.payer_id = "008";
+            card.id = "002";
+            return card.Create(AccessToken);
+        }         
 
         private FundingInstrument GetFundingInstrument()
         {
-            FundingInstrument fundInstrument = new FundingInstrument();
-            fundInstrument.credit_card = GetCreditCard();
-            fundInstrument.credit_card_token = GetCreditCardToken();
-            return fundInstrument;
-        }
-           
+            FundingInstrument instrument = new FundingInstrument();
+            instrument.credit_card = CreateCreditCard();    
+            instrument.credit_card_token = GetCreditCardToken();
+            return instrument;
+        }              
 
-        /// <summary>
-        ///A test for FundingInstrument Constructor
-        ///</summary>
         [TestMethod()]
-        public void FundingInstrumentConstructorTest()
+        public void ConvertToJsonTest()
         {
-            FundingInstrument target = new FundingInstrument();
-            Assert.IsNotNull(target);
+            FundingInstrument instrument = GetFundingInstrument();
+            Assert.IsFalse(instrument.ConvertToJson().Length == 0);
+        }
+
+        [TestMethod()]
+        public void ToStringTest()
+        {
+            FundingInstrument instrument = GetFundingInstrument();
+            Assert.IsFalse(instrument.ToString().Length == 0);
         }
     }
 }

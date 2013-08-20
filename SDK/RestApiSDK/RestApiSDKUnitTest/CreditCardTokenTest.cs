@@ -3,28 +3,21 @@ using PayPal.Api.Payments;
 
 namespace RestApiSDKUnitTest
 {
-    /// <summary>
-    ///This is a test class for CreditCardTokenTest and is intended
-    ///to contain all CreditCardTokenTest Unit Tests
-    ///</summary>
     [TestClass()]
     public class CreditCardTokenTest
     {
         private CreditCardToken GetCreditCardToken()
         {
-            CreditCardToken credCardToken = new CreditCardToken();
-            credCardToken.credit_card_id = "CARD-8PV12506MG6587946KEBHH4A";
-            credCardToken.payer_id = "009";
-            credCardToken.expire_month = 10;
-            credCardToken.expire_year = 2015;
-            return credCardToken;
+            CreditCardToken cardToken = new CreditCardToken();
+            cardToken.credit_card_id = "CARD-8PV12506MG6587946KEBHH4A";
+            cardToken.payer_id = "009";
+            cardToken.expire_month = 10;
+            cardToken.expire_year = 2015;
+            return cardToken;
         }
 
-        /// <summary>
-        ///A test for payer_id
-        ///</summary>
         [TestMethod()]
-        public void payer_idTest()
+        public void PayerIdTest()
         {
             CreditCardToken target = GetCreditCardToken();
             string expected = "009";
@@ -32,11 +25,8 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for credit_card_id
-        ///</summary>
         [TestMethod()]
-        public void credit_card_idTest()
+        public void CreditCardIdTest()
         {
             CreditCardToken target = GetCreditCardToken();
             string expected = "CARD-8PV12506MG6587946KEBHH4A";
@@ -44,9 +34,6 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for ConvertToJson
-        ///</summary>
         [TestMethod()]
         public void ConvertToJsonTest()
         {
@@ -56,14 +43,11 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for CreditCardToken Constructor
-        ///</summary>
         [TestMethod()]
-        public void CreditCardTokenConstructorTest()
+        public void ConvertToString()
         {
-            CreditCardToken target = new CreditCardToken();
-            Assert.IsNotNull(target);
+            CreditCardToken token = GetCreditCardToken();
+            Assert.IsFalse(token.ToString().Length == 0);
         }
     }
 }

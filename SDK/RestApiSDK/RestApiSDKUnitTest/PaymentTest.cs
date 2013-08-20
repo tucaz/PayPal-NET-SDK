@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using PayPal.Api.Payments;
 using PayPal;
 using PayPal.Manager;
-using System;
 using PayPal.Util;
-
 
 namespace RestApiSDKUnitTest
 {
-    /// <summary>
-    ///This is a test class for PaymentTest and is intended
-    ///to contain all PaymentTest Unit Tests
-    ///</summary>
     [TestClass()]
     public class PaymentTest
     {
@@ -43,128 +37,26 @@ namespace RestApiSDKUnitTest
             }
         }
 
-        /// <summary>
-        ///A test for Create
-        ///</summary>
-        [TestMethod()]
-        public void CreatePaymentTest()
+        private Payment GetPayment(string accessToken)
         {
-            string accessToken = AccessToken;
-            Payment target = new Payment(); 
-            target.intent = "sale";
-            CreditCard creditCard = GetCreditCard();
+            Payment pay = new Payment();
+            pay.intent = "sale";
+            CreditCard card = GetCreditCard();
             List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
             FundingInstrument fundingInstrument = new FundingInstrument();
-            fundingInstrument.credit_card = creditCard;
+            fundingInstrument.credit_card = card;
             fundingInstruments.Add(fundingInstrument);
             Payer payer = new Payer();
             payer.payment_method = "credit_card";
             payer.funding_instruments = fundingInstruments;
-            List<Transaction> transacts = new List<Transaction>();
+            List<Transaction> transactionList = new List<Transaction>();
             Transaction trans = new Transaction();
             trans.amount = GetAmount();
-            transacts.Add(trans);
-            target.transactions = transacts;
-            target.payer = payer;
-            Payment actual = new Payment();
-            actual = target.Create(accessToken);
-            Assert.AreEqual("approved", actual.state);
-        }
-
-        /// <summary>
-        ///A test for Create Null Access Token
-        ///</summary>
-        [TestMethod()]
-        public void CreateTestForNullAccessToken()
-        {
-            string accessToken = null;
-            Payment target = new Payment();
-            target.intent = "sale";
-            CreditCard creditCard = GetCreditCard();
-            List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
-            FundingInstrument fundingInstrument = new FundingInstrument();
-            fundingInstrument.credit_card = creditCard;
-            fundingInstruments.Add(fundingInstrument);
-            Payer payer = new Payer();
-            payer.payment_method = "credit_card";
-            payer.funding_instruments = fundingInstruments;
-            List<Transaction> transacts = new List<Transaction>();
-            Transaction trans = new Transaction();
-            trans.amount = GetAmount();
-            transacts.Add(trans);
-            target.transactions = transacts;
-            target.payer = payer;
-            try
-            {
-                Payment actual = target.Create(accessToken);
-            } 
-            catch(ArgumentNullException exe)
-            {
-                Assert.IsNotNull(exe);
-            }
-        }
-
-        /// <summary>
-        ///A test for Get Payment
-        ///</summary>
-        [TestMethod()]
-        public void GetPayment()
-        {
-            string accessToken = AccessToken;
-            APIContext apiContext = new APIContext(accessToken);
-            Payment actual = GetPaymentObject(accessToken);
-            Payment retrievedPayment = Payment.Get(apiContext, actual.id);
-            Assert.AreEqual(actual.id, retrievedPayment.id);
-        }
-
-        /// <summary>
-        ///A test for Get PaymentHistory
-        ///</summary>
-        [TestMethod()]
-        public void GetPaymentHistory()
-        {
-            string accessToken = AccessToken;
-            APIContext apiContext = new APIContext(accessToken);
-            Dictionary<string, string> containerDictionary = new Dictionary<string, string>();
-            containerDictionary.Add("count", "10");
-            PaymentHistory paymentHistory = Payment.List(apiContext, containerDictionary);
-            Assert.AreEqual(10, paymentHistory.count);
-        }
-
-        /// <summary>
-        ///A test for Get PaymentHistory
-        ///</summary>
-        [TestMethod()]
-        public void GetPaymentHistoryQueryParameters()
-        {
-            string accessToken = AccessToken;
-            APIContext apiContext = new APIContext(accessToken);
-            QueryParameters queryParameters = new QueryParameters();
-            queryParameters.SetCount("10");
-            PaymentHistory paymentHistory = Payment.Get(apiContext, queryParameters);
-            Assert.AreEqual(10, paymentHistory.count);
-        }
-
-        private Payment GetPaymentObject(string accessToken)
-        {
-            Payment target = new Payment();
-            target.intent = "sale";
-            CreditCard creditCard = GetCreditCard();
-            List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
-            FundingInstrument fundingInstrument = new FundingInstrument();
-            fundingInstrument.credit_card = creditCard;
-            fundingInstruments.Add(fundingInstrument);
-            Payer payer = new Payer();
-            payer.payment_method = "credit_card";
-            payer.funding_instruments = fundingInstruments;
-            List<Transaction> transacts = new List<Transaction>();
-            Transaction trans = new Transaction();
-            trans.amount = GetAmount();
-            transacts.Add(trans);
-            target.transactions = transacts;
-            target.payer = payer;
-            Payment actual = target.Create(accessToken);
-            return actual;
+            transactionList.Add(trans);
+            pay.transactions = transactionList;
+            pay.payer = payer;
+            Payment paymnt = pay.Create(accessToken);
+            return paymnt;
         }
 
         private Address GetAddress()
@@ -180,21 +72,21 @@ namespace RestApiSDKUnitTest
             return addrss;
         }
 
-        public CreditCard GetCreditCard()
+        private CreditCard GetCreditCard()
         {
-            CreditCard credCard = new CreditCard();
-            credCard.cvv2 = "962";
-            credCard.expire_month = 01;
-            credCard.expire_year = 2015;
-            credCard.first_name = "John";
-            credCard.last_name = "Doe";
-            credCard.number = "4825854086744369";
-            credCard.type = "visa";
-            credCard.state = "New York";
-            credCard.payer_id = "008";
-            credCard.id = "002";
-            credCard.billing_address = GetAddress();
-            return credCard;
+            CreditCard card = new CreditCard();
+            card.cvv2 = "962";
+            card.expire_month = 01;
+            card.expire_year = 2015;
+            card.first_name = "John";
+            card.last_name = "Doe";
+            card.number = "4825854086744369";
+            card.type = "visa";
+            card.state = "New York";
+            card.payer_id = "008";
+            card.id = "002";
+            card.billing_address = GetAddress();
+            return card;
         }
 
         private Details GetDetails()
@@ -214,6 +106,87 @@ namespace RestApiSDKUnitTest
             amnt.details = GetDetails();
             amnt.total = "100";
             return amnt;
+        }
+
+        [TestMethod()]
+        public void CreatePaymentTest()
+        {
+            string accessToken = AccessToken;
+            Payment target = new Payment(); 
+            target.intent = "sale";
+            CreditCard card = GetCreditCard();
+            List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
+            FundingInstrument fundingInstrument = new FundingInstrument();
+            fundingInstrument.credit_card = card;
+            fundingInstruments.Add(fundingInstrument);
+            Payer payer = new Payer();
+            payer.payment_method = "credit_card";
+            payer.funding_instruments = fundingInstruments;
+            List<Transaction> transacts = new List<Transaction>();
+            Transaction trans = new Transaction();
+            trans.amount = GetAmount();
+            transacts.Add(trans);
+            target.transactions = transacts;
+            target.payer = payer;
+            Payment actual = new Payment();
+            actual = target.Create(accessToken);
+            Assert.AreEqual("approved", actual.state);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: AccessToken cannot be null")]
+        public void CreateTestForNullAccessToken()
+        {
+            string accessToken = null;
+            Payment pay = new Payment();
+            pay.intent = "sale";
+            CreditCard card = GetCreditCard();
+            List<FundingInstrument> instruments = new List<FundingInstrument>();
+            FundingInstrument instrument = new FundingInstrument();
+            instrument.credit_card = card;
+            instruments.Add(instrument);
+            Payer payr = new Payer();
+            payr.payment_method = "credit_card";
+            payr.funding_instruments = instruments;
+            List<Transaction> transacts = new List<Transaction>();
+            Transaction trans = new Transaction();
+            trans.amount = GetAmount();
+            transacts.Add(trans);
+            pay.transactions = transacts;
+            pay.payer = payr;
+            Payment actual = pay.Create(accessToken);           
+        }
+
+        [TestMethod()]
+        public void TestPayment()
+        {
+            string accessToken = AccessToken;
+            APIContext apiContext = new APIContext(accessToken);
+            Payment actual = GetPayment(accessToken);
+            Payment retrievedPayment = Payment.Get(apiContext, actual.id);
+            Assert.AreEqual(actual.id, retrievedPayment.id);
+        }
+
+        [TestMethod()]
+        public void TestPaymentHistory()
+        {
+            string accessToken = AccessToken;
+            APIContext apiContext = new APIContext(accessToken);
+            Dictionary<string, string> containerDictionary = new Dictionary<string, string>();
+            containerDictionary.Add("count", "10");
+            PaymentHistory paymentHistory = Payment.List(apiContext, containerDictionary);
+            Assert.AreEqual(10, paymentHistory.count);
+        }
+
+        [TestMethod()]
+        public void TestPaymentHistoryQueryParameters()
+        {
+            string accessToken = AccessToken;
+            APIContext apiContext = new APIContext(accessToken);
+            QueryParameters queryParameters = new QueryParameters();
+            queryParameters.SetCount("10");
+            PaymentHistory paymentHistory = Payment.Get(apiContext, queryParameters);
+            Assert.AreEqual(10, paymentHistory.count);
         }
     }
 }

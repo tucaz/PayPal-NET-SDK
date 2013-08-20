@@ -1,27 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Net;
-using System.Security.Cryptography.X509Certificates;
-using System.Net.Security;
 using PayPal;
 using PayPal.Manager;
 using PayPal.Api.Payments;
 
 namespace RestApiSDKUnitTest
 {
-    /// <summary>
-    ///This is a test class for CreditCardTest and is intended
-    ///to contain all CreditCardTest Unit Tests
-    ///</summary>
     [TestClass()]
     public class CreditCardTest
     {
-        private string ClientID
+        private string ClientId
         {
             get
             {
-                string clntID = ConfigManager.Instance.GetProperties()["ClientID"];
-                return clntID;
+                string Id = ConfigManager.Instance.GetProperties()["ClientID"];
+                return Id;
             }
         }
 
@@ -29,8 +22,8 @@ namespace RestApiSDKUnitTest
         {
             get
             {
-                string clntSecret = ConfigManager.Instance.GetProperties()["ClientSecret"];
-                return clntSecret;
+                string secret = ConfigManager.Instance.GetProperties()["ClientSecret"];
+                return secret;
             }
         }
 
@@ -38,10 +31,11 @@ namespace RestApiSDKUnitTest
         {
             get
             {
-                string tokenAccess = new OAuthTokenCredential(ClientID, ClientSecret).GetAccessToken();
-                return tokenAccess;
+                string token = new OAuthTokenCredential(ClientId, ClientSecret).GetAccessToken();
+                return token;
             }
         }
+
         private List<Links> GetLinkList()
         {
             Links lnk = new Links();
@@ -66,141 +60,110 @@ namespace RestApiSDKUnitTest
             return addrss;
         }
 
-        public CreditCard GetCreditCard()
+        private CreditCard GetCreditCard()
         {
-            CreditCard credCard = new CreditCard();
-            credCard.cvv2 = "962";
-            credCard.expire_month = 01;
-            credCard.expire_year = 2015;
-            credCard.first_name = "John";
-            credCard.last_name = "Doe";
-            credCard.number = "4825854086744369";
-            credCard.type = "visa";
-            credCard.state = "New York";
-            credCard.payer_id = "008";
-            credCard.id = "002";
-            credCard.billing_address = GetAddress();
-            return credCard;
+            CreditCard card = new CreditCard();
+            card.cvv2 = "962";
+            card.expire_month = 01;
+            card.expire_year = 2015;
+            card.first_name = "John";
+            card.last_name = "Doe";
+            card.number = "4825854086744369";
+            card.type = "visa";
+            card.state = "New York";
+            card.payer_id = "008";
+            card.id = "002";
+            card.billing_address = GetAddress();
+            return card;
         }
 
-        /// <summary>
-        ///A test for state
-        ///</summary>
         [TestMethod()]
-        public void stateTest()
+        public void StateTest()
         {
-            CreditCard target = GetCreditCard();
+            CreditCard card = GetCreditCard();
             string expected = "New York";
-            string actual = target.state;
+            string actual = card.state;
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for payer_id
-        ///</summary>
         [TestMethod()]
-        public void payer_idTest()
+        public void PayerIdTest()
         {
-            CreditCard target = GetCreditCard();
+            CreditCard card = GetCreditCard();
             string expected = "008";
-            string actual = target.payer_id;
+            string actual = card.payer_id;
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for number
-        ///</summary>
         [TestMethod()]
-        public void numberTest()
+        public void NumberTest()
         {
-            CreditCard target = GetCreditCard();
+            CreditCard card = GetCreditCard();
             string expected = "4825854086744369";
-            string actual = target.number;
+            string actual = card.number;
             Assert.AreEqual(expected, actual);
         }
 
-
-        /// <summary>
-        ///A test for last_name
-        ///</summary>
         [TestMethod()]
-        public void last_nameTest()
+        public void LastNameTest()
         {
-            CreditCard target = GetCreditCard();
+            CreditCard card = GetCreditCard();
             string expected = "Doe";
-            string actual = target.last_name;
+            string actual = card.last_name;
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for id
-        ///</summary>
         [TestMethod()]
-        public void idTest()
+        public void IdTest()
         {
-            CreditCard target = GetCreditCard();
+            CreditCard card = GetCreditCard();
             string expected = "002";
-            string actual = target.id;
+            string actual = card.id;
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for first_name
-        ///</summary>
         [TestMethod()]
-        public void first_nameTest()
+        public void FirstNameTest()
         {
-            CreditCard target = GetCreditCard();
+            CreditCard card = GetCreditCard();
             string expected = "John";
-            string actual = target.first_name;
+            string actual = card.first_name;
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for expire_year
-        ///</summary>
         [TestMethod()]
-        public void expire_yearTest()
+        public void ExpireYearTest()
         {
-            CreditCard target = GetCreditCard();
+            CreditCard card = GetCreditCard();
             int expected = 2015;
-            int actual = target.expire_year;
+            int actual = card.expire_year;
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for expire_month
-        ///</summary>
         [TestMethod()]
-        public void expire_monthTest()
+        public void ExpireMonthTest()
         {
-            CreditCard target = GetCreditCard();
+            CreditCard card = GetCreditCard();
             int expected = 01;
-            int actual = target.expire_month;
+            int actual = card.expire_month;
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for cvv2
-        ///</summary>
         [TestMethod()]
-        public void cvv2Test()
+        public void Cvv2Test()
         {
-            CreditCard target = GetCreditCard();
+            CreditCard card = GetCreditCard();
             string expected = "962";
-            string actual = target.cvv2;
+            string actual = card.cvv2;
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for billing_address
-        ///</summary>
         [TestMethod()]
-        public void billing_addressTest()
+        public void BillingAddressTest()
         {
-            CreditCard target = GetCreditCard();
+            CreditCard card = GetCreditCard();
             Address expected = GetAddress();
-            Address actual = target.billing_address;
+            Address actual = card.billing_address;
             Assert.AreEqual(expected.city, actual.city);
             Assert.AreEqual(expected.country_code, actual.country_code);
             Assert.AreEqual(expected.line1, actual.line1);
@@ -210,78 +173,53 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected.state, actual.state);
         }
 
-        /// <summary>
-        ///A test for ConvertToJson
-        ///</summary>
         [TestMethod()]        
         public void ConvertToJsonTest()
         {
-            CreditCard target = GetCreditCard();
-            string jsonString = target.ConvertToJson();
-            CreditCard credCard = JsonFormatter.ConvertFromJson<CreditCard>(jsonString);
-            Assert.IsNotNull(credCard);
+            CreditCard card = GetCreditCard();
+            string jsonString = card.ConvertToJson();
+            CreditCard credit = JsonFormatter.ConvertFromJson<CreditCard>(jsonString);
+            Assert.IsNotNull(credit);
         }
 
-        /// <summary>
-        ///A test for CreditCard Constructor
-        ///</summary>
         [TestMethod()]
-        public void CreditCardConstructorTest()
+        public void CreditCardObjectTest()
         {
-            CreditCard target = new CreditCard();
-            Assert.IsNotNull(target);
+            CreditCard card = new CreditCard();
+            Assert.IsNotNull(card);
         }
 
-        /// <summary>
-        ///A test for Create Credit Card
-        ///</summary>
         [TestMethod()]
         public void CreateCreditCardTest()
         {
-            CreditCard creditCard = GetCreditCard();
-            CreditCard createdCreditCard = creditCard.Create(AccessToken);
+            CreditCard card = GetCreditCard();
+            CreditCard createdCreditCard = card.Create(AccessToken);
             Assert.AreEqual("ok", createdCreditCard.state);
         }
 
-        /// <summary>
-        ///A test for Get CreditCard
-        ///</summary>
         [TestMethod()]
         public void GetCreditCardTest()
         {
-            CreditCard creditCard = GetCreditCard();
-            CreditCard createdCreditCard = creditCard.Create(AccessToken);
+            CreditCard card = GetCreditCard();
+            CreditCard createdCreditCard = card.Create(AccessToken);
             CreditCard retrievedCreditCard = CreditCard.Get(AccessToken, createdCreditCard.id);
             Assert.AreEqual(createdCreditCard.id, retrievedCreditCard.id);
         }
 
-        /// <summary>
-        ///A test for Delete CreditCard
-        ///</summary>
         [TestMethod()]
         public void DeleteCreditCardTest()
         {
-            CreditCard creditCard = GetCreditCard();
-            CreditCard createdCreditCard = creditCard.Create(AccessToken);
+            CreditCard card = GetCreditCard();
+            CreditCard createdCreditCard = card.Create(AccessToken);
             CreditCard retrievedCreditCard = CreditCard.Get(AccessToken, createdCreditCard.id);
             retrievedCreditCard.Delete(AccessToken);
         }
 
-        /// <summary>
-        ///A test for Get CreditCard for null Id
-        ///</summary>
         [TestMethod()]
+        [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: creditCardId cannot be null")]
         public void GetCreditCardForNullIdTest()
         {
-            try
-            {
-                CreditCard retrievedCreditCard = CreditCard.Get(AccessToken, null);
-            }
-            catch (System.ArgumentNullException exe)
-            {
-                Assert.IsNotNull(exe);
-            }
+            CreditCard retrievedCreditCard = CreditCard.Get(AccessToken, null);
         }
-
     }
 }

@@ -8,46 +8,8 @@ using PayPal.Api.Payments;
 namespace RestApiSDKUnitTest
 {
     [TestClass]
-    public class TransactionTest
+    public class RelatedResourcesTest
     {
-        private Payee CreatePayee()
-        {
-            Payee pay = new Payee();
-            pay.merchant_id = "100";
-            pay.email = "paypaluser@email.com";
-            pay.phone = "716-298-1822";
-            return pay;
-        }
-
-        private Item CreateItem()
-        {
-            Item item = new Item();
-            item.name = "Item Name";
-            item.currency = "USD";
-            item.price = "10.50";
-            item.quantity = "5";
-            item.sku = "Sku";
-            return item;
-        }
-
-        private ShippingAddress CreateShippingAddress()
-        {
-            ShippingAddress shipping = new ShippingAddress();
-            shipping.recipient_name = "PayPalUser";
-            return shipping;
-        }
-
-        private ItemList CreateItemList()
-        {
-            List<Item> items = new List<Item>();
-            items.Add(CreateItem());
-            items.Add(CreateItem());
-            ItemList itemList = new ItemList();
-            itemList.items = items;
-            itemList.shipping_address = CreateShippingAddress();
-            return itemList;
-        }
-
         private Details GetDetails()
         {
             Details detail = new Details();
@@ -143,41 +105,36 @@ namespace RestApiSDKUnitTest
 
         private RelatedResources CreateRelatedResources()
         {
-            RelatedResources resources = new RelatedResources();
+		    RelatedResources resources = new RelatedResources();
             resources.authorization = GetAuthorization();
             resources.capture = GetCapture();
             resources.refund = CreateRefund();
             resources.sale = CreateSale();
             return resources;
-        }
+	    }
 
-
-        private Transaction CreateTransaction()
+	    [TestMethod()]
+	    public void testConstruction() 
         {
-            ItemList itemList = CreateItemList();
-            List<RelatedResources> relResources = new List<RelatedResources>();
-            relResources.Add(CreateRelatedResources());
-            Transaction tran = new Transaction();
-            tran.amount = GetAmount();
-            tran.payee = CreatePayee();
-            tran.description = "Test Description";
-            tran.item_list = itemList;
-            tran.related_resources = relResources;
-            return tran;
-        }
+            RelatedResources resources = CreateRelatedResources();
+            Assert.AreEqual(resources.authorization.id, GetAuthorization().id);
+            Assert.AreEqual(resources.sale.id, CreateSale().id);
+            Assert.AreEqual(resources.refund.id, CreateRefund().id);
+            Assert.AreEqual(resources.capture.id, GetCapture().id);
+	    }
+
+	    [TestMethod()]
+        public void ConvertToJsonTest() 
+        {
+		    RelatedResources resources = CreateRelatedResources();
+            Assert.IsFalse(resources.ConvertToJson().Length == 0);
+	    }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void ToStringTest() 
         {
-            Transaction trans = CreateTransaction();
-            Assert.IsFalse(trans.ConvertToJson().Length == 0);
-        }
-
-        [TestMethod()]
-        public void ToStringTest()
-        {
-            Transaction trans = CreateTransaction();
-            Assert.IsFalse(trans.ToString().Length == 0);
-        }
+            RelatedResources resources = CreateRelatedResources();
+            Assert.IsFalse(resources.ToString().Length == 0);
+	    }    
     }
 }

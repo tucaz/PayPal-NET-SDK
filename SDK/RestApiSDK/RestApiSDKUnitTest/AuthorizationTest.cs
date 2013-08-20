@@ -6,19 +6,15 @@ using PayPal;
 
 namespace RestApiSDKUnitTest
 {
-    /// <summary>
-    ///This is a test class for AuthorizationTest and is intended
-    ///to contain all AuthorizationTest Unit Tests
-    ///</summary>
     [TestClass()]
     public class AuthorizationTest
     {
-        private string ClientID
+        private string ClientId
         {
             get
             {
-                string clntID = PayPal.Manager.ConfigManager.Instance.GetProperties()["ClientID"];
-                return clntID;
+                string Id = PayPal.Manager.ConfigManager.Instance.GetProperties()["ClientID"];
+                return Id;
             }
         }
 
@@ -26,8 +22,8 @@ namespace RestApiSDKUnitTest
         {
             get
             {
-                string clntSecret = ConfigManager.Instance.GetProperties()["ClientSecret"];
-                return clntSecret;
+                string secret = ConfigManager.Instance.GetProperties()["ClientSecret"];
+                return secret;
             }
         }
 
@@ -35,8 +31,8 @@ namespace RestApiSDKUnitTest
         {
             get
             {
-                string tokenAccess = new OAuthTokenCredential(ClientID, ClientSecret).GetAccessToken();
-                return tokenAccess;
+                string token = new OAuthTokenCredential(ClientId, ClientSecret).GetAccessToken();
+                return token;
             }
         }
 
@@ -82,210 +78,25 @@ namespace RestApiSDKUnitTest
             return author;
         }
 
-        /// <summary>
-        ///A test for state
-        ///</summary>
-        [TestMethod()]
-        public void StateTest()
+        private Payment GetPayment()
         {
-            Authorization target = GetAuthorization();
-            string expected = "Authorized";
-            string actual;
-            target.state = expected;
-            actual = target.state;
-            Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
-        ///A test for parent_payment
-        ///</summary>
-        [TestMethod()]
-        public void ParentPaymentTest()
-        {
-            Authorization target = GetAuthorization();
-            string expected = "1000";
-            string actual = target.parent_payment;
-            Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
-        ///A test for links
-        ///</summary>
-        [TestMethod()]
-        public void LinksTest()
-        {
-            Authorization target = GetAuthorization();
-            List<Links> expected = GetLinksList();
-            List<Links> actual = target.links;
-            Assert.AreEqual(expected.Capacity, actual.Capacity);
-            Assert.AreEqual(expected.Count, actual.Count);
-
-        }
-
-        /// <summary>
-        ///A test for id
-        ///</summary>
-        [TestMethod()]
-        public void IdTest()
-        {
-            Authorization target = GetAuthorization();
-            string expected = "007";
-            string actual = target.id;
-            Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
-        ///A test for create_time
-        ///</summary>
-        [TestMethod()]
-        public void CreateTimeTest()
-        {
-            Authorization target = GetAuthorization();
-            string expected = "2013-01-15T15:10:05.123Z";
-            string actual = target.create_time;
-            Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
-        ///A test for amount
-        ///</summary>
-        [TestMethod()]
-        public void AmountTest()
-        {
-            Authorization target = GetAuthorization();
-            Amount expected = GetAmount();
-            Amount actual = target.amount;
-            Assert.AreEqual(expected.currency, actual.currency);
-            Assert.AreEqual(expected.details.fee, actual.details.fee);
-            Assert.AreEqual(expected.details.shipping, actual.details.shipping);
-            Assert.AreEqual(expected.details.subtotal, actual.details.subtotal);
-            Assert.AreEqual(expected.details.tax, actual.details.tax);
-            Assert.AreEqual(expected.total, actual.total);
-        }
-
-        /// <summary>
-        ///A test for ConvertToJson
-        ///</summary>
-        [TestMethod()]
-        public void ConvertToJsonTest()
-        {
-            Authorization target = GetAuthorization();
-            Assert.AreEqual("007", target.id);
-            Assert.AreEqual("Authorized", target.state);
-            Assert.AreEqual("100", target.amount.total);
-            Assert.AreEqual("USD", target.amount.currency);
-            Assert.AreEqual("75", target.amount.details.subtotal);
-            Assert.AreEqual("15", target.amount.details.tax);
-            Assert.AreEqual("10", target.amount.details.shipping);
-        }
-
-        /// <summary>
-        ///A test for Authorization Constructor
-        ///</summary>
-        [TestMethod()]
-        public void AuthorizationConstructorTest()
-        {
-            Authorization target = new Authorization();
-            Assert.IsNotNull(target);
-        }
-
-        /// <summary>
-        ///A test for Get Authorization
-        ///</summary>
-        [TestMethod()]
-        public void GetAuthorizationTest()
-        {
-            Payment payment = GetPaymentObject(AccessToken);
-            string authorizationId = payment.transactions[0].related_resources[0].authorization.id;
-            Authorization authorization = Authorization.Get(AccessToken, authorizationId);
-            Assert.AreEqual(authorizationId, authorization.id);
-        }
-
-        /// <summary>
-        ///A test for Authorization Capture
-        ///</summary>
-        [TestMethod()]
-        public void AuthorizationCaptureTest()
-        {
-            Payment payment = GetPaymentObject(AccessToken);
-            string authorizationId = payment.transactions[0].related_resources[0].authorization.id;
-            Authorization authorization = Authorization.Get(AccessToken, authorizationId);
-            Capture capture = new Capture();
-            Amount amount = new Amount();
-            amount.total = "1";
-            amount.currency = "USD";
-            capture.amount = amount;
-            Capture response = authorization.Capture(AccessToken, capture);
-            Assert.AreEqual("completed", response.state);
-        }
-
-        /// <summary>
-        ///A test for Authorization Void
-        ///</summary>
-        [TestMethod()]
-        public void AuthorizationVoidTest()
-        {
-            Payment payment = GetPaymentObject(AccessToken);
-            string authorizationId = payment.transactions[0].related_resources[0].authorization.id;
-            Authorization authorization = Authorization.Get(AccessToken, authorizationId);
-            Authorization response = authorization.Void(AccessToken);
-            Assert.AreEqual("voided", response.state);
-        }
-
-        /// <summary>
-        ///A test for Get Authorization null Id
-        ///</summary>
-        [TestMethod()]
-        public void GetAuthorizationForNullTokenTest()
-        {
-            Payment payment = GetPaymentObject(AccessToken);
-            string authorizationId = payment.transactions[0].related_resources[0].authorization.id;
-            try
-            {
-                Authorization authorization = Authorization.Get((string) null, authorizationId);
-            }
-            catch (System.ArgumentNullException exe)
-            {
-                Assert.IsNotNull(exe);
-            }
-        }
-
-        /// <summary>
-        ///A test for Get Authorization for null Id
-        ///</summary>
-        [TestMethod()]
-        public void GetAuthorizationForNullIdTest()
-        {
-            string authorizationId = null;
-            try
-            {
-                Authorization authorization = Authorization.Get(AccessToken, authorizationId);
-            }
-            catch (System.ArgumentNullException exe)
-            {
-                Assert.IsNotNull(exe);
-            }
-        }
-
-        private Payment GetPaymentObject(string accessToken)
-        {
-            Payment target = new Payment();
-            target.intent = "authorize";
-            CreditCard creditCard = GetCreditCard();
-            List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
-            FundingInstrument fundingInstrument = new FundingInstrument();
-            fundingInstrument.credit_card = creditCard;
-            fundingInstruments.Add(fundingInstrument);
-            Payer payer = new Payer();
-            payer.payment_method = "credit_card";
-            payer.funding_instruments = fundingInstruments;
+            Payment pay = new Payment();
+            pay.intent = "authorize";
+            CreditCard card = GetCreditCard();
+            List<FundingInstrument> instruments = new List<FundingInstrument>();
+            FundingInstrument instrument = new FundingInstrument();
+            instrument.credit_card = card;
+            instruments.Add(instrument);
+            Payer payr = new Payer();
+            payr.payment_method = "credit_card";
+            payr.funding_instruments = instruments;
             List<Transaction> transacts = new List<Transaction>();
             Transaction trans = new Transaction();
             trans.amount = GetAmount();
             transacts.Add(trans);
-            target.transactions = transacts;
-            target.payer = payer;
-            Payment actual = target.Create(accessToken);
+            pay.transactions = transacts;
+            pay.payer = payr;
+            Payment actual = pay.Create(AccessToken);
             return actual;
         }
 
@@ -302,23 +113,148 @@ namespace RestApiSDKUnitTest
             return addrss;
         }
 
-        public CreditCard GetCreditCard()
+        private CreditCard GetCreditCard()
         {
-            CreditCard credCard = new CreditCard();
-            credCard.cvv2 = "962";
-            credCard.expire_month = 01;
-            credCard.expire_year = 2015;
-            credCard.first_name = "John";
-            credCard.last_name = "Doe";
-            credCard.number = "4825854086744369";
-            credCard.type = "visa";
-            credCard.state = "New York";
-            credCard.payer_id = "008";
-            credCard.id = "002";
-            credCard.billing_address = GetAddress();
-            return credCard;
+            CreditCard card = new CreditCard();
+            card.cvv2 = "962";
+            card.expire_month = 01;
+            card.expire_year = 2015;
+            card.first_name = "John";
+            card.last_name = "Doe";
+            card.number = "4825854086744369";
+            card.type = "visa";
+            card.state = "New York";
+            card.payer_id = "008";
+            card.id = "002";
+            card.billing_address = GetAddress();
+            return card;
+        }        
+
+        [TestMethod()]
+        public void StateTest()
+        {
+            Authorization target = GetAuthorization();
+            string expected = "Authorized";
+            string actual;
+            target.state = expected;
+            actual = target.state;
+            Assert.AreEqual(expected, actual);
         }
 
-        
+        [TestMethod()]
+        public void ParentPaymentTest()
+        {
+            Authorization target = GetAuthorization();
+            string expected = "1000";
+            string actual = target.parent_payment;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void LinksTest()
+        {
+            Authorization target = GetAuthorization();
+            List<Links> expected = GetLinksList();
+            List<Links> actual = target.links;
+            Assert.AreEqual(expected.Capacity, actual.Capacity);
+            Assert.AreEqual(expected.Count, actual.Count);
+        }
+
+        [TestMethod()]
+        public void IdTest()
+        {
+            Authorization target = GetAuthorization();
+            string expected = "007";
+            string actual = target.id;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void CreateTimeTest()
+        {
+            Authorization target = GetAuthorization();
+            string expected = "2013-01-15T15:10:05.123Z";
+            string actual = target.create_time;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void AmountTest()
+        {
+            Authorization authorize = GetAuthorization();
+            Amount expected = GetAmount();
+            Amount actual = authorize.amount;
+            Assert.AreEqual(expected.currency, actual.currency);
+            Assert.AreEqual(expected.details.fee, actual.details.fee);
+            Assert.AreEqual(expected.details.shipping, actual.details.shipping);
+            Assert.AreEqual(expected.details.subtotal, actual.details.subtotal);
+            Assert.AreEqual(expected.details.tax, actual.details.tax);
+            Assert.AreEqual(expected.total, actual.total);
+        }
+
+        [TestMethod()]
+        public void ConvertToJsonTest()
+        {
+            Authorization authorize = GetAuthorization();
+            Assert.IsFalse(authorize.ConvertToJson().Length == 0);
+        }
+
+        [TestMethod()]
+        public void ToStringTest()
+        {
+            Authorization authorize = GetAuthorization();
+            Assert.IsFalse(authorize.ToString().Length == 0);
+        }
+
+        [TestMethod()]
+        public void AuthorizationGetTest()
+        {
+            Payment payment = GetPayment();
+            string authorizationId = payment.transactions[0].related_resources[0].authorization.id;
+            Authorization authorization = Authorization.Get(AccessToken, authorizationId);
+            Assert.AreEqual(authorizationId, authorization.id);
+        }
+
+        [TestMethod()]
+        public void AuthorizationCaptureTest()
+        {
+            Payment pay = GetPayment();
+            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+            Authorization authorize = Authorization.Get(AccessToken, authorizationId);
+            Capture cap = new Capture();
+            Amount amount = new Amount();
+            amount.total = "1";
+            amount.currency = "USD";
+            cap.amount = amount;
+            Capture response = authorize.Capture(AccessToken, cap);
+            Assert.AreEqual("completed", response.state);
+        }
+
+        [TestMethod()]
+        public void AuthorizationVoidTest()
+        {
+            Payment pay = GetPayment();
+            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+            Authorization authorize = Authorization.Get(AccessToken, authorizationId);
+            Authorization authorizationResponse = authorize.Void(AccessToken);
+            Assert.AreEqual("voided", authorizationResponse.state);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: AccessToken cannot be null")]
+        public void GetAuthorizationForNullTokenTest()
+        {
+            Payment pay = GetPayment();
+            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;            
+            Authorization authorization = Authorization.Get((string) null, authorizationId);            
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: AccessToken cannot be null")]
+        public void GetAuthorizationForNullIdTest()
+        {
+            string authorizationId = null;
+            Authorization authorization = Authorization.Get(AccessToken, authorizationId);
+        }
     }
 }

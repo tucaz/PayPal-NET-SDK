@@ -1,26 +1,19 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api.Payments;
 using PayPal.Manager;
 using PayPal;
 
 namespace RestApiSDKUnitTest
 {
-    /// <summary>
-    /// Summary description for ReauthorizationTest
-    /// </summary>
     [TestClass]
     public class ReauthorizationTest
     {  
-        private string ClientID
+        private string ClientId
         {
             get
             {
-                string clntID = PayPal.Manager.ConfigManager.Instance.GetProperties()["ClientID"];
-                return clntID;
+                string Id = PayPal.Manager.ConfigManager.Instance.GetProperties()["ClientID"];
+                return Id;
             }
         }
 
@@ -28,8 +21,8 @@ namespace RestApiSDKUnitTest
         {
             get
             {
-                string clntSecret = ConfigManager.Instance.GetProperties()["ClientSecret"];
-                return clntSecret;
+                string secret = ConfigManager.Instance.GetProperties()["ClientSecret"];
+                return secret;
             }
         }
 
@@ -37,8 +30,8 @@ namespace RestApiSDKUnitTest
         {
             get
             {
-                string tokenAccess = new OAuthTokenCredential(ClientID, ClientSecret).GetAccessToken();
-                return tokenAccess;
+                string token = new OAuthTokenCredential(ClientId, ClientSecret).GetAccessToken();
+                return token;
             }
         }
 

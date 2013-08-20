@@ -3,21 +3,17 @@ using PayPal.Api.Payments;
 
 namespace RestApiSDKUnitTest
 {
-    /// <summary>
-    ///This is a test class for AmountTest and is intended
-    ///to contain all AmountTest Unit Tests
-    ///</summary>
     [TestClass()]
     public class AmountTest
     {
         private Details GetDetails()
         {
-            Details amntDetails = new Details();
-            amntDetails.tax = "15";
-            amntDetails.fee = "2";
-            amntDetails.shipping = "10";
-            amntDetails.subtotal = "75";
-            return amntDetails;
+            Details detail = new Details();
+            detail.tax = "15";
+            detail.fee = "2";
+            detail.shipping = "10";
+            detail.subtotal = "75";
+            return detail;
         }
 
         private Amount GetAmount()
@@ -29,9 +25,6 @@ namespace RestApiSDKUnitTest
             return amnt;
         }
 
-        /// <summary>
-        ///A test for total
-        ///</summary>
         [TestMethod()]
         public void TotalTest()
         {
@@ -41,9 +34,6 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for details
-        ///</summary>
         [TestMethod()]
         public void DetailsTest()
         {
@@ -56,9 +46,6 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected.subtotal, actual.subtotal);
         }
 
-        /// <summary>
-        ///A test for currency
-        ///</summary>
         [TestMethod()]
         public void CurrencyTest()
         {
@@ -68,9 +55,6 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        /// <summary>
-        ///A test for ConvertToJson
-        ///</summary>
         [TestMethod()]
         public void ConvertToJsonTest()
         {
@@ -80,16 +64,14 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual("75", target.details.subtotal);
             Assert.AreEqual("10", target.details.shipping);
             Assert.AreEqual("15", target.details.tax);
+            Assert.IsFalse(target.ConvertToJson().Length == 0);
         }
-
-        /// <summary>
-        ///A test for Amount Constructor
-        ///</summary>
+        
         [TestMethod()]
-        public void AmountConstructorTest()
+        public void ToStringTest()
         {
-            Amount target = new Amount();
-            Assert.IsNotNull(target);
+            Amount amt = GetAmount();
+            Assert.IsFalse(amt.ToString().Length == 0);
         }
     }
 }
