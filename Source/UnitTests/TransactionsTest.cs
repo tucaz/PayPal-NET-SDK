@@ -33,7 +33,7 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void TransactionsObjectTest()
+        public void TestTransactions()
         {
             Transactions transaction = CreateTransactions();
             Assert.AreEqual(transaction.amount.currency, "USD");

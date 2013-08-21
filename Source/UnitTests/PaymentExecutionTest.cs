@@ -26,38 +26,38 @@ namespace RestApiSDKUnitTest
             return amnt;
         }
 
-        private Transactions CreateTransactions()
+        private Transactions GetTransactions()
         {
-            Transactions transactions = new Transactions();
-            transactions.amount = GetAmount();
-            return transactions;
+            Transactions transaction = new Transactions();
+            transaction.amount = GetAmount();
+            return transaction;
         }
 
-        private ShippingAddress CreateShippingAddress()
+        private ShippingAddress GetShippingAddress()
         {
             ShippingAddress shipping = new ShippingAddress();
             shipping.recipient_name = "PayPalUser";
             return shipping;
         }
 
-        private PayerInfo CreatePayerInfo()
+        private PayerInfo GetPayerInfo()
         {
-            PayerInfo payerInfo = new PayerInfo();
-            payerInfo.first_name = "Joe";
-            payerInfo.last_name = "Shopper";
-            payerInfo.email = "Joe.Shopper@email.com";
-            payerInfo.payer_id = "100";
-            payerInfo.phone = "12345";
-            payerInfo.shipping_address = CreateShippingAddress();
-            return payerInfo;
+            PayerInfo info = new PayerInfo();
+            info.first_name = "Joe";
+            info.last_name = "Shopper";
+            info.email = "Joe.Shopper@email.com";
+            info.payer_id = "100";
+            info.phone = "12345";
+            info.shipping_address = GetShippingAddress();
+            return info;
         }
 
-        private PaymentExecution CreatePaymentExecution()
+        private PaymentExecution GetPaymentExecution()
         {
             List<Transactions> transactions = new List<Transactions>();
-            transactions.Add(CreateTransactions());
+            transactions.Add(GetTransactions());
             PaymentExecution execution = new PaymentExecution();
-            execution.payer_id = CreatePayerInfo().payer_id;
+            execution.payer_id = GetPayerInfo().payer_id;
             execution.transactions = transactions;
             return execution;
         }
@@ -65,21 +65,21 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void TestPaymentExecution()
         {
-            PaymentExecution execution = CreatePaymentExecution();
+            PaymentExecution execution = GetPaymentExecution();
             Assert.AreEqual(execution.payer_id, "100");
         }
 
         [TestMethod()]
         public void ConvertToJsonTest()
         {
-            PaymentExecution execution = CreatePaymentExecution();
+            PaymentExecution execution = GetPaymentExecution();
             Assert.IsFalse(execution.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
-            PaymentExecution execution = CreatePaymentExecution();
+            PaymentExecution execution = GetPaymentExecution();
             Assert.IsFalse(execution.ToString().Length == 0);
         }
     }

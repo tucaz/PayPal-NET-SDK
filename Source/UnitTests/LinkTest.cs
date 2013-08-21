@@ -6,7 +6,7 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class LinksTest
     {
-        private Links CreateLinks()
+        private Links GetLinks()
         {
             Links link = new Links();
             link.href = "http://paypal.com/";
@@ -18,7 +18,7 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void LinksObjectTest()
         {
-            Links link = CreateLinks();
+            Links link = GetLinks();
             Assert.AreEqual(link.href, "http://paypal.com/");
             Assert.AreEqual(link.method, "GET");
             Assert.AreEqual(link.rel, "authorize");
@@ -27,14 +27,14 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void ConvertToJsonTest()
         {
-            Links link = CreateLinks();
+            Links link = GetLinks();
             Assert.IsFalse(link.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
-            Links link = CreateLinks();
+            Links link = GetLinks();
             Assert.IsFalse(link.ToString().Length == 0);
         } 
     }

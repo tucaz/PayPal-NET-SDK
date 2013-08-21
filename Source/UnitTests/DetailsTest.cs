@@ -17,57 +17,27 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void TaxTest()
+        public void TestDetails()
         {
-            Details target = GetDetails();
-            string expected = "15";
-            string actual = target.tax;
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod()]
-        public void SubtotalTest()
-        {
-            Details target = GetDetails();
-            string expected = "75";
-            string actual = target.subtotal;
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod()]
-        public void ShippingTest()
-        {
-            Details target = GetDetails();
-            string expected = "10";
-            string actual = target.shipping;
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod()]
-        public void FeeTest()
-        {
-            Details target = GetDetails();
-            string expected = "2";
-            string actual = target.fee;
-            Assert.AreEqual(expected, actual);
+            Details detail = GetDetails();
+            Assert.AreEqual("75", detail.subtotal);
+            Assert.AreEqual("15", detail.tax);
+            Assert.AreEqual("10", detail.shipping);
+            Assert.AreEqual("2", detail.fee);
         }
 
         [TestMethod()]
         public void ConvertToJsonTest()
         {
-            Details target = GetDetails();
-            Assert.AreEqual("75", target.subtotal);
-            Assert.AreEqual("15", target.tax);
-            Assert.AreEqual("10", target.shipping);
-            Assert.AreEqual("2", target.fee);
-            Assert.IsFalse(target.ToString().Length == 0);
+            Details detail = GetDetails();
+            Assert.IsFalse(detail.ToString().Length == 0);
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
-            Details target = GetDetails();
-            Assert.IsFalse(target.ToString().Length == 0);
+            Details detail = GetDetails();
+            Assert.IsFalse(detail.ToString().Length == 0);
         }
     }
 }

@@ -114,7 +114,7 @@ namespace RestApiSDKUnitTest
 	    }
 
 	    [TestMethod()]
-	    public void testConstruction() 
+        public void TestRelatedResources() 
         {
             RelatedResources resources = CreateRelatedResources();
             Assert.AreEqual(resources.authorization.id, GetAuthorization().id);

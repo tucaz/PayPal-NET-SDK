@@ -54,86 +54,85 @@ namespace RestApiSDKUnitTest
             transacts.Add(trans);
             target.transactions = transacts;
             target.payer = payer;
-            Payment actual = target.Create(AccessToken);
-            return actual;
+            return target.Create(AccessToken);
         }
 
         private Address GetAddress()
         {
-            Address addrss = new Address();
-            addrss.line1 = "2211";
-            addrss.line2 = "N 1st St";
-            addrss.city = "San Jose";
-            addrss.phone = "408-456-0392";
-            addrss.postal_code = "95131";
-            addrss.state = "California";
-            addrss.country_code = "US";
-            return addrss;
+            Address add = new Address();
+            add.line1 = "2211";
+            add.line2 = "N 1st St";
+            add.city = "San Jose";
+            add.phone = "408-456-0392";
+            add.postal_code = "95131";
+            add.state = "California";
+            add.country_code = "US";
+            return add;
         }
 
         private CreditCard GetCreditCard()
         {
-            CreditCard credCard = new CreditCard();
-            credCard.cvv2 = "962";
-            credCard.expire_month = 01;
-            credCard.expire_year = 2015;
-            credCard.first_name = "John";
-            credCard.last_name = "Doe";
-            credCard.number = "4825854086744369";
-            credCard.type = "visa";
-            credCard.state = "New York";
-            credCard.payer_id = "008";
-            credCard.id = "002";
-            credCard.billing_address = GetAddress();
-            return credCard;
+            CreditCard card = new CreditCard();
+            card.cvv2 = "962";
+            card.expire_month = 01;
+            card.expire_year = 2015;
+            card.first_name = "John";
+            card.last_name = "Doe";
+            card.number = "4825854086744369";
+            card.type = "visa";
+            card.state = "New York";
+            card.payer_id = "008";
+            card.id = "002";
+            card.billing_address = GetAddress();
+            return card;
         }
 
         private Details GetDetails()
         {
-            Details amntDetails = new Details();
-            amntDetails.tax = "15";
-            amntDetails.fee = "2";
-            amntDetails.shipping = "10";
-            amntDetails.subtotal = "75";
-            return amntDetails;
+            Details detail = new Details();
+            detail.tax = "15";
+            detail.fee = "2";
+            detail.shipping = "10";
+            detail.subtotal = "75";
+            return detail;
         }
 
         private Amount GetAmount()
         {
-            Amount amnt = new Amount();
-            amnt.currency = "USD";
-            amnt.details = GetDetails();
-            amnt.total = "100";
-            return amnt;
+            Amount amt = new Amount();
+            amt.currency = "USD";
+            amt.details = GetDetails();
+            amt.total = "100";
+            return amt;
         }                
 
         [TestMethod()]
-        public void GetRefundTest()
+        public void RefundIdTest()
         {
-            Payment payment = GetPayment();
-            string authorizationId = payment.transactions[0].related_resources[0].authorization.id;
+            Payment pay = GetPayment();
+            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
             Authorization authorization = Authorization.Get(AccessToken, authorizationId);
-            Capture capture = new Capture();
-            Amount amount = new Amount();
-            amount.total = "1";
-            amount.currency = "USD";
-            capture.amount = amount;
-            Capture response = authorization.Capture(AccessToken, capture);
-            Refund refund = new Refund();
-            Amount rAmount = new Amount();
-            rAmount.total = "1";
-            rAmount.currency = "USD";
-            refund.amount = rAmount;
-            Refund responseRefund = response.Refund(AccessToken, refund);
+            Capture cap = new Capture();
+            Amount amt = new Amount();
+            amt.total = "1";
+            amt.currency = "USD";
+            cap.amount = amt;
+            Capture response = authorization.Capture(AccessToken, cap);
+            Refund fund = new Refund();
+            Amount refundAmount = new Amount();
+            refundAmount.total = "1";
+            refundAmount.currency = "USD";
+            fund.amount = refundAmount;
+            Refund responseRefund = response.Refund(AccessToken, fund);
             Refund retrievedRefund = Refund.Get(AccessToken, responseRefund.id);
             Assert.AreEqual(responseRefund.id, retrievedRefund.id);
         }
 
         [TestMethod()]
         [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: refundId cannot be null")]
-        public void GetRefundNullIdTest()
+        public void RefundGetNullRefundIdTest()
         {
-            Refund retrievedRefund = Refund.Get(AccessToken, null);
+            Refund fund = Refund.Get(AccessToken, null);
         }
     }
 }

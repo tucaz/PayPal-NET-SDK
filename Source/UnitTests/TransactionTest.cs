@@ -154,14 +154,14 @@ namespace RestApiSDKUnitTest
 
         private Transaction CreateTransaction()
         {
-            ItemList itemList = CreateItemList();
+            ItemList items = CreateItemList();
             List<RelatedResources> relResources = new List<RelatedResources>();
             relResources.Add(CreateRelatedResources());
             Transaction tran = new Transaction();
             tran.amount = GetAmount();
             tran.payee = CreatePayee();
             tran.description = "Test Description";
-            tran.item_list = itemList;
+            tran.item_list = items;
             tran.related_resources = relResources;
             return tran;
         }

@@ -38,34 +38,34 @@ namespace RestApiSDKUnitTest
 
         private Details GetDetails()
         {
-            Details amntDetails = new Details();
-            amntDetails.tax = "15";
-            amntDetails.fee = "2";
-            amntDetails.shipping = "10";
-            amntDetails.subtotal = "75";
-            return amntDetails;
+            Details detail = new Details();
+            detail.tax = "15";
+            detail.fee = "2";
+            detail.shipping = "10";
+            detail.subtotal = "75";
+            return detail;
         }
 
         private Amount GetAmount()
         {
-            Amount amnt = new Amount();
-            amnt.currency = "USD";
-            amnt.details = GetDetails();
-            amnt.total = "100";
-            return amnt;
+            Amount amt = new Amount();
+            amt.currency = "USD";
+            amt.details = GetDetails();
+            amt.total = "100";
+            return amt;
         }
 
         private Address GetAddress()
         {
-            Address addrss = new Address();
-            addrss.line1 = "2211";
-            addrss.line2 = "N 1st St";
-            addrss.city = "San Jose";
-            addrss.phone = "408-456-0392";
-            addrss.postal_code = "95131";
-            addrss.state = "California";
-            addrss.country_code = "US";
-            return addrss;
+            Address add = new Address();
+            add.line1 = "2211";
+            add.line2 = "N 1st St";
+            add.city = "San Jose";
+            add.phone = "408-456-0392";
+            add.postal_code = "95131";
+            add.state = "California";
+            add.country_code = "US";
+            return add;
         }
 
         private CreditCard GetCreditCard()
@@ -106,21 +106,21 @@ namespace RestApiSDKUnitTest
             return pay.Create(AccessToken);
         }
 
-        private PaymentHistory CreatePaymentHistory()
+        private PaymentHistory GetPaymentHistory()
         {
-            List<Payment> payments = new List<Payment>();
-            payments.Add(CreatePayment());
+            List<Payment> paymentList = new List<Payment>();
+            paymentList.Add(CreatePayment());
             PaymentHistory history = new PaymentHistory();
             history.count = 1;
-            history.payments = payments;
+            history.payments = paymentList;
             history.next_id = "1";
             return history;
         }
 
         [TestMethod()]
-        public void PaymentHistoryObjectTest()
+        public void TestPaymentHistory()
         {
-            PaymentHistory history = CreatePaymentHistory();
+            PaymentHistory history = GetPaymentHistory();
             Assert.AreEqual(history.count, 1);
             Assert.AreEqual(history.next_id, "1");
             Assert.AreEqual(history.payments.Count, 1);
@@ -129,14 +129,14 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void ConvertToJsonTest()
         {
-            PaymentHistory history = CreatePaymentHistory();
+            PaymentHistory history = GetPaymentHistory();
             Assert.IsFalse(history.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
-            PaymentHistory history = CreatePaymentHistory();
+            PaymentHistory history = GetPaymentHistory();
             Assert.IsFalse(history.ToString().Length == 0);
         }
     }

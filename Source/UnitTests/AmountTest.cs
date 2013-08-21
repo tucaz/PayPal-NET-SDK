@@ -18,25 +18,24 @@ namespace RestApiSDKUnitTest
 
         private Amount GetAmount()
         {
-            Amount amnt = new Amount();
-            amnt.currency = "USD";
-            amnt.total = "100";
-            amnt.details = GetDetails();            
-            return amnt;
+            Amount amt = new Amount();
+            amt.currency = "USD";
+            amt.total = "100";
+            amt.details = GetDetails();            
+            return amt;
         }
-
-
+        
         [TestMethod()]
-        public void AmountObjectTest()
+        public void TestAmount()
         {
-            Amount target = GetAmount();            
-            Assert.AreEqual("USD", target.currency);
-            Assert.AreEqual("100", target.total);
-            Assert.AreEqual("75", target.details.subtotal);
-            Assert.AreEqual("15", target.details.tax);
-            Assert.AreEqual("2", target.details.fee);
-            Assert.AreEqual("10", target.details.shipping);
-            Assert.AreEqual("75", target.details.subtotal);
+            Amount amt = GetAmount();            
+            Assert.AreEqual("USD", amt.currency);
+            Assert.AreEqual("100", amt.total);
+            Assert.AreEqual("75", amt.details.subtotal);
+            Assert.AreEqual("15", amt.details.tax);
+            Assert.AreEqual("2", amt.details.fee);
+            Assert.AreEqual("10", amt.details.shipping);
+            Assert.AreEqual("75", amt.details.subtotal);
         }
 
         [TestMethod()]

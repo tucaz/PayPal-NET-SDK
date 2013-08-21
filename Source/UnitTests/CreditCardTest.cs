@@ -37,15 +37,15 @@ namespace RestApiSDKUnitTest
 
         private Address GetAddress()
         {
-            Address addrss = new Address();
-            addrss.line1 = "2211";
-            addrss.line2 = "N 1st St";
-            addrss.city = "San Jose";
-            addrss.phone = "408-456-0392";
-            addrss.postal_code = "95131";
-            addrss.state = "California";
-            addrss.country_code = "US";
-            return addrss;
+            Address add = new Address();
+            add.line1 = "2211";
+            add.line2 = "N 1st St";
+            add.city = "San Jose";
+            add.phone = "408-456-0392";
+            add.postal_code = "95131";
+            add.state = "California";
+            add.country_code = "US";
+            return add;
         }
 
         private CreditCard GetCreditCard()
@@ -66,9 +66,10 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void CreditCardObjectTest()
+        public void TestCreditCard()
         {
             CreditCard card = GetCreditCard();
+            Address add = GetAddress();
             Assert.AreEqual(card.number, "4825854086744369");
             Assert.AreEqual(card.id, "002");
             Assert.AreEqual(card.first_name, "John");
@@ -78,13 +79,13 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(card.cvv2, "962");
             Assert.AreEqual(card.payer_id, "008");
             Assert.AreEqual(card.state, "New York");
-            Assert.AreEqual(GetAddress().city, card.billing_address.city);
-            Assert.AreEqual(GetAddress().country_code, card.billing_address.country_code);
-            Assert.AreEqual(GetAddress().line1, card.billing_address.line1);
-            Assert.AreEqual(GetAddress().line2, card.billing_address.line2);
-            Assert.AreEqual(GetAddress().phone, card.billing_address.phone);
-            Assert.AreEqual(GetAddress().postal_code, card.billing_address.postal_code);
-            Assert.AreEqual(GetAddress().state, card.billing_address.state);
+            Assert.AreEqual(add.city, card.billing_address.city);
+            Assert.AreEqual(add.country_code, card.billing_address.country_code);
+            Assert.AreEqual(add.line1, card.billing_address.line1);
+            Assert.AreEqual(add.line2, card.billing_address.line2);
+            Assert.AreEqual(add.phone, card.billing_address.phone);
+            Assert.AreEqual(add.postal_code, card.billing_address.postal_code);
+            Assert.AreEqual(add.state, card.billing_address.state);
         }
 
         [TestMethod()]        
@@ -116,9 +117,9 @@ namespace RestApiSDKUnitTest
 
         [TestMethod()]
         [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: creditCardId cannot be null")]
-        public void GetCreditCardForNullIdTest()
+        public void NullCreditCardIdTest()
         {
-            CreditCard retrievedCreditCard = CreditCard.Get(AccessToken, null);
+            CreditCard card = CreditCard.Get(AccessToken, null);
         }
     }
 }

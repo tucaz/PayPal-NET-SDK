@@ -36,14 +36,14 @@ namespace RestApiSDKUnitTest
             }
         }
 
-        private ShippingAddress CreateShippingAddress()
+        private ShippingAddress GetShippingAddress()
         {
             ShippingAddress shipping = new ShippingAddress();
             shipping.recipient_name = "PayPalUser";
             return shipping;
         }
 
-        private PayerInfo CreatePayerInfo()
+        private PayerInfo GetPayerInfo()
         {
             PayerInfo info = new PayerInfo();
             info.first_name = "Joe";
@@ -51,7 +51,7 @@ namespace RestApiSDKUnitTest
             info.email = "Joe.Shopper@email.com";
             info.payer_id = "100";
             info.phone = "12345";
-            info.shipping_address = CreateShippingAddress();
+            info.shipping_address = GetShippingAddress();
             return info;
         }
 
@@ -73,35 +73,35 @@ namespace RestApiSDKUnitTest
 
         private CreditCardToken GetCreditCardToken()
         {
-            CreditCardToken credCardToken = new CreditCardToken();
-            credCardToken.credit_card_id = "CARD-8PV12506MG6587946KEBHH4A";
-            credCardToken.payer_id = "009";
-            return credCardToken;
+            CreditCardToken card = new CreditCardToken();
+            card.credit_card_id = "CARD-8PV12506MG6587946KEBHH4A";
+            card.payer_id = "009";
+            return card;
         }   
 
         private FundingInstrument GetFundingInstrument()
         {
-            FundingInstrument fundInstrument = new FundingInstrument();
-            fundInstrument.credit_card = CreateCreditCard();
-            fundInstrument.credit_card_token = GetCreditCardToken();
-            return fundInstrument;
+            FundingInstrument instrument = new FundingInstrument();
+            instrument.credit_card = CreateCreditCard();
+            instrument.credit_card_token = GetCreditCardToken();
+            return instrument;
         }
 
-        private Payer CreatePayer()
+        private Payer GetPayer()
         {
-            List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
-            fundingInstruments.Add(GetFundingInstrument());
-            Payer payer = new Payer();
-            payer.funding_instruments = fundingInstruments;
-            payer.payer_info = CreatePayerInfo();
-            payer.payment_method = "credit_card";
-            return payer;
+            List<FundingInstrument> fundingInstrumentList = new List<FundingInstrument>();
+            fundingInstrumentList.Add(GetFundingInstrument());
+            Payer pay = new Payer();
+            pay.funding_instruments = fundingInstrumentList;
+            pay.payer_info = GetPayerInfo();
+            pay.payment_method = "credit_card";
+            return pay;
         }
 
         [TestMethod()]
-        public void PayerObjectTest()
+        public void TestPayer()
         {
-            Payer pay = CreatePayer();
+            Payer pay = GetPayer();
             Assert.AreEqual(pay.payment_method, "credit_card");
             Assert.AreEqual(pay.funding_instruments[0].credit_card_token.credit_card_id, "CARD-8PV12506MG6587946KEBHH4A");
             Assert.AreEqual(pay.payer_info.first_name, "Joe");
@@ -110,14 +110,14 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void ConvertToJsonTest()
         {
-            Payer pay = CreatePayer();
+            Payer pay = GetPayer();
             Assert.IsFalse(pay.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
-            Payer pay = CreatePayer();
+            Payer pay = GetPayer();
             Assert.IsFalse(pay.ToString().Length == 0);
         }
     }    

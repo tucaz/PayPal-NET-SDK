@@ -6,7 +6,7 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class PayerInfoTest
     {
-        private ShippingAddress CreateShippingAddress()
+        private ShippingAddress GetShippingAddress()
         {
             ShippingAddress shipping = new ShippingAddress();
             shipping.recipient_name = "PayPalUser";
@@ -21,7 +21,7 @@ namespace RestApiSDKUnitTest
             info.email = "Joe.Shopper@email.com";
             info.payer_id = "100";
             info.phone = "12345";
-            info.shipping_address = CreateShippingAddress();
+            info.shipping_address = GetShippingAddress();
             return info;
         }
         

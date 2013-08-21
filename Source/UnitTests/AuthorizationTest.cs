@@ -49,46 +49,46 @@ namespace RestApiSDKUnitTest
 
         private Details GetDetails()
         {
-            Details amntDetails = new Details();
-            amntDetails.tax = "15";
-            amntDetails.fee = "2";
-            amntDetails.shipping = "10";
-            amntDetails.subtotal = "75";
-            return amntDetails;
+            Details detail = new Details();
+            detail.tax = "15";
+            detail.fee = "2";
+            detail.shipping = "10";
+            detail.subtotal = "75";
+            return detail;
         }
 
         private Amount GetAmount()
         {
-            Amount amnt = new Amount();
-            amnt.currency = "USD";
-            amnt.details = GetDetails();
-            amnt.total = "100";
-            return amnt;
+            Amount amt = new Amount();
+            amt.currency = "USD";
+            amt.details = GetDetails();
+            amt.total = "100";
+            return amt;
         }
 
         private Authorization GetAuthorization()
         {
-            Authorization author = new Authorization();
-            author.amount = GetAmount();
-            author.create_time = "2013-01-15T15:10:05.123Z";
-            author.id = "007";
-            author.parent_payment = "1000";
-            author.state = "Authorized";
-            author.links = GetLinksList();
-            return author;
+            Authorization authorize = new Authorization();
+            authorize.amount = GetAmount();
+            authorize.create_time = "2013-01-15T15:10:05.123Z";
+            authorize.id = "007";
+            authorize.parent_payment = "1000";
+            authorize.state = "Authorized";
+            authorize.links = GetLinksList();
+            return authorize;
         }
 
         private Address GetAddress()
         {
-            Address addrss = new Address();
-            addrss.line1 = "2211";
-            addrss.line2 = "N 1st St";
-            addrss.city = "San Jose";
-            addrss.phone = "408-456-0392";
-            addrss.postal_code = "95131";
-            addrss.state = "California";
-            addrss.country_code = "US";
-            return addrss;
+            Address add = new Address();
+            add.line1 = "2211";
+            add.line2 = "N 1st St";
+            add.city = "San Jose";
+            add.phone = "408-456-0392";
+            add.postal_code = "95131";
+            add.state = "California";
+            add.country_code = "US";
+            return add;
         }
 
         private CreditCard GetCreditCard()
@@ -108,30 +108,29 @@ namespace RestApiSDKUnitTest
             return card;
         } 
 
-        private Payment GetPayment()
+        private Payment CreatePayment()
         {
             Payment pay = new Payment();
             pay.intent = "authorize";
             CreditCard card = GetCreditCard();
-            List<FundingInstrument> instruments = new List<FundingInstrument>();
+            List<FundingInstrument> fundingInstrumentList = new List<FundingInstrument>();
             FundingInstrument instrument = new FundingInstrument();
             instrument.credit_card = card;
-            instruments.Add(instrument);
+            fundingInstrumentList.Add(instrument);
             Payer payr = new Payer();
             payr.payment_method = "credit_card";
-            payr.funding_instruments = instruments;
-            List<Transaction> transacts = new List<Transaction>();
+            payr.funding_instruments = fundingInstrumentList;
+            List<Transaction> transactionList = new List<Transaction>();
             Transaction trans = new Transaction();
             trans.amount = GetAmount();
-            transacts.Add(trans);
-            pay.transactions = transacts;
+            transactionList.Add(trans);
+            pay.transactions = transactionList;
             pay.payer = payr;
-            Payment actual = pay.Create(AccessToken);
-            return actual;
+            return pay.Create(AccessToken);
         }     
 
         [TestMethod()]
-        public void AuthorizationObjectTest()
+        public void TestAuthorization()
         {
             Authorization authorize = GetAuthorization();
             Amount expected = GetAmount();
@@ -165,23 +164,23 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void AuthorizationGetTest()
         {
-            Payment payment = GetPayment();
-            string authorizationId = payment.transactions[0].related_resources[0].authorization.id;
-            Authorization authorization = Authorization.Get(AccessToken, authorizationId);
-            Assert.AreEqual(authorizationId, authorization.id);
+            Payment pay = CreatePayment();
+            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+            Authorization authorize = Authorization.Get(AccessToken, authorizationId);
+            Assert.AreEqual(authorizationId, authorize.id);
         }
 
         [TestMethod()]
         public void AuthorizationCaptureTest()
         {
-            Payment pay = GetPayment();
+            Payment pay = CreatePayment();
             string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
             Authorization authorize = Authorization.Get(AccessToken, authorizationId);
             Capture cap = new Capture();
-            Amount amount = new Amount();
-            amount.total = "1";
-            amount.currency = "USD";
-            cap.amount = amount;
+            Amount amt = new Amount();
+            amt.total = "1";
+            amt.currency = "USD";
+            cap.amount = amt;
             Capture response = authorize.Capture(AccessToken, cap);
             Assert.AreEqual("completed", response.state);
         }
@@ -189,7 +188,7 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void AuthorizationVoidTest()
         {
-            Payment pay = GetPayment();
+            Payment pay = CreatePayment();
             string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
             Authorization authorize = Authorization.Get(AccessToken, authorizationId);
             Authorization authorizationResponse = authorize.Void(AccessToken);
@@ -198,16 +197,17 @@ namespace RestApiSDKUnitTest
 
         [TestMethod()]
         [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: AccessToken cannot be null")]
-        public void GetAuthorizationForNullTokenTest()
+        public void AuthorizationNullAccessTokenTest()
         {
-            Payment pay = GetPayment();
-            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;            
-            Authorization authorization = Authorization.Get((string) null, authorizationId);            
+            string token = null;
+            Payment pay = CreatePayment();
+            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+            Authorization authorization = Authorization.Get(token, authorizationId);            
         }
 
         [TestMethod()]
         [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: AccessToken cannot be null")]
-        public void GetAuthorizationForNullIdTest()
+        public void AuthorizationNullAuthorizationIdTest()
         {
             string authorizationId = null;
             Authorization authorization = Authorization.Get(AccessToken, authorizationId);

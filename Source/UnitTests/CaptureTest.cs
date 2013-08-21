@@ -59,11 +59,11 @@ namespace RestApiSDKUnitTest
 
         private Amount GetAmount()
         {
-            Amount amnt = new Amount();
-            amnt.currency = "USD";
-            amnt.details = GetDetails();
-            amnt.total = "100";
-            return amnt;
+            Amount amt = new Amount();
+            amt.currency = "USD";
+            amt.details = GetDetails();
+            amt.total = "100";
+            return amt;
         }
 
         private Capture GetCapture()
@@ -118,15 +118,15 @@ namespace RestApiSDKUnitTest
 
         private Address GetAddress()
         {
-            Address addrss = new Address();
-            addrss.line1 = "2211";
-            addrss.line2 = "N 1st St";
-            addrss.city = "San Jose";
-            addrss.phone = "408-456-0392";
-            addrss.postal_code = "95131";
-            addrss.state = "California";
-            addrss.country_code = "US";
-            return addrss;
+            Address add = new Address();
+            add.line1 = "2211";
+            add.line2 = "N 1st St";
+            add.city = "San Jose";
+            add.phone = "408-456-0392";
+            add.postal_code = "95131";
+            add.state = "California";
+            add.country_code = "US";
+            return add;
         }            
         
         [TestMethod()]
@@ -142,9 +142,9 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(expected.details.tax, actual.details.tax);
             Assert.AreEqual(expected.total, actual.total);
             Assert.AreEqual(cap.create_time, "2013-01-15T15:10:05.123Z");
-            Assert.AreEqual(cap.id, "001");
-            Assert.AreEqual(cap.parent_payment, "1000");
-            Assert.AreEqual(cap.state, "Authorized");
+            Assert.AreEqual("001", cap.id);
+            Assert.AreEqual("1000", cap.parent_payment);
+            Assert.AreEqual("Authorized", cap.state);
         }
 
         [TestMethod()]
@@ -164,15 +164,15 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void GetCaptureTest()
         {
-            Payment payment = GetPayment();
-            string authorizationId = payment.transactions[0].related_resources[0].authorization.id;
+            Payment pay = GetPayment();
+            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
             Authorization authorization = Authorization.Get(AccessToken, authorizationId);
-            Capture capture = new Capture();
-            Amount amount = new Amount();
-            amount.total = "1";
-            amount.currency = "USD";
-            capture.amount = amount;
-            Capture response = authorization.Capture(AccessToken, capture);
+            Capture cap = new Capture();
+            Amount amt = new Amount();
+            amt.total = "1";
+            amt.currency = "USD";
+            cap.amount = amt;
+            Capture response = authorization.Capture(AccessToken, cap);
             Capture returnCapture = Capture.Get(AccessToken, response.id);
             Assert.AreEqual(response.id, returnCapture.id);
         }
@@ -200,9 +200,9 @@ namespace RestApiSDKUnitTest
 
         [TestMethod()]
         [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: captureId cannot be null")]
-        public void GetCaptureNullIdTest()
+        public void GetCaptureNullCaptureIdTest()
         {
-            Capture returnCapture = Capture.Get(AccessToken, null);           
+            Capture returnCapture = Capture.Get(AccessToken, null);       
         } 
     }
 }

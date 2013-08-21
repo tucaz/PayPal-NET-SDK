@@ -6,39 +6,39 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class ItemTest
     { 
-        private Item CreateItem()
+        private Item GetItem()
         {
-            Item item = new Item();
-            item.name = "Item Name";
-            item.currency = "USD";
-            item.price = "10.50";
-            item.quantity = "5";
-            item.sku = "Sku";
-            return item;
+            Item itm = new Item();
+            itm.name = "Item Name";
+            itm.currency = "USD";
+            itm.price = "10.50";
+            itm.quantity = "5";
+            itm.sku = "Sku";
+            return itm;
         }
 
         [TestMethod()]
         public void TestItem()
         {
-            Item item = CreateItem();
-            Assert.AreEqual(item.name, "Item Name");
-            Assert.AreEqual(item.currency, "USD");
-            Assert.AreEqual(item.price, "10.50");
-            Assert.AreEqual(item.quantity, "5");
-            Assert.AreEqual(item.sku, "Sku");
+            Item itm = GetItem();
+            Assert.AreEqual(itm.name, "Item Name");
+            Assert.AreEqual(itm.currency, "USD");
+            Assert.AreEqual(itm.price, "10.50");
+            Assert.AreEqual(itm.quantity, "5");
+            Assert.AreEqual(itm.sku, "Sku");
         }
 
         [TestMethod()]
         public void ConvertToJsonTest()
         {
-            Item item = CreateItem();
+            Item item = GetItem();
             Assert.IsFalse(item.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
-            Item item = CreateItem();
+            Item item = GetItem();
             Assert.IsFalse(item.ToString().Length == 0);
         }
     }
