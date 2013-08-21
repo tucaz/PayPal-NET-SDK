@@ -10,17 +10,17 @@ namespace RestApiSDKUnitTest
         {
             Links link = new Links();
             link.href = "http://paypal.com/";
-            link.method = "GET";
+            link.method = "POST";
             link.rel = "authorize";
             return link;
         }
 
         [TestMethod()]
-        public void LinksObjectTest()
+        public void TestLinks()
         {
             Links link = GetLinks();
             Assert.AreEqual(link.href, "http://paypal.com/");
-            Assert.AreEqual(link.method, "GET");
+            Assert.AreEqual(link.method, "POST");
             Assert.AreEqual(link.rel, "authorize");
         }
 

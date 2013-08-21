@@ -130,7 +130,7 @@ namespace RestApiSDKUnitTest
 
         [TestMethod()]
         [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: refundId cannot be null")]
-        public void RefundGetNullRefundIdTest()
+        public void NullRefundIdTest()
         {
             Refund fund = Refund.Get(AccessToken, null);
         }

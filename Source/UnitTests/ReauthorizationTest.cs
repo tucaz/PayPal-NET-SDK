@@ -37,7 +37,7 @@ namespace RestApiSDKUnitTest
 
         [TestMethod]
         [ExpectedException(typeof(PayPal.Exception.PayPalException), "Exception in HttpConnection Execute: Invalid HTTP response The remote server returned an error: (400) Bad Request.")]
-        public void Reauthorization()
+        public void TestReauthorization()
         {
             Authorization authorization = Authorization.Get(AccessToken, "7GH53639GA425732B");
             Amount reauthorizeAmount = new Amount();

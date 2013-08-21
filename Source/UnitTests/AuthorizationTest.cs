@@ -197,7 +197,7 @@ namespace RestApiSDKUnitTest
 
         [TestMethod()]
         [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: AccessToken cannot be null")]
-        public void AuthorizationNullAccessTokenTest()
+        public void NullAccessTokenTest()
         {
             string token = null;
             Payment pay = CreatePayment();
@@ -207,7 +207,7 @@ namespace RestApiSDKUnitTest
 
         [TestMethod()]
         [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: AccessToken cannot be null")]
-        public void AuthorizationNullAuthorizationIdTest()
+        public void NullAuthorizationIdTest()
         {
             string authorizationId = null;
             Authorization authorization = Authorization.Get(AccessToken, authorizationId);

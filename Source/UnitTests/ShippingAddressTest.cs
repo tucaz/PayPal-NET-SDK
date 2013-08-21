@@ -14,7 +14,7 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void ShippingAddressObjectTest()
+        public void TestShippingAddress()
         {
             ShippingAddress shipping = CreateShippingAddress();
             Assert.AreEqual(shipping.recipient_name, "PayPalUser");

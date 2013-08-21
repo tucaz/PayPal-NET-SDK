@@ -162,7 +162,7 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void GetCaptureTest()
+        public void CaptureIdTest()
         {
             Payment pay = GetPayment();
             string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
@@ -172,9 +172,9 @@ namespace RestApiSDKUnitTest
             amt.total = "1";
             amt.currency = "USD";
             cap.amount = amt;
-            Capture response = authorization.Capture(AccessToken, cap);
-            Capture returnCapture = Capture.Get(AccessToken, response.id);
-            Assert.AreEqual(response.id, returnCapture.id);
+            Capture responseCapture = authorization.Capture(AccessToken, cap);
+            Capture returnCapture = Capture.Get(AccessToken, responseCapture.id);
+            Assert.AreEqual(responseCapture.id, returnCapture.id);
         }
 
         [TestMethod()]
@@ -200,9 +200,9 @@ namespace RestApiSDKUnitTest
 
         [TestMethod()]
         [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: captureId cannot be null")]
-        public void GetCaptureNullCaptureIdTest()
+        public void NullCaptureIdTest()
         {
-            Capture returnCapture = Capture.Get(AccessToken, null);       
+            Capture cap = Capture.Get(AccessToken, null);  
         } 
     }
 }
