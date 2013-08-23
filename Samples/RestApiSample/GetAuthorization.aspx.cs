@@ -34,7 +34,7 @@ namespace RestApiSample
                 // (that ensures idempotency). The SDK generates
                 // a request id if you do not pass one explicitly. 
                 APIContext context = new APIContext(accessToken);
-                context.Config = Configuration.GetClientDetailsAndConfig();
+                context.Config = Configuration.GetConfig();
                    
                 // ###Authorization
                 // Retrieve an Authorization Id
@@ -150,7 +150,7 @@ namespace RestApiSample
             // (that ensures idempotency). The SDK generates
             // a request id if you do not pass one explicitly. 
             APIContext context = new APIContext(accessToken);
-            context.Config = Configuration.GetClientDetailsAndConfig();
+            context.Config = Configuration.GetConfig();
 
             // Create a payment by posting to the APIService
             // using a valid AccessToken

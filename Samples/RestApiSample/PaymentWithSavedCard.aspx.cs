@@ -102,7 +102,7 @@ namespace RestApiSample
                 // (that ensures idempotency). The SDK generates
                 // a request id if you do not pass one explicitly. 
                 APIContext context = new APIContext(accessToken);
-                context.Config = Configuration.GetClientDetailsAndConfig();
+                context.Config = Configuration.GetConfig();
 
                 // Use this variant if you want to pass in a request id  
                 // that is meaningful in your application, ideally 

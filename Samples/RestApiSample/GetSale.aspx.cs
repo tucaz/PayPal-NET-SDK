@@ -33,7 +33,7 @@ namespace RestApiSample
                 // (that ensures idempotency). The SDK generates
                 // a request id if you do not pass one explicitly. 
                 APIContext context = new APIContext(accessToken);
-                context.Config = Configuration.GetClientDetailsAndConfig();
+                context.Config = Configuration.GetConfig();
                 
                 // ### Sale
                 // Pass an AccessToken and the ID of the sale

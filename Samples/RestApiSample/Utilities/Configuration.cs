@@ -8,7 +8,6 @@ namespace RestApiSample
         public static Dictionary<string, string> GetClientDetailsAndConfig()
         {
             Dictionary<string, string> configMap = new Dictionary<string, string>();
-            configMap = GetConfig();
             configMap.Add("Client ID", "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM");
             configMap.Add("Secret", "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM");            
             return configMap;
