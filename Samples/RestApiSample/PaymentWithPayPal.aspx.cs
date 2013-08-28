@@ -19,6 +19,14 @@ namespace RestApiSample
             HttpContext CurrContext = HttpContext.Current;
             Payment pymnt = null;
 
+            // ### Api Context
+            // Pass in a `APIContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+             // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
+            APIContext apiContext = Configuration.GetAPIContext();
+
             // ## ExecutePayment
             if (Request.Params["PayerID"] != null)
             {
@@ -30,32 +38,10 @@ namespace RestApiSample
                 }
                 try
                 {
-                    // ###AccessToken
-                    // Retrieve the access token from
-                    // OAuthTokenCredential by passing in
-                    // ClientID and ClientSecret
-                    // It is not mandatory to generate Access Token on a per call basis.
-                    // Typically the access token can be generated once and
-                    // reused within the expiry window
-                    string accessToken = new OAuthTokenCredential(Configuration.GetClientDetailsAndConfig()["Client ID"], Configuration.GetClientDetailsAndConfig()["Secret"], Configuration.GetConfig()).GetAccessToken();
-
-                    // ### Api Context
-                    // Pass in a `ApiContext` object to authenticate 
-                    // the call and to send a unique request id 
-                    // (that ensures idempotency). The SDK generates
-                    // a request id if you do not pass one explicitly. 
-                    APIContext context = new APIContext(accessToken);
-                    context.Config = Configuration.GetConfig();
-
-                    // Use this variant if you want to pass in a request id  
-                    // that is meaningful in your application, ideally 
-                    // a order id.
-                    // String requestId = Long.toString(System.nanoTime();
-                    // APIContext apiContext = new APIContext(accessToken, requestId ));
                     PaymentExecution pymntExecution = new PaymentExecution();
                     pymntExecution.payer_id = Request.Params["PayerID"];
 
-                    Payment executedPayment = pymnt.Execute(context, pymntExecution);
+                    Payment executedPayment = pymnt.Execute(apiContext, pymntExecution);
                     CurrContext.Items.Add("ResponseJson", JObject.Parse(executedPayment.ConvertToJson()).ToString(Formatting.Indented));
                 }
                 catch (PayPal.Exception.PayPalException ex)
@@ -67,6 +53,20 @@ namespace RestApiSample
             // ## Creating Payment
             else
             {
+                // ###Items
+                // Items within a transaction.
+                Item item = new Item();
+                item.name = "Item Name";
+                item.currency = "USD";
+                item.price = "15";
+                item.quantity = "5";
+                item.sku = "sku";
+
+                List<Item> itms = new List<Item>();
+                itms.Add(item);
+                ItemList itemList = new ItemList();
+                itemList.items = itms;
+
                 // ###Payer
                 // A resource representing a Payer that funds a payment
                 // Payment Method
@@ -101,12 +101,12 @@ namespace RestApiSample
                 // ###Transaction
                 // A transaction defines the contract of a
                 // payment - what is the payment for and who
-                // is fulfilling it. Transaction is created with
-                // a `Payee` and `Amount` types
+                // is fulfilling it. 
                 List<Transaction> transactionList = new List<Transaction>();
                 Transaction tran = new Transaction();
                 tran.description = "Transaction description.";
                 tran.amount = amnt;
+                tran.item_list = itemList;
                 // The Payment creation API requires a list of
                 // Transaction; add the created `Transaction`
                 // to a List
@@ -114,7 +114,7 @@ namespace RestApiSample
 
                 // ###Payment
                 // A Payment Resource; create one using
-                // the above types and intent as 'sale'
+                // the above types and intent as `sale` or `authorize`
                 pymnt = new Payment();
                 pymnt.intent = "sale";
                 pymnt.payer = payr;
@@ -123,33 +123,8 @@ namespace RestApiSample
 
                 try
                 {
-                    // ###AccessToken
-                    // Retrieve the access token from
-                    // OAuthTokenCredential by passing in
-                    // ClientID and ClientSecret
-                    // It is not mandatory to generate Access Token on a per call basis.
-                    // Typically the access token can be generated once and
-                    // reused within the expiry window
-                    string accessToken = new OAuthTokenCredential(Configuration.GetClientDetailsAndConfig()["Client ID"], Configuration.GetClientDetailsAndConfig()["Secret"], Configuration.GetConfig()).GetAccessToken();
-
-                    // ### Api Context
-                    // Pass in a `ApiContext` object to authenticate 
-                    // the call and to send a unique request id 
-                    // (that ensures idempotency). The SDK generates
-                    // a request id if you do not pass one explicitly. 
-                    APIContext context = new APIContext(accessToken);
-                    context.Config = Configuration.GetConfig();
-
-                    // Use this variant if you want to pass in a request id  
-                    // that is meaningful in your application, ideally 
-                    // a order id.
-                    // String requestId = Long.toString(System.nanoTime();
-                    // APIContext apiContext = new APIContext(accessToken, requestId ));
-                    
-                    // Create a payment by posting to the APIService
-                    // using a valid AccessToken
-                    // The return object contains the status;
-                    Payment createdPayment = pymnt.Create(context);
+                    // Create a payment using a valid APIContext
+                    Payment createdPayment = pymnt.Create(apiContext);
 
                     CurrContext.Items.Add("ResponseJson", JObject.Parse(createdPayment.ConvertToJson()).ToString(Formatting.Indented));
 

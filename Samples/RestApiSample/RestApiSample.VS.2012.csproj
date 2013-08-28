@@ -74,6 +74,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DeleteCreditCard.aspx" />
+    <Content Include="GetRefund.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +93,18 @@
     <Compile Include="AuthorizationVoid.aspx.designer.cs">
       <DependentUpon>AuthorizationVoid.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DeleteCreditCard.aspx.cs">
+      <DependentUpon>DeleteCreditCard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteCreditCard.aspx.designer.cs">
+      <DependentUpon>DeleteCreditCard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GetRefund.aspx.cs">
+      <DependentUpon>GetRefund.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GetRefund.aspx.designer.cs">
+      <DependentUpon>GetRefund.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reauthorization.aspx.cs">
       <DependentUpon>Reauthorization.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -98,6 +112,7 @@
     <Compile Include="Reauthorization.aspx.designer.cs">
       <DependentUpon>Reauthorization.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Common.cs" />
     <Compile Include="Utilities\Configuration.cs" />
     <Compile Include="CreateCreditCard.aspx.cs">
       <DependentUpon>CreateCreditCard.aspx</DependentUpon>

@@ -86,6 +86,20 @@
     <Compile Include="AuthorizationVoid.aspx.designer.cs">
       <DependentUpon>AuthorizationVoid.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DeleteCreditCard.aspx.cs">
+      <DependentUpon>DeleteCreditCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DeleteCreditCard.aspx.designer.cs">
+      <DependentUpon>DeleteCreditCard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GetRefund.aspx.cs">
+      <DependentUpon>GetRefund.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GetRefund.aspx.designer.cs">
+      <DependentUpon>GetRefund.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reauthorization.aspx.cs">
       <DependentUpon>Reauthorization.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -93,6 +107,7 @@
     <Compile Include="Reauthorization.aspx.designer.cs">
       <DependentUpon>Reauthorization.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Common.cs" />
     <Compile Include="Utilities\Configuration.cs" />
     <Compile Include="CreateCreditCard.aspx.cs">
       <DependentUpon>CreateCreditCard.aspx</DependentUpon>
@@ -202,10 +217,12 @@
     <Content Include="AuthorizationVoid.aspx" />
     <Content Include="CreateCreditCard.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="DeleteCreditCard.aspx" />
     <Content Include="GetAuthorization.aspx" />
     <Content Include="GetCapture.aspx" />
     <Content Include="GetPayment.aspx" />
     <Content Include="GetPaymentHistory.aspx" />
+    <Content Include="GetRefund.aspx" />
     <Content Include="GetSale.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Images\edt-format-source-button.png" />
@@ -235,6 +252,7 @@
     <Content Include="Source\PaymentWithCreditCard.aspx.html" />
     <Content Include="Source\PaymentWithPayPal.aspx.html" />
     <Content Include="Source\PaymentWithSavedCard.aspx.html" />
+    <Content Include="Source\Reauthorization.aspx.html" />
     <Content Include="Source\RefundCapture.aspx.html" />
     <Content Include="Source\SaleRefund.aspx.html" />
   </ItemGroup>

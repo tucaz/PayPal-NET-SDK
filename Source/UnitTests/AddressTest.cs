@@ -35,7 +35,7 @@ namespace RestApiSDKUnitTest
         public void ConvertToJsonTest()
         {
             Address add = GetAddress();
-            Assert.IsFalse(add.ToString().Length == 0);
+            Assert.IsFalse(add.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]

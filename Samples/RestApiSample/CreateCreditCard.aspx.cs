@@ -33,35 +33,20 @@ namespace RestApiSample
 
             try
             {
-                // ###AccessToken
-                // Retrieve the access token from
-                // OAuthTokenCredential by passing in
-                // ClientID and ClientSecret
-                // It is not mandatory to generate Access Token on a per call basis.
-                // Typically the access token can be generated once and
-                // reused within the expiry window
-                string accessToken = new OAuthTokenCredential(Configuration.GetClientDetailsAndConfig()["Client ID"], Configuration.GetClientDetailsAndConfig()["Secret"], Configuration.GetConfig()).GetAccessToken();
-
-                // ### Api Context
-                // Pass in a `ApiContext` object to authenticate 
-                // the call and to send a unique request id 
-                // (that ensures idempotency). The SDK generates
-                // a request id if you do not pass one explicitly. 
-                APIContext context = new APIContext(accessToken);
-                context.Config = Configuration.GetConfig();
-
-                // Use this variant if you want to pass in a request id  
-                // that is meaningful in your application, ideally 
-                // a order id.
-                // String requestId = Long.toString(System.nanoTime();
-                // APIContext apiContext = new APIContext(accessToken, requestId ));
+                 // ### Api Context
+                 // Pass in a `APIContext` object to authenticate 
+                 // the call and to send a unique request id 
+                 // (that ensures idempotency). The SDK generates
+                 // a request id if you do not pass one explicitly. 
+                  // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
+                APIContext apiContext = Configuration.GetAPIContext();
 
                 // ###Save
                 // Creates the credit card as a resource
                 // in the PayPal vault. The response contains
                 // an 'id' that you can use to refer to it
                 // in the future payments.
-                CreditCard createdCreditCard = credtCard.Create(context);
+                CreditCard createdCreditCard = credtCard.Create(apiContext);
                 CurrContext.Items.Add("ResponseJson", JObject.Parse(createdCreditCard.ConvertToJson()).ToString(Formatting.Indented));
             }
             catch (PayPal.Exception.PayPalException ex)

@@ -18,6 +18,20 @@ namespace RestApiSample
         {
             HttpContext CurrContext = HttpContext.Current;
 
+            // ###Items
+            // Items within a transaction.
+            Item item = new Item();
+            item.name = "Item Name";
+            item.currency = "USD";
+            item.price = "1";
+            item.quantity = "5";
+            item.sku = "sku";
+
+            List<Item> itms = new List<Item>();
+            itms.Add(item);
+            ItemList itemList = new ItemList();
+            itemList.items = itms;
+
             // ###CreditCard
             // A resource representing a credit card that can be
             // used to fund a payment.
@@ -42,11 +56,11 @@ namespace RestApiSample
             // ###Transaction
             // A transaction defines the contract of a
             // payment - what is the payment for and who
-            // is fulfilling it. Transaction is created with
-            // a `Payee` and `Amount` types
+            // is fulfilling it. 
             Transaction tran = new Transaction();
             tran.amount = amnt;
             tran.description = "This is the payment transaction description.";
+            tran.item_list = itemList;
 
             // The Payment creation API requires a list of
             // Transaction; add the created `Transaction`
@@ -55,11 +69,9 @@ namespace RestApiSample
             transactions.Add(tran);
 
             // ###FundingInstrument
-            // A resource representing a Payeer's funding instrument.
-            // Use a Payer ID (A unique identifier of the payer generated
-            // and provided by the facilitator. This is required when
-            // creating or using a tokenized funding instrument)
-            // and the `CreditCardDetails`
+            // A resource representing a Payer's funding instrument.
+            // For stored credit card payments, set the CreditCardToken
+            // field on this object.
             FundingInstrument fundInstrument = new FundingInstrument();
             fundInstrument.credit_card_token = credCardToken;
 
@@ -87,36 +99,16 @@ namespace RestApiSample
 
             try
             {
-                // ###AccessToken
-                // Retrieve the access token from
-                // OAuthTokenCredential by passing in
-                // ClientID and ClientSecret
-                // It is not mandatory to generate Access Token on a per call basis.
-                // Typically the access token can be generated once and
-                // reused within the expiry window
-                string accessToken = new OAuthTokenCredential(Configuration.GetClientDetailsAndConfig()["Client ID"], Configuration.GetClientDetailsAndConfig()["Secret"], Configuration.GetConfig()).GetAccessToken();
-
                 // ### Api Context
-                // Pass in a `ApiContext` object to authenticate 
+                // Pass in a `APIContext` object to authenticate 
                 // the call and to send a unique request id 
                 // (that ensures idempotency). The SDK generates
                 // a request id if you do not pass one explicitly. 
-                APIContext context = new APIContext(accessToken);
-                context.Config = Configuration.GetConfig();
+                 // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
+                APIContext apiContext = Configuration.GetAPIContext();
 
-                // Use this variant if you want to pass in a request id  
-                // that is meaningful in your application, ideally 
-                // a order id.
-                // String requestId = Long.toString(System.nanoTime();
-                // APIContext apiContext = new APIContext(accessToken, requestId ));
-                // Create a payment by posting to the APIService
-                // using a valid AccessToken
-                // The return object contains the status;
-
-                // Create a payment by posting to the APIService
-                // using a valid AccessToken
-                // The return object contains the status;
-                Payment createdPayment = pymnt.Create(context);
+                // Create a payment using a valid APIContext
+                Payment createdPayment = pymnt.Create(apiContext);
                 CurrContext.Items.Add("ResponseJson", JObject.Parse(createdPayment.ConvertToJson()).ToString(Formatting.Indented));
             }
             catch (PayPal.Exception.PayPalException ex)

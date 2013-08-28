@@ -2,12 +2,13 @@
 // This sample code demonstrate how you can
 // retrieve a list of all Payment resources
 // you've created using the Payments API.
-// Note various query parameters that you can
+// Note: Various query parameters that you can
 // use to filter, and paginate through the
 // payments list.
 // API used: GET /v1/payments/payments
 using System;
 using System.Web;
+using System.Collections.Generic;
 using PayPal;
 using PayPal.Api.Payments;
 using Newtonsoft.Json.Linq;
@@ -23,36 +24,27 @@ namespace RestApiSample
             HttpContext CurrContext = HttpContext.Current;
             try
             {
-                // ###AccessToken
-                // Retrieve the access token from
-                // OAuthTokenCredential by passing in
-                // ClientID and ClientSecret
-                // It is not mandatory to generate Access Token on a per call basis.
-                // Typically the access token can be generated once and
-                // reused within the expiry window                
-                string accessToken = new OAuthTokenCredential(Configuration.GetClientDetailsAndConfig()["Client ID"], Configuration.GetClientDetailsAndConfig()["Secret"], Configuration.GetConfig()).GetAccessToken();
-                
                 // ### Api Context
-                // Pass in a `ApiContext` object to authenticate 
+                // Pass in a `APIContext` object to authenticate 
                 // the call and to send a unique request id 
                 // (that ensures idempotency). The SDK generates
                 // a request id if you do not pass one explicitly. 
-                APIContext context = new APIContext(accessToken);
-                context.Config = Configuration.GetConfig();
+                 // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
+                APIContext apiContext = Configuration.GetAPIContext();
 
-                var parameters = new QueryParameters();
-                parameters.SetCount("10");
-                parameters.SetStartIndex("5");
+                Dictionary<string, string> parameters = new Dictionary<string, string>();
+                parameters.Add("count", "10");
+                parameters.Add("startIndex", "5");
 
                 // ###Retrieve
-                // Retrieve the PaymentHistory object by calling the
-                // static `Get` method
-                // on the Payment class, and pass the
-                // AccessToken and a QueryParameters object that contains
-                // query parameters for paginations and filtering.
+                // Retrieve the PaymentHistory by calling the
+                // static `List` method
+                // on the Payment resource, and pass the
+                // APIContext and the map containing the query parameters 
+                // for paginations and filtering.
                 // Refer the API documentation
                 // for valid values for keys
-                PaymentHistory payHistory = Payment.List(context, Configuration.GetConfig());
+                PaymentHistory payHistory = Payment.List(apiContext, parameters);
                 CurrContext.Items.Add("ResponseJson", JObject.Parse(payHistory.ConvertToJson()).ToString(Formatting.Indented));
             }
             catch (PayPal.Exception.PayPalException ex)

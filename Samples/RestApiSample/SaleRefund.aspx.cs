@@ -40,32 +40,16 @@ namespace RestApiSample
             sale.id = "7X350557WR366683S";
             try
             {
-                // ###AccessToken
-                // Retrieve the access token from
-                // OAuthTokenCredential by passing in
-                // ClientID and ClientSecret
-                // It is not mandatory to generate Access Token on a per call basis.
-                // Typically the access token can be generated once and
-                // reused within the expiry window
-                string accessToken = new OAuthTokenCredential(Configuration.GetClientDetailsAndConfig()["Client ID"], Configuration.GetClientDetailsAndConfig()["Secret"], Configuration.GetConfig()).GetAccessToken();
-
                 // ### Api Context
-                // Pass in a `ApiContext` object to authenticate 
+                // Pass in a `APIContext` object to authenticate 
                 // the call and to send a unique request id 
                 // (that ensures idempotency). The SDK generates
                 // a request id if you do not pass one explicitly. 
-                APIContext context = new APIContext(accessToken);
-                context.Config = Configuration.GetConfig();
+                 // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
+                APIContext apiContext = Configuration.GetAPIContext();
 
-                // Use this variant if you want to pass in a request id  
-                // that is meaningful in your application, ideally 
-                // a order id.
-                // String requestId = Long.toString(System.nanoTime();
-                // APIContext apiContext = new APIContext(accessToken, requestId ));
-
-                // Refund by posting to the APIService
-                // using a valid AccessToken
-                Refund refundedSale = sale.Refund(context, refund);
+                // Refund by posting Refund object using a valid APIContext
+                Refund refundedSale = sale.Refund(apiContext, refund);
                 CurrContext.Items.Add("ResponseJson", JObject.Parse(refundedSale.ConvertToJson()).ToString(Formatting.Indented));
             }
             catch (PayPal.Exception.PayPalException ex)

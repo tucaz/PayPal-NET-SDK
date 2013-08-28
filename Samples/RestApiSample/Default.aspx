@@ -17,21 +17,28 @@
         {
             background: url(  'Images/edt-format-source-button.png' ) no-repeat left top;
         }
+        .header {
+		font-weight: bold;
+	    }
+	    .header td {
+		    padding: 10px 0px 10px 0px;
+	    }
     </style>
 </head>
 <body>
     <center>
         <h3>
-            REST API Samples</h3>
+            PayPal REST API Samples</h3>
     </center>
-    <br />
-    <br />
+    
     <table cellspacing="5" width="85%">
         <tbody>
-        
+            <tr valign="top" class="header">
+				<td>Payments</td>
+			</tr>
             <tr valign="top">
                 <td>
-                    Payment with a credit card
+                    Direct credit card payments
                 </td>
                 <td>
                 </td>
@@ -46,7 +53,7 @@
             </tr>
             <tr>
                 <td>
-                    Payment with a PayPal Account
+                   PayPal account payments
                 </td>
                 <td>
                 </td>
@@ -61,7 +68,22 @@
             </tr>
             <tr>
                 <td>
-                    Get Payment Details
+                    Stored credit card payments
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="PaymentWithSavedCard.aspx" class="execute imagelink">Execute</a>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="Source/PaymentWithSavedCard.aspx.html" class="source imagelink">Source</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Get payment details
                 </td>
                 <td>
                 </td>
@@ -76,7 +98,7 @@
             </tr>
             <tr>
                 <td>
-                    Get Payment History
+                    Get payment history
                 </td>
                 <td>
                 </td>
@@ -89,9 +111,12 @@
                     <a href="Source/GetPaymentHistory.aspx.html" class="source imagelink">Source</a>
                 </td>
             </tr>
+            <tr valign="top" class="header">
+				<td>Sale</td>
+			</tr>
             <tr>
                 <td>
-                    Get Sale Details
+                    Get sale payment details
                 </td>
                 <td>
                 </td>
@@ -106,7 +131,7 @@
             </tr>
             <tr>
                 <td>
-                    Refund a Payment
+                    Refund a sale payment
                 </td>
                 <td>
                 </td>
@@ -119,6 +144,27 @@
                     <a href="Source/SaleRefund.aspx.html" class="source imagelink">Source</a>
                 </td>
             </tr>
+            <tr valign="top" class="header">
+				<td>Refund</td>
+			</tr>
+            <tr>
+                <td>
+                    Get refund details
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="GetRefund.aspx" class="execute imagelink">Execute</a>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="Source/GetRefund.aspx.html" class="source imagelink">Source</a>
+                </td>
+            </tr>
+            <tr valign="top" class='header'>
+				<td>Vault</td>
+			</tr>
             <tr>
                 <td>
                     Save a credit card
@@ -136,7 +182,7 @@
             </tr>
             <tr>
                 <td>
-                    Get credit card Details
+                    Get credit card details
                 </td>
                 <td>
                 </td>
@@ -151,22 +197,25 @@
             </tr>
             <tr>
                 <td>
-                    Payment with saved credit card
+                    Delete a credit card 
                 </td>
                 <td>
                 </td>
                 <td>
-                    <a href="PaymentWithSavedCard.aspx" class="execute imagelink">Execute</a>
+                    <a href="DeleteCreditCard.aspx" class="execute imagelink">Execute</a>
                 </td>
                 <td>
                 </td>
                 <td>
-                    <a href="Source/PaymentWithSavedCard.aspx.html" class="source imagelink">Source</a>
+                    <a href="Source/DeleteCreditCard.aspx.html" class="source imagelink">Source</a>
                 </td>
             </tr>
+            <tr valign="top" class='header'>
+				<td>Authorization</td>
+			</tr>
             <tr>
                 <td>
-                    Get Authorization
+                    Get an authorized payment details
                 </td>
                 <td>
                 </td>
@@ -181,7 +230,7 @@
             </tr>
             <tr>
                 <td>
-                    Capture Authorization
+                    Capture an authorized payment
                 </td>
                 <td>
                 </td>
@@ -196,7 +245,7 @@
             </tr>
             <tr>
                 <td>
-                    Void Authorization
+                    Void an authorized payment
                 </td>
                 <td>
                 </td>
@@ -211,7 +260,7 @@
             </tr>
             <tr valign="top">
                 <td>
-                    Reauthorization
+                    Reauthorize an authorized payment
                 </td>
                 <td>
                 </td>
@@ -224,9 +273,12 @@
                     <a href="Source/Reauthorization.aspx.html" class="source imagelink">Source</a>
                 </td>
             </tr>
+            <tr valign="top" class="header">
+				<td>Capture</td>
+			</tr>
             <tr>
                 <td>
-                    Get Capture
+                    Get captured payment details
                 </td>
                 <td>
                 </td>
@@ -241,7 +293,7 @@
             </tr>
             <tr>
                 <td>
-                    Refund Capture
+                    Refund captured payment
                 </td>
                 <td>
                 </td>

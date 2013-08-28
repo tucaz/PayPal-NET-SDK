@@ -30,7 +30,7 @@ namespace RestApiSDKUnitTest
         public void ConvertToJsonTest()
         {
             Details detail = GetDetails();
-            Assert.IsFalse(detail.ToString().Length == 0);
+            Assert.IsFalse(detail.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]

@@ -17,35 +17,25 @@ namespace RestApiSample
             Authorization authorization = null;
             try
             {
-                // ###AccessToken dcv
-                // Retrieve the access token from
-                // OAuthTokenCredential by passing in
-                // ClientID and ClientSecret
-                // It is not mandatory to generate Access Token on a per call basis.
-                // Typically the access token can be generated once and
-                // reused within the expiry window
-                string accessToken = new OAuthTokenCredential(Configuration.GetClientDetailsAndConfig()["Client ID"], Configuration.GetClientDetailsAndConfig()["Secret"], Configuration.GetConfig()).GetAccessToken();
-
-                 // ### Api Context
-                // Pass in a `ApiContext` object to authenticate 
+                // ### Api Context
+                // Pass in a `APIContext` object to authenticate 
                 // the call and to send a unique request id 
                 // (that ensures idempotency). The SDK generates
                 // a request id if you do not pass one explicitly. 
-                APIContext context = new APIContext(accessToken);
-                context.Config = Configuration.GetConfig();
+                 // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
+                APIContext apiContext = Configuration.GetAPIContext();
 
                 // ###Reauthorization
-                // Retrieve a authorization id from authorization object
-                // by making a `Payment Using PayPal` with intent
+                // Make a authorized payment using `PayPal Account Payments` with intent
                 // as `authorize`. You can reauthorize a payment only once 4 to 29
                 // days after 3-day honor period for the original authorization
                 // expires.
-                authorization = Authorization.Get(context, "8HD57954KS1107638");
+                authorization = Authorization.Get(apiContext, "8HD57954KS1107638");
                 Amount reauthorizeAmount = new Amount();
                 reauthorizeAmount.currency = "USD";
                 reauthorizeAmount.total = "1";
                 authorization.amount = reauthorizeAmount;
-                Authorization reauthorization = authorization.Reauthorize(context);
+                Authorization reauthorization = authorization.Reauthorize(apiContext);
                 CurrContext.Items.Add("ResponseJson", JObject.Parse(reauthorization.ConvertToJson()).ToString(Formatting.Indented));
             }
             catch (PayPal.Exception.PayPalException ex)
