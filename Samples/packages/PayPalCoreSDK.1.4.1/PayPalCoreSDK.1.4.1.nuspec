@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>PayPalCoreSDK</id>
+    <version>1.4.1</version>
+    <title>PayPal Core SDK for .NET</title>
+    <authors>PayPal</authors>
+    <owners>PayPal</owners>
+    <licenseUrl>https://github.com/paypal/sdk-core-dotnet/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/paypal/sdk-core-dotnet/</projectUrl>
+    <iconUrl>https://www.paypal.com/en_GB/Marketing/i/logo/PayPal_logo_80x35.gif</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>The PayPal Core SDK addresses the essential needs of the PayPal API caller:
+Frequent and up-to-date releases: The PayPal Core SDK is available on NuGet, which translates as immediate SDK refreshes upon updates to PayPal APIs.
+Simpler configuration: The PayPal Core SDK supports dynamic configuration. And also lets you manage your API credentials (supports multiple credentials), connectivity details, and service endpoints using a configuration file.
+Compatibility: The PayPal Core SDK is optimized to support target .NET Frameworks 2.0, 3.5, 4.0, and 4.5.</description>
+    <summary>The PayPal Core SDK calls the PayPal Platform API Web Service for the given payload and PayPal API profile settings.</summary>
+    <releaseNotes>###CHANGE LOG
+
+#### V1.4.1 (Sep 27, 2013)
+
+   * Support (Optimization) for target .NET Frameworks 2.0, 3.5, 4.0, and 4.5.
+
+#### V1.4.0 (Sep 26, 2013)
+
+   * Updating core to support genio.
+
+#### V1.3.5 (Sep 11, 2013)
+
+   * Adding new mandatory parameters - clientId and clientSecret to openid classes.
+   * Added scope for [seamless checkout] (https://developer.paypal.com/webapps/developer/docs/integration/direct/log-in-with-paypal/detailed/#seamlesscheckout) in Session.GetRedirectUrl().
+   
+#### V1.3.4 (Jul 31, 2013)
+
+   * Updating version for Reauthorization functionality.
+   
+#### V1.3.3 (Jul 24, 2013)
+
+   * Updating version for REST User-Agent header for REST SDK bug fix (https://github.com/paypal/rest-api-sdk-dotnet/issues/7) 
+
+#### V1.3.2 (Jun 21, 2013)
+
+   * Fixing 500 internal service error with OAuth calls - Adding necessary Content-Type header.
+   * Exposing HTTP response data in ConnectionException for non-200 responses.(#6)</releaseNotes>
+    <copyright>Copyright © eBay Inc., 2009-2013</copyright>
+    <language>en-US</language>
+    <tags>PayPal Core SDK .NET C#</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="5.0.6" />
+    </dependencies>
+  </metadata>
+</package>
