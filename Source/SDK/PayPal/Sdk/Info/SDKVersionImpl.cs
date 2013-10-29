@@ -13,7 +13,7 @@ namespace PayPal
 		/// <summary>
 		/// SDK Version used in User-Agent HTTP header
 		/// </summary>
-		private const string SdkVersion = "0.7.3";
+		private const string SdkVersion = "0.7.4";
 		
 		public string GetSDKId()
 		{

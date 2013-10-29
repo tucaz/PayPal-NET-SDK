@@ -1,5 +1,14 @@
 CHANGE LOG
 ==========
+
+V0.7.4 (October 29, 2013)
+-----------------------
+
+	* Updated new version of core SDK.
+	* Added support for multiple target .NET frameworks.
+	
+You can see source code of this release in github under https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.4.0.
+
 V0.7.3 (July 31, 2013)
 -----------------------
    * Added support for Reauthorization.
