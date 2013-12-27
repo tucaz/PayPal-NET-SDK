@@ -72,3 +72,5 @@ Here is how you can get NuGet working on your IDE -
 License
 -------
    *   PayPal, Inc. SDK License - LICENSE.txt
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/paypal/rest-api-sdk-dotnet/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
