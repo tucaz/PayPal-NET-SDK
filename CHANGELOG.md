@@ -1,5 +1,11 @@
 CHANGE LOG
 ==========
+V0.7.5 (January 23, 2014)
+-----------------------
+
+	* Updated new version of core SDK.	
+	
+You can see source code of this release in github under https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.5.0.
 
 V0.7.4 (October 29, 2013)
 -----------------------
