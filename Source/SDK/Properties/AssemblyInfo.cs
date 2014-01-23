@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("RestApiSDK")]
-[assembly: AssemblyCopyright("Copyright © eBay Inc., 2013")]
+[assembly: AssemblyCopyright("Copyright © eBay Inc., 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
