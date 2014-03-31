@@ -32,6 +32,16 @@ namespace PayPal.Api.Payments
 		}
 	
 		/// <summary>
+		/// Time the resource was last updated.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string update_time
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
 		/// Details including both refunded amount (to Payer) and refunded fee (to Payee).If amount is not specified, it's assumed to be full refund.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -111,10 +121,20 @@ namespace PayPal.Api.Payments
 		/// <returns>Refund</returns>
 		public static Refund Get(APIContext apiContext, string refundId)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_JSON);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			if (refundId == null)
 			{
 				throw new ArgumentNullException("refundId cannot be null");

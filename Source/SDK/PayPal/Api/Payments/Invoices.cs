@@ -6,23 +6,23 @@ using System.Collections.Generic;
 
 namespace PayPal.Api.Payments
 {
-	public class PaymentExecution
+	public class Invoices
 	{
 		/// <summary>
-		/// PayPal assigned Payer ID returned in the approval return url.
+		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string payer_id
+		public int total_count
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// If the amount needs to be updated after obtaining the PayPal Payer info (eg. shipping address), it can be updated using this element.
+		/// List of invoices belonging to a merchant.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Transactions> transactions
+		public List<Invoice> invoices
 		{
 			get;
 			set;

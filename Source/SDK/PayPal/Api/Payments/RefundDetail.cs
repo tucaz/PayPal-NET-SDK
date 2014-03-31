@@ -4,43 +4,33 @@ using Newtonsoft.Json.Serialization;
 
 namespace PayPal.Api.Payments
 {
-	public class RelatedResources
+	public class RefundDetail
 	{
 		/// <summary>
-		/// A sale transaction
+		/// PayPal refund type indicating whether refund was done in invoicing flow via PayPal or externally. In the case of the mark-as-refunded API, refund type is EXTERNAL and this is what is now supported. The PAYPAL value is provided for backward compatibility.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Sale sale
+		public string type
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// An authorization transaction
+		/// Date when the invoice was marked as refunded. If no date is specified, the current date and time is used as the default. In addition, the date must be after the invoice payment date.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Authorization authorization
+		public string date
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// A capture transaction
+		/// Optional note associated with the refund.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Capture capture
-		{
-			get;
-			set;
-		}
-	
-		/// <summary>
-		/// A refund transaction
-		/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Refund refund
+		public string note
 		{
 			get;
 			set;

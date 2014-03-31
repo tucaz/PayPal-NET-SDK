@@ -1,46 +1,58 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PayPal.Api.Payments
 {
-	public class RelatedResources
+	public class Error
 	{
 		/// <summary>
-		/// A sale transaction
+		/// Human readable, unique name of the error.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Sale sale
+		public string name
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// An authorization transaction
+		/// PayPal internal identifier used for correlation purposes.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Authorization authorization
+		public string debug_id
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// A capture transaction
+		/// Message describing the error.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Capture capture
+		public string message
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// A refund transaction
+		/// URI for detailed information related to this error for the developer.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Refund refund
+		public string information_link
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// Additional details of the error
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public List<ErrorDetails> details
 		{
 			get;
 			set;

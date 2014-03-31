@@ -4,43 +4,43 @@ using Newtonsoft.Json.Serialization;
 
 namespace PayPal.Api.Payments
 {
-	public class RelatedResources
+	public class Tax
 	{
 		/// <summary>
-		/// A sale transaction
+		/// Identifier of the resource.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Sale sale
+		public string id
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// An authorization transaction
+		/// Name of the tax. 10 characters max.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Authorization authorization
+		public string name
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// A capture transaction
+		/// Rate of the specified tax. Range of 0.001 to 99.999.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Capture capture
+		public float percent
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// A refund transaction
+		/// Tax in the form of money. Cannot be specified in a request.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Refund refund
+		public Currency amount
 		{
 			get;
 			set;

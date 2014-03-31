@@ -111,10 +111,20 @@ namespace PayPal.Api.Payments
 		/// <returns>Capture</returns>
 		public static Capture Get(APIContext apiContext, string captureId)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_JSON);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			if (captureId == null)
 			{
 				throw new ArgumentNullException("captureId cannot be null");
@@ -146,10 +156,20 @@ namespace PayPal.Api.Payments
 		/// <returns>Refund</returns>
 		public Refund Refund(APIContext apiContext, Refund refund)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_JSON);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			if (this.id == null)
 			{
 				throw new ArgumentNullException("Id cannot be null");

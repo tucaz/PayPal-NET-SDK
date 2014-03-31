@@ -1,28 +1,26 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace PayPal.Api.Payments
 {
-	public class PaymentExecution
+	public class Cost
 	{
 		/// <summary>
-		/// PayPal assigned Payer ID returned in the approval return url.
+		/// Cost in percent. Range of 0 to 100.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string payer_id
+		public float percent
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// If the amount needs to be updated after obtaining the PayPal Payer info (eg. shipping address), it can be updated using this element.
+		/// Cost in amount. Range of 0 to 999999.99.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Transactions> transactions
+		public Currency amount
 		{
 			get;
 			set;
