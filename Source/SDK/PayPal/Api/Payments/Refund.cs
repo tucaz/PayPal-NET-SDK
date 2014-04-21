@@ -133,7 +133,7 @@ namespace PayPal.Api.Payments
 			{
 				apiContext.HTTPHeaders = new Dictionary<string, string>();
 			}
-			apiContext.HTTPHeaders.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_JSON);
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
 			apiContext.SdkVersion = new SDKVersionImpl();
 			if (refundId == null)
 			{

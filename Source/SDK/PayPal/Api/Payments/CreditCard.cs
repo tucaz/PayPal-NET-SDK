@@ -171,7 +171,7 @@ namespace PayPal.Api.Payments
 			{
 				apiContext.HTTPHeaders = new Dictionary<string, string>();
 			}
-			apiContext.HTTPHeaders.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_JSON);
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
 			apiContext.SdkVersion = new SDKVersionImpl();
 			string resourcePath = "v1/vault/credit-card";
 			string payLoad = this.ConvertToJson();
@@ -210,7 +210,7 @@ namespace PayPal.Api.Payments
 			{
 				apiContext.HTTPHeaders = new Dictionary<string, string>();
 			}
-			apiContext.HTTPHeaders.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_JSON);
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
 			apiContext.SdkVersion = new SDKVersionImpl();
 			if (creditCardId == null)
 			{
@@ -254,7 +254,7 @@ namespace PayPal.Api.Payments
 			{
 				apiContext.HTTPHeaders = new Dictionary<string, string>();
 			}
-			apiContext.HTTPHeaders.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_JSON);
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
 			apiContext.SdkVersion = new SDKVersionImpl();
 			if (this.id == null)
 			{
@@ -299,7 +299,7 @@ namespace PayPal.Api.Payments
 			{
 				apiContext.HTTPHeaders = new Dictionary<string, string>();
 			}
-			apiContext.HTTPHeaders.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_JSON);
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
 			apiContext.SdkVersion = new SDKVersionImpl();
 			if (this.id == null)
 			{
@@ -344,7 +344,7 @@ namespace PayPal.Api.Payments
 			{
 				apiContext.HTTPHeaders = new Dictionary<string, string>();
 			}
-			apiContext.HTTPHeaders.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_JSON);
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
 			apiContext.SdkVersion = new SDKVersionImpl();
 			if (containerDictionary == null)
 			{

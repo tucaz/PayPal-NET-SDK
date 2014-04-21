@@ -131,7 +131,7 @@ namespace PayPal.Api.Payments
 			{
 				apiContext.HTTPHeaders = new Dictionary<string, string>();
 			}
-			apiContext.HTTPHeaders.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_JSON);
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
 			apiContext.SdkVersion = new SDKVersionImpl();
 			string resourcePath = "v1/payments/payment";
 			string payLoad = this.ConvertToJson();
@@ -170,7 +170,7 @@ namespace PayPal.Api.Payments
 			{
 				apiContext.HTTPHeaders = new Dictionary<string, string>();
 			}
-			apiContext.HTTPHeaders.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_JSON);
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
 			apiContext.SdkVersion = new SDKVersionImpl();
 			if (paymentId == null)
 			{
@@ -215,7 +215,7 @@ namespace PayPal.Api.Payments
 			{
 				apiContext.HTTPHeaders = new Dictionary<string, string>();
 			}
-			apiContext.HTTPHeaders.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_JSON);
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
 			apiContext.SdkVersion = new SDKVersionImpl();
 			if (this.id == null)
 			{
@@ -264,7 +264,7 @@ namespace PayPal.Api.Payments
 			{
 				apiContext.HTTPHeaders = new Dictionary<string, string>();
 			}
-			apiContext.HTTPHeaders.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_JSON);
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
 			apiContext.SdkVersion = new SDKVersionImpl();
 			if (containerDictionary == null)
 			{
