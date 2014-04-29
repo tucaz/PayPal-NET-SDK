@@ -81,6 +81,7 @@
     <Compile Include="PayPal\Api\Payments\Transaction.cs" />
     <Compile Include="PayPal\Api\Payments\Transactions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PayPal\Sdk\Info\SDKVersionImpl.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
