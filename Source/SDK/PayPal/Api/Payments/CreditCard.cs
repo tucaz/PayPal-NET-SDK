@@ -270,49 +270,6 @@ namespace PayPal.Api.Payments
 		}
 	
 		/// <summary>
-		/// Update information in a previously saved card. Only the modified fields need to be passed in the request.
-		/// </summary>
-		/// <param name="accessToken">Access Token used for the API call.</param>
-		/// <returns>CreditCard</returns>
-		public CreditCard Update(string accessToken)
-		{
-			APIContext apiContext = new APIContext(accessToken);
-			return Update(apiContext);
-		}
-		
-		/// <summary>
-		/// Update information in a previously saved card. Only the modified fields need to be passed in the request.
-		/// </summary>
-		/// <param name="apiContext">APIContext used for the API call.</param>
-		/// <returns>CreditCard</returns>
-		public CreditCard Update(APIContext apiContext)
-		{
-			if (apiContext == null)
-			{
-				throw new ArgumentNullException("APIContext cannot be null");
-			}
-			if (string.IsNullOrEmpty(apiContext.AccessToken))
-			{
-				throw new ArgumentNullException("AccessToken cannot be null or empty");
-			}
-			if (apiContext.HTTPHeaders == null)
-			{
-				apiContext.HTTPHeaders = new Dictionary<string, string>();
-			}
-			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
-			apiContext.SdkVersion = new SDKVersionImpl();
-			if (this.id == null)
-			{
-				throw new ArgumentNullException("Id cannot be null");
-			}
-			object[] parameters = new object[] {this.id};
-			string pattern = "v1/vault/credit-card/{0}";
-			string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-			string payLoad = this.ConvertToJson();
-			return PayPalResource.ConfigureAndExecute<CreditCard>(apiContext, HttpMethod.PATCH, resourcePath, payLoad);
-		}
-	
-		/// <summary>
 		/// Retrieves a list of Credit Card resources.
 		/// </summary>
 		/// <param name="accessToken">Access Token used for the API call.</param>
