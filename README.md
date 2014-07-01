@@ -1,5 +1,5 @@
 The repository contains the PayPal PaymentSDK C#.NET Class Library Application and the PaymentSDKUnitTest C#.NET Visual Studio Test Application.
-
+> **Before starting to use the sdk, please be aware of the [existing issues and currently available or upcoming features](https://github.com/paypal/rest-api-sdk-python/wiki/Existing-Issues-and-Unavailable%5CUpcoming-features) for the REST APIs. (which the sdks are based on)**
 
 Prerequisites
 -------------
