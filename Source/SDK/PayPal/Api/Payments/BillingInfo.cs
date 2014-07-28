@@ -1,68 +1,76 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace PayPal.Api.Payments
 {
-	public class Transaction
+	public class BillingInfo
 	{
 		/// <summary>
-		/// Amount being collected.
+		/// Email address of the invoice recipient. 260 characters max.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Amount amount
+		public string email
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// Recepient of the funds in this transaction.
+		/// First name of the invoice recipient. 30 characters max.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Payee payee
+		public string first_name
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// Description of what is being paid for.
+		/// Last name of the invoice recipient. 30 characters max.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string description
+		public string last_name
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// List of items being paid for.
+		/// Company business name of the invoice recipient. 100 characters max.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public ItemList item_list
+		public string business_name
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// List of financial transactions (Sale, Authorization, Capture, Refund) related to the payment.
+		/// Address of the invoice recipient.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<RelatedResources> related_resources
+		public Address address
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// Additional transactions for complex payment (Parallel and Chained) scenarios.
+		/// Language of the email sent to the payer. Will only be used if payer doesn't have a PayPal account.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Transaction> transactions
+		public string language
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// Option to display additional information such as business hours. 40 characters max.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string additional_info
 		{
 			get;
 			set;

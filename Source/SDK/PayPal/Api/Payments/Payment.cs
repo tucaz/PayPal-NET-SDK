@@ -119,10 +119,20 @@ namespace PayPal.Api.Payments
 		/// <returns>Payment</returns>
 		public Payment Create(APIContext apiContext)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			string resourcePath = "v1/payments/payment";
 			string payLoad = this.ConvertToJson();
 			return PayPalResource.ConfigureAndExecute<Payment>(apiContext, HttpMethod.POST, resourcePath, payLoad);
@@ -148,10 +158,20 @@ namespace PayPal.Api.Payments
 		/// <returns>Payment</returns>
 		public static Payment Get(APIContext apiContext, string paymentId)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			if (paymentId == null)
 			{
 				throw new ArgumentNullException("paymentId cannot be null");
@@ -183,10 +203,20 @@ namespace PayPal.Api.Payments
 		/// <returns>Payment</returns>
 		public Payment Execute(APIContext apiContext, PaymentExecution paymentExecution)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			if (this.id == null)
 			{
 				throw new ArgumentNullException("Id cannot be null");
@@ -222,10 +252,20 @@ namespace PayPal.Api.Payments
 		/// <returns>PaymentHistory</returns>
 		public static PaymentHistory List(APIContext apiContext, Dictionary<String, String> containerDictionary)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			if (containerDictionary == null)
 			{
 				throw new ArgumentNullException("containerDictionary cannot be null");
@@ -236,37 +276,6 @@ namespace PayPal.Api.Payments
 			string payLoad = "";
 			return PayPalResource.ConfigureAndExecute<PaymentHistory>(apiContext, HttpMethod.GET, resourcePath, payLoad);
 		}
-
-        /// <summary>
-        /// Retrieves a list of Payment resources.
-        /// </summary>
-        [Obsolete("Use List method")]
-        public static PaymentHistory Get(APIContext apiContext, QueryParameters queryParameters)
-        {
-            if (string.IsNullOrEmpty(apiContext.AccessToken))
-            {
-                throw new ArgumentNullException("AccessToken cannot be null or empty");
-            }
-            if (queryParameters == null)
-            {
-                throw new ArgumentNullException("queryParameters cannot be null");
-            }
-            object[] parameters = new object[] { queryParameters };
-            string pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = "";
-            return PayPalResource.ConfigureAndExecute<PaymentHistory>(apiContext, HttpMethod.GET, resourcePath, payLoad);
-        }
-
-        /// <summary>
-        /// Retrieves a list of Payment resources.
-        /// </summary>
-        [Obsolete("Use List method")]
-        public static PaymentHistory Get(string accessToken, QueryParameters queryParameters)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            return Get(apiContext, queryParameters);
-        }
 	
 		/// <summary>
 		/// Converts the object to JSON string

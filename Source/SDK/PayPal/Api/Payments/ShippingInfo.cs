@@ -4,43 +4,43 @@ using Newtonsoft.Json.Serialization;
 
 namespace PayPal.Api.Payments
 {
-	public class RelatedResources
+	public class ShippingInfo
 	{
 		/// <summary>
-		/// A sale transaction
+		/// First name of the invoice recipient. 30 characters max.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Sale sale
+		public string first_name
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// An authorization transaction
+		/// Last name of the invoice recipient. 30 characters max.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Authorization authorization
+		public string last_name
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// A capture transaction
+		/// Company business name of the invoice recipient. 100 characters max.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Capture capture
+		public string business_name
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// A refund transaction
+		/// Address of the invoice recipient.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Refund refund
+		public Address address
 		{
 			get;
 			set;
