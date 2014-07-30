@@ -159,10 +159,20 @@ namespace PayPal.Api.Payments
 		/// <returns>CreditCard</returns>
 		public CreditCard Create(APIContext apiContext)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			string resourcePath = "v1/vault/credit-card";
 			string payLoad = this.ConvertToJson();
 			return PayPalResource.ConfigureAndExecute<CreditCard>(apiContext, HttpMethod.POST, resourcePath, payLoad);
@@ -188,10 +198,20 @@ namespace PayPal.Api.Payments
 		/// <returns>CreditCard</returns>
 		public static CreditCard Get(APIContext apiContext, string creditCardId)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			if (creditCardId == null)
 			{
 				throw new ArgumentNullException("creditCardId cannot be null");
@@ -204,7 +224,10 @@ namespace PayPal.Api.Payments
 		}
 	
 		/// <summary>
+<<<<<<< HEAD
 		/// Delete the Credit Card resource for the given identifier. Returns 204 No Content when the card is deleted successfully.
+=======
+		/// Delete the Credit Card resource for the given identifier.
 		/// </summary>
 		/// <param name="accessToken">Access Token used for the API call.</param>
 		/// <returns></returns>
@@ -216,16 +239,29 @@ namespace PayPal.Api.Payments
 		}
 		
 		/// <summary>
+<<<<<<< HEAD
 		/// Delete the Credit Card resource for the given identifier. Returns 204 No Content when the card is deleted successfully.
+=======
+		/// Delete the Credit Card resource for the given identifier.
 		/// </summary>
 		/// <param name="apiContext">APIContext used for the API call.</param>
 		/// <returns></returns>
 		public void Delete(APIContext apiContext)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			if (this.id == null)
 			{
 				throw new ArgumentNullException("Id cannot be null");
@@ -237,6 +273,51 @@ namespace PayPal.Api.Payments
 			string payLoad = "";
 			PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.DELETE, resourcePath, payLoad);
 			return;
+		}
+	
+		/// <summary>
+		/// Retrieves a list of Credit Card resources.
+		/// </summary>
+		/// <param name="accessToken">Access Token used for the API call.</param>
+		/// <param name="containerDictionary">Dictionary<String, String></param>
+		/// <returns>CreditCardHistory</returns>
+		public static CreditCardHistory List(string accessToken, Dictionary<String, String> containerDictionary)
+		{
+			APIContext apiContext = new APIContext(accessToken);
+			return List(apiContext, containerDictionary);
+		}
+		
+		/// <summary>
+		/// Retrieves a list of Credit Card resources.
+		/// </summary>
+		/// <param name="apiContext">APIContext used for the API call.</param>
+		/// <param name="containerDictionary">Dictionary<String, String></param>
+		/// <returns>CreditCardHistory</returns>
+		public static CreditCardHistory List(APIContext apiContext, Dictionary<String, String> containerDictionary)
+		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
+			if (string.IsNullOrEmpty(apiContext.AccessToken))
+			{
+				throw new ArgumentNullException("AccessToken cannot be null or empty");
+			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
+			apiContext.SdkVersion = new SDKVersionImpl();
+			if (containerDictionary == null)
+			{
+				throw new ArgumentNullException("containerDictionary cannot be null");
+			}
+			object[] parameters = new object[] {containerDictionary};
+			string pattern = "v1/vault/credit-card?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payer_id={5}";
+			string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+			string payLoad = "";
+			return PayPalResource.ConfigureAndExecute<CreditCardHistory>(apiContext, HttpMethod.GET, resourcePath, payLoad);
 		}
 	
 		/// <summary>
