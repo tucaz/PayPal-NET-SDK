@@ -175,17 +175,5 @@ namespace RestApiSDKUnitTest
             PaymentHistory paymentHistory = Payment.List(context, containerDictionary);
             Assert.AreEqual(10, paymentHistory.count);
         }
-
-        [TestMethod()]
-        #pragma warning disable 0618
-        [Obsolete("Use List method")]
-        public void PaymentHistoryQueryParametersTest()
-        {
-            APIContext context = new APIContext(AccessToken);
-            QueryParameters queryParameters = new QueryParameters();
-            queryParameters.SetCount("10");
-            PaymentHistory history = Payment.Get(context, queryParameters);
-            Assert.AreEqual(10, history.count);
-        }
     }
 }

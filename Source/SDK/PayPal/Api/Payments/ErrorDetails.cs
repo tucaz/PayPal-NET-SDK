@@ -1,28 +1,26 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace PayPal.Api.Payments
 {
-	public class PaymentExecution
+	public class ErrorDetails
 	{
 		/// <summary>
-		/// PayPal assigned Payer ID returned in the approval return url.
+		/// Name of the field that caused the error.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string payer_id
+		public string field
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// If the amount needs to be updated after obtaining the PayPal Payer info (eg. shipping address), it can be updated using this element.
+		/// Reason for the error.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Transactions> transactions
+		public string issue
 		{
 			get;
 			set;

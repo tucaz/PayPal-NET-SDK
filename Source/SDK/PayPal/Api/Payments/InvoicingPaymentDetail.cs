@@ -1,68 +1,66 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace PayPal.Api.Payments
 {
-	public class Transaction
+	public class InvoicingPaymentDetail
 	{
 		/// <summary>
-		/// Amount being collected.
+		/// PayPal payment detail indicating whether payment was made in an invoicing flow via PayPal or externally. In the case of the mark-as-paid API, payment type is EXTERNAL and this is what is now supported. The PAYPAL value is provided for backward compatibility.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Amount amount
+		public string type
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// Recepient of the funds in this transaction.
+		/// PayPal payment transaction id. Mandatory field in case the type value is PAYPAL.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Payee payee
+		public string transaction_id
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// Description of what is being paid for.
+		/// Type of the transaction.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string description
+		public string transaction_type
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// List of items being paid for.
+		/// Date when the invoice was paid. Date format: yyyy-MM-dd z. For example, 2014-02-27 PST.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public ItemList item_list
+		public string date
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// List of financial transactions (Sale, Authorization, Capture, Refund) related to the payment.
+		/// Payment mode or method. This field is mandatory if the value of the type field is OTHER.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<RelatedResources> related_resources
+		public string method
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// Additional transactions for complex payment (Parallel and Chained) scenarios.
+		/// Optional note associated with the payment.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Transaction> transactions
+		public string note
 		{
 			get;
 			set;

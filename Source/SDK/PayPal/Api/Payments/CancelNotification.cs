@@ -4,43 +4,43 @@ using Newtonsoft.Json.Serialization;
 
 namespace PayPal.Api.Payments
 {
-	public class RelatedResources
+	public class CancelNotification
 	{
 		/// <summary>
-		/// A sale transaction
+		/// Subject of the notification.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Sale sale
+		public string subject
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// An authorization transaction
+		/// Note to the payer.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Authorization authorization
+		public string note
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// A capture transaction
+		/// A flag indicating whether a copy of the email has to be sent to the merchant.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Capture capture
+		public bool send_to_merchant
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// A refund transaction
+		/// A flag indicating whether a copy of the email has to be sent to the payer.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Refund refund
+		public bool send_to_payer
 		{
 			get;
 			set;

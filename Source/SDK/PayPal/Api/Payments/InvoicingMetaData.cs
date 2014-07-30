@@ -4,73 +4,93 @@ using Newtonsoft.Json.Serialization;
 
 namespace PayPal.Api.Payments
 {
-	public class Address
+	public class InvoicingMetaData
 	{
 		/// <summary>
-		/// Line 1 of the Address (eg. number, street, etc).
+		/// Date when the resource was created.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string line1
+		public string created_date
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// Optional line 2 of the Address (eg. suite, apt #, etc.).
+		/// Email address of the account that created the resource.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string line2
+		public string created_by
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// City name.
+		/// Date when the resource was cancelled.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string city
+		public string cancelled_date
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// 2 letter country code.
+		/// Actor who cancelled the resource.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string country_code
+		public string cancelled_by
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// Zip code or equivalent is usually required for countries that have them. For list of countries that do not have postal codes please refer to http://en.wikipedia.org/wiki/Postal_code.
+		/// Date when the resource was last edited.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string postal_code
+		public string last_updated_date
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// 2 letter code for US states, and the equivalent for other countries.
+		/// Email address of the account that last edited the resource.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string state
+		public string last_updated_by
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// Phone number in E.123 format.
+		/// Date when the resource was first sent.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string phone
+		public string first_sent_date
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// Date when the resource was last sent.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string last_sent_date
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// Email address of the account that last sent the resource.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string last_sent_by
 		{
 			get;
 			set;

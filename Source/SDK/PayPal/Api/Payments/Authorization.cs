@@ -111,10 +111,20 @@ namespace PayPal.Api.Payments
 		/// <returns>Authorization</returns>
 		public static Authorization Get(APIContext apiContext, string authorizationId)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			if (authorizationId == null)
 			{
 				throw new ArgumentNullException("authorizationId cannot be null");
@@ -146,10 +156,20 @@ namespace PayPal.Api.Payments
 		/// <returns>Capture</returns>
 		public Capture Capture(APIContext apiContext, Capture capture)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			if (this.id == null)
 			{
 				throw new ArgumentNullException("Id cannot be null");
@@ -183,10 +203,20 @@ namespace PayPal.Api.Payments
 		/// <returns>Authorization</returns>
 		public Authorization Void(APIContext apiContext)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			if (this.id == null)
 			{
 				throw new ArgumentNullException("Id cannot be null");
@@ -216,10 +246,20 @@ namespace PayPal.Api.Payments
 		/// <returns>Authorization</returns>
 		public Authorization Reauthorize(APIContext apiContext)
 		{
+			if (apiContext == null)
+			{
+				throw new ArgumentNullException("APIContext cannot be null");
+			}
 			if (string.IsNullOrEmpty(apiContext.AccessToken))
 			{
 				throw new ArgumentNullException("AccessToken cannot be null or empty");
 			}
+			if (apiContext.HTTPHeaders == null)
+			{
+				apiContext.HTTPHeaders = new Dictionary<string, string>();
+			}
+			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
+			apiContext.SdkVersion = new SDKVersionImpl();
 			if (this.id == null)
 			{
 				throw new ArgumentNullException("Id cannot be null");
