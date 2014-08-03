@@ -224,9 +224,9 @@ namespace PayPal.Api.Payments
 		}
 	
 		/// <summary>
-<<<<<<< HEAD
+
 		/// Delete the Credit Card resource for the given identifier. Returns 204 No Content when the card is deleted successfully.
-=======
+
 		/// Delete the Credit Card resource for the given identifier.
 		/// </summary>
 		/// <param name="accessToken">Access Token used for the API call.</param>
@@ -239,9 +239,9 @@ namespace PayPal.Api.Payments
 		}
 		
 		/// <summary>
-<<<<<<< HEAD
+
 		/// Delete the Credit Card resource for the given identifier. Returns 204 No Content when the card is deleted successfully.
-=======
+
 		/// Delete the Credit Card resource for the given identifier.
 		/// </summary>
 		/// <param name="apiContext">APIContext used for the API call.</param>

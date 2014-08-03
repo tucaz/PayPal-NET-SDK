@@ -100,6 +100,133 @@ namespace PayPal.Api.Payments
 			get;
 			set;
 		}
+
+        /*
+        Default constructor
+        */
+        public Payment()
+        {
+           
+        }
+
+        /// <summary>
+        /// Parameterrized constructor
+        /// </summary>
+        /// <param name="id"></param>
+        public Payment(String intent, Payer payer, List<Transaction> transactions)
+        {
+            this.intent = intent;
+            this.payer = payer;
+            this.transactions = transactions;
+        }
+
+        /// <summary>
+        /// Parameterrized constructor
+        /// </summary>
+        /// <param name="id"></param>
+        public Payment(String id)
+        {
+            this.id = id;
+        }
+
+        /**
+        * Setter for id
+        */
+        public Payment setId(String id)
+        {
+            this.id = id;
+            return this;
+        }
+
+        /**
+        * Getter for id
+        */
+        public String getId()
+        {
+            return this.id;
+        }
+
+
+        /**
+        * Setter for createTime
+        */
+        public Payment setCreateTime(String createTime)
+        {
+            this.create_time = createTime;
+            return this;
+        }
+
+        /**
+        * Getter for createTime
+        */
+        public String getCreateTime()
+        {
+            return this.create_time;
+        }
+
+
+        /**
+        * Setter for updateTime
+        */
+        public Payment setUpdateTime(String updateTime)
+        {
+            this.update_time = updateTime;
+            return this;
+        }
+
+        /**
+        * Getter for updateTime
+        */
+        public String getUpdateTime()
+        {
+            return this.update_time;
+        }
+
+
+        /**
+        * Setter for intent
+        */
+        public Payment setIntent(String intent)
+        {
+            this.intent = intent;
+            return this;
+        }
+
+        /**
+        * Getter for intent
+        */
+        public String getIntent()
+        {
+            return this.intent;
+        }
+
+
+        /**
+        * Setter for payer
+        */
+        public Payment setPayer(Payer payer)
+        {
+            this.payer = payer;
+            return this;
+        }
+
+        /**
+        * Getter for payer
+        */
+        public Payer getPayer()
+        {
+            return this.payer;
+        }
+
+
+        /**
+        * Setter for transactions
+        */
+        public Payment setTransactions(List<Transaction> transactions)
+        {
+            this.transactions = transactions;
+            return this;
+        }
 	
 		/// <summary>
 		/// Creates (and processes) a new Payment Resource.
