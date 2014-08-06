@@ -1,28 +1,36 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace PayPal.Api.Payments
 {
-	public class PaymentExecution
+	public class Notification
 	{
 		/// <summary>
-		/// PayPal assigned Payer ID returned in the approval return url.
+		/// Subject of the notification.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string payer_id
+		public string subject
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// If the amount needs to be updated after obtaining the PayPal Payer info (eg. shipping address), it can be updated using this element.
+		/// Note to the payer.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Transactions> transactions
+		public string note
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// A flag indicating whether a copy of the email has to be sent to the merchant.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public bool send_to_merchant
 		{
 			get;
 			set;

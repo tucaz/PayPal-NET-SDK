@@ -1,28 +1,26 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace PayPal.Api.Payments
 {
-	public class PaymentExecution
+	public class Currency
 	{
 		/// <summary>
-		/// PayPal assigned Payer ID returned in the approval return url.
+		/// 3 letter currency code
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string payer_id
+		public string currency
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// If the amount needs to be updated after obtaining the PayPal Payer info (eg. shipping address), it can be updated using this element.
+		/// amount upto 2 decimals represented as string
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Transactions> transactions
+		public string value
 		{
 			get;
 			set;

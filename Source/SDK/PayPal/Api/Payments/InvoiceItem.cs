@@ -1,35 +1,23 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace PayPal.Api.Payments
 {
-	public class Transaction
+	public class InvoiceItem
 	{
 		/// <summary>
-		/// Amount being collected.
+		/// Name of the item. 60 characters max.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Amount amount
+		public string name
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// Recepient of the funds in this transaction.
-		/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Payee payee
-		{
-			get;
-			set;
-		}
-	
-		/// <summary>
-		/// Description of what is being paid for.
+		/// Description of the item. 1000 characters max.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string description
@@ -39,30 +27,50 @@ namespace PayPal.Api.Payments
 		}
 	
 		/// <summary>
-		/// List of items being paid for.
+		/// Quantity of the item. Range of 0 to 9999.999.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public ItemList item_list
+		public float quantity
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// List of financial transactions (Sale, Authorization, Capture, Refund) related to the payment.
+		/// Unit price of the item. Range of -999999.99 to 999999.99.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<RelatedResources> related_resources
+		public Currency unit_price
 		{
 			get;
 			set;
 		}
 	
 		/// <summary>
-		/// Additional transactions for complex payment (Parallel and Chained) scenarios.
+		/// Tax associated with the item.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Transaction> transactions
+		public Tax tax
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// Date on which the item or service was provided. Date format: yyyy-MM-dd z. For example, 2014-02-27 PST.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string date
+		{
+			get;
+			set;
+		}
+	
+		/// <summary>
+		/// Item discount in percent or amount.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public Cost discount
 		{
 			get;
 			set;
