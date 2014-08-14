@@ -47,7 +47,7 @@
       <HintPath>..\packages\PayPalCoreSDK.1.4.2\lib\net40\PayPalCoreSDK.dll</HintPath>
     </Reference>
     <Reference Include="RestApiSDK">
-      <HintPath>..\..\Source\Build\bin\Release\net40\RestApiSDK.dll</HintPath>
+      <HintPath>..\packages\RestApiSDK.0.7.7\lib\net40\RestApiSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
