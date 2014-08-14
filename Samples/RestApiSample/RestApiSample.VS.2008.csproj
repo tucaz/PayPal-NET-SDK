@@ -40,7 +40,7 @@
     </Reference>
     <Reference Include="RestApiSDK, Version=0.7.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Source\Build\bin\Release\net35\RestApiSDK.dll</HintPath>
+      <HintPath>..\packages\RestApiSDK.0.7.6\lib\net45\RestApiSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
