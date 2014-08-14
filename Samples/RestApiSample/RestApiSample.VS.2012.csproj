@@ -53,7 +53,7 @@
       <HintPath>..\packages\PayPalCoreSDK.1.4.2\lib\net45\PayPalCoreSDK.dll</HintPath>
     </Reference>
     <Reference Include="RestApiSDK">
-      <HintPath>..\packages\RestApiSDK.0.7.6\lib\net45\RestApiSDK.dll</HintPath>
+      <HintPath>..\packages\RestApiSDK.0.7.7\lib\net45\RestApiSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
