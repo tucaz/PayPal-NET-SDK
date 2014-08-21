@@ -65,9 +65,7 @@ namespace RestApiSDKUnitTest
             card.last_name = "Doe";
             card.number = "4825854086744369";
             card.type = "visa";
-            card.state = "New York";
             card.payer_id = "008";
-            card.id = "002";
             return card.Create(AccessToken);
         }       
 

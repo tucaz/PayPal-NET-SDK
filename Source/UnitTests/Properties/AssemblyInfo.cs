@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RestApiSDKUnitTest")]
+[assembly: AssemblyTitle("PayPal REST API SDK for .NET Unit Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("eBay, Inc.")]
+[assembly: AssemblyCompany("eBay Inc.")]
 [assembly: AssemblyProduct("RestApiSDKUnitTest")]
-[assembly: AssemblyCopyright("Copyright © eBay Inc., 2014")]
+[assembly: AssemblyCopyright("Copyright © 2009-2014 eBay Inc.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.7.6.0")]
-[assembly: AssemblyFileVersion("0.7.6.0")]
+[assembly: AssemblyVersion("0.7.7.0")]
+[assembly: AssemblyFileVersion("0.7.7.0")]
