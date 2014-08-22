@@ -1,10 +1,10 @@
 using PayPal;
+using System.Reflection;
 
 namespace PayPal
 {
 	public class SDKVersionImpl : SDKVersion
 	{
-		
 		/// <summary>
 		/// SDK ID used in User-Agent HTTP header
 		/// </summary>
@@ -13,7 +13,7 @@ namespace PayPal
 		/// <summary>
 		/// SDK Version used in User-Agent HTTP header
 		/// </summary>
-		private const string SdkVersion = "0.7.4";
+		private static readonly string SdkVersion = typeof(PayPal.SDKVersionImpl).Assembly.GetName().Version.ToString(3);
 		
 		public string GetSDKId()
 		{

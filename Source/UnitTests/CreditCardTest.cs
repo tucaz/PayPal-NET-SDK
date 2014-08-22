@@ -58,9 +58,7 @@ namespace RestApiSDKUnitTest
             card.last_name = "Doe";
             card.number = "4825854086744369";
             card.type = "visa";
-            card.state = "New York";
             card.payer_id = "008";
-            card.id = "002";
             card.billing_address = GetAddress();
             return card;
         }
@@ -71,14 +69,12 @@ namespace RestApiSDKUnitTest
             CreditCard card = GetCreditCard();
             Address add = GetAddress();
             Assert.AreEqual(card.number, "4825854086744369");
-            Assert.AreEqual(card.id, "002");
             Assert.AreEqual(card.first_name, "John");
             Assert.AreEqual(card.last_name, "Doe");
             Assert.AreEqual(card.expire_month, 01);
             Assert.AreEqual(card.expire_year, 2015);
             Assert.AreEqual(card.cvv2, "962");
             Assert.AreEqual(card.payer_id, "008");
-            Assert.AreEqual(card.state, "New York");
             Assert.AreEqual(add.city, card.billing_address.city);
             Assert.AreEqual(add.country_code, card.billing_address.country_code);
             Assert.AreEqual(add.line1, card.billing_address.line1);
