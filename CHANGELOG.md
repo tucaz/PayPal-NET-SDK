@@ -1,29 +1,46 @@
 CHANGE LOG
 ==========
-V0.7.5 (January 23, 2014)
------------------------
+Version 0.7.8 (September 10, 2014)
 
-	* Updated new version of core SDK.	
-	
-You can see source code of this release in github under https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.5.0.
+ * Fixing NuGet package dependency listing for PayPal Core
 
-V0.7.4 (October 29, 2013)
------------------------
+You can see source code of this release in github under https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.8.
+ 
+Version 0.7.7 (August 12, 2014)
 
-	* Updated new version of core SDK.
-	* Added support for multiple target .NET frameworks.
-	
-You can see source code of this release in github under https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.4.0.
+ * Added Invoice API support.
+ * Added constructor for getting Payer ID.
+
+You can see source code of this release in github under https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.7.
+
+Version 0.7.6 (January 23, 2014)
+ 
+ * Fixing core reference.
+
+You can see source code of this release in github under https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.6.
+
+Version 0.7.5 (January 23, 2014)
+ 
+ * Updated new version of core SDK.
+
+You can see source code of this release in github under https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.5.
+
+Version 0.7.4 (October 29, 2013)
+ 
+ * Updated new version of core SDK.
+ * Added support for multiple target .NET frameworks.
+
+You can see source code of this release in github under https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.4.
 
 V0.7.3 (July 31, 2013)
 -----------------------
    * Added support for Reauthorization.
-	
+ 
 You can see source code of this release in github under https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.3.
 V0.7.2 (July 24, 2013)
 -----------------------
    * Fixed bug for extended types in stubs #7.
-	
+ 
 You can see source code of this release in github under https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.2.
 
 V0.7.1 (June 2, 2013)

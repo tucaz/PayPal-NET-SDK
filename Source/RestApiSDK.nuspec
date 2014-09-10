@@ -3,17 +3,23 @@
   <metadata>
     <title>REST API SDK for .NET</title>
     <id>RestApiSDK</id>
-    <version>0.7.7</version>
+    <version>0.7.8</version>
     <authors>PayPal</authors>
     <owners>PayPal</owners>
-    <licenseUrl>https://github.com/paypal/rest-api-sdk-dotnet/blob/v0.7.7/LICENSE.txt</licenseUrl>
-    <projectUrl>https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.7</projectUrl>
+    <licenseUrl>https://github.com/paypal/rest-api-sdk-dotnet/blob/v0.7.8/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.8</projectUrl>
     <iconUrl>https://www.paypal.com/en_GB/Marketing/i/logo/PayPal_logo_80x35.gif</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <summary>The PayPal REST SDK calls the PayPal REST API for the given payload.</summary>
     <description>The PayPal API uses HTTP verbs and a RESTful endpoint structure. OAuth2.0 is used as the API Authorization framework. Request and response payloads are formatted as JSON.</description>
     <releaseNotes>CHANGE LOG
 ==========
+Version 0.7.8 (September 10, 2014)
+
+ * Fixing NuGet package dependency listing for PayPal Core
+
+You can see source code of this release in github under https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.7.8.
+ 
 Version 0.7.7 (August 12, 2014)
 
  * Added Invoice API support.
@@ -74,7 +80,7 @@ V0.5.2 (March 07, 2013)
     <copyright>Copyright © eBay Inc., 2009-2014</copyright>
     <tags>PayPal REST SDK .NET C#</tags>
     <dependencies>
-      <dependency id="PayPalCoreSDK" version="1.4.2" />
+      <dependency id="PayPalCoreSDK" version="[1.4.2]" />
     </dependencies>
   </metadata>
 </package>
