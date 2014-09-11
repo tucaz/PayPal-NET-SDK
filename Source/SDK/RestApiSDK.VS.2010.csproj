@@ -53,11 +53,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PayPalCoreSDK, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\PayPalCoreSDK.1.4.2\lib\net40\PayPalCoreSDK.dll</HintPath>
+    <Reference Include="PayPalCoreSDK">
+      <HintPath>..\lib\net40\PayPalCoreSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -83,6 +82,7 @@
     <Compile Include="PayPal\Api\Payments\CreditCardToken.cs" />
     <Compile Include="PayPal\Api\Payments\Details.cs" />
     <Compile Include="PayPal\Api\Payments\FundingInstrument.cs" />
+    <Compile Include="PayPal\Api\Payments\FuturePayment.cs" />
     <Compile Include="PayPal\Api\Payments\HyperSchema.cs" />
     <Compile Include="PayPal\Api\Payments\Item.cs" />
     <Compile Include="PayPal\Api\Payments\ItemList.cs" />
