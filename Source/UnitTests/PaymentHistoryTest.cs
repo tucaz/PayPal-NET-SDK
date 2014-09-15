@@ -9,33 +9,6 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class PaymentHistoryTest
     {
-        private string ClientId
-        {
-            get
-            {
-                string Id = ConfigManager.Instance.GetProperties()["ClientID"];
-                return Id;
-            }
-        }
-
-        private string ClientSecret
-        {
-            get
-            {
-                string secret = ConfigManager.Instance.GetProperties()["ClientSecret"];
-                return secret;
-            }
-        }
-
-        private string AccessToken
-        {
-            get
-            {
-                string token = new OAuthTokenCredential(ClientId, ClientSecret).GetAccessToken();
-                return token;
-            }
-        }
-
         private Details GetDetails()
         {
             Details detail = new Details();
@@ -103,7 +76,7 @@ namespace RestApiSDKUnitTest
             transactionList.Add(trans);
             pay.transactions = transactionList;
             pay.payer = payer;
-            return pay.Create(AccessToken);
+            return pay.Create(UnitTestUtil.GetApiContext());
         }
 
         private PaymentHistory GetPaymentHistory()

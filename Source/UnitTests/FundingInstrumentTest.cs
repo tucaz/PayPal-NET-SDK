@@ -8,33 +8,6 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class FundingInstrumentTest
     {
-        private string ClientId
-        {
-            get
-            {
-                string Id = ConfigManager.Instance.GetProperties()["ClientID"];
-                return Id;
-            }
-        }
-
-        private string ClientSecret
-        {
-            get
-            {
-                string secret = ConfigManager.Instance.GetProperties()["ClientSecret"];
-                return secret;
-            }
-        }
-
-        private string AccessToken
-        {
-            get
-            {
-                string token = new OAuthTokenCredential(ClientId, ClientSecret).GetAccessToken();
-                return token;
-            }
-        }
-
         private CreditCardToken GetCreditCardToken()
         {
             CreditCardToken card = new CreditCardToken();
@@ -67,7 +40,7 @@ namespace RestApiSDKUnitTest
             card.number = "4825854086744369";
             card.type = "visa";
             card.payer_id = "008";
-            return card.Create(AccessToken);
+            return card.Create(UnitTestUtil.GetApiContext());
         }         
 
         private FundingInstrument GetFundingInstrument()

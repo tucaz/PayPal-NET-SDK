@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using PayPal.Api.Payments;
-using PayPal.Manager;
 using PayPal;
 
 namespace RestApiSDKUnitTest
@@ -9,33 +8,6 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class AuthorizationTest
     {
-        private string ClientId
-        {
-            get
-            {
-                string Id = PayPal.Manager.ConfigManager.Instance.GetProperties()["ClientID"];
-                return Id;
-            }
-        }
-
-        private string ClientSecret
-        {
-            get
-            {
-                string secret = ConfigManager.Instance.GetProperties()["ClientSecret"];
-                return secret;
-            }
-        }
-
-        private string AccessToken
-        {
-            get
-            {
-                string token = new OAuthTokenCredential(ClientId, ClientSecret).GetAccessToken();
-                return token;
-            }
-        }
-
         private List<Links> GetLinksList()
         {
             Links lnk = new Links();
@@ -106,7 +78,7 @@ namespace RestApiSDKUnitTest
             card.id = "002";
             card.billing_address = GetAddress();
             return card;
-        } 
+        }
 
         private Payment CreatePayment()
         {
@@ -126,7 +98,9 @@ namespace RestApiSDKUnitTest
             transactionList.Add(trans);
             pay.transactions = transactionList;
             pay.payer = payr;
-            return pay.Create(AccessToken);
+
+            var apiContext = UnitTestUtil.GetApiContext();
+            return pay.Create(apiContext);
         }     
 
         [TestMethod()]
@@ -166,7 +140,7 @@ namespace RestApiSDKUnitTest
         {
             Payment pay = CreatePayment();
             string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            Authorization authorize = Authorization.Get(AccessToken, authorizationId);
+            Authorization authorize = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
             Assert.AreEqual(authorizationId, authorize.id);
         }
 
@@ -175,13 +149,13 @@ namespace RestApiSDKUnitTest
         {
             Payment pay = CreatePayment();
             string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            Authorization authorize = Authorization.Get(AccessToken, authorizationId);
+            Authorization authorize = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
             Capture cap = new Capture();
             Amount amt = new Amount();
             amt.total = "1";
             amt.currency = "USD";
             cap.amount = amt;
-            Capture response = authorize.Capture(AccessToken, cap);
+            Capture response = authorize.Capture(UnitTestUtil.GetApiContext(), cap);
             Assert.AreEqual("completed", response.state);
         }
 
@@ -190,27 +164,25 @@ namespace RestApiSDKUnitTest
         {
             Payment pay = CreatePayment();
             string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            Authorization authorize = Authorization.Get(AccessToken, authorizationId);
-            Authorization authorizationResponse = authorize.Void(AccessToken);
+            Authorization authorize = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
+            Authorization authorizationResponse = authorize.Void(UnitTestUtil.GetApiContext());
             Assert.AreEqual("voided", authorizationResponse.state);
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: AccessToken cannot be null")]
         public void NullAccessTokenTest()
         {
             string token = null;
             Payment pay = CreatePayment();
             string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            Authorization authorization = Authorization.Get(token, authorizationId);            
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(token, authorizationId));
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: AccessToken cannot be null")]
         public void NullAuthorizationIdTest()
         {
             string authorizationId = null;
-            Authorization authorization = Authorization.Get(AccessToken, authorizationId);
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId));
         }
     }
 }

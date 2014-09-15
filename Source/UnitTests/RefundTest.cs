@@ -9,33 +9,6 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class RefundTest
     {
-        private string ClientId
-        {
-            get
-            {
-                string Id = PayPal.Manager.ConfigManager.Instance.GetProperties()["ClientID"];
-                return Id;
-            }
-        }
-
-        private string ClientSecret
-        {
-            get
-            {
-                string secret = ConfigManager.Instance.GetProperties()["ClientSecret"];
-                return secret;
-            }
-        }
-
-        private string AccessToken
-        {
-            get
-            {
-                string token = new OAuthTokenCredential(ClientId, ClientSecret).GetAccessToken();
-                return token;
-            }
-        }
-        
         private Payment GetPayment()
         {
             Payment target = new Payment();
@@ -54,7 +27,7 @@ namespace RestApiSDKUnitTest
             transacts.Add(trans);
             target.transactions = transacts;
             target.payer = payer;
-            return target.Create(AccessToken);
+            return target.Create(UnitTestUtil.GetApiContext());
         }
 
         private Address GetAddress()
@@ -111,28 +84,27 @@ namespace RestApiSDKUnitTest
         {
             Payment pay = GetPayment();
             string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            Authorization authorization = Authorization.Get(AccessToken, authorizationId);
+            Authorization authorization = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
             Capture cap = new Capture();
             Amount amt = new Amount();
             amt.total = "1";
             amt.currency = "USD";
             cap.amount = amt;
-            Capture response = authorization.Capture(AccessToken, cap);
+            Capture response = authorization.Capture(UnitTestUtil.GetApiContext(), cap);
             Refund fund = new Refund();
             Amount refundAmount = new Amount();
             refundAmount.total = "1";
             refundAmount.currency = "USD";
             fund.amount = refundAmount;
-            Refund responseRefund = response.Refund(AccessToken, fund);
-            Refund retrievedRefund = Refund.Get(AccessToken, responseRefund.id);
+            Refund responseRefund = response.Refund(UnitTestUtil.GetApiContext(), fund);
+            Refund retrievedRefund = Refund.Get(UnitTestUtil.GetApiContext(), responseRefund.id);
             Assert.AreEqual(responseRefund.id, retrievedRefund.id);
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: refundId cannot be null")]
         public void NullRefundIdTest()
         {
-            Refund fund = Refund.Get(AccessToken, null);
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Refund.Get(UnitTestUtil.GetApiContext(), null));
         }
     }
 }

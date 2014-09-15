@@ -9,33 +9,6 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class CaptureTest
     {
-        private string ClientId
-        {
-            get
-            {
-                string Id = PayPal.Manager.ConfigManager.Instance.GetProperties()["ClientID"];
-                return Id;
-            }
-        }
-
-        private string ClientSecret
-        {
-            get
-            {
-                string secret = ConfigManager.Instance.GetProperties()["ClientSecret"];
-                return secret;
-            }
-        }
-
-        private string AccessToken
-        {
-            get
-            {
-                string token = new OAuthTokenCredential(ClientId, ClientSecret).GetAccessToken();
-                return token;
-            }
-        }       
-
         private List<Links> GetLinksList()
         {
             Links lnk = new Links();
@@ -113,7 +86,7 @@ namespace RestApiSDKUnitTest
             transacts.Add(trans);
             pay.transactions = transacts;
             pay.payer = payer;
-            return pay.Create(AccessToken);
+            return pay.Create(UnitTestUtil.GetApiContext());
         }
 
         private Address GetAddress()
@@ -166,14 +139,14 @@ namespace RestApiSDKUnitTest
         {
             Payment pay = GetPayment();
             string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            Authorization authorization = Authorization.Get(AccessToken, authorizationId);
+            Authorization authorization = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
             Capture cap = new Capture();
             Amount amt = new Amount();
             amt.total = "1";
             amt.currency = "USD";
             cap.amount = amt;
-            Capture responseCapture = authorization.Capture(AccessToken, cap);
-            Capture returnCapture = Capture.Get(AccessToken, responseCapture.id);
+            Capture responseCapture = authorization.Capture(UnitTestUtil.GetApiContext(), cap);
+            Capture returnCapture = Capture.Get(UnitTestUtil.GetApiContext(), responseCapture.id);
             Assert.AreEqual(responseCapture.id, returnCapture.id);
         }
 
@@ -182,27 +155,26 @@ namespace RestApiSDKUnitTest
         {
             Payment pay = GetPayment();
             string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            Authorization authorization = Authorization.Get(AccessToken, authorizationId);
+            Authorization authorization = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
             Capture cap = new Capture();
             Amount amnt = new Amount();
             amnt.total = "1";
             amnt.currency = "USD";
             cap.amount = amnt;
-            Capture response = authorization.Capture(AccessToken, cap);
+            Capture response = authorization.Capture(UnitTestUtil.GetApiContext(), cap);
             Refund fund = new Refund();
             Amount refundAmount = new Amount();
             refundAmount.total = "1";
             refundAmount.currency = "USD";
             fund.amount = refundAmount;
-            Refund responseRefund = response.Refund(AccessToken, fund);
+            Refund responseRefund = response.Refund(UnitTestUtil.GetApiContext(), fund);
             Assert.AreEqual("completed", responseRefund.state);
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: captureId cannot be null")]
         public void NullCaptureIdTest()
         {
-            Capture cap = Capture.Get(AccessToken, null);  
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Capture.Get(UnitTestUtil.GetApiContext(), null));
         } 
     }
 }

@@ -8,33 +8,6 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class CreditCardTest
     {
-        private string ClientId
-        {
-            get
-            {
-                string Id = ConfigManager.Instance.GetProperties()["ClientID"];
-                return Id;
-            }
-        }
-
-        private string ClientSecret
-        {
-            get
-            {
-                string secret = ConfigManager.Instance.GetProperties()["ClientSecret"];
-                return secret;
-            }
-        }
-
-        private string AccessToken
-        {
-            get
-            {
-                string token = new OAuthTokenCredential(ClientId, ClientSecret).GetAccessToken();
-                return token;
-            }
-        }
-
         private Address GetAddress()
         {
             Address add = new Address();
@@ -97,8 +70,8 @@ namespace RestApiSDKUnitTest
         public void CreditCardGetTest()
         {
             CreditCard card = GetCreditCard();
-            CreditCard createdCreditCard = card.Create(AccessToken);
-            CreditCard retrievedCreditCard = CreditCard.Get(AccessToken, createdCreditCard.id);
+            CreditCard createdCreditCard = card.Create(UnitTestUtil.GetApiContext());
+            CreditCard retrievedCreditCard = CreditCard.Get(UnitTestUtil.GetApiContext(), createdCreditCard.id);
             Assert.AreEqual(createdCreditCard.id, retrievedCreditCard.id);
         }
 
@@ -106,16 +79,15 @@ namespace RestApiSDKUnitTest
         public void CreditCardDeleteTest()
         {
             CreditCard card = GetCreditCard();
-            CreditCard createdCreditCard = card.Create(AccessToken);
-            CreditCard retrievedCreditCard = CreditCard.Get(AccessToken, createdCreditCard.id);
-            retrievedCreditCard.Delete(AccessToken);
+            CreditCard createdCreditCard = card.Create(UnitTestUtil.GetApiContext());
+            CreditCard retrievedCreditCard = CreditCard.Get(UnitTestUtil.GetApiContext(), createdCreditCard.id);
+            retrievedCreditCard.Delete(UnitTestUtil.GetApiContext());
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: creditCardId cannot be null")]
         public void NullCreditCardIdTest()
         {
-            CreditCard card = CreditCard.Get(AccessToken, null);
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => CreditCard.Get(UnitTestUtil.GetApiContext(), null));
         }
     }
 }

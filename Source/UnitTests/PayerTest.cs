@@ -9,33 +9,6 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class PayerTest
     {
-        private string ClientId
-        {
-            get
-            {
-                string Id = ConfigManager.Instance.GetProperties()["ClientID"];
-                return Id;
-            }
-        }
-
-        private string ClientSecret
-        {
-            get
-            {
-                string secret = ConfigManager.Instance.GetProperties()["ClientSecret"];
-                return secret;
-            }
-        }
-
-        private string AccessToken
-        {
-            get
-            {
-                string token = new OAuthTokenCredential(ClientId, ClientSecret).GetAccessToken();
-                return token;
-            }
-        }
-
         private ShippingAddress GetShippingAddress()
         {
             ShippingAddress shipping = new ShippingAddress();
@@ -66,7 +39,7 @@ namespace RestApiSDKUnitTest
             card.number = "4825854086744369";
             card.type = "visa";
             card.payer_id = "008";
-            return card.Create(AccessToken);
+            return card.Create(UnitTestUtil.GetApiContext());
         }       
 
         private CreditCardToken GetCreditCardToken()

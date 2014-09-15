@@ -11,33 +11,6 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class PaymentTest
     {
-        private string ClientId
-        {
-            get
-            {
-                string Id = ConfigManager.Instance.GetProperties()["ClientID"];
-                return Id;
-            }
-        }
-
-        private string ClientSecret
-        {
-            get
-            {
-                string secret = ConfigManager.Instance.GetProperties()["ClientSecret"];
-                return secret;
-            }
-        }
-
-        private string AccessToken
-        {
-            get
-            {
-                string token = new OAuthTokenCredential(ClientId, ClientSecret).GetAccessToken();
-                return token;
-            }
-        }
-
         private Payment GetPayment()
         {
             Payment pay = new Payment();
@@ -56,7 +29,29 @@ namespace RestApiSDKUnitTest
             transactionList.Add(trans);
             pay.transactions = transactionList;
             pay.payer = payer;
-            Payment paymnt = pay.Create(AccessToken);
+            Payment paymnt = pay.Create(UnitTestUtil.GetApiContext());
+            return paymnt;
+        }
+
+        private Payment GetFuturePayment()
+        {
+            FuturePayment pay = new FuturePayment();
+            pay.intent = "sale";
+            CreditCard card = GetCreditCard();
+            List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
+            FundingInstrument fundingInstrument = new FundingInstrument();
+            fundingInstrument.credit_card = card;
+            fundingInstruments.Add(fundingInstrument);
+            Payer payer = new Payer();
+            payer.payment_method = "credit_card";
+            payer.funding_instruments = fundingInstruments;
+            List<Transaction> transactionList = new List<Transaction>();
+            Transaction trans = new Transaction();
+            trans.amount = GetAmount();
+            transactionList.Add(trans);
+            pay.transactions = transactionList;
+            pay.payer = payer;
+            Payment paymnt = pay.Create(UnitTestUtil.GetApiContext());
             return paymnt;
         }
 
@@ -129,12 +124,11 @@ namespace RestApiSDKUnitTest
             pay.transactions = transacts;
             pay.payer = payer;
             Payment actual = new Payment();
-            actual = pay.Create(AccessToken);
+            actual = pay.Create(UnitTestUtil.GetApiContext());
             Assert.AreEqual("approved", actual.state);
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(System.ArgumentNullException), "Value cannot be null. Parameter name: AccessToken cannot be null")]
         public void PaymentNullAccessToken()
         {
             string accessToken = null;
@@ -154,13 +148,13 @@ namespace RestApiSDKUnitTest
             transacts.Add(trans);
             pay.transactions = transacts;
             pay.payer = payr;
-            Payment actual = pay.Create(accessToken);           
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => pay.Create(accessToken));
         }
 
         [TestMethod()]
         public void TestPayment()
         {
-            APIContext context = new APIContext(AccessToken);
+            APIContext context = UnitTestUtil.GetApiContext();
             Payment pay = GetPayment();
             Payment retrievedPayment = Payment.Get(context, pay.id);
             Assert.AreEqual(pay.id, retrievedPayment.id);
@@ -169,11 +163,20 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void PaymentHistoryTest()
         {
-            APIContext context = new APIContext(AccessToken);
+            APIContext context = UnitTestUtil.GetApiContext();
             Dictionary<string, string> containerDictionary = new Dictionary<string, string>();
             containerDictionary.Add("count", "10");
             PaymentHistory paymentHistory = Payment.List(context, containerDictionary);
             Assert.AreEqual(10, paymentHistory.count);
+        }
+
+        [TestMethod()]
+        public void FuturePaymentTest()
+        {
+            APIContext context = UnitTestUtil.GetApiContext();
+            Payment futurePayment = GetFuturePayment();
+            Payment retrievedPayment = FuturePayment.Get(context, futurePayment.id);
+            Assert.AreEqual(futurePayment.id, retrievedPayment.id);
         }
     }
 }
