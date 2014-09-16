@@ -60,7 +60,11 @@ namespace RestApiSample
             {
                 CurrContext.Items.Add("Error", ex.Message);
             }
-            CurrContext.Items.Add("RequestJson", JObject.Parse(capture.ConvertToJson()).ToString(Formatting.Indented));
+
+            if (capture != null)
+            {
+                CurrContext.Items.Add("RequestJson", JObject.Parse(capture.ConvertToJson()).ToString(Formatting.Indented));
+            }
 
             Server.Transfer("~/Response.aspx");
 

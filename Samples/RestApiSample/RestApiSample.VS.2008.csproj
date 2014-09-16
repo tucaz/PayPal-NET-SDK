@@ -34,13 +34,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net35\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PayPalCoreSDK, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="PayPalCoreSDK, Version=1.5.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\PayPalCoreSDK.1.4.2\lib\net35\PayPalCoreSDK.dll</HintPath>
+      <HintPath>..\packages\PayPalCoreSDK.1.5.0\lib\net35\PayPalCoreSDK.dll</HintPath>
     </Reference>
-    <Reference Include="RestApiSDK, Version=0.7.7.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RestApiSDK, Version=0.8.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RestApiSDK.0.7.7\lib\net35\RestApiSDK.dll</HintPath>
+      <HintPath>..\packages\RestApiSDK.0.8.0\lib\net35\RestApiSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">

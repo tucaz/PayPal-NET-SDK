@@ -5,8 +5,11 @@ namespace RestApiSample
 { 
     public static class Configuration
     {
+        public static readonly string ClientId = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
+        public static readonly string ClientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
+
         // Create the configuration map that contains mode and other optional configuration details.
-        private static Dictionary<string, string> GetConfig()
+        public static Dictionary<string, string> GetConfig()
         {
             Dictionary<string, string> configMap = new Dictionary<string, string>();
 
@@ -29,7 +32,7 @@ namespace RestApiSample
             // It is not mandatory to generate Access Token on a per call basis.
             // Typically the access token can be generated once and
             // reused within the expiry window                
-            string accessToken = new OAuthTokenCredential("EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM", "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM", GetConfig()).GetAccessToken();
+            string accessToken = new OAuthTokenCredential(ClientId, ClientSecret, GetConfig()).GetAccessToken();
             return accessToken;
         }
 

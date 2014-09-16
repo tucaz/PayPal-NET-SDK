@@ -9,15 +9,18 @@ using PayPal.Api.Payments;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using PayPal.OpenIdConnect;
 
 namespace RestApiSample
 {
     public partial class PaymentWithPayPal : System.Web.UI.Page
     {
+        private Payment payment;
+        private FuturePayment futurePayment;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             HttpContext CurrContext = HttpContext.Current;
-            Payment pymnt = null;
 
             // ### Api Context
             // Pass in a `APIContext` object to authenticate 
@@ -27,104 +30,15 @@ namespace RestApiSample
              // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
             APIContext apiContext = Configuration.GetAPIContext();
 
-            // ## ExecutePayment
-            if (Request.Params["PayerID"] != null)
+            try
             {
-                pymnt = new Payment();
-                if (Request.Params["guid"] != null)
+                string payerId = Request.Params["PayerID"];
+                if (string.IsNullOrEmpty(payerId))
                 {
-                    pymnt.id = (string)Session[Request.Params["guid"]];
-
-                }
-                try
-                {
-                    PaymentExecution pymntExecution = new PaymentExecution();
-                    pymntExecution.payer_id = Request.Params["PayerID"];
-
-                    Payment executedPayment = pymnt.Execute(apiContext, pymntExecution);
-                    CurrContext.Items.Add("ResponseJson", JObject.Parse(executedPayment.ConvertToJson()).ToString(Formatting.Indented));
-                }
-                catch (PayPal.Exception.PayPalException ex)
-                {
-                    CurrContext.Items.Add("Error", ex.Message);
-                }
-            }
-
-            // ## Creating Payment
-            else
-            {
-                // ###Items
-                // Items within a transaction.
-                Item item = new Item();
-                item.name = "Item Name";
-                item.currency = "USD";
-                item.price = "15";
-                item.quantity = "5";
-                item.sku = "sku";
-
-                List<Item> itms = new List<Item>();
-                itms.Add(item);
-                ItemList itemList = new ItemList();
-                itemList.items = itms;
-
-                // ###Payer
-                // A resource representing a Payer that funds a payment
-                // Payment Method
-                // as `paypal`
-                Payer payr = new Payer();
-                payr.payment_method = "paypal";
-                Random rndm = new Random();
-                var guid = Convert.ToString(rndm.Next(100000));
-
-                string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/PaymentWithPayPal.aspx?";
-
-                // # Redirect URLS
-                RedirectUrls redirUrls = new RedirectUrls();
-                redirUrls.cancel_url = baseURI + "guid=" + guid;
-                redirUrls.return_url = baseURI + "guid=" + guid;
-
-                // ###Details
-                // Let's you specify details of a payment amount.
-                Details details = new Details();
-                details.tax = "15";
-                details.shipping = "10";
-                details.subtotal = "75";
-
-                // ###Amount
-                // Let's you specify a payment amount.
-                Amount amnt = new Amount();
-                amnt.currency = "USD";
-                // Total must be equal to sum of shipping, tax and subtotal.
-                amnt.total = "100";
-                amnt.details = details;
-
-                // ###Transaction
-                // A transaction defines the contract of a
-                // payment - what is the payment for and who
-                // is fulfilling it. 
-                List<Transaction> transactionList = new List<Transaction>();
-                Transaction tran = new Transaction();
-                tran.description = "Transaction description.";
-                tran.amount = amnt;
-                tran.item_list = itemList;
-                // The Payment creation API requires a list of
-                // Transaction; add the created `Transaction`
-                // to a List
-                transactionList.Add(tran);
-
-                // ###Payment
-                // A Payment Resource; create one using
-                // the above types and intent as `sale` or `authorize`
-                pymnt = new Payment();
-                pymnt.intent = "sale";
-                pymnt.payer = payr;
-                pymnt.transactions = transactionList;
-                pymnt.redirect_urls = redirUrls;
-
-                try
-                {
-                    // Create a payment using a valid APIContext
-                    Payment createdPayment = pymnt.Create(apiContext);
+                    // Creating a payment
+                    string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/PaymentWithPayPal.aspx?";
+                    var guid = Convert.ToString((new Random()).Next(100000));
+                    var createdPayment = this.CreatePayment(apiContext, baseURI + "guid=" + guid);
 
                     CurrContext.Items.Add("ResponseJson", JObject.Parse(createdPayment.ConvertToJson()).ToString(Formatting.Indented));
 
@@ -140,15 +54,212 @@ namespace RestApiSample
                     }
                     Session.Add(guid, createdPayment.id);
                 }
-                catch (PayPal.Exception.PayPalException ex)
+                else
                 {
-                    CurrContext.Items.Add("Error", ex.Message);
+                    // Executing a payment
+                    var executedPayment = this.ExecutePayment(apiContext, payerId, Request.Params["guid"]);
+                    CurrContext.Items.Add("ResponseJson", JObject.Parse(executedPayment.ConvertToJson()).ToString(Formatting.Indented));
                 }
             }
-            CurrContext.Items.Add("RequestJson", JObject.Parse(pymnt.ConvertToJson()).ToString(Formatting.Indented));
+            catch (Exception ex)
+            {
+                CurrContext.Items.Add("Error", ex.Message);
+            }
+
+            if (this.payment != null)
+            {
+                CurrContext.Items.Add("RequestJson", JObject.Parse(this.payment.ConvertToJson()).ToString(Formatting.Indented));
+            }
 
             Server.Transfer("~/Response.aspx");
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiContext"></param>
+        /// <param name="payerId"></param>
+        /// <param name="paymentId"></param>
+        /// <returns></returns>
+        private Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)
+        {
+            var paymentExecution = new PaymentExecution() { payer_id = payerId };
+            this.payment = new Payment() { id = paymentId };
+            return this.payment.Execute(apiContext, paymentExecution);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiContext"></param>
+        /// <param name="redirectUrl"></param>
+        /// <returns></returns>
+        private Payment CreatePayment(APIContext apiContext, string redirectUrl)
+        {
+            // ###Items
+            // Items within a transaction.
+            var itemList = new ItemList() { items = new List<Item>() };
+            itemList.items.Add(new Item()
+            {
+                name = "Item Name",
+                currency = "USD",
+                price = "15",
+                quantity = "5",
+                sku = "sku"
+            });
+
+            // ###Payer
+            // A resource representing a Payer that funds a payment
+            // Payment Method
+            // as `paypal`
+            var payer = new Payer() { payment_method = "paypal" };
+            
+            // # Redirect URLS
+            var redirUrls = new RedirectUrls()
+            {
+                cancel_url = redirectUrl,
+                return_url = redirectUrl
+            };
+
+            // ###Details
+            // Let's you specify details of a payment amount.
+            var details = new Details()
+            {
+                tax = "15",
+                shipping = "10",
+                subtotal = "75"
+            };
+
+            // ###Amount
+            // Let's you specify a payment amount.
+            var amount = new Amount()
+            {
+                currency = "USD",
+                total = "100", // Total must be equal to sum of shipping, tax and subtotal.
+                details = details
+            };
+
+            // ###Transaction
+            // A transaction defines the contract of a
+            // payment - what is the payment for and who
+            // is fulfilling it. 
+            var transactionList = new List<Transaction>();
+
+            // The Payment creation API requires a list of
+            // Transaction; add the created `Transaction`
+            // to a List
+            transactionList.Add(new Transaction()
+            {
+                description = "Transaction description.",
+                amount = amount,
+                item_list = itemList
+            });
+
+            // ###Payment
+            // A Payment Resource; create one using
+            // the above types and intent as `sale` or `authorize`
+            this.payment = new Payment()
+            {
+                intent = "sale",
+                payer = payer,
+                transactions = transactionList,
+                redirect_urls = redirUrls
+            };
+            // Create a payment using a valid APIContext
+            return this.payment.Create(apiContext);
+        }
+
+        /// <summary>
+        /// Code example for creating a future payment object.
+        /// </summary>
+        /// <param name="correlationId"></param>
+        /// <param name="authorizationCode"></param>
+        private Payment CreateFuturePayment(string correlationId, string authorizationCode, string redirectUrl)
+        {
+            // ###Payer
+            // A resource representing a Payer that funds a payment
+            // Payment Method
+            // as `paypal`
+            Payer payer = new Payer()
+            {
+                payment_method = "paypal"
+            };
+
+            // ###Details
+            // Let's you specify details of a payment amount.
+            Details details = new Details()
+            {
+                tax = "15",
+                shipping = "10",
+                subtotal = "75"
+            };
+
+            // ###Amount
+            // Let's you specify a payment amount.
+            var amount = new Amount()
+            {
+                currency = "USD",
+                total = "100", // Total must be equal to sum of shipping, tax and subtotal.
+                details = details
+            };
+
+            // # Redirect URLS
+            var redirUrls = new RedirectUrls()
+            {
+                cancel_url = redirectUrl,
+                return_url = redirectUrl
+            };
+
+            // ###Items
+            // Items within a transaction.
+            var itemList = new ItemList() { items = new List<Item>() };
+            itemList.items.Add(new Item()
+            {
+                name = "Item Name",
+                currency = "USD",
+                price = "15",
+                quantity = "5",
+                sku = "sku"
+            });
+
+            // ###Transaction
+            // A transaction defines the contract of a
+            // payment - what is the payment for and who
+            // is fulfilling it. 
+            var transactionList = new List<Transaction>();
+
+            // The Payment creation API requires a list of
+            // Transaction; add the created `Transaction`
+            // to a List
+            transactionList.Add(new Transaction()
+            {
+                description = "Transaction description.",
+                amount = amount,
+                item_list = itemList
+            });
+
+            var authorizationCodeParameters = new CreateFromAuthorizationCodeParameters();
+		    authorizationCodeParameters.setClientId(Configuration.ClientId);
+		    authorizationCodeParameters.setClientSecret(Configuration.ClientSecret);
+		    authorizationCodeParameters.SetCode(authorizationCode);
+
+		    var apiContext = new APIContext();
+            apiContext.Config = Configuration.GetConfig();
+
+            var tokenInfo = Tokeninfo.CreateFromAuthorizationCodeForFuturePayments(apiContext, authorizationCodeParameters);
+            var accessToken = string.Format("{0} {1}", tokenInfo.token_type, tokenInfo.access_token);
+
+            // ###Payment
+            // A FuturePayment Resource
+            this.futurePayment = new FuturePayment()
+            {
+                intent = "authorize",
+                payer = payer,
+                transactions = transactionList,
+                redirect_urls = redirUrls
+            };
+            return this.futurePayment.Create(accessToken, correlationId);
         }
     }
 }
