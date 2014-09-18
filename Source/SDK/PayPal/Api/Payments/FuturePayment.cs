@@ -39,7 +39,7 @@ namespace PayPal.Api.Payments
                 apiContext.HTTPHeaders = new Dictionary<string, string>();
             }
 
-            apiContext.HTTPHeaders["Paypal-Application-Correlation-Id"] = correlationId;
+            apiContext.HTTPHeaders["PAYPAL-CLIENT-METADATA-ID"] = correlationId;
 
             return this.Create(apiContext);
         }
