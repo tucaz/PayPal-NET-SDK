@@ -1,5 +1,11 @@
 CHANGE LOG
 ==========
+Version 0.8.0 (September 18, 2014)
+
+ * Adding future payment support
+
+You can see source code of this release in github under https://github.com/paypal/rest-api-sdk-dotnet/tree/v0.8.0.
+
 Version 0.7.8 (September 10, 2014)
 
  * Fixing NuGet package dependency listing for PayPal Core
