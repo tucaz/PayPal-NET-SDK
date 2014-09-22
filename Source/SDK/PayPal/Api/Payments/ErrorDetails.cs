@@ -1,6 +1,7 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -10,26 +11,18 @@ namespace PayPal.Api.Payments
 		/// Name of the field that caused the error.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string field
-		{
-			get;
-			set;
-		}
+		public string field { get; set; }
 	
 		/// <summary>
 		/// Reason for the error.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string issue
-		{
-			get;
-			set;
-		}
+		public string issue { get; set; }
 	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public string ConvertToJson() 
+		public virtual string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}

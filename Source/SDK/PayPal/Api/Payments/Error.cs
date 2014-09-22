@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Collections;
 using System.Collections.Generic;
+using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -12,56 +13,36 @@ namespace PayPal.Api.Payments
 		/// Human readable, unique name of the error.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string name
-		{
-			get;
-			set;
-		}
+		public string name { get; set; }
 	
 		/// <summary>
 		/// PayPal internal identifier used for correlation purposes.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string debug_id
-		{
-			get;
-			set;
-		}
+		public string debug_id { get; set; }
 	
 		/// <summary>
 		/// Message describing the error.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string message
-		{
-			get;
-			set;
-		}
+		public string message { get; set; }
 	
 		/// <summary>
 		/// URI for detailed information related to this error for the developer.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string information_link
-		{
-			get;
-			set;
-		}
+		public string information_link { get; set; }
 	
 		/// <summary>
 		/// Additional details of the error
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<ErrorDetails> details
-		{
-			get;
-			set;
-		}
+		public List<ErrorDetails> details { get; set; }
 	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public string ConvertToJson() 
+		public virtual string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}

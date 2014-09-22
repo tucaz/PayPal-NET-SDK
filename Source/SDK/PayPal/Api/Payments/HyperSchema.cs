@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Collections;
 using System.Collections.Generic;
+using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -12,66 +13,42 @@ namespace PayPal.Api.Payments
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Links> links
-		{
-			get;
-			set;
-		}
+		public List<Links> links { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string fragmentResolution
-		{
-			get;
-			set;
-		}
+		public string fragmentResolution { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public bool readOnly
-		{
-			get;
-			set;
-		}
+		public bool readOnly { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string contentEncoding
-		{
-			get;
-			set;
-		}
+		public string contentEncoding { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string pathStart
-		{
-			get;
-			set;
-		}
+		public string pathStart { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string mediaType
-		{
-			get;
-			set;
-		}
+		public string mediaType { get; set; }
 	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public string ConvertToJson() 
+		public virtual string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}

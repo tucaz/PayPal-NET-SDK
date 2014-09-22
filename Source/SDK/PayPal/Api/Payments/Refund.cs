@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using PayPal;
 using PayPal.Util;
 using PayPal.Api.Payments;
+using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -15,91 +16,55 @@ namespace PayPal.Api.Payments
 		/// Identifier of the refund transaction.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string id
-		{
-			get;
-			set;
-		}
+		public string id { get; set; }
 	
 		/// <summary>
 		/// Time the resource was created.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string create_time
-		{
-			get;
-			set;
-		}
+		public string create_time { get; set; }
 	
 		/// <summary>
 		/// Time the resource was last updated.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string update_time
-		{
-			get;
-			set;
-		}
+		public string update_time { get; set; }
 	
 		/// <summary>
 		/// Details including both refunded amount (to Payer) and refunded fee (to Payee).If amount is not specified, it's assumed to be full refund.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Amount amount
-		{
-			get;
-			set;
-		}
+		public Amount amount { get; set; }
 	
 		/// <summary>
 		/// State of the refund transaction.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string state
-		{
-			get;
-			set;
-		}
+		public string state { get; set; }
 	
 		/// <summary>
 		/// ID of the Sale transaction being refunded. 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string sale_id
-		{
-			get;
-			set;
-		}
+		public string sale_id { get; set; }
 	
 		/// <summary>
 		/// ID of the Capture transaction being refunded. 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string capture_id
-		{
-			get;
-			set;
-		}
+		public string capture_id { get; set; }
 	
 		/// <summary>
 		/// ID of the Payment resource that this transaction is based on.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string parent_payment
-		{
-			get;
-			set;
-		}
+		public string parent_payment { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Links> links
-		{
-			get;
-			set;
-		}
+		public List<Links> links { get; set; }
 	
 		/// <summary>
 		/// Obtain the Refund transaction resource for the given identifier.
@@ -121,24 +86,11 @@ namespace PayPal.Api.Payments
 		/// <returns>Refund</returns>
 		public static Refund Get(APIContext apiContext, string refundId)
 		{
-			if (apiContext == null)
-			{
-				throw new ArgumentNullException("APIContext cannot be null");
-			}
-			if (string.IsNullOrEmpty(apiContext.AccessToken))
-			{
-				throw new ArgumentNullException("AccessToken cannot be null or empty");
-			}
-			if (apiContext.HTTPHeaders == null)
-			{
-				apiContext.HTTPHeaders = new Dictionary<string, string>();
-			}
-			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
-			apiContext.SdkVersion = new SDKVersionImpl();
-			if (refundId == null)
-			{
-				throw new ArgumentNullException("refundId cannot be null");
-			}
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(refundId, "refundId");
+
+            // Configure and send the request
 			object[] parameters = new object[] {refundId};
 			string pattern = "v1/payments/refund/{0}";
 			string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
@@ -149,7 +101,7 @@ namespace PayPal.Api.Payments
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public string ConvertToJson() 
+		public virtual string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}

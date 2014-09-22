@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using PayPal;
 using PayPal.Util;
 using PayPal.Api.Payments;
+using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -15,81 +16,49 @@ namespace PayPal.Api.Payments
 		/// Identifier of the authorization transaction.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string id
-		{
-			get;
-			set;
-		}
+		public string id { get; set; }
 	
 		/// <summary>
 		/// Time the resource was created.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string create_time
-		{
-			get;
-			set;
-		}
+		public string create_time { get; set; }
 	
 		/// <summary>
 		/// Time the resource was last updated.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string update_time
-		{
-			get;
-			set;
-		}
+		public string update_time { get; set; }
 	
 		/// <summary>
 		/// Amount being authorized for.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Amount amount
-		{
-			get;
-			set;
-		}
+		public Amount amount { get; set; }
 	
 		/// <summary>
 		/// State of the authorization transaction.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string state
-		{
-			get;
-			set;
-		}
+		public string state { get; set; }
 	
 		/// <summary>
 		/// ID of the Payment resource that this transaction is based on.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string parent_payment
-		{
-			get;
-			set;
-		}
+		public string parent_payment { get; set; }
 	
 		/// <summary>
 		/// Date/Time until which funds may be captured against this resource.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string valid_until
-		{
-			get;
-			set;
-		}
+		public string valid_until { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Links> links
-		{
-			get;
-			set;
-		}
+		public List<Links> links { get; set; }
 	
 		/// <summary>
 		/// Obtain the Authorization transaction resource for the given identifier.
@@ -111,24 +80,11 @@ namespace PayPal.Api.Payments
 		/// <returns>Authorization</returns>
 		public static Authorization Get(APIContext apiContext, string authorizationId)
 		{
-			if (apiContext == null)
-			{
-				throw new ArgumentNullException("APIContext cannot be null");
-			}
-			if (string.IsNullOrEmpty(apiContext.AccessToken))
-			{
-				throw new ArgumentNullException("AccessToken cannot be null or empty");
-			}
-			if (apiContext.HTTPHeaders == null)
-			{
-				apiContext.HTTPHeaders = new Dictionary<string, string>();
-			}
-			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
-			apiContext.SdkVersion = new SDKVersionImpl();
-			if (authorizationId == null)
-			{
-				throw new ArgumentNullException("authorizationId cannot be null");
-			}
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(authorizationId, "authorizationId");
+
+            // Configure and send the request
 			object[] parameters = new object[] {authorizationId};
 			string pattern = "v1/payments/authorization/{0}";
 			string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
@@ -156,30 +112,12 @@ namespace PayPal.Api.Payments
 		/// <returns>Capture</returns>
 		public Capture Capture(APIContext apiContext, Capture capture)
 		{
-			if (apiContext == null)
-			{
-				throw new ArgumentNullException("APIContext cannot be null");
-			}
-			if (string.IsNullOrEmpty(apiContext.AccessToken))
-			{
-				throw new ArgumentNullException("AccessToken cannot be null or empty");
-			}
-			if (apiContext.HTTPHeaders == null)
-			{
-				apiContext.HTTPHeaders = new Dictionary<string, string>();
-			}
-			if (apiContext.HTTPHeaders.ContentTypeHeader == null) {
-				apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
-			}
-			apiContext.SdkVersion = new SDKVersionImpl();
-			if (this.id == null)
-			{
-				throw new ArgumentNullException("Id cannot be null");
-			}
-			if (capture == null)
-			{
-				throw new ArgumentNullException("capture cannot be null");
-			}
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(capture, "capture");
+
+            // Configure and send the request
 			object[] parameters = new object[] {this.id};
 			string pattern = "v1/payments/authorization/{0}/capture";
 			string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
@@ -205,24 +143,11 @@ namespace PayPal.Api.Payments
 		/// <returns>Authorization</returns>
 		public Authorization Void(APIContext apiContext)
 		{
-			if (apiContext == null)
-			{
-				throw new ArgumentNullException("APIContext cannot be null");
-			}
-			if (string.IsNullOrEmpty(apiContext.AccessToken))
-			{
-				throw new ArgumentNullException("AccessToken cannot be null or empty");
-			}
-			if (apiContext.HTTPHeaders == null)
-			{
-				apiContext.HTTPHeaders = new Dictionary<string, string>();
-			}
-			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
-			apiContext.SdkVersion = new SDKVersionImpl();
-			if (this.id == null)
-			{
-				throw new ArgumentNullException("Id cannot be null");
-			}
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(this.id, "Id");
+
+            // Configure and send the request
 			object[] parameters = new object[] {this.id};
 			string pattern = "v1/payments/authorization/{0}/void";
 			string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
@@ -248,24 +173,11 @@ namespace PayPal.Api.Payments
 		/// <returns>Authorization</returns>
 		public Authorization Reauthorize(APIContext apiContext)
 		{
-			if (apiContext == null)
-			{
-				throw new ArgumentNullException("APIContext cannot be null");
-			}
-			if (string.IsNullOrEmpty(apiContext.AccessToken))
-			{
-				throw new ArgumentNullException("AccessToken cannot be null or empty");
-			}
-			if (apiContext.HTTPHeaders == null)
-			{
-				apiContext.HTTPHeaders = new Dictionary<string, string>();
-			}
-			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
-			apiContext.SdkVersion = new SDKVersionImpl();
-			if (this.id == null)
-			{
-				throw new ArgumentNullException("Id cannot be null");
-			}
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(this.id, "Id");
+
+            // Configure and send the request
 			object[] parameters = new object[] {this.id};
 			string pattern = "v1/payments/authorization/{0}/reauthorize";
 			string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
@@ -276,7 +188,7 @@ namespace PayPal.Api.Payments
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public string ConvertToJson() 
+		public virtual string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}

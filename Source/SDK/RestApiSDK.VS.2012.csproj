@@ -102,6 +102,7 @@
     <Compile Include="PayPal\Api\Payments\ShippingAddress.cs" />
     <Compile Include="PayPal\Api\Payments\Transaction.cs" />
     <Compile Include="PayPal\Api\Payments\Transactions.cs" />
+    <Compile Include="PayPal\Api\Validation\ArgumentValidator.cs" />
     <Compile Include="PayPal\Sdk\Info\SDKVersionImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

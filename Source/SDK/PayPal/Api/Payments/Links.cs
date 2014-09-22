@@ -1,6 +1,7 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -10,66 +11,42 @@ namespace PayPal.Api.Payments
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string href
-		{
-			get;
-			set;
-		}
+		public string href { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string rel
-		{
-			get;
-			set;
-		}
+		public string rel { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public HyperSchema targetSchema
-		{
-			get;
-			set;
-		}
+		public HyperSchema targetSchema { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string method
-		{
-			get;
-			set;
-		}
+		public string method { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string enctype
-		{
-			get;
-			set;
-		}
+		public string enctype { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public HyperSchema schema
-		{
-			get;
-			set;
-		}
+		public HyperSchema schema { get; set; }
 	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public string ConvertToJson() 
+		public virtual string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}

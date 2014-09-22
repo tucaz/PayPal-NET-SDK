@@ -1,6 +1,7 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -10,26 +11,18 @@ namespace PayPal.Api.Payments
 		/// Credit Card information.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public CreditCard credit_card
-		{
-			get;
-			set;
-		}
+		public CreditCard credit_card { get; set; }
 	
 		/// <summary>
 		/// Credit Card information.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public CreditCardToken credit_card_token
-		{
-			get;
-			set;
-		}
+		public CreditCardToken credit_card_token { get; set; }
 	
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public string ConvertToJson() 
+		public virtual string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using PayPal;
 using PayPal.Util;
 using PayPal.Api.Payments;
+using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -15,71 +16,43 @@ namespace PayPal.Api.Payments
 		/// Identifier of the authorization transaction.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string id
-		{
-			get;
-			set;
-		}
+		public string id { get; set; }
 	
 		/// <summary>
 		/// Time the resource was created.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string create_time
-		{
-			get;
-			set;
-		}
+		public string create_time { get; set; }
 	
 		/// <summary>
 		/// Time the resource was last updated.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string update_time
-		{
-			get;
-			set;
-		}
+		public string update_time { get; set; }
 	
 		/// <summary>
 		/// Amount being collected.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public Amount amount
-		{
-			get;
-			set;
-		}
+		public Amount amount { get; set; }
 	
 		/// <summary>
 		/// State of the sale transaction.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string state
-		{
-			get;
-			set;
-		}
+		public string state { get; set; }
 	
 		/// <summary>
 		/// ID of the Payment resource that this transaction is based on.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string parent_payment
-		{
-			get;
-			set;
-		}
+		public string parent_payment { get; set; }
 	
 		/// <summary>
 		/// 
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Links> links
-		{
-			get;
-			set;
-		}
+		public List<Links> links { get; set; }
 	
 		/// <summary>
 		/// Obtain the Sale transaction resource for the given identifier.
@@ -101,24 +74,11 @@ namespace PayPal.Api.Payments
 		/// <returns>Sale</returns>
 		public static Sale Get(APIContext apiContext, string saleId)
 		{
-			if (apiContext == null)
-			{
-				throw new ArgumentNullException("APIContext cannot be null");
-			}
-			if (string.IsNullOrEmpty(apiContext.AccessToken))
-			{
-				throw new ArgumentNullException("AccessToken cannot be null or empty");
-			}
-			if (apiContext.HTTPHeaders == null)
-			{
-				apiContext.HTTPHeaders = new Dictionary<string, string>();
-			}
-			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
-			apiContext.SdkVersion = new SDKVersionImpl();
-			if (saleId == null)
-			{
-				throw new ArgumentNullException("saleId cannot be null");
-			}
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(saleId, "saleId");
+
+            // Configure and send the request
 			object[] parameters = new object[] {saleId};
 			string pattern = "v1/payments/sale/{0}";
 			string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
@@ -146,28 +106,12 @@ namespace PayPal.Api.Payments
 		/// <returns>Refund</returns>
 		public Refund Refund(APIContext apiContext, Refund refund)
 		{
-			if (apiContext == null)
-			{
-				throw new ArgumentNullException("APIContext cannot be null");
-			}
-			if (string.IsNullOrEmpty(apiContext.AccessToken))
-			{
-				throw new ArgumentNullException("AccessToken cannot be null or empty");
-			}
-			if (apiContext.HTTPHeaders == null)
-			{
-				apiContext.HTTPHeaders = new Dictionary<string, string>();
-			}
-			apiContext.HTTPHeaders.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeHeaderJson);
-			apiContext.SdkVersion = new SDKVersionImpl();
-			if (this.id == null)
-			{
-				throw new ArgumentNullException("Id cannot be null");
-			}
-			if (refund == null)
-			{
-				throw new ArgumentNullException("refund cannot be null");
-			}
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(refund, "refund");
+
+            // Configure and send the request
 			object[] parameters = new object[] {this.id};
 			string pattern = "v1/payments/sale/{0}/refund";
 			string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
@@ -178,7 +122,7 @@ namespace PayPal.Api.Payments
 		/// <summary>
 		/// Converts the object to JSON string
 		/// </summary>
-		public string ConvertToJson() 
+		public virtual string ConvertToJson() 
     	{ 
     		return JsonFormatter.ConvertToJson(this);
     	}
