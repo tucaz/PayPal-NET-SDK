@@ -107,7 +107,7 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void PaymentStateTest()
         {
-            Payment pay = new Payment(); 
+            Payment pay = new Payment();
             pay.intent = "sale";
             CreditCard card = GetCreditCard();
             List<FundingInstrument> fundingInstrumentList = new List<FundingInstrument>();

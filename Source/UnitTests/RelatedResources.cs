@@ -105,15 +105,15 @@ namespace RestApiSDKUnitTest
 
         private RelatedResources CreateRelatedResources()
         {
-		    RelatedResources resources = new RelatedResources();
+            RelatedResources resources = new RelatedResources();
             resources.authorization = GetAuthorization();
             resources.capture = GetCapture();
             resources.refund = CreateRefund();
             resources.sale = CreateSale();
             return resources;
-	    }
+        }
 
-	    [TestMethod()]
+        [TestMethod()]
         public void TestRelatedResources() 
         {
             RelatedResources resources = CreateRelatedResources();
@@ -121,20 +121,20 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(resources.sale.id, CreateSale().id);
             Assert.AreEqual(resources.refund.id, CreateRefund().id);
             Assert.AreEqual(resources.capture.id, GetCapture().id);
-	    }
+        }
 
-	    [TestMethod()]
+        [TestMethod()]
         public void ConvertToJsonTest() 
         {
-		    RelatedResources resources = CreateRelatedResources();
+            RelatedResources resources = CreateRelatedResources();
             Assert.IsFalse(resources.ConvertToJson().Length == 0);
-	    }
+        }
 
         [TestMethod()]
         public void ToStringTest() 
         {
             RelatedResources resources = CreateRelatedResources();
             Assert.IsFalse(resources.ToString().Length == 0);
-	    }    
+        }
     }
 }
