@@ -65,6 +65,12 @@ namespace PayPal.Api.Payments
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public List<Links> links { get; set; }
+		
+		/// <summary>
+		/// Identifier for the payment experience.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string experience_profile_id { get; set; }
 	
 		/// <summary>
 		/// Creates (and processes) a new Payment Resource.
