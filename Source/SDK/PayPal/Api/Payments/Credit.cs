@@ -5,19 +5,25 @@ using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
-    public class ShippingCost
+    public class Credit
     {
         /// <summary>
-        /// Shipping cost in amount. Range of 0 to 999999.99.
+        /// Unique identifier of credit resource.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Currency amount { get; set; }
+        public string id { get; set; }
 
         /// <summary>
-        /// Tax percentage on shipping amount.
+        /// specifies type of credit
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Tax tax { get; set; }
+        public string type { get; set; }
+
+        /// <summary>
+        /// URI to the associated terms
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string terms { get; set; }
 
         /// <summary>
         /// Converts the object to JSON string

@@ -13,19 +13,19 @@ namespace PayPal.Api.Payments
     public class Refund
     {
         /// <summary>
-        /// Identifier of the refund transaction.
+        /// Identifier of the refund transaction in UTC ISO8601 format.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string id { get; set; }
 
         /// <summary>
-        /// Time the resource was created.
+        /// Time the resource was created in UTC ISO8601 format.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string create_time { get; set; }
 
         /// <summary>
-        /// Time the resource was last updated.
+        /// Time the resource was last updated in UTC ISO8601 format.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string update_time { get; set; }
@@ -43,13 +43,13 @@ namespace PayPal.Api.Payments
         public string state { get; set; }
 
         /// <summary>
-        /// ID of the Sale transaction being refunded.
+        /// ID of the Sale transaction being refunded. 
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string sale_id { get; set; }
 
         /// <summary>
-        /// ID of the Capture transaction being refunded.
+        /// ID of the Capture transaction being refunded. 
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string capture_id { get; set; }
@@ -59,6 +59,12 @@ namespace PayPal.Api.Payments
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string parent_payment { get; set; }
+
+        /// <summary>
+        /// Description of what is being refunded for.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string description { get; set; }
 
         /// <summary>
         /// 

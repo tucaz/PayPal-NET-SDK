@@ -5,19 +5,19 @@ using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
-    public class ShippingCost
+    public class NameValuePair
     {
         /// <summary>
-        /// Shipping cost in amount. Range of 0 to 999999.99.
+        /// Key for the name value pair.  The value name types should be correlated 
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Currency amount { get; set; }
+        public string name { get; set; }
 
         /// <summary>
-        /// Tax percentage on shipping amount.
+        /// Value for the name value pair.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Tax tax { get; set; }
+        public string value { get; set; }
 
         /// <summary>
         /// Converts the object to JSON string

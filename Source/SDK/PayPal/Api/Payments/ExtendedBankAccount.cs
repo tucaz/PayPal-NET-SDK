@@ -5,24 +5,18 @@ using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
-    public class ShippingCost
+    public class ExtendedBankAccount : BankAccount
     {
         /// <summary>
-        /// Shipping cost in amount. Range of 0 to 999999.99.
+        /// Identifier of the direct debit mandate to validate. Currently supported only for EU bank accounts(SEPA).
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Currency amount { get; set; }
-
-        /// <summary>
-        /// Tax percentage on shipping amount.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Tax tax { get; set; }
+        public string mandate_reference_number { get; set; }
 
         /// <summary>
         /// Converts the object to JSON string
         /// </summary>
-        public virtual string ConvertToJson()
+        public override string ConvertToJson()
         {
             return JsonFormatter.ConvertToJson(this);
         }

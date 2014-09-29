@@ -31,7 +31,7 @@ namespace PayPal.Api.Payments
         public string type { get; set; }
 
         /// <summary>
-        /// card expiry month with value 1 - 12.
+        /// 2 digit card expiry month.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int expire_month { get; set; }
@@ -46,7 +46,7 @@ namespace PayPal.Api.Payments
         /// Card validation code. Only supported when making a Payment but not when saving a credit card for future use.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string cvv2 { get; set; }
+        public int cvv2 { get; set; }
 
         /// <summary>
         /// Card holder's first name.
@@ -67,10 +67,10 @@ namespace PayPal.Api.Payments
         public Address billing_address { get; set; }
 
         /// <summary>
-        /// A unique identifier of the payer generated and provided by the facilitator. This is required when creating or using a tokenized funding instrument.
+        /// A unique identifier of the customer to whom this bank account belongs to. Generated and provided by the facilitator. This is required when creating or using a stored funding instrument in vault.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string payer_id { get; set; }
+        public string external_customer_id { get; set; }
 
         /// <summary>
         /// State of the funding instrument.

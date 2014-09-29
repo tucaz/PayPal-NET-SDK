@@ -19,13 +19,13 @@ namespace PayPal.Api.Payments
         public string id { get; set; }
 
         /// <summary>
-        /// Time the resource was created.
+        /// Time the resource was created in UTC ISO8601 format.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string create_time { get; set; }
 
         /// <summary>
-        /// Time the resource was last updated.
+        /// Time the resource was last updated in UTC ISO8601 format.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string update_time { get; set; }
@@ -37,10 +37,28 @@ namespace PayPal.Api.Payments
         public Amount amount { get; set; }
 
         /// <summary>
+        /// specifies payment mode of the transaction
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string payment_mode { get; set; }
+
+        /// <summary>
         /// State of the authorization transaction.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string state { get; set; }
+
+        /// <summary>
+        /// Protection Eligibility of the Payer 
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string protection_eligibility { get; set; }
+
+        /// <summary>
+        /// Protection Eligibility Type of the Payer 
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string protection_eligibility_type { get; set; }
 
         /// <summary>
         /// ID of the Payment resource that this transaction is based on.

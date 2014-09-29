@@ -5,67 +5,61 @@ using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
-    public class MerchantInfo
+    public class Order
     {
         /// <summary>
-        /// Email address of the merchant. 260 characters max.
+        /// Identifier of the order transaction.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string email { get; set; }
+        public string id { get; set; }
 
         /// <summary>
-        /// First name of the merchant. 30 characters max.
+        /// Identifier to the purchase unit associated with this object
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string first_name { get; set; }
+        public string purchase_unit_reference_id { get; set; }
 
         /// <summary>
-        /// Last name of the merchant. 30 characters max.
+        /// Time the resource was created in UTC ISO8601 format.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string last_name { get; set; }
+        public string create_time { get; set; }
 
         /// <summary>
-        /// Address of the merchant.
+        /// Time the resource was last updated in UTC ISO8601 format.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Address address { get; set; }
+        public string update_time { get; set; }
 
         /// <summary>
-        /// Company business name of the merchant. 100 characters max.
+        /// Amount being collected.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string business_name { get; set; }
+        public Amount amount { get; set; }
 
         /// <summary>
-        /// Phone number of the merchant.
+        /// specifies payment mode of the transaction
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Phone phone { get; set; }
+        public string payment_mode { get; set; }
 
         /// <summary>
-        /// Fax number of the merchant.
+        /// State of the order transaction.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Phone fax { get; set; }
+        public string state { get; set; }
 
         /// <summary>
-        /// Website of the merchant. 2048 characters max.
+        /// Protection Eligibility of the Payer 
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string website { get; set; }
+        public string protection_eligibility { get; set; }
 
         /// <summary>
-        /// Tax ID of the merchant. 100 characters max.
+        /// Protection Eligibility Type of the Payer 
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string tax_id { get; set; }
-
-        /// <summary>
-        /// Option to display additional information such as business hours. 40 characters max.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string additional_info { get; set; }
+        public string protection_eligibility_type { get; set; }
 
         /// <summary>
         /// Converts the object to JSON string

@@ -1,28 +1,24 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Collections;
+using System.Collections.Generic;
 using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
-    public class ShippingCost
+    public class TransactionBase : CartBase
     {
         /// <summary>
-        /// Shipping cost in amount. Range of 0 to 999999.99.
+        /// List of financial transactions (Sale, Authorization, Capture, Refund) related to the payment.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Currency amount { get; set; }
-
-        /// <summary>
-        /// Tax percentage on shipping amount.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Tax tax { get; set; }
+        public List<RelatedResources> related_resources { get; set; }
 
         /// <summary>
         /// Converts the object to JSON string
         /// </summary>
-        public virtual string ConvertToJson()
+        public override string ConvertToJson()
         {
             return JsonFormatter.ConvertToJson(this);
         }

@@ -32,6 +32,18 @@ namespace PayPal.Api.Payments
         public string fee { get; set; }
 
         /// <summary>
+        /// Amount being charged as handling fee.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string handling_fee { get; set; }
+
+        /// <summary>
+        /// Amount being charged as gift wrap fee.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string gift_wrap { get; set; }
+
+        /// <summary>
         /// Converts the object to JSON string
         /// </summary>
         public virtual string ConvertToJson()

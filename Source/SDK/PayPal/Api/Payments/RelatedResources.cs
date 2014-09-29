@@ -20,6 +20,12 @@ namespace PayPal.Api.Payments
         public Authorization authorization { get; set; }
 
         /// <summary>
+        /// An order transaction
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public Order order { get; set; }
+
+        /// <summary>
         /// A capture transaction
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

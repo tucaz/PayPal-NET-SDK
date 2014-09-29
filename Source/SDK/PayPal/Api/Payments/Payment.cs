@@ -19,13 +19,13 @@ namespace PayPal.Api.Payments
         public string id { get; set; }
 
         /// <summary>
-        /// Time the resource was created.
+        /// Time the resource was created in UTC ISO8601 format.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string create_time { get; set; }
 
         /// <summary>
-        /// Time the resource was last updated.
+        /// Time the resource was last updated in UTC ISO8601 format.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string update_time { get; set; }
@@ -41,6 +41,12 @@ namespace PayPal.Api.Payments
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Payer payer { get; set; }
+
+        /// <summary>
+        /// Cart for which the payment is done.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string cart { get; set; }
 
         /// <summary>
         /// A payment can have more than one transaction, with each transaction establishing a contract between the payer and a payee

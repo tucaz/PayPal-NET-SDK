@@ -37,10 +37,40 @@ namespace PayPal.Api.Payments
         public Amount amount { get; set; }
 
         /// <summary>
+        /// specifies payment mode of the transaction
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string payment_mode { get; set; }
+
+        /// <summary>
         /// State of the sale transaction.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string state { get; set; }
+
+        /// <summary>
+        /// Reason code for the transaction state being Pending or Reversed.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string reason_code { get; set; }
+
+        /// <summary>
+        /// Protection Eligibility of the Payer 
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string protection_eligibility { get; set; }
+
+        /// <summary>
+        /// Protection Eligibility Type of the Payer 
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string protection_eligibility_type { get; set; }
+
+        /// <summary>
+        /// Expected clearing time for eCheck Transactions
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string clearing_time { get; set; }
 
         /// <summary>
         /// ID of the Payment resource that this transaction is based on.
