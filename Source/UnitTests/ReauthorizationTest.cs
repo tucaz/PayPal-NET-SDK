@@ -11,8 +11,8 @@ namespace RestApiSDKUnitTest
         [TestMethod]
         public void TestReauthorization()
         {
-            Authorization authorization = Authorization.Get(UnitTestUtil.GetApiContext(), "7GH53639GA425732B");
-            Amount reauthorizeAmount = new Amount();
+            var authorization = Authorization.Get(UnitTestUtil.GetApiContext(), "7GH53639GA425732B");
+            var reauthorizeAmount = new Amount();
             reauthorizeAmount.currency = "USD";
             reauthorizeAmount.total = "1";
             authorization.amount = reauthorizeAmount;

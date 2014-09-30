@@ -6,18 +6,10 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class RedirectUrlsTest
     {
-        private RedirectUrls CreateRedirectUrls()
-        {
-            RedirectUrls urls = new RedirectUrls();
-            urls.cancel_url = "http://ebay.com/";
-            urls.return_url = "http://paypal.com/";
-            return urls;
-        }
-
         [TestMethod()]
         public void TestRedirectUrls()
         {
-            RedirectUrls urls = CreateRedirectUrls();
+            var urls = UnitTestUtil.GetRedirectUrls();
             Assert.AreEqual(urls.cancel_url, "http://ebay.com/");
             Assert.AreEqual(urls.return_url, "http://paypal.com/");
         }
@@ -25,14 +17,14 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void ConvertToJsonTest()
         {
-            RedirectUrls urls = CreateRedirectUrls();
+            var urls = UnitTestUtil.GetRedirectUrls();
             Assert.IsFalse(urls.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
-            RedirectUrls urls = CreateRedirectUrls();
+            var urls = UnitTestUtil.GetRedirectUrls();
             Assert.IsFalse(urls.ToString().Length == 0);
         }
     }

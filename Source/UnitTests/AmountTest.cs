@@ -6,29 +6,10 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class AmountTest
     {
-        private Details GetDetails()
-        {
-            Details detail = new Details();
-            detail.tax = "15";
-            detail.fee = "2";
-            detail.shipping = "10";
-            detail.subtotal = "75";
-            return detail;
-        }
-
-        private Amount GetAmount()
-        {
-            Amount amt = new Amount();
-            amt.currency = "USD";
-            amt.total = "100";
-            amt.details = GetDetails();            
-            return amt;
-        }
-        
         [TestMethod()]
         public void TestAmount()
         {
-            Amount amt = GetAmount();            
+            var amt = UnitTestUtil.GetAmount();
             Assert.AreEqual("USD", amt.currency);
             Assert.AreEqual("100", amt.total);
             Assert.AreEqual("75", amt.details.subtotal);
@@ -41,14 +22,14 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void ConvertToJsonTest()
         {
-            Amount amt = GetAmount();
+            var amt = UnitTestUtil.GetAmount();
             Assert.IsFalse(amt.ConvertToJson().Length == 0);
         }
         
         [TestMethod()]
         public void ToStringTest()
         {
-            Amount amt = GetAmount();
+            var amt = UnitTestUtil.GetAmount();
             Assert.IsFalse(amt.ToString().Length == 0);
         }
     }
