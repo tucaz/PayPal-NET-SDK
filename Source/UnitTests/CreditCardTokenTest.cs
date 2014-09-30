@@ -6,28 +6,37 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class CreditCardTokenTest
     {
-        [TestMethod()]
-        public void TestCreditCardToken()
+        public static CreditCardToken GetCreditCardToken()
         {
-            var token = UnitTestUtil.GetCreditCardToken();
+            CreditCardToken cardToken = new CreditCardToken();
+            cardToken.credit_card_id = "CARD-8PV12506MG6587946KEBHH4A";
+            cardToken.payer_id = "009";
+            cardToken.expire_month = 10;
+            cardToken.expire_year = 2015;
+            return cardToken;
+        }
+
+        [TestMethod()]
+        public void CreditCardTokenObjectTest()
+        {
+            var token = GetCreditCardToken();
             Assert.AreEqual(token.credit_card_id, "CARD-8PV12506MG6587946KEBHH4A");
             Assert.AreEqual(token.payer_id, "009");
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void CreditCardTokenConvertToJsonTest()
         {
-            var token = UnitTestUtil.GetCreditCardToken();
+            var token = GetCreditCardToken();
             string expected = "{\"credit_card_id\":\"CARD-8PV12506MG6587946KEBHH4A\",\"payer_id\":\"009\",\"expire_month\":10,\"expire_year\":2015}";
             string actual = token.ConvertToJson();
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod()]
-        public void ConvertToStringTest()
+        public void CreditCardTokenToStringTest()
         {
-            var token = UnitTestUtil.GetCreditCardToken();
-            Assert.IsFalse(token.ToString().Length == 0);
+            Assert.IsFalse(GetCreditCardToken().ToString().Length == 0);
         }
     }
 }

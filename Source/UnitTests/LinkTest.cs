@@ -1,32 +1,47 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api.Payments;
+using System.Collections.Generic;
 
 namespace RestApiSDKUnitTest
 {
     [TestClass()]
     public class LinksTest
     {
-        [TestMethod()]
-        public void TestLinks()
+        public static List<Links> GetLinksList()
         {
-            var link = UnitTestUtil.GetLinks();
+            var links = new List<Links>();
+            links.Add(GetLinks());
+            return links;
+        }
+
+        public static Links GetLinks()
+        {
+            Links link = new Links();
+            link.href = "http://paypal.com/";
+            link.method = "POST";
+            link.rel = "authorize";
+            return link;
+        }
+
+        [TestMethod()]
+        public void LinksObjectTest()
+        {
+            var link = GetLinks();
             Assert.AreEqual(link.href, "http://paypal.com/");
             Assert.AreEqual(link.method, "POST");
             Assert.AreEqual(link.rel, "authorize");
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void LinksConvertToJsonTest()
         {
-            var link = UnitTestUtil.GetLinks();
-            Assert.IsFalse(link.ConvertToJson().Length == 0);
+            Assert.IsFalse(GetLinks().ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void LinksToStringTest()
         {
-            var link = UnitTestUtil.GetLinks();
-            Assert.IsFalse(link.ToString().Length == 0);
+            Assert.IsFalse(GetLinks().ToString().Length == 0);
         } 
     }
 }

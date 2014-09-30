@@ -10,18 +10,41 @@ namespace RestApiSDKUnitTest
     [TestClass]
     public class TransactionTest
     {
-        [TestMethod()]
-        public void ConvertToJsonTest()
+        public static Transaction GetTransaction()
         {
-            var transaction = UnitTestUtil.GetTransaction();
-            Assert.IsFalse(transaction.ConvertToJson().Length == 0);
+            var transaction = new Transaction();
+            transaction.description = "Test Description";
+            transaction.note_to_payee = "Test note to payee";
+            transaction.amount = AmountTest.GetAmount();
+            transaction.payee = PayeeTest.GetPayee();
+            transaction.item_list = ItemListTest.GetItemList();
+            transaction.related_resources = new List<RelatedResources>();
+            transaction.related_resources.Add(RelatedResourcesTest.GetRelatedResources());
+            return transaction;
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void TransactionObjectTest()
         {
-            var transaction = UnitTestUtil.GetTransaction();
-            Assert.IsFalse(transaction.ToString().Length == 0);
+            var transaction = GetTransaction();
+            Assert.AreEqual("Test Description", transaction.description);
+            Assert.AreEqual("Test note to payee", transaction.note_to_payee);
+            Assert.IsNotNull(transaction.amount);
+            Assert.IsNotNull(transaction.payee);
+            Assert.IsNotNull(transaction.item_list);
+            Assert.IsNotNull(transaction.related_resources);
+        }
+
+        [TestMethod()]
+        public void TransactionConvertToJsonTest()
+        {
+            Assert.IsFalse(GetTransaction().ConvertToJson().Length == 0);
+        }
+
+        [TestMethod()]
+        public void TransactionToStringTest()
+        {
+            Assert.IsFalse(GetTransaction().ToString().Length == 0);
         }
     }
 }

@@ -8,13 +8,32 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class CreditCardTest
     {
-        [TestMethod()]
-        public void TestCreditCard()
+        public static CreditCard GetCreditCard()
         {
-            var card = UnitTestUtil.GetCreditCard();
+            CreditCard card = new CreditCard();
+            card.cvv2 = 962;
+            card.expire_month = 01;
+            card.expire_year = 2015;
+            card.first_name = "John";
+            card.last_name = "Doe";
+            card.number = "4825854086744369";
+            card.type = "visa";
+            card.billing_address = AddressTest.GetAddress();
+            return card;
+        }
+
+        public static CreditCard CreateCreditCard()
+        {
+            return GetCreditCard().Create(UnitTestUtil.GetApiContext());
+        }
+
+        [TestMethod()]
+        public void CreditCardObjectTest()
+        {
+            var card = GetCreditCard();
             card.id = "002";
             card.external_customer_id = "008";
-            var add = UnitTestUtil.GetAddress();
+            var add = AddressTest.GetAddress();
             Assert.AreEqual(card.number, "4825854086744369");
             Assert.AreEqual(card.first_name, "John");
             Assert.AreEqual(card.last_name, "Doe");
@@ -33,9 +52,9 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]        
-        public void ConvertToJsonTest()
+        public void CreditCardConvertToJsonTest()
         {
-            var card = UnitTestUtil.GetCreditCard();
+            var card = GetCreditCard();
             var jsonString = card.ConvertToJson();
             var credit = JsonFormatter.ConvertFromJson<CreditCard>(jsonString);
             Assert.IsNotNull(credit);
@@ -44,7 +63,7 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void CreditCardGetTest()
         {
-            var card = UnitTestUtil.GetCreditCard();
+            var card = GetCreditCard();
             var createdCreditCard = card.Create(UnitTestUtil.GetApiContext());
             var retrievedCreditCard = CreditCard.Get(UnitTestUtil.GetApiContext(), createdCreditCard.id);
             Assert.AreEqual(createdCreditCard.id, retrievedCreditCard.id);
@@ -53,14 +72,14 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void CreditCardDeleteTest()
         {
-            var card = UnitTestUtil.GetCreditCard();
+            var card = GetCreditCard();
             var createdCreditCard = card.Create(UnitTestUtil.GetApiContext());
             var retrievedCreditCard = CreditCard.Get(UnitTestUtil.GetApiContext(), createdCreditCard.id);
             retrievedCreditCard.Delete(UnitTestUtil.GetApiContext());
         }
 
         [TestMethod()]
-        public void NullCreditCardIdTest()
+        public void CreditCardNullIdTest()
         {
             UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => CreditCard.Get(UnitTestUtil.GetApiContext(), null));
         }

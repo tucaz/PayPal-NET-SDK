@@ -6,26 +6,32 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class RedirectUrlsTest
     {
-        [TestMethod()]
-        public void TestRedirectUrls()
+        public static RedirectUrls GetRedirectUrls()
         {
-            var urls = UnitTestUtil.GetRedirectUrls();
+            RedirectUrls urls = new RedirectUrls();
+            urls.cancel_url = "http://ebay.com/";
+            urls.return_url = "http://paypal.com/";
+            return urls;
+        }
+
+        [TestMethod()]
+        public void RedirectUrlsObjectTest()
+        {
+            var urls = GetRedirectUrls();
             Assert.AreEqual(urls.cancel_url, "http://ebay.com/");
             Assert.AreEqual(urls.return_url, "http://paypal.com/");
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void RedirectUrlsConvertToJsonTest()
         {
-            var urls = UnitTestUtil.GetRedirectUrls();
-            Assert.IsFalse(urls.ConvertToJson().Length == 0);
+            Assert.IsFalse(GetRedirectUrls().ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void RedirectUrlsToStringTest()
         {
-            var urls = UnitTestUtil.GetRedirectUrls();
-            Assert.IsFalse(urls.ToString().Length == 0);
+            Assert.IsFalse(GetRedirectUrls().ToString().Length == 0);
         }
     }
 }

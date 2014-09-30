@@ -6,31 +6,39 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class AmountTest
     {
-        [TestMethod()]
-        public void TestAmount()
+        public static Amount GetAmount()
         {
-            var amt = UnitTestUtil.GetAmount();
-            Assert.AreEqual("USD", amt.currency);
-            Assert.AreEqual("100", amt.total);
-            Assert.AreEqual("75", amt.details.subtotal);
-            Assert.AreEqual("15", amt.details.tax);
-            Assert.AreEqual("2", amt.details.fee);
-            Assert.AreEqual("10", amt.details.shipping);
-            Assert.AreEqual("75", amt.details.subtotal);
+            Amount amt = new Amount();
+            amt.currency = "USD";
+            amt.details = DetailsTest.GetDetails();
+            amt.total = "100";
+            return amt;
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void AmountObjectTest()
         {
-            var amt = UnitTestUtil.GetAmount();
-            Assert.IsFalse(amt.ConvertToJson().Length == 0);
+            var amount = GetAmount();
+            Assert.AreEqual("USD", amount.currency);
+            Assert.AreEqual("100", amount.total);
+            Assert.IsNotNull(amount.details);
+            Assert.AreEqual("75", amount.details.subtotal);
+            Assert.AreEqual("15", amount.details.tax);
+            Assert.AreEqual("2", amount.details.fee);
+            Assert.AreEqual("10", amount.details.shipping);
+            Assert.AreEqual("75", amount.details.subtotal);
+        }
+
+        [TestMethod()]
+        public void AmountConvertToJsonTest()
+        {
+            Assert.IsFalse(GetAmount().ConvertToJson().Length == 0);
         }
         
         [TestMethod()]
-        public void ToStringTest()
+        public void AmountToStringTest()
         {
-            var amt = UnitTestUtil.GetAmount();
-            Assert.IsFalse(amt.ToString().Length == 0);
+            Assert.IsFalse(GetAmount().ToString().Length == 0);
         }
     }
 }

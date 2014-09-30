@@ -7,26 +7,35 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class ItemListTest
     {
-        [TestMethod()]
-        public void TestItemList()
+        public static ItemList GetItemList()
         {
-            var list = UnitTestUtil.GetItemList();
-            Assert.AreEqual(UnitTestUtil.GetShippingAddress().recipient_name, list.shipping_address.recipient_name);
+            List<Item> items = new List<Item>();
+            items.Add(ItemTest.GetItem());
+            items.Add(ItemTest.GetItem());
+            ItemList itemList = new ItemList();
+            itemList.items = items;
+            itemList.shipping_address = ShippingAddressTest.GetShippingAddress();
+            return itemList;
+        }
+
+        [TestMethod()]
+        public void ItemListObjectTest()
+        {
+            var list = GetItemList();
+            Assert.AreEqual(ShippingAddressTest.GetShippingAddress().recipient_name, list.shipping_address.recipient_name);
             Assert.AreEqual(list.items.Count, 2);
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void ItemListConvertToJsonTest()
         {
-            var list = UnitTestUtil.GetItemList();
-            Assert.IsFalse(list.ConvertToJson().Length == 0);
+            Assert.IsFalse(GetItemList().ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void ItemListToStringTest()
         {
-            var list = UnitTestUtil.GetItemList();
-            Assert.IsFalse(list.ToString().Length == 0);
+            Assert.IsFalse(GetItemList().ToString().Length == 0);
         }
     }
 }

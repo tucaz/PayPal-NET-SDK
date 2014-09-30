@@ -8,42 +8,54 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class AuthorizationTest
     {
-        [TestMethod()]
-        public void TestAuthorization()
+        public static Authorization GetAuthorization()
         {
-            var authorize = UnitTestUtil.GetAuthorization();
-            var expected = UnitTestUtil.GetAmount();
-            var actual = authorize.amount;
-            Assert.AreEqual(expected.currency, actual.currency);
-            Assert.AreEqual(expected.details.fee, actual.details.fee);
-            Assert.AreEqual(expected.details.shipping, actual.details.shipping);
-            Assert.AreEqual(expected.details.subtotal, actual.details.subtotal);
-            Assert.AreEqual(expected.details.tax, actual.details.tax);
-            Assert.AreEqual(expected.total, actual.total);
-            Assert.AreEqual(authorize.id, "007");
-            Assert.AreEqual(authorize.create_time, "2013-01-15T15:10:05.123Z");
-            Assert.AreEqual(authorize.parent_payment, "1000");
-            Assert.AreEqual(authorize.state, "Authorized");
+            Authorization authorize = new Authorization();
+            authorize.amount = AmountTest.GetAmount();
+            authorize.create_time = "2013-01-15T15:10:05.123Z";
+            authorize.id = "007";
+            authorize.parent_payment = "1000";
+            authorize.state = "Authorized";
+            authorize.links = LinksTest.GetLinksList();
+            return authorize;
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void AuthorizationObjectTest()
         {
-            var authorize = UnitTestUtil.GetAuthorization();
+            var authorization = GetAuthorization();
+            var expectedAmount = AmountTest.GetAmount();
+            var actualAmount = authorization.amount;
+            Assert.AreEqual(expectedAmount.currency, actualAmount.currency);
+            Assert.AreEqual(expectedAmount.details.fee, actualAmount.details.fee);
+            Assert.AreEqual(expectedAmount.details.shipping, actualAmount.details.shipping);
+            Assert.AreEqual(expectedAmount.details.subtotal, actualAmount.details.subtotal);
+            Assert.AreEqual(expectedAmount.details.tax, actualAmount.details.tax);
+            Assert.AreEqual(expectedAmount.total, actualAmount.total);
+            Assert.AreEqual(authorization.id, "007");
+            Assert.AreEqual(authorization.create_time, "2013-01-15T15:10:05.123Z");
+            Assert.AreEqual(authorization.parent_payment, "1000");
+            Assert.AreEqual(authorization.state, "Authorized");
+        }
+
+        [TestMethod()]
+        public void AuthorizationConvertToJsonTest()
+        {
+            var authorize = GetAuthorization();
             Assert.IsFalse(authorize.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void AuthorizationToStringTest()
         {
-            var authorize = UnitTestUtil.GetAuthorization();
+            var authorize = GetAuthorization();
             Assert.IsFalse(authorize.ToString().Length == 0);
         }
 
         [TestMethod()]
         public void AuthorizationGetTest()
         {
-            var pay = UnitTestUtil.CreatePaymentAuthorization();
+            var pay = PaymentTest.CreatePaymentAuthorization();
             var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
             var authorize = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
             Assert.AreEqual(authorizationId, authorize.id);
@@ -52,7 +64,7 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void AuthorizationCaptureTest()
         {
-            var pay = UnitTestUtil.CreatePaymentAuthorization();
+            var pay = PaymentTest.CreatePaymentAuthorization();
             var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
             var authorize = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
             var cap = new Capture();
@@ -67,7 +79,7 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void AuthorizationVoidTest()
         {
-            var pay = UnitTestUtil.CreatePaymentAuthorization();
+            var pay = PaymentTest.CreatePaymentAuthorization();
             var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
             var authorize = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
             var authorizationResponse = authorize.Void(UnitTestUtil.GetApiContext());
@@ -75,19 +87,29 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void NullAccessTokenTest()
+        public void AuthorizationNullAccessTokenTest()
         {
             string token = null;
-            var pay = UnitTestUtil.CreatePaymentAuthorization();
+            var pay = PaymentTest.CreatePaymentAuthorization();
             var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
             UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(token, authorizationId));
         }
 
         [TestMethod()]
-        public void NullAuthorizationIdTest()
+        public void AuthorizationNullIdTest()
         {
-            string authorizationId = null;
-            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId));
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(UnitTestUtil.GetApiContext(), null));
+        }
+
+        [TestMethod]
+        public void AuthroizationReauthorizeTest()
+        {
+            var authorization = Authorization.Get(UnitTestUtil.GetApiContext(), "7GH53639GA425732B");
+            var reauthorizeAmount = new Amount();
+            reauthorizeAmount.currency = "USD";
+            reauthorizeAmount.total = "1";
+            authorization.amount = reauthorizeAmount;
+            UnitTestUtil.AssertThrownException<PayPal.Exception.HttpException>(() => authorization.Reauthorize(UnitTestUtil.GetApiContext()));
         }
     }
 }

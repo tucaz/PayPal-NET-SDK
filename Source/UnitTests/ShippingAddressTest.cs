@@ -6,25 +6,30 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class ShippingAddressTest
     {
-        [TestMethod()]
-        public void TestShippingAddress()
+        public static ShippingAddress GetShippingAddress()
         {
-            var shipping = UnitTestUtil.GetShippingAddress();
+            var shipping = new ShippingAddress();
+            shipping.recipient_name = "PayPalUser";
+            return shipping;
+        }
+
+        [TestMethod()]
+        public void ShippingAddressObjectTest()
+        {
+            var shipping = GetShippingAddress();
             Assert.AreEqual(shipping.recipient_name, "PayPalUser");
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void ShippingAddressConvertToJsonTest()
         {
-            var shipping = UnitTestUtil.GetShippingAddress();
-            Assert.IsFalse(shipping.ConvertToJson().Length == 0);
+            Assert.IsFalse(GetShippingAddress().ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void ShippingAddressToStringTest()
         {
-            var shipping = UnitTestUtil.GetShippingAddress();
-            Assert.IsFalse(shipping.ToString().Length == 0);
+            Assert.IsFalse(GetShippingAddress().ToString().Length == 0);
         }
     }
 }

@@ -8,18 +8,24 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class FundingInstrumentTest
     {
-        [TestMethod()]
-        public void ConvertToJsonTest()
+        public static FundingInstrument GetFundingInstrument()
         {
-            var instrument = UnitTestUtil.GetFundingInstrument();
-            Assert.IsFalse(instrument.ConvertToJson().Length == 0);
+            FundingInstrument instrument = new FundingInstrument();
+            instrument.credit_card = CreditCardTest.CreateCreditCard();
+            instrument.credit_card_token = CreditCardTokenTest.GetCreditCardToken();
+            return instrument;
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void FundingInstrumentConvertToJsonTest()
         {
-            var instrument = UnitTestUtil.GetFundingInstrument();
-            Assert.IsFalse(instrument.ToString().Length == 0);
+            Assert.IsFalse(GetFundingInstrument().ConvertToJson().Length == 0);
+        }
+
+        [TestMethod()]
+        public void FundingInstrumentToStringTest()
+        {
+            Assert.IsFalse(GetFundingInstrument().ToString().Length == 0);
         }
     }
 }

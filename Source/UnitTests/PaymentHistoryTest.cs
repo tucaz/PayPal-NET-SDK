@@ -9,27 +9,36 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class PaymentHistoryTest
     {
-        [TestMethod()]
-        public void TestPaymentHistory()
+        public static PaymentHistory GetPaymentHistory()
         {
-            var history = UnitTestUtil.GetPaymentHistory();
+            List<Payment> paymentList = new List<Payment>();
+            paymentList.Add(PaymentTest.CreatePaymentForSale());
+            PaymentHistory history = new PaymentHistory();
+            history.count = 1;
+            history.payments = paymentList;
+            history.next_id = "1";
+            return history;
+        }
+
+        [TestMethod()]
+        public void PaymentHistoryObjectTest()
+        {
+            var history = GetPaymentHistory();
             Assert.AreEqual(history.count, 1);
             Assert.AreEqual(history.next_id, "1");
             Assert.AreEqual(history.payments.Count, 1);
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void PaymentHistoryConvertToJsonTest()
         {
-            var history = UnitTestUtil.GetPaymentHistory();
-            Assert.IsFalse(history.ConvertToJson().Length == 0);
+            Assert.IsFalse(GetPaymentHistory().ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void PaymentHistoryToStringTest()
         {
-            var history = UnitTestUtil.GetPaymentHistory();
-            Assert.IsFalse(history.ToString().Length == 0);
+            Assert.IsFalse(GetPaymentHistory().ToString().Length == 0);
         }
     }
 }

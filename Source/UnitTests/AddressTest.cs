@@ -6,10 +6,23 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class AddressTest
     {
+        public static Address GetAddress()
+        {
+            Address add = new Address();
+            add.line1 = "2211";
+            add.line2 = "N 1st St";
+            add.city = "San Jose";
+            add.phone = "408-456-0392";
+            add.postal_code = "95131";
+            add.state = "California";
+            add.country_code = "US";
+            return add;
+        }
+
         [TestMethod()]
         public void AddressObjectTest()
         {
-            var add = UnitTestUtil.GetAddress();
+            var add = GetAddress();
             Assert.AreEqual("2211", add.line1);
             Assert.AreEqual("N 1st St", add.line2);
             Assert.AreEqual("San Jose", add.city);
@@ -19,17 +32,15 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void AddressConvertToJsonTest()
         {
-            var add = UnitTestUtil.GetAddress();
-            Assert.IsFalse(add.ConvertToJson().Length == 0);
+            Assert.IsFalse(GetAddress().ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void AddressToStringTest()
         {
-            var add = UnitTestUtil.GetAddress();
-            Assert.IsFalse(add.ToString().Length == 0);
+            Assert.IsFalse(GetAddress().ToString().Length == 0);
         }
     }
 }

@@ -8,12 +8,24 @@ namespace RestApiSDKUnitTest
 {
     [TestClass()]
     public class CaptureTest
-    {   
-        [TestMethod()]
-        public void CaptureAmountTest()
+    {
+        public static Capture GetCapture()
         {
-            var cap = UnitTestUtil.GetCapture();
-            var expected = UnitTestUtil.GetAmount();
+            Capture cap = new Capture();
+            cap.amount = AmountTest.GetAmount();
+            cap.create_time = "2013-01-15T15:10:05.123Z";
+            cap.state = "Authorized";
+            cap.parent_payment = "1000";
+            cap.links = LinksTest.GetLinksList();
+            cap.id = "001";
+            return cap;
+        }
+
+        [TestMethod()]
+        public void CaptureObjectTest()
+        {
+            var cap = GetCapture();
+            var expected = AmountTest.GetAmount();
             var actual = cap.amount;
             Assert.AreEqual(expected.currency, actual.currency);
             Assert.AreEqual(expected.details.fee, actual.details.fee);
@@ -28,23 +40,23 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void CaptureConvertToJsonTest()
         {
-            var cap = UnitTestUtil.GetCapture();
+            var cap = GetCapture();
             Assert.IsFalse(cap.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ConvertToStringTest()
+        public void CaptureToStringTest()
         {
-            var cap = UnitTestUtil.GetCapture();
+            var cap = GetCapture();
             Assert.IsFalse(cap.ToString().Length == 0);
         }
 
         [TestMethod()]
         public void CaptureIdTest()
         {
-            var pay = UnitTestUtil.CreatePaymentAuthorization();
+            var pay = PaymentTest.CreatePaymentAuthorization();
             var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
             var authorization = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
             var cap = new Capture();
@@ -58,9 +70,9 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void RefundCaptureTest()
+        public void CaptureRefundTest()
         {
-            var pay = UnitTestUtil.CreatePaymentAuthorization();
+            var pay = PaymentTest.CreatePaymentAuthorization();
             var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
             var authorization = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
             var cap = new Capture();
@@ -79,7 +91,7 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void NullCaptureIdTest()
+        public void CaptureNullIdTest()
         {
             UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Capture.Get(UnitTestUtil.GetApiContext(), null));
         } 

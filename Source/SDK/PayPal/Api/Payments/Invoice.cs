@@ -435,8 +435,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             // Configure and send the request
-            string pattern = "v1/invoicing/invoices";
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string resourcePath = "v1/invoicing/invoices";
             string payLoad = "";
             return PayPalResource.ConfigureAndExecute<Invoices>(apiContext, HttpMethod.GET, resourcePath, payLoad);
         }

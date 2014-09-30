@@ -6,10 +6,19 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class PayeeTest
     {
+        public static Payee GetPayee()
+        {
+            Payee pay = new Payee();
+            pay.merchant_id = "100";
+            pay.email = "paypaluser@email.com";
+            pay.phone = PhoneTest.GetPhone();
+            return pay;
+        }
+
         [TestMethod()]
         public void PayeeObjectTest()
         {
-            var pay = UnitTestUtil.GetPayee();
+            var pay = GetPayee();
             Assert.AreEqual(pay.merchant_id, "100");
             Assert.AreEqual(pay.email, "paypaluser@email.com");
             Assert.IsNotNull(pay.phone);
@@ -18,17 +27,15 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void PayeeConvertToJsonTest()
         {
-            var pay = UnitTestUtil.GetPayee();
-            Assert.IsFalse(pay.ConvertToJson().Length == 0);
+            Assert.IsFalse(GetPayee().ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void PayeeToStringTest()
         {
-            var pay = UnitTestUtil.GetPayee();
-            Assert.IsFalse(pay.ToString().Length == 0);
+            Assert.IsFalse(GetPayee().ToString().Length == 0);
         }
     }
 }

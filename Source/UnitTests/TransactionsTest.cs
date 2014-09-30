@@ -6,10 +6,17 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class TransactionsTest
     {
-        [TestMethod()]
-        public void TestTransactions()
+        public static Transactions GetTransactions()
         {
-            var transaction = UnitTestUtil.GetTransactions();
+            Transactions transaction = new Transactions();
+            transaction.amount = AmountTest.GetAmount();
+            return transaction;
+        }
+
+        [TestMethod()]
+        public void TransactionsObjectTest()
+        {
+            var transaction = GetTransactions();
             Assert.AreEqual(transaction.amount.currency, "USD");
             Assert.AreEqual(transaction.amount.details.tax, "15");
             Assert.AreEqual(transaction.amount.details.fee, "2");
@@ -19,17 +26,15 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void TransactionsConvertToJsonTest()
         {
-            var trans = UnitTestUtil.GetTransactions();
-            Assert.IsFalse(trans.ConvertToJson().Length == 0);
+            Assert.IsFalse(GetTransactions().ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void TransactionsToStringTest()
         {
-            var trans = UnitTestUtil.GetTransactions();
-            Assert.IsFalse(trans.ToString().Length == 0);
+            Assert.IsFalse(GetTransactions().ToString().Length == 0);
         }
     }
 }

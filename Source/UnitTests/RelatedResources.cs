@@ -10,28 +10,36 @@ namespace RestApiSDKUnitTest
     [TestClass]
     public class RelatedResourcesTest
     {
-        [TestMethod()]
-        public void TestRelatedResources() 
+        public static RelatedResources GetRelatedResources()
         {
-            var resources = UnitTestUtil.GetRelatedResources();
-            Assert.AreEqual(resources.authorization.id, UnitTestUtil.GetAuthorization().id);
-            Assert.AreEqual(resources.sale.id, UnitTestUtil.GetSale().id);
-            Assert.AreEqual(resources.refund.id, UnitTestUtil.GetRefund().id);
-            Assert.AreEqual(resources.capture.id, UnitTestUtil.GetCapture().id);
+            RelatedResources resources = new RelatedResources();
+            resources.authorization = AuthorizationTest.GetAuthorization();
+            resources.capture = CaptureTest.GetCapture();
+            resources.refund = RefundTest.GetRefund();
+            resources.sale = SaleTest.GetSale();
+            return resources;
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest() 
+        public void RelatedResourcesObjectTest() 
         {
-            var resources = UnitTestUtil.GetRelatedResources();
-            Assert.IsFalse(resources.ConvertToJson().Length == 0);
+            var resources = GetRelatedResources();
+            Assert.AreEqual(resources.authorization.id, AuthorizationTest.GetAuthorization().id);
+            Assert.AreEqual(resources.sale.id, SaleTest.GetSale().id);
+            Assert.AreEqual(resources.refund.id, RefundTest.GetRefund().id);
+            Assert.AreEqual(resources.capture.id, CaptureTest.GetCapture().id);
         }
 
         [TestMethod()]
-        public void ToStringTest() 
+        public void RelatedResourcesConvertToJsonTest() 
         {
-            var resources = UnitTestUtil.GetRelatedResources();
-            Assert.IsFalse(resources.ToString().Length == 0);
+            Assert.IsFalse(GetRelatedResources().ConvertToJson().Length == 0);
+        }
+
+        [TestMethod()]
+        public void RelatedResourcesToStringTest() 
+        {
+            Assert.IsFalse(GetRelatedResources().ToString().Length == 0);
         }
     }
 }

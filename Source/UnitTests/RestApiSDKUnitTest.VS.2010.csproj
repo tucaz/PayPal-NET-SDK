@@ -91,11 +91,12 @@
     <Compile Include="PaymentExecutionTest.cs" />
     <Compile Include="PaymentHistoryTest.cs" />
     <Compile Include="PaymentTest.cs" />
+    <Compile Include="PhoneTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReauthorizationTest.cs" />
     <Compile Include="RedirectUrlsTest.cs" />
     <Compile Include="RefundTest.cs" />
     <Compile Include="RelatedResources.cs" />
+    <Compile Include="SaleTest.cs" />
     <Compile Include="ShippingAddressTest.cs" />
     <Compile Include="TransactionsTest.cs" />
     <Compile Include="TransactionTest.cs" />

@@ -7,25 +7,33 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class PaymentExecutionTest
     {
-        [TestMethod()]
-        public void TestPaymentExecution()
+        public static PaymentExecution GetPaymentExecution()
         {
-            var execution = UnitTestUtil.GetPaymentExecution();
+            List<Transactions> transactions = new List<Transactions>();
+            transactions.Add(TransactionsTest.GetTransactions());
+            PaymentExecution execution = new PaymentExecution();
+            execution.payer_id = PayerInfoTest.GetPayerInfo().payer_id;
+            execution.transactions = transactions;
+            return execution;
+        }
+
+        [TestMethod()]
+        public void PaymentExecutionObjectTest()
+        {
+            var execution = GetPaymentExecution();
             Assert.AreEqual(execution.payer_id, "100");
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void PaymentExecutionConvertToJsonTest()
         {
-            var execution = UnitTestUtil.GetPaymentExecution();
-            Assert.IsFalse(execution.ConvertToJson().Length == 0);
+            Assert.IsFalse(GetPaymentExecution().ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void PaymentExecutionToStringTest()
         {
-            var execution = UnitTestUtil.GetPaymentExecution();
-            Assert.IsFalse(execution.ToString().Length == 0);
+            Assert.IsFalse(GetPaymentExecution().ToString().Length == 0);
         }
     }
 }

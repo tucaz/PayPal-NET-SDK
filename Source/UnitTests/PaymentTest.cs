@@ -11,32 +11,95 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class PaymentTest
     {
+        public static Payment GetPaymentAuthorization()
+        {
+            return GetPayment("authorize");
+        }
+
+        public static Payment GetPaymentForSale()
+        {
+            return GetPayment("sale");
+        }
+
+        private static Payment GetPayment(string intent)
+        {
+            var payment = new Payment();
+            payment.intent = intent;
+            CreditCard card = CreditCardTest.GetCreditCard();
+            List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
+            FundingInstrument fundingInstrument = new FundingInstrument();
+            fundingInstrument.credit_card = card;
+            fundingInstruments.Add(fundingInstrument);
+            Payer payer = new Payer();
+            payer.payment_method = "credit_card";
+            payer.funding_instruments = fundingInstruments;
+            List<Transaction> transactionList = new List<Transaction>();
+            Transaction trans = new Transaction();
+            trans.amount = AmountTest.GetAmount();
+            transactionList.Add(trans);
+            payment.transactions = transactionList;
+            payment.payer = payer;
+            return payment;
+        }
+
+        public static Payment CreateFuturePayment()
+        {
+            FuturePayment pay = new FuturePayment();
+            pay.intent = "sale";
+            CreditCard card = CreditCardTest.GetCreditCard();
+            List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
+            FundingInstrument fundingInstrument = new FundingInstrument();
+            fundingInstrument.credit_card = card;
+            fundingInstruments.Add(fundingInstrument);
+            Payer payer = new Payer();
+            payer.payment_method = "credit_card";
+            payer.funding_instruments = fundingInstruments;
+            List<Transaction> transactionList = new List<Transaction>();
+            Transaction trans = new Transaction();
+            trans.amount = AmountTest.GetAmount();
+            transactionList.Add(trans);
+            pay.transactions = transactionList;
+            pay.payer = payer;
+            Payment paymnt = pay.Create(UnitTestUtil.GetApiContext());
+            return paymnt;
+        }
+
+        public static Payment CreatePaymentAuthorization()
+        {
+            return GetPaymentAuthorization().Create(UnitTestUtil.GetApiContext());
+        }
+
+        public static Payment CreatePaymentForSale()
+        {
+            return GetPaymentForSale().Create(UnitTestUtil.GetApiContext());
+        }
+
         [TestMethod()]
         public void PaymentStateTest()
         {
-            var actual = UnitTestUtil.CreatePaymentForSale();
+            var actual = CreatePaymentForSale();
             Assert.AreEqual("approved", actual.state);
         }
 
         [TestMethod()]
         public void PaymentNullAccessToken()
         {
-            var payment = UnitTestUtil.GetPaymentForSale();
+            var payment = GetPaymentForSale();
             string accessToken = null;
             UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => payment.Create(accessToken));
         }
 
         [TestMethod()]
-        public void TestPayment()
+        public void PaymentObjectTest()
         {
             var context = UnitTestUtil.GetApiContext();
-            var pay = UnitTestUtil.CreatePaymentForSale();
+            var pay = CreatePaymentForSale();
             var retrievedPayment = Payment.Get(context, pay.id);
             Assert.AreEqual(pay.id, retrievedPayment.id);
         }
 
         [TestMethod()]
-        public void PaymentHistoryTest()
+        public void PaymentListHistoryTest()
         {
             var context = UnitTestUtil.GetApiContext();
             var containerDictionary = new Dictionary<string, string>();
@@ -49,7 +112,7 @@ namespace RestApiSDKUnitTest
         public void FuturePaymentTest()
         {
             var context = UnitTestUtil.GetApiContext();
-            var futurePayment = UnitTestUtil.GetFuturePayment();
+            var futurePayment = CreateFuturePayment();
             var retrievedPayment = FuturePayment.Get(context, futurePayment.id);
             Assert.AreEqual(futurePayment.id, retrievedPayment.id);
         }
