@@ -23,7 +23,7 @@ namespace PayPal.Api.Payments
         /// Default shipping address of the Payer.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool default_address { get; set; }
+        public bool? default_address { get; set; }
 
         /// <summary>
         /// Converts the object to JSON string

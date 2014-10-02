@@ -13,32 +13,42 @@ namespace RestApiSDKUnitTest
     {
         public static Payment GetPaymentAuthorization()
         {
-            return GetPayment("authorize");
+            return GetPaymentUsingCreditCard("authorize");
         }
 
         public static Payment GetPaymentForSale()
         {
-            return GetPayment("sale");
+            return GetPaymentUsingCreditCard("sale");
         }
 
-        private static Payment GetPayment(string intent)
+        public static Payment GetPaymentOrder()
+        {
+            return GetPaymentUsingPayPal("order");
+        }
+
+        private static Payment GetPaymentUsingCreditCard(string intent)
         {
             var payment = new Payment();
             payment.intent = intent;
-            CreditCard card = CreditCardTest.GetCreditCard();
-            List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
-            FundingInstrument fundingInstrument = new FundingInstrument();
-            fundingInstrument.credit_card = card;
-            fundingInstruments.Add(fundingInstrument);
-            Payer payer = new Payer();
-            payer.payment_method = "credit_card";
-            payer.funding_instruments = fundingInstruments;
-            List<Transaction> transactionList = new List<Transaction>();
-            Transaction trans = new Transaction();
-            trans.amount = AmountTest.GetAmount();
-            transactionList.Add(trans);
-            payment.transactions = transactionList;
-            payment.payer = payer;
+            payment.transactions = TransactionTest.GetTransactionList();
+            payment.transactions[0].amount.details = null;
+            payment.transactions[0].payee = null;
+            payment.payer = PayerTest.GetPayerUsingCreditCard();
+            payment.redirect_urls = RedirectUrlsTest.GetRedirectUrls();
+            return payment;
+        }
+
+        private static Payment GetPaymentUsingPayPal(string intent)
+        {
+            var payment = new Payment();
+            payment.intent = intent;
+            payment.transactions = TransactionTest.GetTransactionList();
+            payment.transactions[0].amount.details = null;
+            payment.transactions[0].payee = null;
+            payment.transactions[0].item_list.shipping_address = null;
+            payment.payer = PayerTest.GetPayerUsingPayPal();
+            payment.payer.payer_info.shipping_address = null;
+            payment.redirect_urls = RedirectUrlsTest.GetRedirectUrls();
             return payment;
         }
 
@@ -72,6 +82,11 @@ namespace RestApiSDKUnitTest
         public static Payment CreatePaymentForSale()
         {
             return GetPaymentForSale().Create(UnitTestUtil.GetApiContext());
+        }
+
+        public static Payment CreatePaymentOrder()
+        {
+            return GetPaymentOrder().Create(UnitTestUtil.GetApiContext());
         }
 
         [TestMethod()]

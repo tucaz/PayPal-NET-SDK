@@ -9,7 +9,7 @@ namespace RestApiSDKUnitTest
         public static Phone GetPhone()
         {
             var phone = new Phone();
-            phone.national_number = "7162981822";
+            phone.number = "7162981822";
             phone.country_code = "1";
             return phone;
         }
@@ -18,7 +18,7 @@ namespace RestApiSDKUnitTest
         public void PhoneObjectTest()
         {
             var phone = GetPhone();
-            Assert.AreEqual("7162981822", phone.national_number);
+            Assert.AreEqual("7162981822", phone.number);
             Assert.AreEqual("1", phone.country_code);
         }
 

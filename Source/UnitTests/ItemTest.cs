@@ -11,7 +11,7 @@ namespace RestApiSDKUnitTest
             Item itm = new Item();
             itm.name = "Item Name";
             itm.currency = "USD";
-            itm.price = "10.50";
+            itm.price = "10";
             itm.quantity = "5";
             itm.sku = "Sku";
             return itm;
@@ -23,7 +23,7 @@ namespace RestApiSDKUnitTest
             var itm = GetItem();
             Assert.AreEqual(itm.name, "Item Name");
             Assert.AreEqual(itm.currency, "USD");
-            Assert.AreEqual(itm.price, "10.50");
+            Assert.AreEqual(itm.price, "10");
             Assert.AreEqual(itm.quantity, "5");
             Assert.AreEqual(itm.sku, "Sku");
         }

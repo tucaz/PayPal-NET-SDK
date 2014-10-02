@@ -17,6 +17,7 @@ namespace RestApiSDKUnitTest
             resources.capture = CaptureTest.GetCapture();
             resources.refund = RefundTest.GetRefund();
             resources.sale = SaleTest.GetSale();
+            resources.order = OrderTest.GetOrder();
             return resources;
         }
 

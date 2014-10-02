@@ -10,7 +10,7 @@ namespace RestApiSDKUnitTest
         {
             Details detail = new Details();
             detail.tax = "15";
-            detail.fee = "2";
+            detail.fee = "0";
             detail.shipping = "10";
             detail.subtotal = "75";
             return detail;
@@ -23,7 +23,7 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual("75", detail.subtotal);
             Assert.AreEqual("15", detail.tax);
             Assert.AreEqual("10", detail.shipping);
-            Assert.AreEqual("2", detail.fee);
+            Assert.AreEqual("0", detail.fee);
         }
 
         [TestMethod()]

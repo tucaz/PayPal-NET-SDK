@@ -24,7 +24,7 @@ namespace RestApiSDKUnitTest
             Assert.IsNotNull(amount.details);
             Assert.AreEqual("75", amount.details.subtotal);
             Assert.AreEqual("15", amount.details.tax);
-            Assert.AreEqual("2", amount.details.fee);
+            Assert.AreEqual("0", amount.details.fee);
             Assert.AreEqual("10", amount.details.shipping);
             Assert.AreEqual("75", amount.details.subtotal);
         }

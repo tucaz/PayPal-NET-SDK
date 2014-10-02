@@ -19,7 +19,7 @@ namespace RestApiSDKUnitTest
             var transaction = GetTransactions();
             Assert.AreEqual(transaction.amount.currency, "USD");
             Assert.AreEqual(transaction.amount.details.tax, "15");
-            Assert.AreEqual(transaction.amount.details.fee, "2");
+            Assert.AreEqual(transaction.amount.details.fee, "0");
             Assert.AreEqual(transaction.amount.details.shipping, "10");
             Assert.AreEqual(transaction.amount.details.subtotal, "75");
             Assert.AreEqual(transaction.amount.total, "100");

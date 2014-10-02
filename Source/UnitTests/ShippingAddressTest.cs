@@ -10,6 +10,13 @@ namespace RestApiSDKUnitTest
         {
             var shipping = new ShippingAddress();
             shipping.recipient_name = "PayPalUser";
+            shipping.line1 = "2211";
+            shipping.line2 = "N 1st St";
+            shipping.city = "San Jose";
+            shipping.phone = "408-456-0392";
+            shipping.postal_code = "95131";
+            shipping.state = "California";
+            shipping.country_code = "US";
             return shipping;
         }
 

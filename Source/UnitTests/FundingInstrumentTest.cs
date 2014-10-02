@@ -11,8 +11,7 @@ namespace RestApiSDKUnitTest
         public static FundingInstrument GetFundingInstrument()
         {
             FundingInstrument instrument = new FundingInstrument();
-            instrument.credit_card = CreditCardTest.CreateCreditCard();
-            instrument.credit_card_token = CreditCardTokenTest.GetCreditCardToken();
+            instrument.credit_card = CreditCardTest.GetCreditCard();
             return instrument;
         }
 

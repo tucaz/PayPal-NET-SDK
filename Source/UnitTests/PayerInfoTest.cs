@@ -8,12 +8,18 @@ namespace RestApiSDKUnitTest
     {
         public static PayerInfo GetPayerInfo()
         {
+            var info = GetPayerInfoBasic();
+            info.email = "Joe.Shopper@email.com";
+            info.phone = "12345";
+            return info;
+        }
+
+        public static PayerInfo GetPayerInfoBasic()
+        {
             PayerInfo info = new PayerInfo();
             info.first_name = "Joe";
             info.last_name = "Shopper";
-            info.email = "Joe.Shopper@email.com";
             info.payer_id = "100";
-            info.phone = "12345";
             info.shipping_address = ShippingAddressTest.GetShippingAddress();
             return info;
         }

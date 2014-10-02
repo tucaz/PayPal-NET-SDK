@@ -23,6 +23,13 @@ namespace RestApiSDKUnitTest
             return transaction;
         }
 
+        public static List<Transaction> GetTransactionList()
+        {
+            var transactionList = new List<Transaction>();
+            transactionList.Add(GetTransaction());
+            return transactionList;
+        }
+
         [TestMethod()]
         public void TransactionObjectTest()
         {
