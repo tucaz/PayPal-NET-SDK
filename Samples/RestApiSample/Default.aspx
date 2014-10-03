@@ -111,6 +111,19 @@
                     <a href="Source/GetPaymentHistory.aspx.html" class="source imagelink">Source</a>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Run Order Sample</td>
+                <td>
+                </td>
+                <td>
+                    <a href="OrderSample.aspx" class="execute imagelink">Execute</a>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
             <tr valign="top" class="header">
 				<td>Sale</td>
 			</tr>
