@@ -6,7 +6,7 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class AddressTest
     {
-        private Address GetAddress()
+        public static Address GetAddress()
         {
             Address add = new Address();
             add.line1 = "2211";
@@ -22,7 +22,7 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void AddressObjectTest()
         {
-            Address add = GetAddress();
+            var add = GetAddress();
             Assert.AreEqual("2211", add.line1);
             Assert.AreEqual("N 1st St", add.line2);
             Assert.AreEqual("San Jose", add.city);
@@ -32,17 +32,15 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void AddressConvertToJsonTest()
         {
-            Address add = GetAddress();
-            Assert.IsFalse(add.ConvertToJson().Length == 0);
+            Assert.IsFalse(GetAddress().ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void AddressToStringTest()
         {
-            Address add = GetAddress();
-            Assert.IsFalse(add.ToString().Length == 0);
+            Assert.IsFalse(GetAddress().ToString().Length == 0);
         }
     }
 }

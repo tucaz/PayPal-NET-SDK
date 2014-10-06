@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using PayPal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PayPal.Api.Payments;
 
 namespace RestApiSDKUnitTest
 {

@@ -9,87 +9,45 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class PayerTest
     {
-        private ShippingAddress GetShippingAddress()
+        public static Payer GetPayerUsingPayPal()
         {
-            ShippingAddress shipping = new ShippingAddress();
-            shipping.recipient_name = "PayPalUser";
-            return shipping;
+            var pay = new Payer();
+            pay.payer_info = PayerInfoTest.GetPayerInfoBasic();
+            pay.payment_method = "paypal";
+            return pay;
         }
 
-        private PayerInfo GetPayerInfo()
+        public static Payer GetPayerUsingCreditCard()
         {
-            PayerInfo info = new PayerInfo();
-            info.first_name = "Joe";
-            info.last_name = "Shopper";
-            info.email = "Joe.Shopper@email.com";
-            info.payer_id = "100";
-            info.phone = "12345";
-            info.shipping_address = GetShippingAddress();
-            return info;
-        }
-
-        private CreditCard CreateCreditCard()
-        {
-            CreditCard card = new CreditCard();
-            card.cvv2 = "962";
-            card.expire_month = 01;
-            card.expire_year = 2015;
-            card.first_name = "John";
-            card.last_name = "Doe";
-            card.number = "4825854086744369";
-            card.type = "visa";
-            card.payer_id = "008";
-            return card.Create(UnitTestUtil.GetApiContext());
-        }       
-
-        private CreditCardToken GetCreditCardToken()
-        {
-            CreditCardToken card = new CreditCardToken();
-            card.credit_card_id = "CARD-8PV12506MG6587946KEBHH4A";
-            card.payer_id = "009";
-            return card;
-        }   
-
-        private FundingInstrument GetFundingInstrument()
-        {
-            FundingInstrument instrument = new FundingInstrument();
-            instrument.credit_card = CreateCreditCard();
-            instrument.credit_card_token = GetCreditCardToken();
-            return instrument;
-        }
-
-        private Payer GetPayer()
-        {
-            List<FundingInstrument> fundingInstrumentList = new List<FundingInstrument>();
-            fundingInstrumentList.Add(GetFundingInstrument());
-            Payer pay = new Payer();
+            var fundingInstrumentList = new List<FundingInstrument>();
+            fundingInstrumentList.Add(FundingInstrumentTest.GetFundingInstrument());
+            var pay = new Payer();
             pay.funding_instruments = fundingInstrumentList;
-            pay.payer_info = GetPayerInfo();
+            pay.payer_info = PayerInfoTest.GetPayerInfo();
+            pay.payer_info.phone = null;
             pay.payment_method = "credit_card";
             return pay;
         }
 
         [TestMethod()]
-        public void TestPayer()
+        public void PayerObjectTest()
         {
-            Payer pay = GetPayer();
-            Assert.AreEqual(pay.payment_method, "credit_card");
-            Assert.AreEqual(pay.funding_instruments[0].credit_card_token.credit_card_id, "CARD-8PV12506MG6587946KEBHH4A");
-            Assert.AreEqual(pay.payer_info.first_name, "Joe");
+            var pay = GetPayerUsingCreditCard();
+            Assert.AreEqual("credit_card", pay.payment_method);
+            Assert.AreEqual("Joe", pay.payer_info.first_name);
+            Assert.IsNotNull(pay.funding_instruments);
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void PayerConvertToJsonTest()
         {
-            Payer pay = GetPayer();
-            Assert.IsFalse(pay.ConvertToJson().Length == 0);
+            Assert.IsFalse(GetPayerUsingCreditCard().ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void PayerToStringTest()
         {
-            Payer pay = GetPayer();
-            Assert.IsFalse(pay.ToString().Length == 0);
+            Assert.IsFalse(GetPayerUsingCreditCard().ToString().Length == 0);
         }
     }    
 }

@@ -1,4 +1,4 @@
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -38,9 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\PayPalCoreSDK.1.5.0\lib\net35\PayPalCoreSDK.dll</HintPath>
     </Reference>
-    <Reference Include="RestApiSDK, Version=0.8.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+    <Reference Include="RestApiSDK, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RestApiSDK.0.8.0\lib\net35\RestApiSDK.dll</HintPath>
+      <HintPath>..\packages\RestApiSDK.0.9.0\lib\net35\RestApiSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -81,6 +81,13 @@
     </Compile>
     <Compile Include="AuthorizationVoid.aspx.designer.cs">
       <DependentUpon>AuthorizationVoid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OrderSample.aspx.cs">
+      <DependentUpon>OrderSample.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OrderSample.aspx.designer.cs">
+      <DependentUpon>OrderSample.aspx</DependentUpon>
     </Compile>
     <Compile Include="DeleteCreditCard.aspx.cs">
       <DependentUpon>DeleteCreditCard.aspx</DependentUpon>
@@ -212,6 +219,7 @@
     <Content Include="AuthorizationCapture.aspx" />
     <Content Include="AuthorizationVoid.aspx" />
     <Content Include="CreateCreditCard.aspx" />
+    <Content Include="OrderSample.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="DeleteCreditCard.aspx" />
     <Content Include="GetAuthorization.aspx" />

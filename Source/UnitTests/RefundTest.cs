@@ -9,102 +9,72 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class RefundTest
     {
-        private Payment GetPayment()
+        public static Refund GetRefund()
         {
-            Payment target = new Payment();
-            target.intent = "authorize";
-            CreditCard card = GetCreditCard();
-            List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
-            FundingInstrument fundingInstrument = new FundingInstrument();
-            fundingInstrument.credit_card = card;
-            fundingInstruments.Add(fundingInstrument);
-            Payer payer = new Payer();
-            payer.payment_method = "credit_card";
-            payer.funding_instruments = fundingInstruments;
-            List<Transaction> transacts = new List<Transaction>();
-            Transaction trans = new Transaction();
-            trans.amount = GetAmount();
-            transacts.Add(trans);
-            target.transactions = transacts;
-            target.payer = payer;
-            return target.Create(UnitTestUtil.GetApiContext());
+            var refund = new Refund();
+            refund.capture_id = "101";
+            refund.id = "102";
+            refund.parent_payment = "103";
+            refund.sale_id = "104";
+            refund.state = "Approved";
+            refund.amount = AmountTest.GetAmount();
+            refund.create_time = "2013-01-17T18:12:02.347Z";
+            refund.links = LinksTest.GetLinksList();
+            return refund;
         }
 
-        private Address GetAddress()
+        [TestMethod()]
+        public void RefundObjectTest()
         {
-            Address add = new Address();
-            add.line1 = "2211";
-            add.line2 = "N 1st St";
-            add.city = "San Jose";
-            add.phone = "408-456-0392";
-            add.postal_code = "95131";
-            add.state = "California";
-            add.country_code = "US";
-            return add;
+            var refund = GetRefund();
+            Assert.AreEqual("101", refund.capture_id);
+            Assert.AreEqual("102", refund.id);
+            Assert.AreEqual("103", refund.parent_payment);
+            Assert.AreEqual("104", refund.sale_id);
+            Assert.AreEqual("Approved", refund.state);
+            Assert.AreEqual("2013-01-17T18:12:02.347Z", refund.create_time);
+            Assert.IsNotNull(refund.amount);
+            Assert.IsNotNull(refund.links);
         }
-
-        private CreditCard GetCreditCard()
-        {
-            CreditCard card = new CreditCard();
-            card.cvv2 = "962";
-            card.expire_month = 01;
-            card.expire_year = 2015;
-            card.first_name = "John";
-            card.last_name = "Doe";
-            card.number = "4825854086744369";
-            card.type = "visa";
-            card.state = "New York";
-            card.payer_id = "008";
-            card.id = "002";
-            card.billing_address = GetAddress();
-            return card;
-        }
-
-        private Details GetDetails()
-        {
-            Details detail = new Details();
-            detail.tax = "15";
-            detail.fee = "2";
-            detail.shipping = "10";
-            detail.subtotal = "75";
-            return detail;
-        }
-
-        private Amount GetAmount()
-        {
-            Amount amt = new Amount();
-            amt.currency = "USD";
-            amt.details = GetDetails();
-            amt.total = "100";
-            return amt;
-        }                
 
         [TestMethod()]
         public void RefundIdTest()
         {
-            Payment pay = GetPayment();
-            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            Authorization authorization = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
-            Capture cap = new Capture();
-            Amount amt = new Amount();
+            var pay = PaymentTest.CreatePaymentAuthorization();
+            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+            var authorization = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
+            var cap = new Capture();
+            var amt = new Amount();
             amt.total = "1";
             amt.currency = "USD";
             cap.amount = amt;
-            Capture response = authorization.Capture(UnitTestUtil.GetApiContext(), cap);
-            Refund fund = new Refund();
-            Amount refundAmount = new Amount();
+            var response = authorization.Capture(UnitTestUtil.GetApiContext(), cap);
+            var fund = new Refund();
+            var refundAmount = new Amount();
             refundAmount.total = "1";
             refundAmount.currency = "USD";
             fund.amount = refundAmount;
-            Refund responseRefund = response.Refund(UnitTestUtil.GetApiContext(), fund);
-            Refund retrievedRefund = Refund.Get(UnitTestUtil.GetApiContext(), responseRefund.id);
+            var responseRefund = response.Refund(UnitTestUtil.GetApiContext(), fund);
+            var retrievedRefund = Refund.Get(UnitTestUtil.GetApiContext(), responseRefund.id);
             Assert.AreEqual(responseRefund.id, retrievedRefund.id);
         }
 
         [TestMethod()]
-        public void NullRefundIdTest()
+        public void RefundNullIdTest()
         {
             UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Refund.Get(UnitTestUtil.GetApiContext(), null));
+        }
+
+        [TestMethod()]
+        public void RefundConvertToJsonTest()
+        {
+            Assert.IsFalse(GetRefund().ConvertToJson().Length == 0);
+        }
+
+        [TestMethod()]
+        public void RefundToStringTest()
+        {
+            Assert.IsFalse(GetRefund().ToString().Length == 0);
         }
     }
 }

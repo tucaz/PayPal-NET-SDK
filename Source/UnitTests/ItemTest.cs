@@ -5,41 +5,39 @@ namespace RestApiSDKUnitTest
 {
     [TestClass()]
     public class ItemTest
-    { 
-        private Item GetItem()
+    {
+        public static Item GetItem()
         {
             Item itm = new Item();
             itm.name = "Item Name";
             itm.currency = "USD";
-            itm.price = "10.50";
+            itm.price = "10";
             itm.quantity = "5";
             itm.sku = "Sku";
             return itm;
         }
 
         [TestMethod()]
-        public void TestItem()
+        public void ItemObjectTest()
         {
-            Item itm = GetItem();
+            var itm = GetItem();
             Assert.AreEqual(itm.name, "Item Name");
             Assert.AreEqual(itm.currency, "USD");
-            Assert.AreEqual(itm.price, "10.50");
+            Assert.AreEqual(itm.price, "10");
             Assert.AreEqual(itm.quantity, "5");
             Assert.AreEqual(itm.sku, "Sku");
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void ItemConvertToJsonTest()
         {
-            Item item = GetItem();
-            Assert.IsFalse(item.ConvertToJson().Length == 0);
+            Assert.IsFalse(GetItem().ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void ItemToStringTest()
         {
-            Item item = GetItem();
-            Assert.IsFalse(item.ToString().Length == 0);
+            Assert.IsFalse(GetItem().ToString().Length == 0);
         }
     }
 }

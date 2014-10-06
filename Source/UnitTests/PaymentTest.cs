@@ -11,33 +11,52 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class PaymentTest
     {
-        private Payment GetPayment()
+        public static Payment GetPaymentAuthorization()
         {
-            Payment pay = new Payment();
-            pay.intent = "sale";
-            CreditCard card = GetCreditCard();
-            List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
-            FundingInstrument fundingInstrument = new FundingInstrument();
-            fundingInstrument.credit_card = card;
-            fundingInstruments.Add(fundingInstrument);
-            Payer payer = new Payer();
-            payer.payment_method = "credit_card";
-            payer.funding_instruments = fundingInstruments;
-            List<Transaction> transactionList = new List<Transaction>();
-            Transaction trans = new Transaction();
-            trans.amount = GetAmount();
-            transactionList.Add(trans);
-            pay.transactions = transactionList;
-            pay.payer = payer;
-            Payment paymnt = pay.Create(UnitTestUtil.GetApiContext());
-            return paymnt;
+            return GetPaymentUsingCreditCard("authorize");
         }
 
-        private Payment GetFuturePayment()
+        public static Payment GetPaymentForSale()
+        {
+            return GetPaymentUsingCreditCard("sale");
+        }
+
+        public static Payment GetPaymentOrder()
+        {
+            return GetPaymentUsingPayPal("order");
+        }
+
+        private static Payment GetPaymentUsingCreditCard(string intent)
+        {
+            var payment = new Payment();
+            payment.intent = intent;
+            payment.transactions = TransactionTest.GetTransactionList();
+            payment.transactions[0].amount.details = null;
+            payment.transactions[0].payee = null;
+            payment.payer = PayerTest.GetPayerUsingCreditCard();
+            payment.redirect_urls = RedirectUrlsTest.GetRedirectUrls();
+            return payment;
+        }
+
+        private static Payment GetPaymentUsingPayPal(string intent)
+        {
+            var payment = new Payment();
+            payment.intent = intent;
+            payment.transactions = TransactionTest.GetTransactionList();
+            payment.transactions[0].amount.details = null;
+            payment.transactions[0].payee = null;
+            payment.transactions[0].item_list.shipping_address = null;
+            payment.payer = PayerTest.GetPayerUsingPayPal();
+            payment.payer.payer_info.shipping_address = null;
+            payment.redirect_urls = RedirectUrlsTest.GetRedirectUrls();
+            return payment;
+        }
+
+        public static Payment CreateFuturePayment()
         {
             FuturePayment pay = new FuturePayment();
             pay.intent = "sale";
-            CreditCard card = GetCreditCard();
+            CreditCard card = CreditCardTest.GetCreditCard();
             List<FundingInstrument> fundingInstruments = new List<FundingInstrument>();
             FundingInstrument fundingInstrument = new FundingInstrument();
             fundingInstrument.credit_card = card;
@@ -47,7 +66,7 @@ namespace RestApiSDKUnitTest
             payer.funding_instruments = fundingInstruments;
             List<Transaction> transactionList = new List<Transaction>();
             Transaction trans = new Transaction();
-            trans.amount = GetAmount();
+            trans.amount = AmountTest.GetAmount();
             transactionList.Add(trans);
             pay.transactions = transactionList;
             pay.payer = payer;
@@ -55,127 +74,61 @@ namespace RestApiSDKUnitTest
             return paymnt;
         }
 
-        private Address GetAddress()
+        public static Payment CreatePaymentAuthorization()
         {
-            Address addrss = new Address();
-            addrss.line1 = "2211";
-            addrss.line2 = "N 1st St";
-            addrss.city = "San Jose";
-            addrss.phone = "408-456-0392";
-            addrss.postal_code = "95131";
-            addrss.state = "California";
-            addrss.country_code = "US";
-            return addrss;
+            return GetPaymentAuthorization().Create(UnitTestUtil.GetApiContext());
         }
 
-        private CreditCard GetCreditCard()
+        public static Payment CreatePaymentForSale()
         {
-            CreditCard card = new CreditCard();
-            card.cvv2 = "962";
-            card.expire_month = 01;
-            card.expire_year = 2015;
-            card.first_name = "John";
-            card.last_name = "Doe";
-            card.number = "4825854086744369";
-            card.type = "visa";
-            card.state = "New York";
-            card.payer_id = "008";
-            card.id = "002";
-            card.billing_address = GetAddress();
-            return card;
+            return GetPaymentForSale().Create(UnitTestUtil.GetApiContext());
         }
 
-        private Details GetDetails()
+        public static Payment CreatePaymentOrder()
         {
-            Details amntDetails = new Details();
-            amntDetails.tax = "15";
-            amntDetails.fee = "2";
-            amntDetails.shipping = "10";
-            amntDetails.subtotal = "75";
-            return amntDetails;
-        }
-
-        private Amount GetAmount()
-        {
-            Amount amnt = new Amount();
-            amnt.currency = "USD";
-            amnt.details = GetDetails();
-            amnt.total = "100";
-            return amnt;
+            return GetPaymentOrder().Create(UnitTestUtil.GetApiContext());
         }
 
         [TestMethod()]
         public void PaymentStateTest()
         {
-            Payment pay = new Payment(); 
-            pay.intent = "sale";
-            CreditCard card = GetCreditCard();
-            List<FundingInstrument> fundingInstrumentList = new List<FundingInstrument>();
-            FundingInstrument instrument = new FundingInstrument();
-            instrument.credit_card = card;
-            fundingInstrumentList.Add(instrument);
-            Payer payer = new Payer();
-            payer.payment_method = "credit_card";
-            payer.funding_instruments = fundingInstrumentList;
-            List<Transaction> transacts = new List<Transaction>();
-            Transaction trans = new Transaction();
-            trans.amount = GetAmount();
-            transacts.Add(trans);
-            pay.transactions = transacts;
-            pay.payer = payer;
-            Payment actual = new Payment();
-            actual = pay.Create(UnitTestUtil.GetApiContext());
+            var actual = CreatePaymentForSale();
             Assert.AreEqual("approved", actual.state);
         }
 
         [TestMethod()]
         public void PaymentNullAccessToken()
         {
+            var payment = GetPaymentForSale();
             string accessToken = null;
-            Payment pay = new Payment();
-            pay.intent = "sale";
-            CreditCard card = GetCreditCard();
-            List<FundingInstrument> instruments = new List<FundingInstrument>();
-            FundingInstrument instrument = new FundingInstrument();
-            instrument.credit_card = card;
-            instruments.Add(instrument);
-            Payer payr = new Payer();
-            payr.payment_method = "credit_card";
-            payr.funding_instruments = instruments;
-            List<Transaction> transacts = new List<Transaction>();
-            Transaction trans = new Transaction();
-            trans.amount = GetAmount();
-            transacts.Add(trans);
-            pay.transactions = transacts;
-            pay.payer = payr;
-            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => pay.Create(accessToken));
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => payment.Create(accessToken));
         }
 
         [TestMethod()]
-        public void TestPayment()
+        public void PaymentObjectTest()
         {
-            APIContext context = UnitTestUtil.GetApiContext();
-            Payment pay = GetPayment();
-            Payment retrievedPayment = Payment.Get(context, pay.id);
+            var context = UnitTestUtil.GetApiContext();
+            var pay = CreatePaymentForSale();
+            var retrievedPayment = Payment.Get(context, pay.id);
             Assert.AreEqual(pay.id, retrievedPayment.id);
         }
 
         [TestMethod()]
-        public void PaymentHistoryTest()
+        public void PaymentListHistoryTest()
         {
-            APIContext context = UnitTestUtil.GetApiContext();
-            Dictionary<string, string> containerDictionary = new Dictionary<string, string>();
+            var context = UnitTestUtil.GetApiContext();
+            var containerDictionary = new Dictionary<string, string>();
             containerDictionary.Add("count", "10");
-            PaymentHistory paymentHistory = Payment.List(context, containerDictionary);
+            var paymentHistory = Payment.List(context, containerDictionary);
             Assert.AreEqual(10, paymentHistory.count);
         }
 
         [TestMethod()]
         public void FuturePaymentTest()
         {
-            APIContext context = UnitTestUtil.GetApiContext();
-            Payment futurePayment = GetFuturePayment();
-            Payment retrievedPayment = FuturePayment.Get(context, futurePayment.id);
+            var context = UnitTestUtil.GetApiContext();
+            var futurePayment = CreateFuturePayment();
+            var retrievedPayment = FuturePayment.Get(context, futurePayment.id);
             Assert.AreEqual(futurePayment.id, retrievedPayment.id);
         }
     }

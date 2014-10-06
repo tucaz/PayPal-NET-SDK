@@ -7,52 +7,50 @@ using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
-	public class HyperSchema
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public List<Links> links { get; set; }
-	
-		/// <summary>
-		/// 
-		/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string fragmentResolution { get; set; }
-	
-		/// <summary>
-		/// 
-		/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public bool readOnly { get; set; }
-	
-		/// <summary>
-		/// 
-		/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string contentEncoding { get; set; }
-	
-		/// <summary>
-		/// 
-		/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string pathStart { get; set; }
-	
-		/// <summary>
-		/// 
-		/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string mediaType { get; set; }
-	
-		/// <summary>
-		/// Converts the object to JSON string
-		/// </summary>
-		public virtual string ConvertToJson() 
-    	{ 
-    		return JsonFormatter.ConvertToJson(this);
-    	}
-	}
+    public class HyperSchema
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public List<Links> links { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string fragmentResolution { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public bool readOnly { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string contentEncoding { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string pathStart { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string mediaType { get; set; }
+
+        /// <summary>
+        /// Converts the object to JSON string
+        /// </summary>
+        public virtual string ConvertToJson()
+        {
+            return JsonFormatter.ConvertToJson(this);
+        }
+    }
 }
-
-

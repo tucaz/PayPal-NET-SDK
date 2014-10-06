@@ -11,15 +11,16 @@ namespace RestApiSample
         // Create the configuration map that contains mode and other optional configuration details.
         public static Dictionary<string, string> GetConfig()
         {
-            Dictionary<string, string> configMap = new Dictionary<string, string>();
+            var config = new Dictionary<string, string>();
 
             // Endpoints are varied depending on whether sandbox OR live is chosen for mode
-            configMap.Add("mode", "sandbox");
+            config["mode"] = "sandbox";
+            config["endpoint"] = "https://api.sandbox.paypal.com";
 
             // These values are defaulted in SDK. If you want to override default values, uncomment it and add your value
-            // configMap.Add("connectionTimeout", "360000");
-            // configMap.Add("requestRetries", "1");
-            return configMap;
+            // config["connectionTimeout"] = "360000";
+            // config["requestRetries"] = "1";
+            return config;
         }
 
         // Create accessToken

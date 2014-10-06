@@ -6,32 +6,37 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class ShippingAddressTest
     {
-        private ShippingAddress CreateShippingAddress()
+        public static ShippingAddress GetShippingAddress()
         {
-            ShippingAddress shipping = new ShippingAddress();
+            var shipping = new ShippingAddress();
             shipping.recipient_name = "PayPalUser";
+            shipping.line1 = "2211";
+            shipping.line2 = "N 1st St";
+            shipping.city = "San Jose";
+            shipping.phone = "408-456-0392";
+            shipping.postal_code = "95131";
+            shipping.state = "California";
+            shipping.country_code = "US";
             return shipping;
         }
 
         [TestMethod()]
-        public void TestShippingAddress()
+        public void ShippingAddressObjectTest()
         {
-            ShippingAddress shipping = CreateShippingAddress();
+            var shipping = GetShippingAddress();
             Assert.AreEqual(shipping.recipient_name, "PayPalUser");
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void ShippingAddressConvertToJsonTest()
         {
-            ShippingAddress shipping = CreateShippingAddress();
-            Assert.IsFalse(shipping.ConvertToJson().Length == 0);
+            Assert.IsFalse(GetShippingAddress().ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void ShippingAddressToStringTest()
         {
-            ShippingAddress shipping = CreateShippingAddress();
-            Assert.IsFalse(shipping.ToString().Length == 0);
+            Assert.IsFalse(GetShippingAddress().ToString().Length == 0);
         }
     }
 }

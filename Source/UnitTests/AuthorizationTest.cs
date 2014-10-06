@@ -8,181 +8,108 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class AuthorizationTest
     {
-        private List<Links> GetLinksList()
-        {
-            Links lnk = new Links();
-            lnk.href = "http://www.paypal.com";
-            lnk.method = "POST";
-            lnk.rel = "authorize";
-            List<Links> lnks = new List<Links>();
-            lnks.Add(lnk);
-            return lnks;
-        }
-
-        private Details GetDetails()
-        {
-            Details detail = new Details();
-            detail.tax = "15";
-            detail.fee = "2";
-            detail.shipping = "10";
-            detail.subtotal = "75";
-            return detail;
-        }
-
-        private Amount GetAmount()
-        {
-            Amount amt = new Amount();
-            amt.currency = "USD";
-            amt.details = GetDetails();
-            amt.total = "100";
-            return amt;
-        }
-
-        private Authorization GetAuthorization()
+        public static Authorization GetAuthorization()
         {
             Authorization authorize = new Authorization();
-            authorize.amount = GetAmount();
+            authorize.amount = AmountTest.GetAmount();
             authorize.create_time = "2013-01-15T15:10:05.123Z";
             authorize.id = "007";
             authorize.parent_payment = "1000";
             authorize.state = "Authorized";
-            authorize.links = GetLinksList();
+            authorize.links = LinksTest.GetLinksList();
             return authorize;
         }
 
-        private Address GetAddress()
-        {
-            Address add = new Address();
-            add.line1 = "2211";
-            add.line2 = "N 1st St";
-            add.city = "San Jose";
-            add.phone = "408-456-0392";
-            add.postal_code = "95131";
-            add.state = "California";
-            add.country_code = "US";
-            return add;
-        }
-
-        private CreditCard GetCreditCard()
-        {
-            CreditCard card = new CreditCard();
-            card.cvv2 = "962";
-            card.expire_month = 01;
-            card.expire_year = 2015;
-            card.first_name = "John";
-            card.last_name = "Doe";
-            card.number = "4825854086744369";
-            card.type = "visa";
-            card.state = "New York";
-            card.payer_id = "008";
-            card.id = "002";
-            card.billing_address = GetAddress();
-            return card;
-        }
-
-        private Payment CreatePayment()
-        {
-            Payment pay = new Payment();
-            pay.intent = "authorize";
-            CreditCard card = GetCreditCard();
-            List<FundingInstrument> fundingInstrumentList = new List<FundingInstrument>();
-            FundingInstrument instrument = new FundingInstrument();
-            instrument.credit_card = card;
-            fundingInstrumentList.Add(instrument);
-            Payer payr = new Payer();
-            payr.payment_method = "credit_card";
-            payr.funding_instruments = fundingInstrumentList;
-            List<Transaction> transactionList = new List<Transaction>();
-            Transaction trans = new Transaction();
-            trans.amount = GetAmount();
-            transactionList.Add(trans);
-            pay.transactions = transactionList;
-            pay.payer = payr;
-
-            var apiContext = UnitTestUtil.GetApiContext();
-            return pay.Create(apiContext);
-        }     
-
         [TestMethod()]
-        public void TestAuthorization()
+        public void AuthorizationObjectTest()
         {
-            Authorization authorize = GetAuthorization();
-            Amount expected = GetAmount();
-            Amount actual = authorize.amount;
-            Assert.AreEqual(expected.currency, actual.currency);
-            Assert.AreEqual(expected.details.fee, actual.details.fee);
-            Assert.AreEqual(expected.details.shipping, actual.details.shipping);
-            Assert.AreEqual(expected.details.subtotal, actual.details.subtotal);
-            Assert.AreEqual(expected.details.tax, actual.details.tax);
-            Assert.AreEqual(expected.total, actual.total);
-            Assert.AreEqual(authorize.id, "007");
-            Assert.AreEqual(authorize.create_time, "2013-01-15T15:10:05.123Z");
-            Assert.AreEqual(authorize.parent_payment, "1000");
-            Assert.AreEqual(authorize.state, "Authorized");
+            var authorization = GetAuthorization();
+            var expectedAmount = AmountTest.GetAmount();
+            var actualAmount = authorization.amount;
+            Assert.AreEqual(expectedAmount.currency, actualAmount.currency);
+            Assert.AreEqual(expectedAmount.details.fee, actualAmount.details.fee);
+            Assert.AreEqual(expectedAmount.details.shipping, actualAmount.details.shipping);
+            Assert.AreEqual(expectedAmount.details.subtotal, actualAmount.details.subtotal);
+            Assert.AreEqual(expectedAmount.details.tax, actualAmount.details.tax);
+            Assert.AreEqual(expectedAmount.total, actualAmount.total);
+            Assert.AreEqual(authorization.id, "007");
+            Assert.AreEqual(authorization.create_time, "2013-01-15T15:10:05.123Z");
+            Assert.AreEqual(authorization.parent_payment, "1000");
+            Assert.AreEqual(authorization.state, "Authorized");
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void AuthorizationConvertToJsonTest()
         {
-            Authorization authorize = GetAuthorization();
+            var authorize = GetAuthorization();
             Assert.IsFalse(authorize.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ToStringTest()
+        public void AuthorizationToStringTest()
         {
-            Authorization authorize = GetAuthorization();
+            var authorize = GetAuthorization();
             Assert.IsFalse(authorize.ToString().Length == 0);
         }
 
         [TestMethod()]
         public void AuthorizationGetTest()
         {
-            Payment pay = CreatePayment();
-            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            Authorization authorize = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
+            var pay = PaymentTest.CreatePaymentAuthorization();
+            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+            var authorize = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
             Assert.AreEqual(authorizationId, authorize.id);
         }
 
         [TestMethod()]
         public void AuthorizationCaptureTest()
         {
-            Payment pay = CreatePayment();
-            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            Authorization authorize = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
-            Capture cap = new Capture();
-            Amount amt = new Amount();
+            var pay = PaymentTest.CreatePaymentAuthorization();
+            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+            var authorize = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
+            var cap = new Capture();
+            var amt = new Amount();
             amt.total = "1";
             amt.currency = "USD";
             cap.amount = amt;
-            Capture response = authorize.Capture(UnitTestUtil.GetApiContext(), cap);
+            var response = authorize.Capture(UnitTestUtil.GetApiContext(), cap);
             Assert.AreEqual("completed", response.state);
         }
 
         [TestMethod()]
         public void AuthorizationVoidTest()
         {
-            Payment pay = CreatePayment();
-            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            Authorization authorize = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
-            Authorization authorizationResponse = authorize.Void(UnitTestUtil.GetApiContext());
+            var pay = PaymentTest.CreatePaymentAuthorization();
+            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+            var authorize = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
+            var authorizationResponse = authorize.Void(UnitTestUtil.GetApiContext());
             Assert.AreEqual("voided", authorizationResponse.state);
         }
 
         [TestMethod()]
-        public void NullAccessTokenTest()
+        public void AuthorizationNullAccessTokenTest()
         {
             string token = null;
-            Payment pay = CreatePayment();
-            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+            var pay = PaymentTest.CreatePaymentAuthorization();
+            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
             UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(token, authorizationId));
         }
 
         [TestMethod()]
-        public void NullAuthorizationIdTest()
+        public void AuthorizationNullIdTest()
         {
-            string authorizationId = null;
-            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId));
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(UnitTestUtil.GetApiContext(), null));
+        }
+
+        [TestMethod]
+        public void AuthroizationReauthorizeTest()
+        {
+            var authorization = Authorization.Get(UnitTestUtil.GetApiContext(), "7GH53639GA425732B");
+            var reauthorizeAmount = new Amount();
+            reauthorizeAmount.currency = "USD";
+            reauthorizeAmount.total = "1";
+            authorization.amount = reauthorizeAmount;
+            UnitTestUtil.AssertThrownException<PayPal.Exception.HttpException>(() => authorization.Reauthorize(UnitTestUtil.GetApiContext()));
         }
     }
 }

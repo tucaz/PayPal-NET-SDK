@@ -9,105 +9,24 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class CaptureTest
     {
-        private List<Links> GetLinksList()
-        {
-            Links lnk = new Links();
-            lnk.href = "http://www.paypal.com";
-            lnk.method = "POST";
-            lnk.rel = "authorize";
-            List<Links> lnks = new List<Links>();
-            lnks.Add(lnk);
-            return lnks;
-        }
-
-        private Details GetDetails()
-        {
-            Details detail = new Details();
-            detail.tax = "15";
-            detail.fee = "2";
-            detail.shipping = "10";
-            detail.subtotal = "75";
-            return detail;
-        }
-
-        private Amount GetAmount()
-        {
-            Amount amt = new Amount();
-            amt.currency = "USD";
-            amt.details = GetDetails();
-            amt.total = "100";
-            return amt;
-        }
-
-        private Capture GetCapture()
+        public static Capture GetCapture()
         {
             Capture cap = new Capture();
-            cap.amount = GetAmount();
+            cap.amount = AmountTest.GetAmount();
             cap.create_time = "2013-01-15T15:10:05.123Z";
             cap.state = "Authorized";
             cap.parent_payment = "1000";
-            cap.links = GetLinksList();
+            cap.links = LinksTest.GetLinksList();
             cap.id = "001";
             return cap;
         }
 
-        private CreditCard GetCreditCard()
-        {
-            CreditCard card = new CreditCard();
-            card.cvv2 = "962";
-            card.expire_month = 01;
-            card.expire_year = 2015;
-            card.first_name = "John";
-            card.last_name = "Doe";
-            card.number = "4825854086744369";
-            card.type = "visa";
-            card.state = "New York";
-            card.payer_id = "008";
-            card.id = "002";
-            card.billing_address = GetAddress();
-            return card;
-        }
-
-        private Payment GetPayment()
-        {
-            Payment pay = new Payment();
-            pay.intent = "authorize";
-            CreditCard card = GetCreditCard();
-            List<FundingInstrument> instruments = new List<FundingInstrument>();
-            FundingInstrument instrument = new FundingInstrument();
-            instrument.credit_card = card;
-            instruments.Add(instrument);
-            Payer payer = new Payer();
-            payer.payment_method = "credit_card";
-            payer.funding_instruments = instruments;
-            List<Transaction> transacts = new List<Transaction>();
-            Transaction trans = new Transaction();
-            trans.amount = GetAmount();
-            transacts.Add(trans);
-            pay.transactions = transacts;
-            pay.payer = payer;
-            return pay.Create(UnitTestUtil.GetApiContext());
-        }
-
-        private Address GetAddress()
-        {
-            Address add = new Address();
-            add.line1 = "2211";
-            add.line2 = "N 1st St";
-            add.city = "San Jose";
-            add.phone = "408-456-0392";
-            add.postal_code = "95131";
-            add.state = "California";
-            add.country_code = "US";
-            return add;
-        }            
-        
         [TestMethod()]
-        public void CaptureAmountTest()
+        public void CaptureObjectTest()
         {
-            Capture cap = GetCapture();
-            Amount expected = GetAmount();
-            Amount actual = cap.amount;
+            var cap = GetCapture();
+            var expected = AmountTest.GetAmount();
+            var actual = cap.amount;
             Assert.AreEqual(expected.currency, actual.currency);
             Assert.AreEqual(expected.details.fee, actual.details.fee);
             Assert.AreEqual(expected.details.shipping, actual.details.shipping);
@@ -121,58 +40,58 @@ namespace RestApiSDKUnitTest
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void CaptureConvertToJsonTest()
         {
-            Capture cap = GetCapture();            
+            var cap = GetCapture();
             Assert.IsFalse(cap.ConvertToJson().Length == 0);
         }
 
         [TestMethod()]
-        public void ConvertToStringTest()
+        public void CaptureToStringTest()
         {
-            Capture cap = GetCapture();
+            var cap = GetCapture();
             Assert.IsFalse(cap.ToString().Length == 0);
         }
 
         [TestMethod()]
         public void CaptureIdTest()
         {
-            Payment pay = GetPayment();
-            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            Authorization authorization = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
-            Capture cap = new Capture();
-            Amount amt = new Amount();
+            var pay = PaymentTest.CreatePaymentAuthorization();
+            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+            var authorization = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
+            var cap = new Capture();
+            var amt = new Amount();
             amt.total = "1";
             amt.currency = "USD";
             cap.amount = amt;
-            Capture responseCapture = authorization.Capture(UnitTestUtil.GetApiContext(), cap);
-            Capture returnCapture = Capture.Get(UnitTestUtil.GetApiContext(), responseCapture.id);
+            var responseCapture = authorization.Capture(UnitTestUtil.GetApiContext(), cap);
+            var returnCapture = Capture.Get(UnitTestUtil.GetApiContext(), responseCapture.id);
             Assert.AreEqual(responseCapture.id, returnCapture.id);
         }
 
         [TestMethod()]
-        public void RefundCaptureTest()
+        public void CaptureRefundTest()
         {
-            Payment pay = GetPayment();
-            string authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            Authorization authorization = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
-            Capture cap = new Capture();
-            Amount amnt = new Amount();
+            var pay = PaymentTest.CreatePaymentAuthorization();
+            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+            var authorization = Authorization.Get(UnitTestUtil.GetApiContext(), authorizationId);
+            var cap = new Capture();
+            var amnt = new Amount();
             amnt.total = "1";
             amnt.currency = "USD";
             cap.amount = amnt;
-            Capture response = authorization.Capture(UnitTestUtil.GetApiContext(), cap);
-            Refund fund = new Refund();
-            Amount refundAmount = new Amount();
+            var response = authorization.Capture(UnitTestUtil.GetApiContext(), cap);
+            var fund = new Refund();
+            var refundAmount = new Amount();
             refundAmount.total = "1";
             refundAmount.currency = "USD";
             fund.amount = refundAmount;
-            Refund responseRefund = response.Refund(UnitTestUtil.GetApiContext(), fund);
+            var responseRefund = response.Refund(UnitTestUtil.GetApiContext(), fund);
             Assert.AreEqual("completed", responseRefund.state);
         }
 
         [TestMethod()]
-        public void NullCaptureIdTest()
+        public void CaptureNullIdTest()
         {
             UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Capture.Get(UnitTestUtil.GetApiContext(), null));
         } 

@@ -6,50 +6,39 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class AmountTest
     {
-        private Details GetDetails()
-        {
-            Details detail = new Details();
-            detail.tax = "15";
-            detail.fee = "2";
-            detail.shipping = "10";
-            detail.subtotal = "75";
-            return detail;
-        }
-
-        private Amount GetAmount()
+        public static Amount GetAmount()
         {
             Amount amt = new Amount();
             amt.currency = "USD";
+            amt.details = DetailsTest.GetDetails();
             amt.total = "100";
-            amt.details = GetDetails();            
             return amt;
-        }
-        
-        [TestMethod()]
-        public void TestAmount()
-        {
-            Amount amt = GetAmount();            
-            Assert.AreEqual("USD", amt.currency);
-            Assert.AreEqual("100", amt.total);
-            Assert.AreEqual("75", amt.details.subtotal);
-            Assert.AreEqual("15", amt.details.tax);
-            Assert.AreEqual("2", amt.details.fee);
-            Assert.AreEqual("10", amt.details.shipping);
-            Assert.AreEqual("75", amt.details.subtotal);
         }
 
         [TestMethod()]
-        public void ConvertToJsonTest()
+        public void AmountObjectTest()
         {
-            Amount amt = GetAmount();
-            Assert.IsFalse(amt.ConvertToJson().Length == 0);
+            var amount = GetAmount();
+            Assert.AreEqual("USD", amount.currency);
+            Assert.AreEqual("100", amount.total);
+            Assert.IsNotNull(amount.details);
+            Assert.AreEqual("75", amount.details.subtotal);
+            Assert.AreEqual("15", amount.details.tax);
+            Assert.AreEqual("0", amount.details.fee);
+            Assert.AreEqual("10", amount.details.shipping);
+            Assert.AreEqual("75", amount.details.subtotal);
+        }
+
+        [TestMethod()]
+        public void AmountConvertToJsonTest()
+        {
+            Assert.IsFalse(GetAmount().ConvertToJson().Length == 0);
         }
         
         [TestMethod()]
-        public void ToStringTest()
+        public void AmountToStringTest()
         {
-            Amount amt = GetAmount();
-            Assert.IsFalse(amt.ToString().Length == 0);
+            Assert.IsFalse(GetAmount().ToString().Length == 0);
         }
     }
 }

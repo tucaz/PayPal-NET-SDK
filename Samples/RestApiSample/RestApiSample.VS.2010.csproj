@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -46,8 +46,9 @@
     <Reference Include="PayPalCoreSDK, Version=1.5.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
       <HintPath>..\packages\PayPalCoreSDK.1.5.0\lib\net40\PayPalCoreSDK.dll</HintPath>
     </Reference>
-    <Reference Include="RestApiSDK, Version=0.8.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestApiSDK.0.8.0\lib\net40\RestApiSDK.dll</HintPath>
+    <Reference Include="RestApiSDK, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RestApiSDK.0.9.0\lib\net40\RestApiSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -74,6 +75,7 @@
   <ItemGroup>
     <Content Include="DeleteCreditCard.aspx" />
     <Content Include="GetRefund.aspx" />
+    <Content Include="OrderSample.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +106,13 @@
     </Compile>
     <Compile Include="GetRefund.aspx.designer.cs">
       <DependentUpon>GetRefund.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OrderSample.aspx.cs">
+      <DependentUpon>OrderSample.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OrderSample.aspx.designer.cs">
+      <DependentUpon>OrderSample.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reauthorization.aspx.cs">
       <DependentUpon>Reauthorization.aspx</DependentUpon>

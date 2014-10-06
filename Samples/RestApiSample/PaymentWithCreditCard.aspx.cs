@@ -50,7 +50,7 @@ namespace RestApiSample
             // used to fund a payment.
             CreditCard crdtCard = new CreditCard();
             crdtCard.billing_address = billingAddress;
-            crdtCard.cvv2 = "874";
+            crdtCard.cvv2 = 874;
             crdtCard.expire_month = 11;
             crdtCard.expire_year = 2018;
             crdtCard.first_name = "Joe";

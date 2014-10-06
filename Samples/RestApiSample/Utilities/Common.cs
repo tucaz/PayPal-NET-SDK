@@ -1,13 +1,19 @@
 ﻿using System.Collections.Generic;
 using PayPal.Api.Payments;
 using PayPal;
+using System.Web;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace RestApiSample
 {
     public static class Common
     {
-
-       
-        // Create an authorized payment
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiContext"></param>
+        /// <returns></returns>
         public static Authorization CreateAuthorization(APIContext apiContext)
         {
             // ###Address
@@ -25,7 +31,7 @@ namespace RestApiSample
             // used to fund a payment.
             CreditCard crdtCard = new CreditCard();
             crdtCard.billing_address = billingAddress;
-            crdtCard.cvv2 = "874";
+            crdtCard.cvv2 = 874;
             crdtCard.expire_month = 11;
             crdtCard.expire_year = 2018;
             crdtCard.first_name = "Joe";
@@ -99,6 +105,79 @@ namespace RestApiSample
             Payment createdPayment = pymnt.Create(apiContext);
 
             return createdPayment.transactions[0].related_resources[0].authorization;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiContext"></param>
+        /// <param name="redirectUrl"></param>
+        /// <returns></returns>
+        public static Payment CreatePaymentOrder(HttpContext httpContext, APIContext apiContext, string redirectUrl)
+        {
+            // ###Payer
+            // A resource representing a Payer that funds a payment
+            // Payment Method
+            // as `paypal`
+            var payer = new Payer() { payment_method = "paypal" };
+
+            // # Redirect URLS
+            var redirUrls = new RedirectUrls()
+            {
+                cancel_url = redirectUrl,
+                return_url = redirectUrl
+            };
+
+            // ###Amount
+            // Lets you specify a payment amount.
+            var amount = new Amount()
+            {
+                currency = "USD",
+                total = "5.00"
+            };
+
+            // ###Transaction
+            // A transaction defines the contract of a
+            // payment - what is the payment for and who
+            // is fulfilling it. 
+            var transactionList = new List<Transaction>();
+
+            // The Payment creation API requires a list of
+            // Transaction; add the created `Transaction`
+            // to a List
+            transactionList.Add(new Transaction()
+            {
+                description = "Transaction description.",
+                amount = amount
+            });
+
+            // ###Payment
+            // Create a payment with the intent set to 'order'
+            var payment = new Payment()
+            {
+                intent = "order",
+                payer = payer,
+                transactions = transactionList,
+                redirect_urls = redirUrls
+            };
+
+            httpContext.Items.Add("RequestJson", JObject.Parse(payment.ConvertToJson()).ToString(Formatting.Indented));
+
+            return payment.Create(apiContext);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiContext"></param>
+        /// <param name="payerId"></param>
+        /// <param name="paymentId"></param>
+        /// <returns></returns>
+        public static Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)
+        {
+            var paymentExecution = new PaymentExecution() { payer_id = payerId };
+            var payment = new Payment() { id = paymentId };
+            return payment.Execute(apiContext, paymentExecution);
         }
 
         public static Capture GetCapture(APIContext apiContext, Authorization authorization)
