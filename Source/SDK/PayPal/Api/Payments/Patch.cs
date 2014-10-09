@@ -1,35 +1,32 @@
-using System;
+﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
-    public class CancelNotification
+    public class Patch
     {
         /// <summary>
-        /// Subject of the notification.
+        /// The operation to perform.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string subject { get; set; }
+        public string op { get; set; }
 
         /// <summary>
-        /// Note to the payer.
-        /// </summary>
+        /// String containing a JSON-Pointer value that references a location within the target document where the operation is performed.
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string note { get; set; }
+        public string path { get; set; }
 
         /// <summary>
-        /// A flag indicating whether a copy of the email has to be sent to the merchant.
-        /// </summary>
+        /// New value to apply based on the operation.
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool? send_to_merchant { get; set; }
+        public string value { get; set; }
 
         /// <summary>
-        /// A flag indicating whether a copy of the email has to be sent to the payer.
-        /// </summary>
+        /// A string containing a JSON Pointer value that references the location in the target document from which to move the value.
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool? send_to_payer { get; set; }
+        public string from { get; set; }
 
         /// <summary>
         /// Converts the object to JSON string

@@ -40,7 +40,7 @@ namespace PayPal.Api.Payments
         /// whether this is a final capture for the given authorization or not. If it's final, all the remaining funds held by the authorization, will be released in the funding instrument.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool is_final_capture { get; set; }
+        public bool? is_final_capture { get; set; }
 
         /// <summary>
         /// State of the capture transaction.

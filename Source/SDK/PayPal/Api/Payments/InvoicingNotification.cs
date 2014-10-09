@@ -23,7 +23,7 @@ namespace PayPal.Api.Payments
         /// A flag indicating whether a copy of the email has to be sent to the merchant.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool send_to_merchant { get; set; }
+        public bool? send_to_merchant { get; set; }
 
         /// <summary>
         /// Converts the object to JSON string

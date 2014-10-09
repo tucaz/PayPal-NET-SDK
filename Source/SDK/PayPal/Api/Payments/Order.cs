@@ -1,8 +1,12 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using PayPal.Api.Validation;
+using PayPal;
 using PayPal.Util;
+using PayPal.Api.Payments;
+using System.Collections;
+using System.Collections.Generic;
+using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -63,7 +67,7 @@ namespace PayPal.Api.Payments
         public string protection_eligibility_type { get; set; }
 
         /// <summary>
-        /// Obtain the Order transaction resource for the given identifier.
+        /// Obtain the Order resource for the given identifier.
         /// </summary>
         /// <param name="accessToken">Access Token used for the API call.</param>
         /// <param name="orderId">string</param>
@@ -75,7 +79,7 @@ namespace PayPal.Api.Payments
         }
 
         /// <summary>
-        /// Obtain the Order transaction resource for the given identifier.
+        /// Obtain the Order resource for the given identifier.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="orderId">string</param>
@@ -87,42 +91,11 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(orderId, "orderId");
 
             // Configure and send the request
-            object[] parameters = new object[] { orderId };
+            object[] parameters = new object[] {orderId};
             string pattern = "v1/payments/orders/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
             return PayPalResource.ConfigureAndExecute<Order>(apiContext, HttpMethod.GET, resourcePath, payLoad);
-        }
-
-        /// <summary>
-        /// Authorizes an order for the given amount.
-        /// </summary>
-        /// <param name="accessToken">Access Token used for the API call.</param>
-        /// <returns>Authorization</returns>
-        public Authorization Authorize(string accessToken)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            return Authorize(apiContext);
-        }
-
-        /// <summary>
-        /// Authorizes an order for the given amount.
-        /// </summary>
-        /// <param name="apiContext">APIContext used for the API call.</param>
-        /// <returns>Authorization</returns>
-        public Authorization Authorize(APIContext apiContext)
-        {
-            // Validate the arguments to be used in the request
-            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
-            ArgumentValidator.Validate(this.amount, "amount");
-
-            // Configure and send the request
-            object[] parameters = new object[] { this.id };
-            string pattern = "v1/payments/orders/{0}/authorize";
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = this.ConvertToJson();
-            return PayPalResource.ConfigureAndExecute<Authorization>(apiContext, HttpMethod.POST, resourcePath, payLoad);
         }
 
         /// <summary>
@@ -151,7 +124,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(capture, "capture");
 
             // Configure and send the request
-            object[] parameters = new object[] { this.id };
+            object[] parameters = new object[] {this.id};
             string pattern = "v1/payments/orders/{0}/capture";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = capture.ConvertToJson();
@@ -159,7 +132,7 @@ namespace PayPal.Api.Payments
         }
 
         /// <summary>
-        /// Voids (cancels) an Authorization.
+        /// Voids (cancels) an Order.
         /// </summary>
         /// <param name="accessToken">Access Token used for the API call.</param>
         /// <returns>Order</returns>
@@ -170,7 +143,7 @@ namespace PayPal.Api.Payments
         }
 
         /// <summary>
-        /// Voids (cancels) an Authorization.
+        /// Voids (cancels) an Order.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <returns>Order</returns>
@@ -181,11 +154,41 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(this.id, "Id");
 
             // Configure and send the request
-            object[] parameters = new object[] { this.id };
+            object[] parameters = new object[] {this.id};
             string pattern = "v1/payments/orders/{0}/do-void";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
             return PayPalResource.ConfigureAndExecute<Order>(apiContext, HttpMethod.POST, resourcePath, payLoad);
+        }
+
+        /// <summary>
+        /// Creates an authorization on an order
+        /// </summary>
+        /// <param name="accessToken">Access Token used for the API call.</param>
+        /// <returns>Authorization</returns>
+        public Authorization Authorize(string accessToken)
+        {
+            APIContext apiContext = new APIContext(accessToken);
+            return Authorize(apiContext);
+        }
+
+        /// <summary>
+        /// Creates an authorization on an order
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <returns>Authorization</returns>
+        public Authorization Authorize(APIContext apiContext)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(this.id, "Id");
+
+            // Configure and send the request
+            object[] parameters = new object[] {this.id};
+            string pattern = "v1/payments/orders/{0}/authorize";
+            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string payLoad = this.ConvertToJson();
+            return PayPalResource.ConfigureAndExecute<Authorization>(apiContext, HttpMethod.POST, resourcePath, payLoad);
         }
 
         /// <summary>
@@ -214,7 +217,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(refund, "refund");
 
             // Configure and send the request
-            object[] parameters = new object[] { this.id };
+            object[] parameters = new object[] {this.id};
             string pattern = "v1/payments/order/{0}/refund";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = refund.ConvertToJson();

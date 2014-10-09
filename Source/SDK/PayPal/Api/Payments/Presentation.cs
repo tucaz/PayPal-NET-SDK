@@ -5,25 +5,25 @@ using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
-    public class Notification
+    public class Presentation
     {
         /// <summary>
-        /// Subject of the notification.
+        /// A label that overrides the business name in the PayPal account on the PayPal pages.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string subject { get; set; }
+        public string brand_name { get; set; }
 
         /// <summary>
-        /// Note to the payer.
+        /// A URL to logo image. Allowed vaues: `.gif`, `.jpg`, or `.png`.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string note { get; set; }
+        public string logo_image { get; set; }
 
         /// <summary>
-        /// A flag indicating whether a copy of the email has to be sent to the merchant.
+        /// Locale of pages displayed by PayPal payment experience.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool? send_to_merchant { get; set; }
+        public string locale_code { get; set; }
 
         /// <summary>
         /// Converts the object to JSON string

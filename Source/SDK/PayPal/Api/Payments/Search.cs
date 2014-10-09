@@ -119,7 +119,7 @@ namespace PayPal.Api.Payments
         /// A flag indicating whether total count is required in the response.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool total_count_required { get; set; }
+        public bool? total_count_required { get; set; }
 
         /// <summary>
         /// Converts the object to JSON string

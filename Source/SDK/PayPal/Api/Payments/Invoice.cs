@@ -94,13 +94,13 @@ namespace PayPal.Api.Payments
         /// Indicates whether tax is calculated before or after a discount. If false (the default), the tax is calculated before a discount. If true, the tax is calculated after a discount.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool tax_calculated_after_discount { get; set; }
+        public bool? tax_calculated_after_discount { get; set; }
 
         /// <summary>
         /// A flag indicating whether the unit price includes tax. Default is false
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool tax_inclusive { get; set; }
+        public bool? tax_inclusive { get; set; }
 
         /// <summary>
         /// General terms of the invoice. 4000 characters max.

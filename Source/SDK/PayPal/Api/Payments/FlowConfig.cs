@@ -5,25 +5,19 @@ using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
-    public class Notification
+    public class FlowConfig
     {
         /// <summary>
-        /// Subject of the notification.
+        /// Type of PayPal page to be displayed when a user lands on the PayPal site for checkout. Allowed values: `Billing` or `Login`. When set to `Billing`, the Non-PayPal account landing page is used. When set to `Login`, the PayPal account login landing page is used.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string subject { get; set; }
+        public string landing_page_type { get; set; }
 
         /// <summary>
-        /// Note to the payer.
+        /// The URL on the merchant site for transferring to after a bank transfer payment.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string note { get; set; }
-
-        /// <summary>
-        /// A flag indicating whether a copy of the email has to be sent to the merchant.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool? send_to_merchant { get; set; }
+        public string bank_txn_pending_url { get; set; }
 
         /// <summary>
         /// Converts the object to JSON string

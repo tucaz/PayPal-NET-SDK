@@ -25,7 +25,7 @@ namespace PayPal.Api.Payments
         /// 
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool readOnly { get; set; }
+        public bool? readOnly { get; set; }
 
         /// <summary>
         /// 
