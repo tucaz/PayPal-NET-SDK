@@ -67,6 +67,7 @@ namespace RestApiSDKUnitTest
             Assert.IsNotNull(response.id);
 
             // Delete the profile
+            profile = WebProfile.Get(UnitTestUtil.GetApiContext(), response.id);
             profile.Delete(UnitTestUtil.GetApiContext());
         }
 
@@ -121,7 +122,7 @@ namespace RestApiSDKUnitTest
             var patchRequest = new PatchRequest();
             patchRequest.Add(patch1);
             patchRequest.Add(patch2);
-            
+
             profile.PartialUpdate(UnitTestUtil.GetApiContext(), patchRequest);
 
             // Get the profile again and verify it was successfully updated via the patch commands.

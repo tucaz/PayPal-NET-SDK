@@ -53,10 +53,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PayPalCoreSDK, Version=1.5.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PayPalCoreSDK.1.5.0\lib\net40\PayPalCoreSDK.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PayPalCoreSDK\lib\net40\PayPalCoreSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -83,6 +84,7 @@
     <Compile Include="PayPal\Api\Payments\Capture.cs" />
     <Compile Include="PayPal\Api\Payments\CartBase.cs" />
     <Compile Include="PayPal\Api\Payments\Cost.cs" />
+    <Compile Include="PayPal\Api\Payments\CreateProfileResponse.cs" />
     <Compile Include="PayPal\Api\Payments\Credit.cs" />
     <Compile Include="PayPal\Api\Payments\CreditCard.cs" />
     <Compile Include="PayPal\Api\Payments\CreditCardHistory.cs" />
@@ -93,9 +95,11 @@
     <Compile Include="PayPal\Api\Payments\Error.cs" />
     <Compile Include="PayPal\Api\Payments\ErrorDetails.cs" />
     <Compile Include="PayPal\Api\Payments\ExtendedBankAccount.cs" />
+    <Compile Include="PayPal\Api\Payments\FlowConfig.cs" />
     <Compile Include="PayPal\Api\Payments\FundingInstrument.cs" />
     <Compile Include="PayPal\Api\Payments\FuturePayment.cs" />
     <Compile Include="PayPal\Api\Payments\HyperSchema.cs" />
+    <Compile Include="PayPal\Api\Payments\InputFields.cs" />
     <Compile Include="PayPal\Api\Payments\Invoice.cs" />
     <Compile Include="PayPal\Api\Payments\InvoiceItem.cs" />
     <Compile Include="PayPal\Api\Payments\Invoices.cs" />
@@ -112,6 +116,8 @@
     <Compile Include="PayPal\Api\Payments\NameValuePair.cs" />
     <Compile Include="PayPal\Api\Payments\Notification.cs" />
     <Compile Include="PayPal\Api\Payments\Order.cs" />
+    <Compile Include="PayPal\Api\Payments\Patch.cs" />
+    <Compile Include="PayPal\Api\Payments\PatchRequest.cs" />
     <Compile Include="PayPal\Api\Payments\Payee.cs" />
     <Compile Include="PayPal\Api\Payments\Payer.cs" />
     <Compile Include="PayPal\Api\Payments\PayerInfo.cs" />
@@ -124,6 +130,7 @@
     <Compile Include="PayPal\Api\Payments\PaymentOptions.cs" />
     <Compile Include="PayPal\Api\Payments\PaymentTerm.cs" />
     <Compile Include="PayPal\Api\Payments\Phone.cs" />
+    <Compile Include="PayPal\Api\Payments\Presentation.cs" />
     <Compile Include="PayPal\Api\Payments\RedirectUrls.cs" />
     <Compile Include="PayPal\Api\Payments\Refund.cs" />
     <Compile Include="PayPal\Api\Payments\RefundDetail.cs" />
@@ -137,6 +144,8 @@
     <Compile Include="PayPal\Api\Payments\Transaction.cs" />
     <Compile Include="PayPal\Api\Payments\TransactionBase.cs" />
     <Compile Include="PayPal\Api\Payments\Transactions.cs" />
+    <Compile Include="PayPal\Api\Payments\WebProfile.cs" />
+    <Compile Include="PayPal\Api\Payments\WebProfileList.cs" />
     <Compile Include="PayPal\Api\Validation\ArgumentValidator.cs" />
     <Compile Include="PayPal\Sdk\Info\SDKVersionImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -32,15 +32,15 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net35\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json\lib\net35\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PayPalCoreSDK, Version=1.5.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\PayPalCoreSDK.1.5.0\lib\net35\PayPalCoreSDK.dll</HintPath>
+      <HintPath>..\packages\PayPalCoreSDK\lib\net35\PayPalCoreSDK.dll</HintPath>
     </Reference>
     <Reference Include="RestApiSDK, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RestApiSDK.0.9.0\lib\net35\RestApiSDK.dll</HintPath>
+      <HintPath>..\packages\RestApiSDK\lib\net35\RestApiSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -102,6 +102,48 @@
     </Compile>
     <Compile Include="GetRefund.aspx.designer.cs">
       <DependentUpon>GetRefund.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentExperienceCreate.aspx.cs">
+      <DependentUpon>PaymentExperienceCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaymentExperienceCreate.aspx.designer.cs">
+      <DependentUpon>PaymentExperienceCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentExperienceDelete.aspx.cs">
+      <DependentUpon>PaymentExperienceDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaymentExperienceDelete.aspx.designer.cs">
+      <DependentUpon>PaymentExperienceDelete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentExperienceGet.aspx.cs">
+      <DependentUpon>PaymentExperienceGet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaymentExperienceGet.aspx.designer.cs">
+      <DependentUpon>PaymentExperienceGet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentExperienceGetList.aspx.cs">
+      <DependentUpon>PaymentExperienceGetList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaymentExperienceGetList.aspx.designer.cs">
+      <DependentUpon>PaymentExperienceGetList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentExperiencePartialUpdate.aspx.cs">
+      <DependentUpon>PaymentExperiencePartialUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaymentExperiencePartialUpdate.aspx.designer.cs">
+      <DependentUpon>PaymentExperiencePartialUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentExperienceUpdate.aspx.cs">
+      <DependentUpon>PaymentExperienceUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaymentExperienceUpdate.aspx.designer.cs">
+      <DependentUpon>PaymentExperienceUpdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reauthorization.aspx.cs">
       <DependentUpon>Reauthorization.aspx</DependentUpon>
@@ -219,6 +261,7 @@
     <Content Include="AuthorizationCapture.aspx" />
     <Content Include="AuthorizationVoid.aspx" />
     <Content Include="CreateCreditCard.aspx" />
+    <Content Include="Images\logo_paypal_106x29.png" />
     <Content Include="OrderSample.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="DeleteCreditCard.aspx" />
@@ -231,6 +274,12 @@
     <Content Include="Global.asax" />
     <Content Include="Images\edt-format-source-button.png" />
     <Content Include="Images\play_button.png" />
+    <Content Include="PaymentExperienceCreate.aspx" />
+    <Content Include="PaymentExperienceDelete.aspx" />
+    <Content Include="PaymentExperienceGet.aspx" />
+    <Content Include="PaymentExperienceGetList.aspx" />
+    <Content Include="PaymentExperiencePartialUpdate.aspx" />
+    <Content Include="PaymentExperienceUpdate.aspx" />
     <Content Include="PaymentWithCreditCard.aspx" />
     <Content Include="PaymentWithPayPal.aspx" />
     <Content Include="PaymentWithSavedCard.aspx" />
