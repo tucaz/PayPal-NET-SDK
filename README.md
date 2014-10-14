@@ -8,7 +8,7 @@
 * [Getting Started](https://github.com/paypal/rest-api-sdk-dotnet#getting-started)
   * 1. [Download the Dependencies](https://github.com/paypal/rest-api-sdk-dotnet#download-the-dependencies)
   * 2. [Configure Your Application](https://github.com/paypal/rest-api-sdk-dotnet#configure-your-application)
-  * 5. [Make Your First Call](https://github.com/paypal/rest-api-sdk-dotnet#make-your-first-call)
+  * 3. [Make Your First Call](https://github.com/paypal/rest-api-sdk-dotnet#make-your-first-call)
 * [NuGet](https://github.com/paypal/rest-api-sdk-dotnet#nuget)
 * [License](https://github.com/paypal/rest-api-sdk-dotnet#license)
 
