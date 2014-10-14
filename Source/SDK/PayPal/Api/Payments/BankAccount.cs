@@ -150,6 +150,131 @@ namespace PayPal.Api.Payments
         public List<Links> links { get; set; }
 
         /// <summary>
+        /// Creates a new Bank Account Resource.
+        /// </summary>
+        /// <param name="accessToken">Access Token used for the API call.</param>
+        /// <returns>BankAccount</returns>
+        public BankAccount Create(string accessToken)
+        {
+            APIContext apiContext = new APIContext(accessToken);
+            return Create(apiContext);
+        }
+
+        /// <summary>
+        /// Creates a new Bank Account Resource.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <returns>BankAccount</returns>
+        public BankAccount Create(APIContext apiContext)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+
+            // Configure and send the request
+            string resourcePath = "v1/vault/bank-accounts";
+            string payLoad = this.ConvertToJson();
+            return PayPalResource.ConfigureAndExecute<BankAccount>(apiContext, HttpMethod.POST, resourcePath, payLoad);
+        }
+
+        /// <summary>
+        /// Obtain the Bank Account resource for the given identifier.
+        /// </summary>
+        /// <param name="accessToken">Access Token used for the API call.</param>
+        /// <param name="bankAccountId">string</param>
+        /// <returns>BankAccount</returns>
+        public static BankAccount Get(string accessToken, string bankAccountId)
+        {
+            APIContext apiContext = new APIContext(accessToken);
+            return Get(apiContext, bankAccountId);
+        }
+
+        /// <summary>
+        /// Obtain the Bank Account resource for the given identifier.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="bankAccountId">string</param>
+        /// <returns>BankAccount</returns>
+        public static BankAccount Get(APIContext apiContext, string bankAccountId)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(bankAccountId, "bankAccountId");
+
+            // Configure and send the request
+            object[] parameters = new object[] {bankAccountId};
+            string pattern = "v1/vault/bank-accounts/{0}";
+            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string payLoad = "";
+            return PayPalResource.ConfigureAndExecute<BankAccount>(apiContext, HttpMethod.GET, resourcePath, payLoad);
+        }
+
+        /// <summary>
+        /// Delete the bank account resource for the given identifier.
+        /// </summary>
+        /// <param name="accessToken">Access Token used for the API call.</param>
+        /// <returns></returns>
+        public void Delete(string accessToken)
+        {
+            APIContext apiContext = new APIContext(accessToken);
+            Delete(apiContext);
+            return;
+        }
+
+        /// <summary>
+        /// Delete the bank account resource for the given identifier.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <returns></returns>
+        public void Delete(APIContext apiContext)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(this.id, "Id");
+
+            // Configure and send the request
+            apiContext.MaskRequestId = true;
+            object[] parameters = new object[] {this.id};
+            string pattern = "v1/vault/bank-accounts/{0}";
+            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string payLoad = "";
+            PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.DELETE, resourcePath, payLoad);
+            return;
+        }
+
+        /// <summary>
+        /// Update information in a previously saved bank account. Only the modified fields need to be passed in the request.
+        /// </summary>
+        /// <param name="accessToken">Access Token used for the API call.</param>
+        /// <param name="patchRequest">PatchRequest</param>
+        /// <returns>BankAccount</returns>
+        public BankAccount Update(string accessToken, PatchRequest patchRequest)
+        {
+            APIContext apiContext = new APIContext(accessToken);
+            return Update(apiContext, patchRequest);
+        }
+
+        /// <summary>
+        /// Update information in a previously saved bank account. Only the modified fields need to be passed in the request.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="patchRequest">PatchRequest</param>
+        /// <returns>BankAccount</returns>
+        public BankAccount Update(APIContext apiContext, PatchRequest patchRequest)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(patchRequest, "patchRequest");
+
+            // Configure and send the request
+            object[] parameters = new object[] {this.id};
+            string pattern = "v1/vault/bank-accounts/{0}";
+            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string payLoad = patchRequest.ConvertToJson();
+            return PayPalResource.ConfigureAndExecute<BankAccount>(apiContext, HttpMethod.PATCH, resourcePath, payLoad);
+        }
+
+        /// <summary>
         /// Converts the object to JSON string
         /// </summary>
         public virtual string ConvertToJson()
