@@ -6,6 +6,8 @@ namespace RestApiSDKUnitTest
     [TestClass()]
     public class AmountTest
     {
+        public static readonly string AmountJson = "{\"value\":\"100\",\"currency\":\"USD\"}";
+
         public static Amount GetAmount()
         {
             Amount amt = new Amount();

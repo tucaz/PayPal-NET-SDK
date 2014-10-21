@@ -76,6 +76,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PayPal\Api\Payments\Address.cs" />
+    <Compile Include="PayPal\Api\Payments\Agreement.cs" />
+    <Compile Include="PayPal\Api\Payments\AgreementStateDescriptor.cs" />
+    <Compile Include="PayPal\Api\Payments\AgreementTransaction.cs" />
+    <Compile Include="PayPal\Api\Payments\AgreementTransactions.cs" />
     <Compile Include="PayPal\Api\Payments\Amount.cs" />
     <Compile Include="PayPal\Api\Payments\Authorization.cs" />
     <Compile Include="PayPal\Api\Payments\BankAccount.cs" />
@@ -84,6 +88,7 @@
     <Compile Include="PayPal\Api\Payments\CancelNotification.cs" />
     <Compile Include="PayPal\Api\Payments\Capture.cs" />
     <Compile Include="PayPal\Api\Payments\CartBase.cs" />
+    <Compile Include="PayPal\Api\Payments\ChargeModels.cs" />
     <Compile Include="PayPal\Api\Payments\Cost.cs" />
     <Compile Include="PayPal\Api\Payments\CreateProfileResponse.cs" />
     <Compile Include="PayPal\Api\Payments\Credit.cs" />
@@ -113,10 +118,12 @@
     <Compile Include="PayPal\Api\Payments\ItemList.cs" />
     <Compile Include="PayPal\Api\Payments\Links.cs" />
     <Compile Include="PayPal\Api\Payments\MerchantInfo.cs" />
+    <Compile Include="PayPal\Api\Payments\MerchantPreferences.cs" />
     <Compile Include="PayPal\Api\Payments\Metadata.cs" />
     <Compile Include="PayPal\Api\Payments\NameValuePair.cs" />
     <Compile Include="PayPal\Api\Payments\Notification.cs" />
     <Compile Include="PayPal\Api\Payments\Order.cs" />
+    <Compile Include="PayPal\Api\Payments\OverrideChargeModel.cs" />
     <Compile Include="PayPal\Api\Payments\Patch.cs" />
     <Compile Include="PayPal\Api\Payments\PatchRequest.cs" />
     <Compile Include="PayPal\Api\Payments\Payee.cs" />
@@ -125,12 +132,15 @@
     <Compile Include="PayPal\Api\Payments\Payment.cs" />
     <Compile Include="PayPal\Api\Payments\PaymentCard.cs" />
     <Compile Include="PayPal\Api\Payments\PaymentCardToken.cs" />
+    <Compile Include="PayPal\Api\Payments\PaymentDefinition.cs" />
     <Compile Include="PayPal\Api\Payments\PaymentDetail.cs" />
     <Compile Include="PayPal\Api\Payments\PaymentExecution.cs" />
     <Compile Include="PayPal\Api\Payments\PaymentHistory.cs" />
     <Compile Include="PayPal\Api\Payments\PaymentOptions.cs" />
     <Compile Include="PayPal\Api\Payments\PaymentTerm.cs" />
     <Compile Include="PayPal\Api\Payments\Phone.cs" />
+    <Compile Include="PayPal\Api\Payments\Plan.cs" />
+    <Compile Include="PayPal\Api\Payments\PlanList.cs" />
     <Compile Include="PayPal\Api\Payments\Presentation.cs" />
     <Compile Include="PayPal\Api\Payments\RedirectUrls.cs" />
     <Compile Include="PayPal\Api\Payments\Refund.cs" />
@@ -142,6 +152,7 @@
     <Compile Include="PayPal\Api\Payments\ShippingCost.cs" />
     <Compile Include="PayPal\Api\Payments\ShippingInfo.cs" />
     <Compile Include="PayPal\Api\Payments\Tax.cs" />
+    <Compile Include="PayPal\Api\Payments\Terms.cs" />
     <Compile Include="PayPal\Api\Payments\Transaction.cs" />
     <Compile Include="PayPal\Api\Payments\TransactionBase.cs" />
     <Compile Include="PayPal\Api\Payments\Transactions.cs" />

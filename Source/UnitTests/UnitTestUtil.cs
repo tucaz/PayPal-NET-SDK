@@ -5,13 +5,14 @@ using System.Text;
 using PayPal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api.Payments;
+using System.IO;
 
 namespace RestApiSDKUnitTest
 {
     public class UnitTestUtil
     {
-        public static readonly string ClientId = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
-        public static readonly string ClientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
+        public static readonly string ClientId = "AUASNhD7YM7dc5Wmc5YE9pEsC0o4eVOyYWO9ezXWBu2XTc63d3Au_s9c-v-U";
+        public static readonly string ClientSecret = "EBq0TRAE-4R9kgCDKzVh09sm1TeNcuY-xJirid7LNtheUh5t5vlOhR0XSHt3";
 
         public static Dictionary<string, string> GetConfig()
         {

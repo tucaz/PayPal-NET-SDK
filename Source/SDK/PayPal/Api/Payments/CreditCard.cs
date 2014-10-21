@@ -221,6 +221,38 @@ namespace PayPal.Api.Payments
         }
 
         /// <summary>
+        /// Retrieves a list of Credit Card resources.
+        /// </summary>
+        /// <param name="accessToken">Access Token used for the API call.</param>
+        /// <param name="containerDictionary">Dictionary<String, String></param>
+        /// <returns>CreditCardHistory</returns>
+        public static CreditCardHistory List(string accessToken, Dictionary<String, String> containerDictionary)
+        {
+            APIContext apiContext = new APIContext(accessToken);
+            return List(apiContext, containerDictionary);
+        }
+
+        /// <summary>
+        /// Retrieves a list of Credit Card resources.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="containerDictionary">Dictionary<String, String></param>
+        /// <returns>CreditCardHistory</returns>
+        public static CreditCardHistory List(APIContext apiContext, Dictionary<String, String> containerDictionary)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(containerDictionary, "containerDictionary");
+
+            // Configure and send the request
+            object[] parameters = new object[] { containerDictionary };
+            string pattern = "v1/vault/credit-card?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payer_id={5}";
+            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string payLoad = "";
+            return PayPalResource.ConfigureAndExecute<CreditCardHistory>(apiContext, HttpMethod.GET, resourcePath, payLoad);
+        }
+
+        /// <summary>
         /// Converts the object to JSON string
         /// </summary>
         public virtual string ConvertToJson()

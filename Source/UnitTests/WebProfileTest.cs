@@ -44,7 +44,7 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void WebProfileGetTest()
         {
-            var profileId = "XP-VKRN-ZPNE-AXGJ-YFZM";
+            var profileId = "XP-5CQ3-3XSL-DDAA-MATK";
             var profile = WebProfile.Get(UnitTestUtil.GetApiContext(), profileId);
             Assert.AreEqual(profileId, profile.id);
         }

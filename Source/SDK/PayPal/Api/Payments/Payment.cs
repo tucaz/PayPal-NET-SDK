@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using PayPal.Util;
 using PayPal.Api.Validation;
+using System.Web;
 
 namespace PayPal.Api.Payments
 {
@@ -75,6 +76,12 @@ namespace PayPal.Api.Payments
         public string experience_profile_id { get; set; }
 
         /// <summary>
+        /// Get or sets the payment token returned from a call to create a payment and to be used when executing a payment.
+        /// </summary>
+        [JsonIgnore]
+        public string token { get; set; }
+
+        /// <summary>
         /// Creates (and processes) a new Payment Resource.
         /// </summary>
         /// <param name="accessToken">Access Token used for the API call.</param>
@@ -98,7 +105,19 @@ namespace PayPal.Api.Payments
             // Configure and send the request
             const string resourcePath = "v1/payments/payment";
             string payLoad = this.ConvertToJson();
-            return PayPalResource.ConfigureAndExecute<Payment>(apiContext, HttpMethod.POST, resourcePath, payLoad);
+            var payment = PayPalResource.ConfigureAndExecute<Payment>(apiContext, HttpMethod.POST, resourcePath, payLoad);
+
+            // Store the token referenced in the approval_url of the returned object.
+            foreach (var links in payment.links)
+            {
+                if (links.rel.Equals("approval_url"))
+                {
+                    var url = new Uri(links.href);
+                    payment.token = HttpUtility.ParseQueryString(url.Query).Get("token");
+                    break;
+                }
+            }
+            return payment;
         }
 
         /// <summary>

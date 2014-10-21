@@ -177,10 +177,10 @@ namespace PayPal.Api.Payments
         /// </summary>
         /// <param name="accessToken">Access Token used for the API call.</param>
         /// <returns>PlanList</returns>
-        public static PlanList Plan(string accessToken)
+        public static PlanList List(string accessToken)
         {
             APIContext apiContext = new APIContext(accessToken);
-            return Plan(apiContext);
+            return List(apiContext);
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace PayPal.Api.Payments
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <returns>PlanList</returns>
-        public static PlanList Plan(APIContext apiContext)
+        public static PlanList List(APIContext apiContext)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);

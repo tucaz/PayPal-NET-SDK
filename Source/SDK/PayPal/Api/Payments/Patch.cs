@@ -18,9 +18,8 @@ namespace PayPal.Api.Payments
 
         /// <summary>
         /// New value to apply based on the operation.
-        /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "value")]
-        public string value { get; set; }
+        public object value { get; set; }
 
         /// <summary>
         /// A string containing a JSON Pointer value that references the location in the target document from which to move the value.

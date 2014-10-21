@@ -7,6 +7,7 @@ using PayPal;
 using PayPal.Util;
 using PayPal.Api.Payments;
 using PayPal.Api.Validation;
+using System.Web;
 
 namespace PayPal.Api.Payments
 {
@@ -23,6 +24,12 @@ namespace PayPal.Api.Payments
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string name { get; set; }
+
+        /// <summary>
+        /// State of the agreement.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string state { get; set; }
 
         /// <summary>
         /// Description of the agreement.
@@ -85,6 +92,12 @@ namespace PayPal.Api.Payments
         public List<Links> links { get; set; }
 
         /// <summary>
+        /// Get or sets the EC token returned from a call to create an agreement and to be used when executing an agreement.
+        /// </summary>
+        [JsonIgnore]
+        public string token { get; set; }
+
+        /// <summary>
         /// Create a new billing agreement by passing the details for the agreement, including the name, description, start date, payer, and billing plan in the request JSON.
         /// </summary>
         /// <param name="accessToken">Access Token used for the API call.</param>
@@ -108,7 +121,19 @@ namespace PayPal.Api.Payments
             // Configure and send the request
             string resourcePath = "v1/payments/billing-agreements";
             string payLoad = this.ConvertToJson();
-            return PayPalResource.ConfigureAndExecute<Agreement>(apiContext, HttpMethod.POST, resourcePath, payLoad);
+            var agreement = PayPalResource.ConfigureAndExecute<Agreement>(apiContext, HttpMethod.POST, resourcePath, payLoad);
+
+            // Store the token referenced in the approval_url of the returned object.
+            foreach (var links in agreement.links)
+            {
+                if (links.rel.Equals("approval_url"))
+                {
+                    var url = new Uri(links.href);
+                    agreement.token = HttpUtility.ParseQueryString(url.Query).Get("token");
+                    break;
+                }
+            }
+            return agreement;
         }
 
         /// <summary>
@@ -131,9 +156,10 @@ namespace PayPal.Api.Payments
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(this.token, "token");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] {this.token};
             string pattern = "v1/payments/billing-agreements/{0}/agreement-execute";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
@@ -177,11 +203,10 @@ namespace PayPal.Api.Payments
         /// </summary>
         /// <param name="accessToken">Access Token used for the API call.</param>
         /// <param name="patchRequest">PatchRequest</param>
-        /// <returns>Agreement</returns>
-        public Agreement Update(string accessToken, PatchRequest patchRequest)
+        public void Update(string accessToken, PatchRequest patchRequest)
         {
             APIContext apiContext = new APIContext(accessToken);
-            return Update(apiContext, patchRequest);
+            Update(apiContext, patchRequest);
         }
 
         /// <summary>
@@ -189,8 +214,7 @@ namespace PayPal.Api.Payments
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="patchRequest">PatchRequest</param>
-        /// <returns>Agreement</returns>
-        public Agreement Update(APIContext apiContext, PatchRequest patchRequest)
+        public void Update(APIContext apiContext, PatchRequest patchRequest)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
@@ -202,7 +226,7 @@ namespace PayPal.Api.Payments
             string pattern = "v1/payments/billing-agreements/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = patchRequest.ConvertToJson();
-            return PayPalResource.ConfigureAndExecute<Agreement>(apiContext, HttpMethod.PATCH, resourcePath, payLoad);
+            PayPalResource.ConfigureAndExecute<Agreement>(apiContext, HttpMethod.PATCH, resourcePath, payLoad);
         }
 
         /// <summary>
@@ -386,10 +410,10 @@ namespace PayPal.Api.Payments
         /// <param name="accessToken">Access Token used for the API call.</param>
         /// <param name="agreementId">string</param>
         /// <returns>AgreementTransactions</returns>
-        public static AgreementTransactions Transaction(string accessToken, string agreementId)
+        public static AgreementTransactions ListTransactions(string accessToken, string agreementId, DateTime startDate, DateTime endDate)
         {
             APIContext apiContext = new APIContext(accessToken);
-            return Transaction(apiContext, agreementId);
+            return ListTransactions(apiContext, agreementId, startDate, endDate);
         }
 
         /// <summary>
@@ -398,15 +422,18 @@ namespace PayPal.Api.Payments
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="agreementId">string</param>
         /// <returns>AgreementTransactions</returns>
-        public static AgreementTransactions Transaction(APIContext apiContext, string agreementId)
+        public static AgreementTransactions ListTransactions(APIContext apiContext, string agreementId, DateTime startDate, DateTime endDate)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
             ArgumentValidator.Validate(agreementId, "agreementId");
+            ArgumentValidator.Validate(startDate, "startDate");
+            ArgumentValidator.Validate(endDate, "endDate");
 
             // Configure and send the request
-            object[] parameters = new object[] {agreementId};
-            string pattern = "v1/payments/billing-agreements/{0}/transactions";
+            var dateFormat = "yyyy-MM-dd";
+            object[] parameters = new object[] { agreementId, startDate.ToString(dateFormat), endDate.ToString(dateFormat) };
+            string pattern = "v1/payments/billing-agreements/{0}/transactions?start_date={1}&end_date={2}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
             return PayPalResource.ConfigureAndExecute<AgreementTransactions>(apiContext, HttpMethod.GET, resourcePath, payLoad);
