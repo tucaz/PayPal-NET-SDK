@@ -57,18 +57,14 @@ namespace RestApiSample
                 else
                 {
                     // Executing a payment
-                    var executedPayment = this.ExecutePayment(apiContext, payerId, Request.Params["guid"]);
+                    var guid = Request.Params["guid"];
+                    var executedPayment = this.ExecutePayment(apiContext, payerId, Session[guid] as string);
                     CurrContext.Items.Add("ResponseJson", JObject.Parse(executedPayment.ConvertToJson()).ToString(Formatting.Indented));
                 }
             }
             catch (Exception ex)
             {
                 CurrContext.Items.Add("Error", ex.Message);
-            }
-
-            if (this.payment != null)
-            {
-                CurrContext.Items.Add("RequestJson", JObject.Parse(this.payment.ConvertToJson()).ToString(Formatting.Indented));
             }
 
             Server.Transfer("~/Response.aspx");
@@ -86,6 +82,7 @@ namespace RestApiSample
         {
             var paymentExecution = new PaymentExecution() { payer_id = payerId };
             this.payment = new Payment() { id = paymentId };
+            HttpContext.Current.Items.Add("RequestJson", Common.FormatJsonString(paymentExecution.ConvertToJson()));
             return this.payment.Execute(apiContext, paymentExecution);
         }
 
@@ -152,6 +149,7 @@ namespace RestApiSample
             transactionList.Add(new Transaction()
             {
                 description = "Transaction description.",
+                invoice_number = "12345",
                 amount = amount,
                 item_list = itemList
             });
@@ -166,7 +164,9 @@ namespace RestApiSample
                 transactions = transactionList,
                 redirect_urls = redirUrls
             };
+
             // Create a payment using a valid APIContext
+            HttpContext.Current.Items.Add("RequestJson", Common.FormatJsonString(payment.ConvertToJson()));
             return this.payment.Create(apiContext);
         }
 

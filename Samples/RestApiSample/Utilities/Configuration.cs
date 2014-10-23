@@ -5,22 +5,21 @@ namespace RestApiSample
 { 
     public static class Configuration
     {
-        public static readonly string ClientId = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
-        public static readonly string ClientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
+        public readonly static string ClientId;
+        public readonly static string ClientSecret;
+
+        // Static constructor for setting the readonly static members.
+        static Configuration()
+        {
+            var config = GetConfig();
+            ClientId = config["clientId"];
+            ClientSecret = config["clientSecret"];
+        }
 
         // Create the configuration map that contains mode and other optional configuration details.
         public static Dictionary<string, string> GetConfig()
         {
-            var config = new Dictionary<string, string>();
-
-            // Endpoints are varied depending on whether sandbox OR live is chosen for mode
-            config["mode"] = "sandbox";
-            config["endpoint"] = "https://api.sandbox.paypal.com";
-
-            // These values are defaulted in SDK. If you want to override default values, uncomment it and add your value
-            // config["connectionTimeout"] = "360000";
-            // config["requestRetries"] = "1";
-            return config;
+            return PayPal.Manager.ConfigManager.Instance.GetProperties();
         }
 
         // Create accessToken

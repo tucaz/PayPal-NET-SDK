@@ -81,6 +81,7 @@ namespace RestApiSample
             tran.amount = amnt;
             tran.description = "This is the payment transaction description.";
             tran.item_list = itemList;
+            tran.invoice_number = "123123";
 
             // The Payment creation API requires a list of
             // Transaction; add the created `Transaction`

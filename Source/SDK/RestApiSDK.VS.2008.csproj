@@ -66,7 +66,7 @@
     <Compile Include="PayPal\Api\Payments\CancelNotification.cs" />
     <Compile Include="PayPal\Api\Payments\Capture.cs" />
     <Compile Include="PayPal\Api\Payments\CartBase.cs" />
-    <Compile Include="PayPal\Api\Payments\ChargeModels.cs" />
+    <Compile Include="PayPal\Api\Payments\ChargeModel.cs" />
     <Compile Include="PayPal\Api\Payments\Cost.cs" />
     <Compile Include="PayPal\Api\Payments\CreateProfileResponse.cs" />
     <Compile Include="PayPal\Api\Payments\Credit.cs" />

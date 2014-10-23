@@ -60,7 +60,7 @@
     <Compile Include="AgreementTransactionsTest.cs" />
     <Compile Include="AgreementTransactionTest.cs" />
     <Compile Include="BankAccountTest.cs" />
-    <Compile Include="ChargeModelsTest.cs" />
+    <Compile Include="ChargeModelTest.cs" />
     <Compile Include="CreateProfileResponseTest.cs" />
     <Compile Include="CurrencyTest.cs" />
     <Compile Include="DetailsTest.cs" />

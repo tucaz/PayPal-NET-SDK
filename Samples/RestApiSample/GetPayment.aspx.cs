@@ -32,7 +32,7 @@ namespace RestApiSample
                 // static `Get` method
                 // on the Payment class by passing a valid
                 // APIContext and Payment ID
-                Payment pymnt = Payment.Get(apiContext, "PAY-0XL713371A312273YKE2GCNI");
+                Payment pymnt = Payment.Get(apiContext, "PAY-34B83553EY901105EKQ7NQHI");
 
                 CurrContext.Items.Add("ResponseJson", JObject.Parse(pymnt.ConvertToJson()).ToString(Formatting.Indented));
             }

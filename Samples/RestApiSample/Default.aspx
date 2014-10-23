@@ -4,59 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>PayPal REST API SDK for .NET Samples</title>
-    <style type="text/css">
-        body
-        {
-        	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            background: #f2f2f2;
-            font-size: 100%;
-            color: #777;
-        }
-        .banner
-        {
-        	font-weight: bold;
-        	vertical-align: middle;
-        	font-size: 135%;
-        	padding: 50px 0px 25px 10px;
-        }
-        .imagelink
-        {
-            padding: 5px 0px 5px 28px;
-        }
-        .execute
-        {
-            background: url(  'Images/play_button.png' ) no-repeat left top;
-        }
-        .source
-        {
-            background: url(  'Images/edt-format-source-button.png' ) no-repeat left top;
-        }
-        .header
-        {
-		    font-weight: bold;
-		    color: #0079C1;
-		    background-color: #fff;
-		    font-size: 135%;
-	    }
-	    .header td
-	     {
-		    padding: 25px 0px 10px 10px;
-	    }
-	    td 
-	    {
-	    	padding: 5px 5px 5px 15px;
-	    }
-	    img
-	    {
-	    	vertical-align: middle;
-	    	border-style: none;
-	    }
-    </style>
+    <link href="Assets/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <center>
-        <div class="banner"><a href="https://developer.paypal.com/webapps/developer/docs/api/"><img alt="PayPal" src="Images/logo_paypal_106x29.png" /></a>  REST API SDK for .NET Samples</div>
+        <div class="banner"><a href="https://developer.paypal.com/webapps/developer/docs/api/"><img alt="PayPal" src="Assets/logo_paypal_106x29.png" /></a>  REST API SDK for .NET Samples</div>
     </center>
     
     <table cellspacing="5" width="85%" align="center">
@@ -328,6 +280,55 @@
                     Delete a web experience profile</td>
                 <td>
                     <a href="PaymentExperienceDelete.aspx" class="execute imagelink">Execute</a>
+                </td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr class="header">
+                <td colspan="3">
+                    Billing Plans &amp; Agreements</td>
+            </tr>
+            <tr>
+                <td>
+                    Create a billing plan</td>
+                <td>
+                    <a href="BillingPlanCreate.aspx" class="execute imagelink">Execute</a>
+                </td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    Update a billing plan</td>
+                <td>
+                    <a href="BillingPlanUpdate.aspx" class="execute imagelink">Execute</a>
+                </td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    Retrieve a billing plan</td>
+                <td>
+                    <a href="BillingPlanGet.aspx" class="execute imagelink">Execute</a>
+                </td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    List billing plans</td>
+                <td>
+                    <a href="BillingPlanGetList.aspx" class="execute imagelink">Execute</a>
+                </td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    Create &amp; execute a billing agreement</td>
+                <td>
+                    <a href="BillingAgreementCreateAndExecute.aspx" class="execute imagelink">Execute</a>
                 </td>
                 <td>
                     &nbsp;</td>

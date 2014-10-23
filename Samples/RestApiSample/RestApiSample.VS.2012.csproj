@@ -74,7 +74,7 @@
   <ItemGroup>
     <Content Include="DeleteCreditCard.aspx" />
     <Content Include="GetRefund.aspx" />
-    <Content Include="Images\logo_paypal_106x29.png" />
+    <Content Include="assets\logo_paypal_106x29.png" />
     <Content Include="OrderSample.aspx" />
     <Content Include="PaymentExperienceCreate.aspx" />
     <Content Include="PaymentExperienceDelete.aspx" />
@@ -285,8 +285,8 @@
     <Content Include="GetPaymentHistory.aspx" />
     <Content Include="GetSale.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Images\edt-format-source-button.png" />
-    <Content Include="Images\play_button.png" />
+    <Content Include="assets\edt-format-source-button.png" />
+    <Content Include="assets\play_button.png" />
     <Content Include="PaymentWithCreditCard.aspx" />
     <Content Include="PaymentWithPayPal.aspx" />
     <Content Include="PaymentWithSavedCard.aspx" />
@@ -295,11 +295,11 @@
     <Content Include="Response.aspx" />
     <Content Include="SaleRefund.aspx" />
     <Content Include="GetCreditCard.aspx" />
-    <Content Include="Source\assets\behavior.js" />
-    <Content Include="Source\assets\docs.js" />
-    <Content Include="Source\assets\sideNavOut.png" />
-    <Content Include="Source\assets\sideNavOver.png" />
-    <Content Include="Source\assets\style.css" />
+    <Content Include="assets\behavior.js" />
+    <Content Include="assets\docs.js" />
+    <Content Include="assets\sideNavOut.png" />
+    <Content Include="assets\sideNavOver.png" />
+    <Content Include="assets\style.css" />
     <Content Include="Source\AuthorizationCapture.aspx.html" />
     <Content Include="Source\AuthorizationVoid.aspx.html" />
     <Content Include="Source\CreateCreditCard.aspx.html" />

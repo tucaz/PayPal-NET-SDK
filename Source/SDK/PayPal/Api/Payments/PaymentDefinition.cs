@@ -55,7 +55,7 @@ namespace PayPal.Api.Payments
         /// Array of charge_models for this payment definition.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public List<ChargeModels> charge_models { get; set; }
+        public List<ChargeModel> charge_models { get; set; }
 
         /// <summary>
         /// Converts the object to JSON string

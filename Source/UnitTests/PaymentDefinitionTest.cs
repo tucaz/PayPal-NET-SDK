@@ -17,7 +17,7 @@ namespace RestApiSDKUnitTest
 		    "\"frequency_interval\":\"2\"," +
 		    "\"amount\":" + AmountTest.AmountJson + "," +
 		    "\"cycles\":\"12\"," +
-		    "\"charge_models\":[" + ChargeModelsTest.ChargeModelsJson + "]}";
+		    "\"charge_models\":[" + ChargeModelTest.ChargeModelJson + "]}";
 
         public static PaymentDefinition GetPaymentDefinition()
         {

@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
+    <link href="assets/style.css" rel="stylesheet" type="text/css" />
     <title>Untitled Page</title>
 </head>
 <body>

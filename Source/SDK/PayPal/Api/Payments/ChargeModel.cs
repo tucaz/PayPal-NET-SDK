@@ -5,7 +5,7 @@ using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
-    public class ChargeModels
+    public class ChargeModel
     {
         /// <summary>
         /// Identifier of the charge model. 128 characters max.

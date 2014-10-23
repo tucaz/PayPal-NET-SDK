@@ -5,54 +5,33 @@ namespace RESTAPISample
 {
     public partial class Response : System.Web.UI.Page
     {
-        protected String RedirectURL
-        {
-            get;
-            set;
-        }
-
-        protected string ErrorMessage
-        {
-            get;
-            set;
-        }
-
-        public string RequestMessage
-        {
-            get;
-            set;
-        }
-
-
-        public string ResponseMessage
-        {
-            get;
-            set;
-        }
+        protected String RedirectURL { get; set; }
+        public string RedirectURLText { get; set; }
+        protected string ErrorMessage { get; set; }
+        public string RequestMessage { get; set; }
+        public string ResponseMessage { get; set; }
+        public string ResponseTitle { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                HttpContext CurrContext = HttpContext.Current;
-                if (CurrContext.Items["Error"] != null)
-                {
-                    ErrorMessage = (String)CurrContext.Items["Error"];
-                }
-
-                if (CurrContext.Items["RedirectURL"] != null)
-                {
-                    RedirectURL = (String)CurrContext.Items["RedirectURL"];
-                }
-                if (CurrContext.Items["RequestJson"] != null)
-                {
-                    RequestMessage = (String)CurrContext.Items["RequestJson"];
-                }
-                if (CurrContext.Items["ResponseJson"] != null)
-                {
-                    ResponseMessage = (String)CurrContext.Items["ResponseJson"];
-                }
+                this.ErrorMessage = this.GetFromContext("Error");
+                this.RedirectURL = this.GetFromContext("RedirectURL");
+                this.RequestMessage = this.GetFromContext("RequestJson");
+                this.ResponseMessage = this.GetFromContext("ResponseJson");
+                this.ResponseTitle = this.GetFromContext("ResponseTitle");
+                this.RedirectURLText = this.GetFromContext("RedirectURLText");
             }
+        }
+
+        private string GetFromContext(string key)
+        {
+            if (HttpContext.Current.Items.Contains(key))
+            {
+                return HttpContext.Current.Items[key] as string;
+            }
+            return null;
         }
     }
 }
