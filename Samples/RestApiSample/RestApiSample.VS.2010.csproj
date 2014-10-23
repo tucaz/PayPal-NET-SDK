@@ -73,6 +73,11 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BillingAgreementCreateAndExecute.aspx" />
+    <Content Include="BillingPlanCreate.aspx" />
+    <Content Include="BillingPlanGet.aspx" />
+    <Content Include="BillingPlanGetList.aspx" />
+    <Content Include="BillingPlanUpdate.aspx" />
     <Content Include="DeleteCreditCard.aspx" />
     <Content Include="GetRefund.aspx" />
     <Content Include="assets\logo_paypal_106x29.png" />
@@ -99,6 +104,36 @@
     </Compile>
     <Compile Include="AuthorizationVoid.aspx.designer.cs">
       <DependentUpon>AuthorizationVoid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BillingAgreementCreateAndExecute.aspx.cs">
+      <DependentUpon>BillingAgreementCreateAndExecute.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BillingAgreementCreateAndExecute.aspx.designer.cs">
+      <DependentUpon>BillingAgreementCreateAndExecute.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BillingPlanCreate.aspx.cs">
+      <DependentUpon>BillingPlanCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BillingPlanCreate.aspx.designer.cs">
+      <DependentUpon>BillingPlanCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BillingPlanGet.aspx.cs">
+      <DependentUpon>BillingPlanGet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BillingPlanGet.aspx.designer.cs">
+      <DependentUpon>BillingPlanGet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BillingPlanGetList.aspx.cs">
+      <DependentUpon>BillingPlanGetList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BillingPlanGetList.aspx.designer.cs">
+      <DependentUpon>BillingPlanGetList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BillingPlanUpdate.aspx.cs">
+      <DependentUpon>BillingPlanUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BillingPlanUpdate.aspx.designer.cs">
+      <DependentUpon>BillingPlanUpdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="DeleteCreditCard.aspx.cs">
       <DependentUpon>DeleteCreditCard.aspx</DependentUpon>
