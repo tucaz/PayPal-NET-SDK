@@ -1,9 +1,4 @@
-using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.Collections;
 using System.Collections.Generic;
-using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {

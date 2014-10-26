@@ -1,9 +1,5 @@
-using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.Collections;
 using System.Collections.Generic;
-using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -12,13 +8,13 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "total_count")]
         public int total_count { get; set; }
 
         /// <summary>
         /// List of invoices belonging to a merchant.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoices")]
         public List<Invoice> invoices { get; set; }
 
         /// <summary>

@@ -1,7 +1,4 @@
-using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -10,13 +7,13 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// Url where the payer would be redirected to after approving the payment.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "return_url")]
         public string return_url { get; set; }
 
         /// <summary>
         /// Url where the payer would be redirected to after canceling the payment.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel_url")]
         public string cancel_url { get; set; }
 
         /// <summary>

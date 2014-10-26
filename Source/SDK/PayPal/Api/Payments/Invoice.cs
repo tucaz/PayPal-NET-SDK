@@ -1,11 +1,6 @@
-using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.Collections;
 using System.Collections.Generic;
-using PayPal;
 using PayPal.Util;
-using PayPal.Api.Payments;
 using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
@@ -15,139 +10,139 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// Unique invoice resource identifier.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string id { get; set; }
 
         /// <summary>
         /// Unique number that appears on the invoice. If left blank will be auto-incremented from the last number. 25 characters max.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number")]
         public string number { get; set; }
 
         /// <summary>
         /// URI of the invoice resource.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "uri")]
         public string uri { get; set; }
 
         /// <summary>
         /// Status of the invoice.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "status")]
         public string status { get; set; }
 
         /// <summary>
         /// Information about the merchant who is sending the invoice.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "merchant_info")]
         public MerchantInfo merchant_info { get; set; }
 
         /// <summary>
         /// Email address of invoice recipient (required) and optional billing information. (Note: We currently only allow one recipient).
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_info")]
         public List<BillingInfo> billing_info { get; set; }
 
         /// <summary>
         /// Shipping information for entities to whom items are being shipped.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "shipping_info")]
         public ShippingInfo shipping_info { get; set; }
 
         /// <summary>
         /// List of items included in the invoice. 100 items max per invoice.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "items")]
         public List<InvoiceItem> items { get; set; }
 
         /// <summary>
         /// Date on which the invoice was enabled. Date format: yyyy-MM-dd z. For example, 2014-02-27 PST
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_date")]
         public string invoice_date { get; set; }
 
         /// <summary>
         /// Optional field to pass payment deadline for the invoice. Either term_type or due_date can be passed, but not both.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_term")]
         public PaymentTerm payment_term { get; set; }
 
         /// <summary>
         /// Invoice level discount in percent or amount.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "discount")]
         public Cost discount { get; set; }
 
         /// <summary>
         /// Shipping cost in percent or amount.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "shipping_cost")]
         public ShippingCost shipping_cost { get; set; }
 
         /// <summary>
         /// Custom amount applied on an invoice. If a label is included then the amount cannot be empty.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom")]
         public CustomAmount custom { get; set; }
 
         /// <summary>
         /// Indicates whether tax is calculated before or after a discount. If false (the default), the tax is calculated before a discount. If true, the tax is calculated after a discount.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_calculated_after_discount")]
         public bool? tax_calculated_after_discount { get; set; }
 
         /// <summary>
         /// A flag indicating whether the unit price includes tax. Default is false
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_inclusive")]
         public bool? tax_inclusive { get; set; }
 
         /// <summary>
         /// General terms of the invoice. 4000 characters max.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "terms")]
         public string terms { get; set; }
 
         /// <summary>
         /// Note to the payer. 4000 characters max.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "note")]
         public string note { get; set; }
 
         /// <summary>
         /// Bookkeeping memo that is private to the merchant. 150 characters max.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "merchant_memo")]
         public string merchant_memo { get; set; }
 
         /// <summary>
         /// Full URL of an external image to use as the logo. 4000 characters max.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "logo_url")]
         public string logo_url { get; set; }
 
         /// <summary>
         /// The total amount of the invoice.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "total_amount")]
         public Currency total_amount { get; set; }
 
         /// <summary>
         /// List of payment details for the invoice.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_details")]
         public List<PaymentDetail> payment_details { get; set; }
 
         /// <summary>
         /// List of refund details for the invoice.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refund_details")]
         public List<RefundDetail> refund_details { get; set; }
 
         /// <summary>
         /// Audit information for the invoice.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "metadata")]
         public Metadata metadata { get; set; }
 
         /// <summary>
