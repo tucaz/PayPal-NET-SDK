@@ -1,9 +1,5 @@
-using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.Collections;
 using System.Collections.Generic;
-using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -12,7 +8,7 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// List of financial transactions (Sale, Authorization, Capture, Refund) related to the payment.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "related_resources")]
         public List<RelatedResources> related_resources { get; set; }
 
         /// <summary>

@@ -1,7 +1,4 @@
-using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -10,13 +7,13 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// Key for the name value pair.  The value name types should be correlated 
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string name { get; set; }
 
         /// <summary>
         /// Value for the name value pair.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "value")]
         public string value { get; set; }
 
         /// <summary>

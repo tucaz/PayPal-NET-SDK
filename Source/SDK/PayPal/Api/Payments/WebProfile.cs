@@ -1,11 +1,5 @@
-using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using PayPal;
 using PayPal.Util;
-using PayPal.Api.Payments;
-using System.Collections;
-using System.Collections.Generic;
 using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
@@ -15,31 +9,31 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// ID of the web experience profile.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string id { get; set; }
 
         /// <summary>
         /// Name of the web experience profile.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string name { get; set; }
 
         /// <summary>
         /// Parameters for flow configuration.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "flow_config")]
         public FlowConfig flow_config { get; set; }
 
         /// <summary>
         /// Parameters for input fields customization.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "input_fields")]
         public InputFields input_fields { get; set; }
 
         /// <summary>
         /// Parameters for style and presentation.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "presentation")]
         public Presentation presentation { get; set; }
 
         /// <summary>

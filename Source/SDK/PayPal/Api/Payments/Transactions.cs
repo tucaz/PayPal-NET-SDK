@@ -1,7 +1,4 @@
-using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -10,7 +7,7 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// Amount being collected.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public Amount amount { get; set; }
 
         /// <summary>

@@ -1,11 +1,6 @@
-using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.Collections;
 using System.Collections.Generic;
-using PayPal;
 using PayPal.Util;
-using PayPal.Api.Payments;
 using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
@@ -15,49 +10,49 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// Identifier of the Capture transaction.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string id { get; set; }
 
         /// <summary>
         /// Time the resource was created in UTC ISO8601 format.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
         public string create_time { get; set; }
 
         /// <summary>
         /// Time the resource was last updated in UTC ISO8601 format.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
         public string update_time { get; set; }
 
         /// <summary>
         /// Amount being captured. If no amount is specified, amount is used from the authorization being captured. If amount is same as the amount that's authorized for, the state of the authorization changes to captured. If not, the state of the authorization changes to partially_captured. Alternatively, you could indicate a final capture by seting the is_final_capture flag to true.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public Amount amount { get; set; }
 
         /// <summary>
         /// whether this is a final capture for the given authorization or not. If it's final, all the remaining funds held by the authorization, will be released in the funding instrument.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "is_final_capture")]
         public bool? is_final_capture { get; set; }
 
         /// <summary>
         /// State of the capture transaction.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string state { get; set; }
 
         /// <summary>
         /// ID of the Payment resource that this transaction is based on.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "parent_payment")]
         public string parent_payment { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "links")]
         public List<Links> links { get; set; }
 
         /// <summary>

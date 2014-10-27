@@ -1,11 +1,6 @@
-using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.Collections;
 using System.Collections.Generic;
-using PayPal;
 using PayPal.Util;
-using PayPal.Api.Payments;
 using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
@@ -15,67 +10,67 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// Identifier of the authorization transaction.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string id { get; set; }
 
         /// <summary>
         /// Time the resource was created in UTC ISO8601 format.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
         public string create_time { get; set; }
 
         /// <summary>
         /// Time the resource was last updated in UTC ISO8601 format.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
         public string update_time { get; set; }
 
         /// <summary>
         /// Amount being authorized for.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public Amount amount { get; set; }
 
         /// <summary>
         /// specifies payment mode of the transaction
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_mode")]
         public string payment_mode { get; set; }
 
         /// <summary>
         /// State of the authorization transaction.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string state { get; set; }
 
         /// <summary>
         /// Protection Eligibility of the Payer 
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "protection_eligibility")]
         public string protection_eligibility { get; set; }
 
         /// <summary>
         /// Protection Eligibility Type of the Payer 
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "protection_eligibility_type")]
         public string protection_eligibility_type { get; set; }
 
         /// <summary>
         /// ID of the Payment resource that this transaction is based on.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "parent_payment")]
         public string parent_payment { get; set; }
 
         /// <summary>
         /// Date/Time until which funds may be captured against this resource.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "valid_until")]
         public string valid_until { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "links")]
         public List<Links> links { get; set; }
 
         /// <summary>

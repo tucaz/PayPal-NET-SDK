@@ -1,11 +1,7 @@
 using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.Collections;
 using System.Collections.Generic;
-using PayPal;
 using PayPal.Util;
-using PayPal.Api.Payments;
 using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
@@ -15,67 +11,67 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// Identifier of the payment resource created.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string id { get; set; }
 
         /// <summary>
         /// Time the resource was created in UTC ISO8601 format.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
         public string create_time { get; set; }
 
         /// <summary>
         /// Time the resource was last updated in UTC ISO8601 format.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
         public string update_time { get; set; }
 
         /// <summary>
         /// Intent of the payment - Sale or Authorization or Order.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "intent")]
         public string intent { get; set; }
 
         /// <summary>
         /// Source of the funds for this payment represented by a PayPal account or a direct credit card.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payer")]
         public Payer payer { get; set; }
 
         /// <summary>
         /// Cart for which the payment is done.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cart")]
         public string cart { get; set; }
 
         /// <summary>
         /// A payment can have more than one transaction, with each transaction establishing a contract between the payer and a payee
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "transactions")]
         public List<Transaction> transactions { get; set; }
 
         /// <summary>
         /// state of the payment
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string state { get; set; }
 
         /// <summary>
         /// Redirect urls required only when using payment_method as PayPal - the only settings supported are return and cancel urls.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "redirect_urls")]
         public RedirectUrls redirect_urls { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "links")]
         public List<Links> links { get; set; }
 
         /// <summary>
         /// Identifier for the payment experience.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "experience_profile_id")]
         public string experience_profile_id { get; set; }
 
         /// <summary>
@@ -100,7 +96,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             // Configure and send the request
-            string resourcePath = "v1/payments/payment";
+            const string resourcePath = "v1/payments/payment";
             string payLoad = this.ConvertToJson();
             return PayPalResource.ConfigureAndExecute<Payment>(apiContext, HttpMethod.POST, resourcePath, payLoad);
         }
@@ -130,10 +126,10 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(paymentId, "paymentId");
 
             // Configure and send the request
-            object[] parameters = new object[] {paymentId};
-            string pattern = "v1/payments/payment/{0}";
+            object[] parameters = {paymentId};
+            const string pattern = "v1/payments/payment/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = "";
+            const string payLoad = "";
             return PayPalResource.ConfigureAndExecute<Payment>(apiContext, HttpMethod.GET, resourcePath, payLoad);
         }
 
@@ -163,8 +159,8 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(paymentExecution, "paymentExecution");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
-            string pattern = "v1/payments/payment/{0}/execute";
+            object[] parameters = {this.id};
+            const string pattern = "v1/payments/payment/{0}/execute";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = paymentExecution.ConvertToJson();
             return PayPalResource.ConfigureAndExecute<Payment>(apiContext, HttpMethod.POST, resourcePath, payLoad);
@@ -195,10 +191,10 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(containerDictionary, "containerDictionary");
 
             // Configure and send the request
-            object[] parameters = new object[] {containerDictionary};
-            string pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
+            object[] parameters = {containerDictionary};
+            const string pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = "";
+            const string payLoad = "";
             return PayPalResource.ConfigureAndExecute<PaymentHistory>(apiContext, HttpMethod.GET, resourcePath, payLoad);
         }
 

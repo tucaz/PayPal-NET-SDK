@@ -1,7 +1,4 @@
-using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -10,19 +7,19 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// 3 letter currency code
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
         public string currency { get; set; }
 
         /// <summary>
         /// Total amount charged from the Payer account (or card) to Payee. In case of a refund, this is the refunded amount to the original Payer from Payee account.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "total")]
         public string total { get; set; }
 
         /// <summary>
         /// Additional details of the payment amount.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "details")]
         public Details details { get; set; }
 
         /// <summary>

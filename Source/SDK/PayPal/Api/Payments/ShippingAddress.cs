@@ -1,7 +1,4 @@
-using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using PayPal.Api.Validation;
 
 namespace PayPal.Api.Payments
 {
@@ -10,19 +7,19 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// Address ID assigned in PayPal system.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string id { get; set; }
 
         /// <summary>
         /// Name of the recipient at this address.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "recipient_name")]
         public string recipient_name { get; set; }
 
         /// <summary>
         /// Default shipping address of the Payer.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "default_address")]
         public bool? default_address { get; set; }
 
         /// <summary>
