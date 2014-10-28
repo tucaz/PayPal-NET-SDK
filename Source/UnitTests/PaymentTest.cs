@@ -48,7 +48,6 @@ namespace RestApiSDKUnitTest
             payment.transactions[0].payee = null;
             payment.transactions[0].item_list.shipping_address = null;
             payment.payer = PayerTest.GetPayerUsingPayPal();
-            payment.payer.payer_info.shipping_address = null;
             payment.redirect_urls = RedirectUrlsTest.GetRedirectUrls();
             return payment;
         }

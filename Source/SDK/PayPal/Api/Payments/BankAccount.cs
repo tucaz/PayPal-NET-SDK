@@ -1,5 +1,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using PayPal.Api.Validation;
+using PayPal.Util;
 
 namespace PayPal.Api.Payments
 {

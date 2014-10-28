@@ -20,7 +20,6 @@ namespace RestApiSDKUnitTest
             info.first_name = "Joe";
             info.last_name = "Shopper";
             info.payer_id = "100";
-            info.shipping_address = ShippingAddressTest.GetShippingAddress();
             return info;
         }
 
@@ -33,7 +32,6 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual("Joe.Shopper@email.com", info.email);
             Assert.AreEqual("100", info.payer_id);
             Assert.AreEqual("5032141716", info.phone);
-            Assert.IsNotNull(info.shipping_address);
         }
 
         [TestMethod()]
