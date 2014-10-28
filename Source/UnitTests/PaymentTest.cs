@@ -34,6 +34,7 @@ namespace RestApiSDKUnitTest
             payment.transactions[0].amount.details = null;
             payment.transactions[0].payee = null;
             payment.payer = PayerTest.GetPayerUsingCreditCard();
+            payment.payer.payer_info.phone = null;
             payment.redirect_urls = RedirectUrlsTest.GetRedirectUrls();
             return payment;
         }

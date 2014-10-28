@@ -1,20 +1,22 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api.Payments;
+using PayPal;
 
 namespace RestApiSDKUnitTest
 {
     [TestClass()]
     public class ItemTest
     {
+        public static readonly string ItemJson =
+            "{\"name\":\"Item Name\"," +
+            "\"currency\":\"USD\"," +
+            "\"price\":\"10\"," +
+            "\"quantity\":\"5\"," +
+            "\"sku\":\"Sku\"}";
+
         public static Item GetItem()
         {
-            Item itm = new Item();
-            itm.name = "Item Name";
-            itm.currency = "USD";
-            itm.price = "10";
-            itm.quantity = "5";
-            itm.sku = "Sku";
-            return itm;
+            return JsonFormatter.ConvertFromJson<Item>(ItemJson);
         }
 
         [TestMethod()]

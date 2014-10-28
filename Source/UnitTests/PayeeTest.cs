@@ -22,8 +22,6 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(pay.merchant_id, "100");
             Assert.AreEqual(pay.email, "paypaluser@email.com");
             Assert.IsNotNull(pay.phone);
-            Assert.AreEqual(pay.phone.number, "7162981822");
-            Assert.AreEqual(pay.phone.country_code, "1");
         }
 
         [TestMethod()]

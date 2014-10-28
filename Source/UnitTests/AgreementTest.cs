@@ -84,7 +84,7 @@ namespace RestApiSDKUnitTest
         {
             // Get the agreement to be used for verifying the update functionality
             var apiContext = UnitTestUtil.GetApiContext();
-            var agreementId = "I-9STXMKR58UNN";
+            var agreementId = "I-HP4H4YJFCN07";
             var agreement = Agreement.Get(apiContext, agreementId);
 
             // Create an update for the agreement

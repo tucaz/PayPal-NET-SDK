@@ -1,22 +1,24 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api.Payments;
+using PayPal;
 
 namespace RestApiSDKUnitTest
 {
     [TestClass()]
     public class AddressTest
     {
+        public static readonly string AddressJson =
+            "{\"line1\":\"2211\"," +
+            "\"line2\":\"N 1st St\"," +
+            "\"city\":\"San Jose\"," +
+            "\"phone\":\"5032141716\"," +
+            "\"postal_code\":\"95131\"," +
+            "\"state\":\"California\"," +
+            "\"country_code\":\"US\"}";
+
         public static Address GetAddress()
         {
-            Address add = new Address();
-            add.line1 = "2211";
-            add.line2 = "N 1st St";
-            add.city = "San Jose";
-            add.phone = "408-456-0392";
-            add.postal_code = "95131";
-            add.state = "California";
-            add.country_code = "US";
-            return add;
+            return JsonFormatter.ConvertFromJson<Address>(AddressJson);
         }
 
         [TestMethod()]
@@ -29,6 +31,7 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual("California", add.state);
             Assert.AreEqual("95131", add.postal_code);
             Assert.AreEqual("US", add.country_code);
+            Assert.AreEqual("5032141716", add.phone);
         }
 
         [TestMethod()]

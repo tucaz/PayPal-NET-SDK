@@ -72,9 +72,12 @@
     <Compile Include="FlowConfigTest.cs" />
     <Compile Include="FundingInstrumentTest.cs" />
     <Compile Include="InputFieldsTest.cs" />
+    <Compile Include="InvoiceItemTest.cs" />
+    <Compile Include="InvoiceTest.cs" />
     <Compile Include="ItemListTest.cs" />
     <Compile Include="ItemTest.cs" />
     <Compile Include="LinkTest.cs" />
+    <Compile Include="MerchantInfoTest.cs" />
     <Compile Include="MerchantPreferencesTest.cs" />
     <Compile Include="OrderTest.cs" />
     <Compile Include="OverrideChargeModelTest.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="RelatedResourcesTest.cs" />
     <Compile Include="SaleTest.cs" />
     <Compile Include="ShippingAddressTest.cs" />
+    <Compile Include="ShippingInfoTest.cs" />
     <Compile Include="TermsTest.cs" />
     <Compile Include="TransactionsTest.cs" />
     <Compile Include="TransactionTest.cs" />

@@ -10,7 +10,7 @@ namespace RestApiSDKUnitTest
         {
             var info = GetPayerInfoBasic();
             info.email = "Joe.Shopper@email.com";
-            info.phone = "12345";
+            info.phone = "5032141716";
             return info;
         }
 
@@ -32,7 +32,7 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual("Shopper", info.last_name);
             Assert.AreEqual("Joe.Shopper@email.com", info.email);
             Assert.AreEqual("100", info.payer_id);
-            Assert.AreEqual("12345", info.phone);
+            Assert.AreEqual("5032141716", info.phone);
             Assert.IsNotNull(info.shipping_address);
         }
 
