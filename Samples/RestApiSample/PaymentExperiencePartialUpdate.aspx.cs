@@ -72,7 +72,7 @@ namespace RestApiSample
                 CurrContext.Items.Add("Error", ex.Message);
             }
 
-            CurrContext.Items.Add("RequestJson", patchRequest.ConvertToJson());
+            CurrContext.Items.Add("RequestJson", Common.FormatJsonString(patchRequest.ConvertToJson()));
 
             Server.Transfer("~/Response.aspx");
         }

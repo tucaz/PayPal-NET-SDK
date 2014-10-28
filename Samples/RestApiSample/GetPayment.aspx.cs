@@ -32,9 +32,9 @@ namespace RestApiSample
                 // static `Get` method
                 // on the Payment class by passing a valid
                 // APIContext and Payment ID
-                Payment pymnt = Payment.Get(apiContext, "PAY-34B83553EY901105EKQ7NQHI");
+                Payment pymnt = Payment.Get(apiContext, "PAY-9NE62270P51995617KRH6XOY");
 
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(pymnt.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(pymnt.ConvertToJson()));
             }
             catch (PayPal.Exception.PayPalException ex)
             {

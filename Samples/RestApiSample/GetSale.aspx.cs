@@ -30,7 +30,7 @@ namespace RestApiSample
                 // Pass an APIContext and the ID of the sale
                 // transaction from your payment resource.
                 Sale selling = Sale.Get(apiContext, "4V7971043K262623A");
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(selling.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(selling.ConvertToJson()));
             }
             catch (PayPal.Exception.PayPalException ex)
             {

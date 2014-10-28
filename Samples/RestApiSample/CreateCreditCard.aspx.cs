@@ -47,7 +47,7 @@ namespace RestApiSample
                 // an 'id' that you can use to refer to it
                 // in the future payments.
                 CreditCard createdCreditCard = credtCard.Create(apiContext);
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(createdCreditCard.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(createdCreditCard.ConvertToJson()));
             }
             catch (PayPal.Exception.PayPalException ex)
             {
@@ -56,7 +56,7 @@ namespace RestApiSample
 
             if (credtCard != null)
             {
-                CurrContext.Items.Add("RequestJson", JObject.Parse(credtCard.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("RequestJson", Common.FormatJsonString(credtCard.ConvertToJson()));
             }
 
             Server.Transfer("~/Response.aspx");

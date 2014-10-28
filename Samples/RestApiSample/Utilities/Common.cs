@@ -175,7 +175,7 @@ namespace RestApiSample
                 redirect_urls = redirUrls
             };
 
-            httpContext.Items.Add("RequestJson", JObject.Parse(payment.ConvertToJson()).ToString(Formatting.Indented));
+            httpContext.Items.Add("RequestJson", Common.FormatJsonString(payment.ConvertToJson()));
 
             return payment.Create(apiContext);
         }

@@ -40,7 +40,7 @@ namespace RestApiSample
                     var guid = Convert.ToString((new Random()).Next(100000));
                     var createdPayment = this.CreatePayment(apiContext, baseURI + "guid=" + guid);
 
-                    CurrContext.Items.Add("ResponseJson", JObject.Parse(createdPayment.ConvertToJson()).ToString(Formatting.Indented));
+                    CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(createdPayment.ConvertToJson()));
 
                     var links = createdPayment.links.GetEnumerator();
 
@@ -59,7 +59,7 @@ namespace RestApiSample
                     // Executing a payment
                     var guid = Request.Params["guid"];
                     var executedPayment = this.ExecutePayment(apiContext, payerId, Session[guid] as string);
-                    CurrContext.Items.Add("ResponseJson", JObject.Parse(executedPayment.ConvertToJson()).ToString(Formatting.Indented));
+                    CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(executedPayment.ConvertToJson()));
                 }
             }
             catch (Exception ex)
@@ -149,7 +149,7 @@ namespace RestApiSample
             transactionList.Add(new Transaction()
             {
                 description = "Transaction description.",
-                invoice_number = "12345",
+                invoice_number = "456789",
                 amount = amount,
                 item_list = itemList
             });

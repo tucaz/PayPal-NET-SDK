@@ -39,7 +39,7 @@ namespace RestApiSample
                     var guid = Convert.ToString((new Random()).Next(100000));
                     var createdPayment = Common.CreatePaymentOrder(HttpContext.Current, apiContext, baseURI + "guid=" + guid);
 
-                    CurrContext.Items.Add("ResponseJson", JObject.Parse(createdPayment.ConvertToJson()).ToString(Formatting.Indented));
+                    CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(createdPayment.ConvertToJson()));
 
                     var links = createdPayment.links.GetEnumerator();
 
@@ -57,7 +57,7 @@ namespace RestApiSample
                 {
                     // Execute the order
                     var executedPayment = Common.ExecutePayment(apiContext, payerId, Request.Params["guid"]);
-                    CurrContext.Items.Add("ResponseJson", JObject.Parse(executedPayment.ConvertToJson()).ToString(Formatting.Indented));
+                    CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(executedPayment.ConvertToJson()));
 
                     this.order = executedPayment.transactions[0].related_resources[0].order;
                     this.amount = executedPayment.transactions[0].amount;

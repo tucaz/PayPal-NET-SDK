@@ -39,7 +39,7 @@ namespace RestApiSample
                 // by POSTing to 
                 // URI v1/payments/authorization/{authorization_id}/void
                 Authorization returnAuthorization = authorization.Void(apiContext);
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(returnAuthorization.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(returnAuthorization.ConvertToJson()));
             }
             catch (PayPal.Exception.PayPalException ex)
             {

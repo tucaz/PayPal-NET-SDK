@@ -54,7 +54,7 @@ namespace RestApiSample
                 // Capture an authorized payment by POSTing to
                 // URI v1/payments/authorization/{authorization_id}/capture
                 Capture responseCapture = authorization.Capture(apiContext, capture);
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(responseCapture.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(responseCapture.ConvertToJson()));
             }
             catch (PayPal.Exception.PayPalException ex)
             {
@@ -63,7 +63,7 @@ namespace RestApiSample
 
             if (capture != null)
             {
-                CurrContext.Items.Add("RequestJson", JObject.Parse(capture.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("RequestJson", Common.FormatJsonString(capture.ConvertToJson()));
             }
 
             Server.Transfer("~/Response.aspx");

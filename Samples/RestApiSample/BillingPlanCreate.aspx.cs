@@ -28,11 +28,11 @@ namespace RestApiSample
             try
             {
                 var plan = CreatePlanObject(HttpContext.Current);
-                HttpContext.Current.Items.Add("RequestJson", JObject.Parse(plan.ConvertToJson()).ToString(Formatting.Indented));
+                HttpContext.Current.Items.Add("RequestJson", Common.FormatJsonString(plan.ConvertToJson()));
 
                 var apiContext = Configuration.GetAPIContext();
                 var createdPlan = plan.Create(apiContext);
-                HttpContext.Current.Items.Add("ResponseJson", JObject.Parse(createdPlan.ConvertToJson()).ToString(Formatting.Indented));
+                HttpContext.Current.Items.Add("ResponseJson", Common.FormatJsonString(createdPlan.ConvertToJson()));
             }
             catch (Exception ex)
             {

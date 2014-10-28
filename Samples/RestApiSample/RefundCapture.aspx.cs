@@ -57,14 +57,14 @@ namespace RestApiSample
                 // POSTing to 
                 // URI v1/payments/capture/{capture_id}/refund
                 Refund responseRefund = capture.Refund(Configuration.GetAPIContext(), refund);
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(responseRefund.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(responseRefund.ConvertToJson()));
 
             }
             catch (PayPal.Exception.PayPalException ex)
             {
                 CurrContext.Items.Add("Error", ex.Message);
             }
-            CurrContext.Items.Add("RequestJson", JObject.Parse(refund.ConvertToJson()).ToString(Formatting.Indented));
+            CurrContext.Items.Add("RequestJson", Common.FormatJsonString(refund.ConvertToJson()));
             Server.Transfer("~/Response.aspx");
         }
     }

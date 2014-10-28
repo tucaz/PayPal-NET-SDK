@@ -50,7 +50,7 @@ namespace RestApiSample
                 retrievedProfile.name = "A new name";
                 retrievedProfile.Update(apiContext);
 
-                CurrContext.Items.Add("RequestJson", JObject.Parse(retrievedProfile.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("RequestJson", Common.FormatJsonString(retrievedProfile.ConvertToJson()));
                 CurrContext.Items.Add("ResponseJson", "Experience profile successfully updated.");
 
                 // Delete the newly-created profile

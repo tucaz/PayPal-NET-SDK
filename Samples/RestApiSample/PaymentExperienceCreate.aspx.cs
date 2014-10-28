@@ -43,7 +43,7 @@ namespace RestApiSample
 
                 // Create the profile
                 var response = profile.Create(apiContext);
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(response.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(response.ConvertToJson()));
 
                 // Delete the newly-created profile
                 var retrievedProfile = WebProfile.Get(apiContext, response.id);
@@ -54,7 +54,7 @@ namespace RestApiSample
                 CurrContext.Items.Add("Error", ex.Message);
             }
 
-            CurrContext.Items.Add("RequestJson", JObject.Parse(profile.ConvertToJson()).ToString(Formatting.Indented));
+            CurrContext.Items.Add("RequestJson", Common.FormatJsonString(profile.ConvertToJson()));
 
             Server.Transfer("~/Response.aspx");
         }

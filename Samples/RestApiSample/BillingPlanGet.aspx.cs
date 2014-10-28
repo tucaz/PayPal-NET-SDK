@@ -27,7 +27,7 @@ namespace RestApiSample
             try
             {
                 var plan = Plan.Get(Configuration.GetAPIContext(), "P-5FY40070P6526045UHFWUVEI");
-                HttpContext.Current.Items.Add("ResponseJson", JObject.Parse(plan.ConvertToJson()).ToString(Formatting.Indented));
+                HttpContext.Current.Items.Add("ResponseJson", Common.FormatJsonString(plan.ConvertToJson()));
             }
             catch (Exception ex)
             {

@@ -26,7 +26,7 @@ namespace RestApiSample
             {
                 var apiContext = Configuration.GetAPIContext();
                 var profileList = WebProfile.GetList(apiContext);
-                CurrContext.Items.Add("ResponseJson", profileList.ConvertToJson());
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(profileList.ConvertToJson()));
             }
             catch (Exception ex)
             {

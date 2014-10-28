@@ -30,8 +30,8 @@ namespace RestApiSample
                 // Retrieve the CreditCard object by calling the
                 // static 'Get' method on the CreditCard resource
                 // by passing a valid APIContext and CreditCard ID
-                CreditCard card = CreditCard.Get(apiContext, "CARD-5MY32504F4899612AKIHAQHY");
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(card.ConvertToJson()).ToString(Formatting.Indented));
+                CreditCard card = CreditCard.Get(apiContext, "CARD-00N04036H5458422MKRIAWHY");
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(card.ConvertToJson()));
             }
             catch (PayPal.Exception.PayPalException ex)
             {

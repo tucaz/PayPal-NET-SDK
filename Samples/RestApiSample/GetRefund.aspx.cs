@@ -30,7 +30,7 @@ namespace RestApiSample
                 // Pass an APIContext and the ID of the refunded
                 // transaction 
                 Refund refund = Refund.Get(apiContext, "7B165985YD577493B");
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(refund.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(refund.ConvertToJson()));
             }
             catch (PayPal.Exception.PayPalException ex)
             {

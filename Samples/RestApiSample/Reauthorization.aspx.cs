@@ -36,13 +36,13 @@ namespace RestApiSample
                 reauthorizeAmount.total = "1";
                 authorization.amount = reauthorizeAmount;
                 Authorization reauthorization = authorization.Reauthorize(apiContext);
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(reauthorization.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(reauthorization.ConvertToJson()));
             }
             catch (PayPal.Exception.PayPalException ex)
             {
                 CurrContext.Items.Add("Error", ex.Message);
             }
-            CurrContext.Items.Add("RequestJson", JObject.Parse(authorization.ConvertToJson()).ToString(Formatting.Indented));
+            CurrContext.Items.Add("RequestJson", Common.FormatJsonString(authorization.ConvertToJson()));
             Server.Transfer("~/Response.aspx");
         }
     }

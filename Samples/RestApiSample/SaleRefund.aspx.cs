@@ -37,7 +37,7 @@ namespace RestApiSample
             // Create a Sale object with the
             // given sale transaction id.
             Sale sale = new Sale();
-            sale.id = "7X350557WR366683S";
+            sale.id = "1L304068UD1406339";
             try
             {
                 // ### Api Context
@@ -50,14 +50,14 @@ namespace RestApiSample
 
                 // Refund by posting Refund object using a valid APIContext
                 Refund refundedSale = sale.Refund(apiContext, refund);
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(refundedSale.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(refundedSale.ConvertToJson()));
             }
             catch (PayPal.Exception.PayPalException ex)
             {
                 CurrContext.Items.Add("Error", ex.Message);
             }
             CurrContext.Items.Add("RequestJson",
-                  JObject.Parse(refund.ConvertToJson()).ToString(Formatting.Indented));
+                  Common.FormatJsonString(refund.ConvertToJson()));
             Server.Transfer("~/Response.aspx");
         }
     }

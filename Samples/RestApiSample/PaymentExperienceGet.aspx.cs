@@ -47,7 +47,7 @@ namespace RestApiSample
                 // Get the profile using the ID returned from the previous Create() call.
                 var retrievedProfile = WebProfile.Get(apiContext, response.id);
 
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(retrievedProfile.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(retrievedProfile.ConvertToJson()));
 
                 // Delete the newly-created profile
                 retrievedProfile.Delete(apiContext);

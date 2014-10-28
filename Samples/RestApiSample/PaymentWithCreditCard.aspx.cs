@@ -130,14 +130,14 @@ namespace RestApiSample
 
                 // Create a payment using a valid APIContext
                 Payment createdPayment = pymnt.Create(apiContext);
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(createdPayment.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(createdPayment.ConvertToJson()));
             }
             catch (PayPal.Exception.PayPalException ex)
             {
                 CurrContext.Items.Add("Error", ex.Message);
             }
 
-            CurrContext.Items.Add("RequestJson", JObject.Parse(pymnt.ConvertToJson()).ToString(Formatting.Indented));
+            CurrContext.Items.Add("RequestJson", Common.FormatJsonString(pymnt.ConvertToJson()));
 
             Server.Transfer("~/Response.aspx");
         }

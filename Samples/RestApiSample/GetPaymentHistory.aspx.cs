@@ -45,7 +45,7 @@ namespace RestApiSample
                 // Refer the API documentation
                 // for valid values for keys
                 PaymentHistory payHistory = Payment.List(apiContext, parameters);
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(payHistory.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(payHistory.ConvertToJson()));
             }
             catch (PayPal.Exception.PayPalException ex)
             {

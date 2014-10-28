@@ -44,7 +44,7 @@ namespace RestApiSample
                 // doing a GET call to 
                 // URI v1/payments/capture/{capture_id}
                 capture = Capture.Get(apiContext, capture.id);
-                CurrContext.Items.Add("ResponseJson", JObject.Parse(capture.ConvertToJson()).ToString(Formatting.Indented));
+                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(capture.ConvertToJson()));
             }
             catch (PayPal.Exception.PayPalException ex)
             {
