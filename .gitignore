@@ -3,7 +3,6 @@
 obj
 bin
 
-
 #IDE files
 *.user
 *.suo
@@ -12,3 +11,6 @@ bin
 
 #Unit Test Results
 Source/TestResults
+
+#Log files
+*.log

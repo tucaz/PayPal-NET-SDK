@@ -39,6 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -107,30 +111,35 @@
     </Compile>
     <Compile Include="BillingAgreementCreateAndExecute.aspx.cs">
       <DependentUpon>BillingAgreementCreateAndExecute.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BillingAgreementCreateAndExecute.aspx.designer.cs">
       <DependentUpon>BillingAgreementCreateAndExecute.aspx</DependentUpon>
     </Compile>
     <Compile Include="BillingPlanCreate.aspx.cs">
       <DependentUpon>BillingPlanCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BillingPlanCreate.aspx.designer.cs">
       <DependentUpon>BillingPlanCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="BillingPlanGet.aspx.cs">
       <DependentUpon>BillingPlanGet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BillingPlanGet.aspx.designer.cs">
       <DependentUpon>BillingPlanGet.aspx</DependentUpon>
     </Compile>
     <Compile Include="BillingPlanGetList.aspx.cs">
       <DependentUpon>BillingPlanGetList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BillingPlanGetList.aspx.designer.cs">
       <DependentUpon>BillingPlanGetList.aspx</DependentUpon>
     </Compile>
     <Compile Include="BillingPlanUpdate.aspx.cs">
       <DependentUpon>BillingPlanUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BillingPlanUpdate.aspx.designer.cs">
       <DependentUpon>BillingPlanUpdate.aspx</DependentUpon>
