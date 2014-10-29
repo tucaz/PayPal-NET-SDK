@@ -15,67 +15,67 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// Identifier of the billing plan. 128 characters max.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string id { get; set; }
 
         /// <summary>
         /// Name of the billing plan. 128 characters max.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string name { get; set; }
 
         /// <summary>
         /// Description of the billing plan. 128 characters max.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string description { get; set; }
 
         /// <summary>
         /// Type of the billing plan. Allowed values: `FIXED`, `INFINITE`.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string type { get; set; }
 
         /// <summary>
         /// Status of the billing plan. Allowed values: `CREATED`, `ACTIVE`, `INACTIVE`, and `DELETED`.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string state { get; set; }
 
         /// <summary>
         /// Time when the billing plan was created. Format YYYY-MM-DDTimeTimezone, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
         public string create_time { get; set; }
 
         /// <summary>
         /// Time when this billing plan was updated. Format YYYY-MM-DDTimeTimezone, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
         public string update_time { get; set; }
 
         /// <summary>
         /// Array of payment definitions for this billing plan.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_definitions")]
         public List<PaymentDefinition> payment_definitions { get; set; }
 
         /// <summary>
         /// Array of terms for this billing plan.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "terms")]
         public List<Terms> terms { get; set; }
 
         /// <summary>
         /// Specific preferences such as: set up fee, max fail attempts, autobill amount, and others that are configured for this billing plan.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "merchant_preferences")]
         public MerchantPreferences merchant_preferences { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "links")]
         public List<Links> links { get; set; }
 
         /// <summary>

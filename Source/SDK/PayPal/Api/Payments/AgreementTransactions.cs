@@ -12,7 +12,7 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// Array of agreement_transaction object.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "agreement_transaction_list")]
         public List<AgreementTransaction> agreement_transaction_list { get; set; }
 
         /// <summary>

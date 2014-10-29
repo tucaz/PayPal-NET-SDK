@@ -83,13 +83,13 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// Time the resource was created in UTC ISO8601 format.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
         public string create_time { get; set; }
 
         /// <summary>
         /// Time the resource was last updated in UTC ISO8601 format.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
         public string update_time { get; set; }
 
         /// <summary>

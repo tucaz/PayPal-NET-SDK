@@ -16,79 +16,79 @@ namespace PayPal.Api.Payments
         /// <summary>
         /// Identifier of the agreement.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string id { get; set; }
 
         /// <summary>
         /// Name of the agreement.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string name { get; set; }
 
         /// <summary>
         /// State of the agreement.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string state { get; set; }
 
         /// <summary>
         /// Description of the agreement.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string description { get; set; }
 
         /// <summary>
         /// Start date of the agreement. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_date")]
         public string start_date { get; set; }
 
         /// <summary>
         /// Details of the buyer who is enrolling in this agreement. This information is gathered from execution of the approval URL.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payer")]
         public Payer payer { get; set; }
 
         /// <summary>
         /// Shipping address object of the agreement, which should be provided if it is different from the default address.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "shipping_address")]
         public Address shipping_address { get; set; }
 
         /// <summary>
         /// Default merchant preferences from the billing plan are used, unless override preferences are provided here.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "override_merchant_preferences")]
         public MerchantPreferences override_merchant_preferences { get; set; }
 
         /// <summary>
         /// Array of override_charge_model for this agreement if needed to change the default models from the billing plan.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "override_charge_models")]
         public List<OverrideChargeModel> override_charge_models { get; set; }
 
         /// <summary>
         /// Plan details for this agreement.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "plan")]
         public Plan plan { get; set; }
 
         /// <summary>
         /// Date and time that this resource was created. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
         public string create_time { get; set; }
 
         /// <summary>
         /// Date and time that this resource was updated. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
         public string update_time { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "links")]
         public List<Links> links { get; set; }
 
         /// <summary>
