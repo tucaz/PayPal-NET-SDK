@@ -98,7 +98,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(authorizationId, "authorizationId");
 
             // Configure and send the request
-            object[] parameters = new object[] {authorizationId};
+            object[] parameters = new object[] { authorizationId };
             string pattern = "v1/payments/authorization/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
@@ -131,7 +131,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(capture, "capture");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/authorization/{0}/capture";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = capture.ConvertToJson();
@@ -161,7 +161,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(this.id, "Id");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/authorization/{0}/void";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
@@ -191,7 +191,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(this.id, "Id");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/authorization/{0}/reauthorize";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = this.ConvertToJson();

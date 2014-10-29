@@ -103,7 +103,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(planId, "planId");
 
             // Configure and send the request
-            object[] parameters = new object[] {planId};
+            object[] parameters = new object[] { planId };
             string pattern = "v1/payments/billing-plans/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
@@ -164,7 +164,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(patchRequest, "patchRequest");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/billing-plans/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = patchRequest.ConvertToJson();

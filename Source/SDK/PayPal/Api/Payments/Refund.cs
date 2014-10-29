@@ -92,7 +92,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(refundId, "refundId");
 
             // Configure and send the request
-            object[] parameters = new object[] {refundId};
+            object[] parameters = new object[] { refundId };
             string pattern = "v1/payments/refund/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";

@@ -145,7 +145,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(paymentId, "paymentId");
 
             // Configure and send the request
-            object[] parameters = {paymentId};
+            object[] parameters = { paymentId };
             const string pattern = "v1/payments/payment/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             const string payLoad = "";
@@ -178,7 +178,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(paymentExecution, "paymentExecution");
 
             // Configure and send the request
-            object[] parameters = {this.id};
+            object[] parameters = { this.id };
             const string pattern = "v1/payments/payment/{0}/execute";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = paymentExecution.ConvertToJson();
@@ -210,7 +210,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(containerDictionary, "containerDictionary");
 
             // Configure and send the request
-            object[] parameters = {containerDictionary};
+            object[] parameters = { containerDictionary };
             const string pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             const string payLoad = "";

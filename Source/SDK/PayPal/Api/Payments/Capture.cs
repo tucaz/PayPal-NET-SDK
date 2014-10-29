@@ -80,7 +80,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(captureId, "captureId");
 
             // Configure and send the request
-            object[] parameters = new object[] {captureId};
+            object[] parameters = new object[] { captureId };
             string pattern = "v1/payments/capture/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
@@ -113,7 +113,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(refund, "refund");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/capture/{0}/refund";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = refund.ConvertToJson();

@@ -150,7 +150,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(creditCardId, "creditCardId");
 
             // Configure and send the request
-            object[] parameters = new object[] {creditCardId};
+            object[] parameters = new object[] { creditCardId };
             string pattern = "v1/vault/credit-card/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
@@ -182,7 +182,7 @@ namespace PayPal.Api.Payments
 
             // Configure and send the request
             apiContext.MaskRequestId = true;
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/vault/credit-card/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
@@ -213,7 +213,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(this.id, "Id");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/vault/credit-card/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = this.ConvertToJson();

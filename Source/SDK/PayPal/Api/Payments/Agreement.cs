@@ -159,7 +159,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(this.token, "token");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.token};
+            object[] parameters = new object[] { this.token };
             string pattern = "v1/payments/billing-agreements/{0}/agreement-execute";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
@@ -191,7 +191,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(agreementId, "agreementId");
 
             // Configure and send the request
-            object[] parameters = new object[] {agreementId};
+            object[] parameters = new object[] { agreementId };
             string pattern = "v1/payments/billing-agreements/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
@@ -222,7 +222,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(patchRequest, "patchRequest");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/billing-agreements/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = patchRequest.ConvertToJson();
@@ -256,7 +256,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(agreementStateDescriptor, "agreementStateDescriptor");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/billing-agreements/{0}/suspend";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = agreementStateDescriptor.ConvertToJson();
@@ -291,7 +291,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(agreementStateDescriptor, "agreementStateDescriptor");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/billing-agreements/{0}/re-activate";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = agreementStateDescriptor.ConvertToJson();
@@ -326,7 +326,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(agreementStateDescriptor, "agreementStateDescriptor");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/billing-agreements/{0}/cancel";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = agreementStateDescriptor.ConvertToJson();
@@ -361,7 +361,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(agreementStateDescriptor, "agreementStateDescriptor");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/billing-agreements/{0}/bill-balance";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = agreementStateDescriptor.ConvertToJson();
@@ -396,7 +396,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(currency, "currency");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/billing-agreements/{0}/set-balance";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = currency.ConvertToJson();

@@ -87,7 +87,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(this.id, "Id");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payment-experience/web-profiles/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = this.ConvertToJson();
@@ -122,7 +122,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(patchRequest, "patchRequest");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payment-experience/web-profiles/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = patchRequest.ConvertToJson();
@@ -155,7 +155,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(profileId, "profileId");
 
             // Configure and send the request
-            object[] parameters = new object[] {profileId};
+            object[] parameters = new object[] { profileId };
             string pattern = "v1/payment-experience/web-profiles/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
@@ -214,7 +214,7 @@ namespace PayPal.Api.Payments
 
             // Configure and send the request
             apiContext.MaskRequestId = true;
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payment-experience/web-profiles/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";

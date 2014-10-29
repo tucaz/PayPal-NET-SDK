@@ -85,7 +85,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(orderId, "orderId");
 
             // Configure and send the request
-            object[] parameters = new object[] {orderId};
+            object[] parameters = new object[] { orderId };
             string pattern = "v1/payments/orders/{0}";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
@@ -118,7 +118,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(capture, "capture");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/orders/{0}/capture";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = capture.ConvertToJson();
@@ -148,7 +148,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(this.id, "Id");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/orders/{0}/do-void";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
@@ -178,7 +178,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(this.id, "Id");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/orders/{0}/authorize";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = this.ConvertToJson();
@@ -211,7 +211,7 @@ namespace PayPal.Api.Payments
             ArgumentValidator.Validate(refund, "refund");
 
             // Configure and send the request
-            object[] parameters = new object[] {this.id};
+            object[] parameters = new object[] { this.id };
             string pattern = "v1/payments/order/{0}/refund";
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = refund.ConvertToJson();
