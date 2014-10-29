@@ -1,6 +1,10 @@
 PayPal REST API SDK for .NET release notes
 ==========================================
 
+v0.11.0
+-------
+* Added billing plans and agreements support
+
 v0.10.0
 --------
 * Added payment experience support
