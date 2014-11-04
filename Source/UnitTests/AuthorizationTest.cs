@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using PayPal.Api.Payments;
+using PayPal.Api;
 using PayPal;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     [TestClass()]
     public class AuthorizationTest
@@ -109,7 +109,7 @@ namespace RestApiSDKUnitTest
             reauthorizeAmount.currency = "USD";
             reauthorizeAmount.total = "1";
             authorization.amount = reauthorizeAmount;
-            UnitTestUtil.AssertThrownException<PayPal.Exception.HttpException>(() => authorization.Reauthorize(UnitTestUtil.GetApiContext()));
+            UnitTestUtil.AssertThrownException<PayPal.HttpException>(() => authorization.Reauthorize(UnitTestUtil.GetApiContext()));
         }
     }
 }

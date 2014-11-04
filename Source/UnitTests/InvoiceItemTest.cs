@@ -3,10 +3,10 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api.Payments;
+using PayPal.Api;
 using PayPal;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     /// <summary>
     /// Summary description for InvoiceItemTest
@@ -21,7 +21,7 @@ namespace RestApiSDKUnitTest
 
         public static InvoiceItem GetInvoiceItem()
         {
-            return JsonFormatter.ConvertFromJson<InvoiceItem>(InvoiceItemJson);
+            return PayPal.Api.JsonFormatter.ConvertFromJson<InvoiceItem>(InvoiceItemJson);
         }
 
         [TestMethod()]

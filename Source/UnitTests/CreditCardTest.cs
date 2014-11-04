@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal;
+using PayPal.Api;
 using PayPal.Manager;
-using PayPal.Api.Payments;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     [TestClass()]
     public class CreditCardTest

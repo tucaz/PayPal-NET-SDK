@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api.Payments;
-using PayPal;
+using PayPal.Api;
 using System;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     [TestClass]
     public class WebProfileTest
@@ -150,7 +149,7 @@ namespace RestApiSDKUnitTest
             profile.Delete(UnitTestUtil.GetApiContext());
 
             // Attempt to get the profile. This should result in an exception.
-            UnitTestUtil.AssertThrownException<PayPal.Exception.HttpException>(() => { WebProfile.Get(UnitTestUtil.GetApiContext(), profile.id); });
+            UnitTestUtil.AssertThrownException<PayPal.HttpException>(() => { WebProfile.Get(UnitTestUtil.GetApiContext(), profile.id); });
         }
     }
 }

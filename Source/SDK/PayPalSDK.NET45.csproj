@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CFCC4700-771A-46BA-A189-137034601158}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PayPal</RootNamespace>
+    <AssemblyName>PayPalSDK</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Bin\Debug\net45\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Bin\Release\net45\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPalCoreSDK">
+      <HintPath>..\packages\PayPalCoreSDK\lib\net45\PayPalCoreSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Api\Payments\Address.cs" />
+    <Compile Include="Api\Payments\Agreement.cs" />
+    <Compile Include="Api\Payments\AgreementStateDescriptor.cs" />
+    <Compile Include="Api\Payments\AgreementTransaction.cs" />
+    <Compile Include="Api\Payments\AgreementTransactions.cs" />
+    <Compile Include="Api\Payments\Amount.cs" />
+    <Compile Include="Api\Payments\Authorization.cs" />
+    <Compile Include="Api\Payments\BankAccount.cs" />
+    <Compile Include="Api\Payments\BankToken.cs" />
+    <Compile Include="Api\Payments\BillingInfo.cs" />
+    <Compile Include="Api\Payments\CancelNotification.cs" />
+    <Compile Include="Api\Payments\Capture.cs" />
+    <Compile Include="Api\Payments\CartBase.cs" />
+    <Compile Include="Api\Payments\ChargeModel.cs" />
+    <Compile Include="Api\Payments\Cost.cs" />
+    <Compile Include="Api\Payments\CreateProfileResponse.cs" />
+    <Compile Include="Api\Payments\Credit.cs" />
+    <Compile Include="Api\Payments\CreditCard.cs" />
+    <Compile Include="Api\Payments\CreditCardHistory.cs" />
+    <Compile Include="Api\Payments\CreditCardToken.cs" />
+    <Compile Include="Api\Payments\Currency.cs" />
+    <Compile Include="Api\Payments\CustomAmount.cs" />
+    <Compile Include="Api\Payments\Details.cs" />
+    <Compile Include="Api\Payments\Error.cs" />
+    <Compile Include="Api\Payments\ErrorDetails.cs" />
+    <Compile Include="Api\Payments\ExtendedBankAccount.cs" />
+    <Compile Include="Api\Payments\FlowConfig.cs" />
+    <Compile Include="Api\Payments\FundingInstrument.cs" />
+    <Compile Include="Api\Payments\FuturePayment.cs" />
+    <Compile Include="Api\Payments\HyperSchema.cs" />
+    <Compile Include="Api\Payments\InputFields.cs" />
+    <Compile Include="Api\Payments\Invoice.cs" />
+    <Compile Include="Api\Payments\InvoiceItem.cs" />
+    <Compile Include="Api\Payments\Invoices.cs" />
+    <Compile Include="Api\Payments\InvoicingMetaData.cs" />
+    <Compile Include="Api\Payments\InvoicingNotification.cs" />
+    <Compile Include="Api\Payments\InvoicingPaymentDetail.cs" />
+    <Compile Include="Api\Payments\InvoicingRefundDetail.cs" />
+    <Compile Include="Api\Payments\InvoicingSearch.cs" />
+    <Compile Include="Api\Payments\Item.cs" />
+    <Compile Include="Api\Payments\ItemList.cs" />
+    <Compile Include="Api\Payments\Links.cs" />
+    <Compile Include="Api\Payments\MerchantInfo.cs" />
+    <Compile Include="Api\Payments\MerchantPreferences.cs" />
+    <Compile Include="Api\Payments\Metadata.cs" />
+    <Compile Include="Api\Payments\NameValuePair.cs" />
+    <Compile Include="Api\Payments\Notification.cs" />
+    <Compile Include="Api\Payments\Order.cs" />
+    <Compile Include="Api\Payments\OverrideChargeModel.cs" />
+    <Compile Include="Api\Payments\Patch.cs" />
+    <Compile Include="Api\Payments\PatchRequest.cs" />
+    <Compile Include="Api\Payments\Payee.cs" />
+    <Compile Include="Api\Payments\Payer.cs" />
+    <Compile Include="Api\Payments\PayerInfo.cs" />
+    <Compile Include="Api\Payments\Payment.cs" />
+    <Compile Include="Api\Payments\PaymentCard.cs" />
+    <Compile Include="Api\Payments\PaymentCardToken.cs" />
+    <Compile Include="Api\Payments\PaymentDefinition.cs" />
+    <Compile Include="Api\Payments\PaymentDetail.cs" />
+    <Compile Include="Api\Payments\PaymentExecution.cs" />
+    <Compile Include="Api\Payments\PaymentHistory.cs" />
+    <Compile Include="Api\Payments\PaymentOptions.cs" />
+    <Compile Include="Api\Payments\PaymentTerm.cs" />
+    <Compile Include="Api\Payments\Phone.cs" />
+    <Compile Include="Api\Payments\Plan.cs" />
+    <Compile Include="Api\Payments\PlanList.cs" />
+    <Compile Include="Api\Payments\Presentation.cs" />
+    <Compile Include="Api\Payments\RedirectUrls.cs" />
+    <Compile Include="Api\Payments\Refund.cs" />
+    <Compile Include="Api\Payments\RefundDetail.cs" />
+    <Compile Include="Api\Payments\RelatedResources.cs" />
+    <Compile Include="Api\Payments\Sale.cs" />
+    <Compile Include="Api\Payments\Search.cs" />
+    <Compile Include="Api\Payments\ShippingAddress.cs" />
+    <Compile Include="Api\Payments\ShippingCost.cs" />
+    <Compile Include="Api\Payments\ShippingInfo.cs" />
+    <Compile Include="Api\Payments\Tax.cs" />
+    <Compile Include="Api\Payments\Terms.cs" />
+    <Compile Include="Api\Payments\Transaction.cs" />
+    <Compile Include="Api\Payments\TransactionBase.cs" />
+    <Compile Include="Api\Payments\Transactions.cs" />
+    <Compile Include="Api\Payments\WebProfile.cs" />
+    <Compile Include="Api\Payments\WebProfileList.cs" />
+    <Compile Include="Api\Validation\ArgumentValidator.cs" />
+    <Compile Include="Sdk\Info\SDKVersionImpl.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

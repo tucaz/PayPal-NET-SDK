@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("eBay Inc.")]
-[assembly: AssemblyProduct("RestApiSDKUnitTest")]
+[assembly: AssemblyProduct("PayPal.UnitTest")]
 [assembly: AssemblyCopyright("Copyright © 2009-2014 eBay Inc.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
