@@ -12,88 +12,34 @@ namespace PayPal
     public class RESTAPICallPreHandler : IAPICallPreHandler
     {
         /// <summary>
-        /// string Authorization Token
-        /// </summary>
-        private string authorizeToken;
-
-        /// <summary>
-        /// Idempotency Request Id
-        /// </summary>
-        private string reqId;
-
-        /// <summary>
         /// Dynamic configuration map
         /// </summary>
         private Dictionary<string, string> config;
 
         /// <summary>
-        /// SDKVersion instance
+        /// Optional headers map
         /// </summary>
-        private SDKVersion sVersion;
+        private Dictionary<string, string> headersMap;
+
+        /// <summary>
+        /// Gets or sets the SDK version information
+        /// </summary>
+        public SDKVersion SdkVersion { get; set; }
 
         /// <summary>
         ///  Gets and sets the Authorization Token
         /// </summary>
-        public string AuthorizationToken
-        {
-            get
-            {
-                return this.authorizeToken;
-            }
-            set
-            {
-                this.authorizeToken = value;
-            }
-        }
+        public string AuthorizationToken { get; set; }
 
         /// <summary>
         /// Gets and sets the Idempotency Request Id
         /// </summary>
-        public string RequestId
-        {
-            private get
-            {
-                return reqId;
-            }
-            set
-            {
-                reqId = value;
-            }
-        }
-
-        public string pLoad;
+        public string RequestId { get; set; }
 
         /// <summary>
         /// Payload
         /// </summary>
-        public string Payload
-        {
-            get
-            {
-                return pLoad;
-            }
-            set
-            {
-                pLoad = value;
-            }
-        }
-
-        public SDKVersion SdkVersion
-        {
-            get
-            {
-                return sVersion;
-            }
-            set
-            {
-                sVersion = value;
-            }
-        }
-
-        /// <summary>
-        /// Optional headers map
-        /// </summary>
-        private Dictionary<string, string> headersMap;
+        public string Payload { get; set; }
 
         /// <summary>
         /// RESTAPICallPreHandler taking dynamic configuration Dictionary
@@ -240,8 +186,7 @@ namespace PayPal
         /// <returns>User-Agent header value string</returns>
         protected Dictionary<string, string> FormUserAgentHeader()
         {
-            UserAgentHeader userAgentHeader = new UserAgentHeader((SdkVersion == null)? null : SdkVersion.GetSDKId(), (SdkVersion == null)? null : SdkVersion.GetSDKVersion());
-            return userAgentHeader.GetHeader();
+            return UserAgentHeader.GetHeader();
         }
 
         private String GetClientID()

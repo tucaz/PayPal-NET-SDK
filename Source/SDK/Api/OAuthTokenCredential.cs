@@ -123,7 +123,7 @@ namespace PayPal.Api
             this.ClientId = clientId;
             this.ClientSecret = clientSecret;
             this.config = config != null ? ConfigManager.GetConfigWithDefaults(config) : ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties()); 
-            this.SdkVersion = new SDKVersionImpl();
+            this.SdkVersion = new SDKVersion();
             this.AccessTokenExpirationSafetyGapInSeconds = 120; // Default is 2 minute safety gap for token expiration.
         }
 
@@ -253,8 +253,7 @@ namespace PayPal.Api
             httpRequest.Method = "POST";
             httpRequest.Accept = "*/*";
             httpRequest.ContentType = "application/x-www-form-urlencoded";
-            UserAgentHeader userAgentHeader = new UserAgentHeader(SdkVersion == null ? "" : SdkVersion.GetSDKId(), SdkVersion == null ? "" : SdkVersion.GetSDKVersion());
-            Dictionary<string, string> userAgentMap = userAgentHeader.GetHeader();
+            var userAgentMap = UserAgentHeader.GetHeader();
             foreach (KeyValuePair<string, string> entry in userAgentMap)
             {
                 // aganzha
@@ -295,20 +294,6 @@ namespace PayPal.Api
             this.AccessTokenExpirationInSeconds = (int)deserializedObject["expires_in"];
             this.AccessTokenLastCreationDate = DateTime.Now;
             return generatedToken;
-        }
-
-        private class SDKVersionImpl : SDKVersion
-        {
-
-            public string GetSDKId()
-            {
-                return BaseConstants.SdkId;
-            }
-
-            public string GetSDKVersion()
-            {
-                return BaseConstants.SdkVersion;
-            }
         }
     }
 

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PayPal REST API SDK for .NET Unit Tests")]
+[assembly: AssemblyTitle("PayPal SDK for .NET Unit Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("eBay Inc.")]
-[assembly: AssemblyProduct("PayPal.UnitTest")]
+[assembly: AssemblyProduct("PayPalSDK.UnitTest")]
 [assembly: AssemblyCopyright("Copyright © 2009-2014 eBay Inc.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

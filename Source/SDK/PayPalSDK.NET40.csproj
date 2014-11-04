@@ -154,6 +154,7 @@
     <Compile Include="Api\Transactions.cs" />
     <Compile Include="Api\WebProfile.cs" />
     <Compile Include="Api\WebProfileList.cs" />
+    <Compile Include="SDKVersion.cs" />
     <Compile Include="Util\ArgumentValidator.cs" />
     <Compile Include="Authentication\ICredential.cs" />
     <Compile Include="BaseConstants.cs" />
@@ -188,11 +189,9 @@
     <Compile Include="PayPalResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RESTAPICallPreHandler.cs" />
-    <Compile Include="SDKVersion.cs" />
     <Compile Include="UserAgentHeader.cs" />
     <Compile Include="Util\QueryParameters.cs" />
     <Compile Include="Util\SDKUtil.cs" />
-    <Compile Include="SDKVersionImpl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

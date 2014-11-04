@@ -4,19 +4,18 @@ using System.Text;
 
 namespace PayPal
 {
-    public interface SDKVersion
+    public class SDKVersion
     {
-
         /// <summary>
         /// SDK ID used in User-Agent HTTP header
         /// </summary>
         /// <returns>SDK ID</returns>
-        string GetSDKId();
+        public static string GetSDKId() { return "PayPalSDK"; }
 
         /// <summary>
         /// SDK Version used in User-Agent HTTP header
         /// </summary>
         /// <returns>SDK Version</returns>
-        string GetSDKVersion();
+        public static string GetSDKVersion() { return BaseConstants.SdkVersion; }
     }
 }

@@ -161,9 +161,6 @@ namespace PayPal
         // PayPal Request Id HTTP Header
         public const string PayPalRequestIdHeader = "PayPal-Request-Id";
 
-        // DotNet SdkId for paypal-core
-        public const string SdkId = "paypal-core-dotnet";
-
         // DotNet SdkVersion for paypal-core
         public static string SdkVersion { get { return SDKUtil.GetAssemblyVersionForType(typeof(BaseConstants)); } }
         

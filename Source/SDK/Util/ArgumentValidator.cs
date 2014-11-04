@@ -41,7 +41,7 @@ namespace PayPal.Util
                 apiContext.HTTPHeaders = new Dictionary<string, string>();
             }
             apiContext.HTTPHeaders[BaseConstants.ContentTypeHeader] = BaseConstants.ContentTypeHeaderJson;
-            apiContext.SdkVersion = new SDKVersionImpl();
+            apiContext.SdkVersion = new SDKVersion();
         }
     }
 }

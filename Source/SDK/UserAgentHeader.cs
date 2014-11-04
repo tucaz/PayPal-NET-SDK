@@ -12,34 +12,13 @@ namespace PayPal
     public class UserAgentHeader
     {
         /// <summary>
-        /// Product Id
-        /// </summary>
-        private string productId;
-
-        /// <summary>
-        /// Product Version
-        /// </summary>
-        private string productVersion;
-
-        /// <summary>
-        /// UserAgentHeader Constructor
-        /// </summary>
-        /// <param name="productId">Product Id, defaults to empty string if null or empty</param>
-        /// <param name="productVersion">Product Version, defaults to empty string if null or empty</param>
-        public UserAgentHeader(string productId, string productVersion)
-        {
-            this.productId = productId;
-            this.productVersion = productVersion;
-        }
-
-        /// <summary>
         /// Returns a PayPal specific User-Agent HTTP Header
         /// </summary>
         /// <returns>Dictionary containing User-Agent HTTP Header</returns>
-        public Dictionary<string, string> GetHeader()
+        public static Dictionary<string, string> GetHeader()
         {
             var userAgentDictionary = new Dictionary<string, string>();
-            userAgentDictionary.Add(BaseConstants.UserAgentHeader, this.GetUserAgentHeader());
+            userAgentDictionary.Add(BaseConstants.UserAgentHeader, UserAgentHeader.GetUserAgentHeader());
             return userAgentDictionary;
         }
 
@@ -47,16 +26,11 @@ namespace PayPal
         /// Creates the signature for the UserAgent header.
         /// </summary>
         /// <returns>A string containing the signature for the UserAgent header.</returns>
-        private string GetUserAgentHeader()
+        private static string GetUserAgentHeader()
         {
-            var header = new StringBuilder("PayPalSDK/");
-            header.Append(this.productId);
-            header.Append(" " + this.productVersion);
-            header.Append(" (");
-
+            var header = new StringBuilder("PayPal-NET-SDK " + BaseConstants.SdkVersion + " (");
             header.Append(string.Join(";", new string[] 
             {
-                FormatUserAgentParameter("core", BaseConstants.SdkVersion),
                 FormatUserAgentParameter("lang", "DOTNET"),
                 FormatUserAgentParameter("v", DotNetVersion),
                 FormatUserAgentParameter("clr", DotNetClrVersion),
@@ -73,7 +47,7 @@ namespace PayPal
         /// <param name="name">The name of the parameter.</param>
         /// <param name="value">The value of the parameter.</param>
         /// <returns>A formatted string containing both the parameter name and value.</returns>
-        private string FormatUserAgentParameter(string name, object value)
+        private static string FormatUserAgentParameter(string name, object value)
         {
             return string.Format("{0}={1}", name, value);
         }
