@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
-    public class MerchantInfo
+    public class MerchantInfo : PayPalSerializableObject
     {
         /// <summary>
         /// Email address of the merchant. 260 characters max.
@@ -63,13 +63,5 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "additional_info")]
         public string additional_info { get; set; }
-
-        /// <summary>
-        /// Converts the object to JSON string
-        /// </summary>
-        public virtual string ConvertToJson()
-        {
-            return JsonFormatter.ConvertToJson(this);
-        }
     }
 }

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
-    public class PaymentTerm
+    public class PaymentTerm : PayPalSerializableObject
     {
         /// <summary>
         /// Terms by which the invoice payment is due.
@@ -11,17 +11,9 @@ namespace PayPal.Api
         public string term_type { get; set; }
 
         /// <summary>
-        /// Date on which invoice payment is due. It must be always a future date. Date format: yyyy-MM-dd z. For example, 2014-02-27 PST
+        /// Date on which invoice payment is due. It must be always a future date. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "due_date")]
         public string due_date { get; set; }
-
-        /// <summary>
-        /// Converts the object to JSON string
-        /// </summary>
-        public virtual string ConvertToJson()
-        {
-            return JsonFormatter.ConvertToJson(this);
-        }
     }
 }

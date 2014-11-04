@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
-    public class Tax
+    public class Tax : PayPalSerializableObject
     {
         /// <summary>
         /// Identifier of the resource.
@@ -27,13 +27,5 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public Currency amount { get; set; }
-
-        /// <summary>
-        /// Converts the object to JSON string
-        /// </summary>
-        public virtual string ConvertToJson()
-        {
-            return JsonFormatter.ConvertToJson(this);
-        }
     }
 }

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
-    public class Address
+    public class Address : PayPalSerializableObject
     {
         /// <summary>
         /// Line 1 of the Address (eg. number, street, etc).
@@ -45,13 +45,5 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "phone")]
         public string phone { get; set; }
-
-        /// <summary>
-        /// Converts the object to JSON string
-        /// </summary>
-        public virtual string ConvertToJson()
-        {
-            return JsonFormatter.ConvertToJson(this);
-        }
     }
 }

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
-    public class ShippingInfo
+    public class ShippingInfo : PayPalSerializableObject
     {
         /// <summary>
         /// First name of the invoice recipient. 30 characters max.
@@ -27,13 +27,5 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "address")]
         public Address address { get; set; }
-
-        /// <summary>
-        /// Converts the object to JSON string
-        /// </summary>
-        public virtual string ConvertToJson()
-        {
-            return JsonFormatter.ConvertToJson(this);
-        }
     }
 }

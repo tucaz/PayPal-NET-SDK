@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
-    public class PaymentDetail
+    public class PaymentDetail : PayPalSerializableObject
     {
         /// <summary>
         /// PayPal payment detail indicating whether payment was made in an invoicing flow via PayPal or externally. In the case of the mark-as-paid API, payment type is EXTERNAL and this is what is now supported. The PAYPAL value is provided for backward compatibility.
@@ -23,7 +23,7 @@ namespace PayPal.Api
         public string transaction_type { get; set; }
 
         /// <summary>
-        /// Date when the invoice was paid. Date format: yyyy-MM-dd z. For example, 2014-02-27 PST.
+        /// Date when the invoice was paid. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "date")]
         public string date { get; set; }
@@ -39,13 +39,5 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "note")]
         public string note { get; set; }
-
-        /// <summary>
-        /// Converts the object to JSON string
-        /// </summary>
-        public virtual string ConvertToJson()
-        {
-            return JsonFormatter.ConvertToJson(this);
-        }
     }
 }

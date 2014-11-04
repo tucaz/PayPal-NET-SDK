@@ -1,12 +1,11 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
-using PayPal.Util;
-using PayPal.Api;
 using System.Drawing;
+using Newtonsoft.Json;
+using PayPal.Util;
 
 namespace PayPal.Api
 {
-    public class Invoice
+    public class Invoice : PayPalSerializableObject
     {
         /// <summary>
         /// Unique invoice resource identifier.
@@ -57,7 +56,7 @@ namespace PayPal.Api
         public List<InvoiceItem> items { get; set; }
 
         /// <summary>
-        /// Date on which the invoice was enabled. Date format: yyyy-MM-dd z. For example, 2014-02-27 PST
+        /// Date on which the invoice was enabled. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_date")]
         public string invoice_date { get; set; }
@@ -149,17 +148,6 @@ namespace PayPal.Api
         /// <summary>
         /// Creates a new invoice Resource.
         /// </summary>
-        /// <param name="accessToken">Access Token used for the API call.</param>
-        /// <returns>Invoice</returns>
-        public Invoice Create(string accessToken)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            return Create(apiContext);
-        }
-
-        /// <summary>
-        /// Creates a new invoice Resource.
-        /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <returns>Invoice</returns>
         public Invoice Create(APIContext apiContext)
@@ -168,21 +156,8 @@ namespace PayPal.Api
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             // Configure and send the request
-            string resourcePath = "v1/invoicing/invoices";
-            string payLoad = this.ConvertToJson();
-            return PayPalResource.ConfigureAndExecute<Invoice>(apiContext, HttpMethod.POST, resourcePath, payLoad);
-        }
-
-        /// <summary>
-        /// Search for invoice resources.
-        /// </summary>
-        /// <param name="accessToken">Access Token used for the API call.</param>
-        /// <param name="search">Search</param>
-        /// <returns>Invoices</returns>
-        public Invoices Search(string accessToken, Search search)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            return Search(apiContext, search);
+            var resourcePath = "v1/invoicing/invoices";
+            return PayPalResource.ConfigureAndExecute<Invoice>(apiContext, HttpMethod.POST, resourcePath, this.ConvertToJson());
         }
 
         /// <summary>
@@ -198,56 +173,25 @@ namespace PayPal.Api
             ArgumentValidator.Validate(search, "search");
 
             // Configure and send the request
-            object[] parameters = new object[] { this.id };
-            string pattern = "v1/invoicing/search";
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = search.ConvertToJson();
-            return PayPalResource.ConfigureAndExecute<Invoices>(apiContext, HttpMethod.POST, resourcePath, payLoad);
-        }
-
-        /// <summary>
-        /// Sends a legitimate invoice to the payer.
-        /// </summary>
-        /// <param name="accessToken">Access Token used for the API call.</param>
-        /// <returns></returns>
-        public void Send(string accessToken)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            Send(apiContext);
-            return;
+            var resourcePath = "v1/invoicing/search";
+            return PayPalResource.ConfigureAndExecute<Invoices>(apiContext, HttpMethod.POST, resourcePath, search.ConvertToJson());
         }
 
         /// <summary>
         /// Sends a legitimate invoice to the payer.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
-        /// <returns></returns>
-        public void Send(APIContext apiContext)
+        /// <param name="notifyMerchant">Specifies if the invoice send notification is needed for merchant</param>
+        public void Send(APIContext apiContext, bool notifyMerchant = true)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
             ArgumentValidator.Validate(this.id, "Id");
 
             // Configure and send the request
-            object[] parameters = new object[] { this.id };
-            string pattern = "v1/invoicing/invoices/{0}/send";
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = "";
-            PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.POST, resourcePath, payLoad);
-            return;
-        }
-
-        /// <summary>
-        /// Reminds the payer to pay the invoice.
-        /// </summary>
-        /// <param name="accessToken">Access Token used for the API call.</param>
-        /// <param name="notification">Notification</param>
-        /// <returns></returns>
-        public void Remind(string accessToken, Notification notification)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            Remind(apiContext, notification);
-            return;
+            var pattern = "v1/invoicing/invoices/{0}/send?notify_merchant={1}";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id, notifyMerchant });
+            PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.POST, resourcePath);
         }
 
         /// <summary>
@@ -255,7 +199,6 @@ namespace PayPal.Api
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="notification">Notification</param>
-        /// <returns></returns>
         public void Remind(APIContext apiContext, Notification notification)
         {
             // Validate the arguments to be used in the request
@@ -264,25 +207,9 @@ namespace PayPal.Api
             ArgumentValidator.Validate(notification, "notification");
 
             // Configure and send the request
-            object[] parameters = new object[] { this.id };
-            string pattern = "v1/invoicing/invoices/{0}/remind";
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = notification.ConvertToJson();
-            PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.POST, resourcePath, payLoad);
-            return;
-        }
-
-        /// <summary>
-        /// Cancels an invoice.
-        /// </summary>
-        /// <param name="accessToken">Access Token used for the API call.</param>
-        /// <param name="cancelNotification">CancelNotification</param>
-        /// <returns></returns>
-        public void Cancel(string accessToken, CancelNotification cancelNotification)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            Cancel(apiContext, cancelNotification);
-            return;
+            var pattern = "v1/invoicing/invoices/{0}/remind";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.POST, resourcePath, notification.ConvertToJson());
         }
 
         /// <summary>
@@ -290,7 +217,6 @@ namespace PayPal.Api
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="cancelNotification">CancelNotification</param>
-        /// <returns></returns>
         public void Cancel(APIContext apiContext, CancelNotification cancelNotification)
         {
             // Validate the arguments to be used in the request
@@ -299,25 +225,9 @@ namespace PayPal.Api
             ArgumentValidator.Validate(cancelNotification, "cancelNotification");
 
             // Configure and send the request
-            object[] parameters = new object[] { this.id };
-            string pattern = "v1/invoicing/invoices/{0}/cancel";
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = cancelNotification.ConvertToJson();
-            PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.POST, resourcePath, payLoad);
-            return;
-        }
-
-        /// <summary>
-        /// Mark the status of the invoice as paid.
-        /// </summary>
-        /// <param name="accessToken">Access Token used for the API call.</param>
-        /// <param name="paymentDetail">PaymentDetail</param>
-        /// <returns></returns>
-        public void RecordPayment(string accessToken, PaymentDetail paymentDetail)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            RecordPayment(apiContext, paymentDetail);
-            return;
+            var pattern = "v1/invoicing/invoices/{0}/cancel";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.POST, resourcePath, cancelNotification.ConvertToJson());
         }
 
         /// <summary>
@@ -325,7 +235,6 @@ namespace PayPal.Api
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="paymentDetail">PaymentDetail</param>
-        /// <returns></returns>
         public void RecordPayment(APIContext apiContext, PaymentDetail paymentDetail)
         {
             // Validate the arguments to be used in the request
@@ -334,25 +243,9 @@ namespace PayPal.Api
             ArgumentValidator.Validate(paymentDetail, "paymentDetail");
 
             // Configure and send the request
-            object[] parameters = new object[] { this.id };
-            string pattern = "v1/invoicing/invoices/{0}/record-payment";
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = paymentDetail.ConvertToJson();
-            PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.POST, resourcePath, payLoad);
-            return;
-        }
-
-        /// <summary>
-        /// Mark the status of the invoice as refunded.
-        /// </summary>
-        /// <param name="accessToken">Access Token used for the API call.</param>
-        /// <param name="refundDetail">RefundDetail</param>
-        /// <returns></returns>
-        public void RecordRefund(string accessToken, RefundDetail refundDetail)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            RecordRefund(apiContext, refundDetail);
-            return;
+            var pattern = "v1/invoicing/invoices/{0}/record-payment";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.POST, resourcePath, paymentDetail.ConvertToJson());
         }
 
         /// <summary>
@@ -360,7 +253,6 @@ namespace PayPal.Api
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="refundDetail">RefundDetail</param>
-        /// <returns></returns>
         public void RecordRefund(APIContext apiContext, RefundDetail refundDetail)
         {
             // Validate the arguments to be used in the request
@@ -369,31 +261,16 @@ namespace PayPal.Api
             ArgumentValidator.Validate(refundDetail, "refundDetail");
 
             // Configure and send the request
-            object[] parameters = new object[] { this.id };
-            string pattern = "v1/invoicing/invoices/{0}/record-refund";
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = refundDetail.ConvertToJson();
-            PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.POST, resourcePath, payLoad);
-            return;
-        }
-
-        /// <summary>
-        /// Get the invoice resource for the given identifier.
-        /// </summary>
-        /// <param name="accessToken">Access Token used for the API call.</param>
-        /// <param name="invoiceId">string</param>
-        /// <returns>Invoice</returns>
-        public static Invoice Get(string accessToken, string invoiceId)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            return Get(apiContext, invoiceId);
+            var pattern = "v1/invoicing/invoices/{0}/record-refund";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.POST, resourcePath, refundDetail.ConvertToJson());
         }
 
         /// <summary>
         /// Get the invoice resource for the given identifier.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
-        /// <param name="invoiceId">string</param>
+        /// <param name="invoiceId">Identifier of the invoice resource to obtain the data for.</param>
         /// <returns>Invoice</returns>
         public static Invoice Get(APIContext apiContext, string invoiceId)
         {
@@ -402,109 +279,85 @@ namespace PayPal.Api
             ArgumentValidator.Validate(invoiceId, "invoiceId");
 
             // Configure and send the request
-            object[] parameters = new object[] { invoiceId };
-            string pattern = "v1/invoicing/invoices/{0}";
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = "";
-            return PayPalResource.ConfigureAndExecute<Invoice>(apiContext, HttpMethod.GET, resourcePath, payLoad);
-        }
-
-        /// <summary>
-        /// Get all invoices of a merchant.
-        /// </summary>
-        /// <param name="accessToken">Access Token used for the API call.</param>
-        /// <returns>Invoices</returns>
-        public static Invoices GetAll(string accessToken)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            return GetAll(apiContext);
+            var pattern = "v1/invoicing/invoices/{0}";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { invoiceId });
+            return PayPalResource.ConfigureAndExecute<Invoice>(apiContext, HttpMethod.GET, resourcePath);
         }
 
         /// <summary>
         /// Get all invoices of a merchant.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="page">Start index.</param>
+        /// <param name="pageSize">Number of invoices to be returned by the GET API.</param>
+        /// <param name="totalCountRequired">A flag to depict that total_count should be returned in the response.</param>
         /// <returns>Invoices</returns>
-        public static Invoices GetAll(APIContext apiContext)
+        public static Invoices GetAll(APIContext apiContext, int page = 1, int pageSize = 20, bool totalCountRequired = false)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             // Configure and send the request
-            string resourcePath = "v1/invoicing/invoices";
-            string payLoad = "";
-            return PayPalResource.ConfigureAndExecute<Invoices>(apiContext, HttpMethod.GET, resourcePath, payLoad);
-        }
-
-        /// <summary>
-        /// Full update of the invoice resource for the given identifier.
-        /// </summary>
-        /// <param name="accessToken">Access Token used for the API call.</param>
-        /// <returns>Invoice</returns>
-        public Invoice Update(string accessToken)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            return Update(apiContext);
+            var pattern = "v1/invoicing/invoices?page={0}&page_size={1}&total_count_required={2}";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { page, pageSize, totalCountRequired });
+            return PayPalResource.ConfigureAndExecute<Invoices>(apiContext, HttpMethod.GET, resourcePath);
         }
 
         /// <summary>
         /// Full update of the invoice resource for the given identifier.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="notifyMerchant">Specifies if the invoice update notification is needed for merchant</param>
         /// <returns>Invoice</returns>
-        public Invoice Update(APIContext apiContext)
+        public Invoice Update(APIContext apiContext, bool notifyMerchant = true)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
             ArgumentValidator.Validate(this.id, "Id");
 
             // Configure and send the request
-            object[] parameters = new object[] { this.id };
-            string pattern = "v1/invoicing/invoices/{0}";
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = this.ConvertToJson();
-            return PayPalResource.ConfigureAndExecute<Invoice>(apiContext, HttpMethod.PUT, resourcePath, payLoad);
-        }
-
-        /// <summary>
-        /// Delete invoice resource for the given identifier.
-        /// </summary>
-        /// <param name="accessToken">Access Token used for the API call.</param>
-        /// <returns></returns>
-        public void Delete(string accessToken)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            Delete(apiContext);
-            return;
+            var pattern = "v1/invoicing/invoices/{0}?notify_merchant={1}";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id, notifyMerchant });
+            return PayPalResource.ConfigureAndExecute<Invoice>(apiContext, HttpMethod.PUT, resourcePath, this.ConvertToJson());
         }
 
         /// <summary>
         /// Delete invoice resource for the given identifier.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
-        /// <returns></returns>
-        public void Delete(APIContext apiContext)
+        /// <param name="invoiceId">Identifier of the invoice resource to be updated.</param>
+        public static void Delete(APIContext apiContext, string invoiceId)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(invoiceId, "invoiceId");
 
             // Configure and send the request
             apiContext.MaskRequestId = true;
-            object[] parameters = new object[] { this.id };
-            string pattern = "v1/invoicing/invoices/{0}";
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = "";
-            PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.DELETE, resourcePath, payLoad);
-            return;
+            var pattern = "v1/invoicing/invoices/{0}";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { invoiceId });
+            PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.DELETE, resourcePath);
         }
 
         /// <summary>
-        /// Converts the object to JSON string
+        /// Generates QR code for the Invoice URL identified by invoice_id.
         /// </summary>
-        public virtual string ConvertToJson()
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="invoiceId">Identifier of the invoice resource for which QR code has to be generated.</param>
+        /// <param name="width">Indicates the width of the QR code image in pixels. Range : 150-500. Default 500.</param>
+        /// <param name="height">Indicates the height of the QR code image in pixels. Range : 150-500. Default 500.</param>
+        /// <param name="action">Specifies the type of URL for which the QR code has the be generated.</param>
+        /// <returns>Image</returns>
+        public static Image QrCode(APIContext apiContext, string invoiceId, int width = 500, int height = 500, string action = "pay")
         {
-            return JsonFormatter.ConvertToJson(this);
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(invoiceId, "invoiceId");
+
+            // Configure and send the request
+            var pattern = "v1/invoicing/invoices/{0}/qr-code?width={1}&height={2}&action={3}";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { invoiceId, width, height, action });
+            return PayPalResource.ConfigureAndExecute<Image>(apiContext, HttpMethod.GET, resourcePath);
         }
     }
 }

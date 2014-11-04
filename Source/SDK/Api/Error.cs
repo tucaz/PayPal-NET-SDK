@@ -1,9 +1,9 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
-    public class Error
+    public class Error : PayPalSerializableObject
     {
         /// <summary>
         /// Human readable, unique name of the error.
@@ -34,13 +34,5 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "details")]
         public List<ErrorDetails> details { get; set; }
-
-        /// <summary>
-        /// Converts the object to JSON string
-        /// </summary>
-        public virtual string ConvertToJson()
-        {
-            return JsonFormatter.ConvertToJson(this);
-        }
     }
 }
