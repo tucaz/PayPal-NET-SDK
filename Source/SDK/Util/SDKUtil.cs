@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Text.RegularExpressions;
 using PayPal.OpenIdConnect;
+using PayPal.Api;
 
 namespace PayPal.Util
 {
@@ -22,12 +23,7 @@ namespace PayPal.Util
             string formatString = pattern;
             if (pattern != null && parameters != null)
             {
-                if (parameters != null && parameters.Length == 1 && parameters[0] is QueryParameters)
-                {
-                    //Form a object array using the passed Map
-                    parameters = SplitParameters(pattern, ((QueryParameters)parameters[0]).GetMap());
-                }
-                else if (parameters != null && parameters.Length == 1 && parameters[0] is CreateFromAuthorizationCodeParameters)
+                if (parameters != null && parameters.Length == 1 && parameters[0] is CreateFromAuthorizationCodeParameters)
                 {
                     //Form a object array using the passed Map
                     parameters = SplitParameters(pattern, ((CreateFromAuthorizationCodeParameters)parameters[0]).ContainerMap);
@@ -303,6 +299,24 @@ namespace PayPal.Util
         public static string GetAssemblyVersionForType(Type type)
         {
             return type.Assembly.GetName().Version.ToString(3);
+        }
+
+        /// <summary>
+        /// Gets the resource token from an approval URL, if found.
+        /// </summary>
+        /// <param name="links">The list of HATEOAS links objects to search.</param>
+        /// <returns>A string containing the resource token associated with an approval URL.</returns>
+        public static string GetTokenFromApprovalUrl(List<Links> links)
+        {
+            foreach (var link in links)
+            {
+                if (link.rel.Equals("approval_url"))
+                {
+                    var url = new Uri(link.href);
+                    return HttpUtility.ParseQueryString(url.Query).Get("token");
+                }
+            }
+            return string.Empty;
         }
     }
 }

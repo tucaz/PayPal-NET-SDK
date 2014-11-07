@@ -87,15 +87,6 @@ namespace PayPal.UnitTest
         }
 
         [TestMethod()]
-        public void AuthorizationNullAccessTokenTest()
-        {
-            string token = null;
-            var pay = PaymentTest.CreatePaymentAuthorization();
-            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(token, authorizationId));
-        }
-
-        [TestMethod()]
         public void AuthorizationNullIdTest()
         {
             UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(UnitTestUtil.GetApiContext(), null));

@@ -9,8 +9,8 @@ namespace PayPal.UnitTest
     {
         public static PaymentExecution GetPaymentExecution()
         {
-            List<Transactions> transactions = new List<Transactions>();
-            transactions.Add(TransactionsTest.GetTransactions());
+            var transactions = new List<Transaction>();
+            transactions.Add(TransactionTest.GetTransaction());
             PaymentExecution execution = new PaymentExecution();
             execution.payer_id = PayerInfoTest.GetPayerInfo().payer_id;
             execution.transactions = transactions;

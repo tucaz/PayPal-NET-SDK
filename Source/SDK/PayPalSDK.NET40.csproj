@@ -69,6 +69,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\APIContext.cs" />
+    <Compile Include="Api\CarrierAccountToken.cs" />
+    <Compile Include="Api\CurrencyConversion.cs" />
+    <Compile Include="Api\FundingDetail.cs" />
+    <Compile Include="Api\FundingOption.cs" />
+    <Compile Include="Api\FundingSource.cs" />
+    <Compile Include="Api\Incentive.cs" />
+    <Compile Include="Api\InstallmentInfo.cs" />
+    <Compile Include="Api\InstallmentOption.cs" />
+    <Compile Include="Api\IPayPalSerializableObject.cs" />
     <Compile Include="Api\OAuthTokenCredential.cs" />
     <Compile Include="Api\Address.cs" />
     <Compile Include="Api\Agreement.cs" />
@@ -103,12 +112,7 @@
     <Compile Include="Api\InputFields.cs" />
     <Compile Include="Api\Invoice.cs" />
     <Compile Include="Api\InvoiceItem.cs" />
-    <Compile Include="Api\Invoices.cs" />
-    <Compile Include="Api\InvoicingMetaData.cs" />
-    <Compile Include="Api\InvoicingNotification.cs" />
-    <Compile Include="Api\InvoicingPaymentDetail.cs" />
-    <Compile Include="Api\InvoicingRefundDetail.cs" />
-    <Compile Include="Api\InvoicingSearch.cs" />
+    <Compile Include="Api\InvoiceSearchResponse.cs" />
     <Compile Include="Api\Item.cs" />
     <Compile Include="Api\ItemList.cs" />
     <Compile Include="Api\Links.cs" />
@@ -131,13 +135,18 @@
     <Compile Include="Api\PaymentDetail.cs" />
     <Compile Include="Api\PaymentExecution.cs" />
     <Compile Include="Api\PaymentHistory.cs" />
+    <Compile Include="Api\PaymentInstruction.cs" />
     <Compile Include="Api\PaymentOptions.cs" />
     <Compile Include="Api\PaymentTerm.cs" />
+    <Compile Include="Api\PayPalResourceObject.cs" />
+    <Compile Include="Api\PayPalSerializableListObject.cs" />
     <Compile Include="Api\PayPalSerializableObject.cs" />
+    <Compile Include="Api\Percentage.cs" />
     <Compile Include="Api\Phone.cs" />
     <Compile Include="Api\Plan.cs" />
     <Compile Include="Api\PlanList.cs" />
     <Compile Include="Api\Presentation.cs" />
+    <Compile Include="Api\RecipientBankingInstruction.cs" />
     <Compile Include="Api\RedirectUrls.cs" />
     <Compile Include="Api\Refund.cs" />
     <Compile Include="Api\RefundDetail.cs" />
@@ -150,8 +159,6 @@
     <Compile Include="Api\Tax.cs" />
     <Compile Include="Api\Terms.cs" />
     <Compile Include="Api\Transaction.cs" />
-    <Compile Include="Api\TransactionBase.cs" />
-    <Compile Include="Api\Transactions.cs" />
     <Compile Include="Api\WebProfile.cs" />
     <Compile Include="Api\WebProfileList.cs" />
     <Compile Include="SDKVersion.cs" />

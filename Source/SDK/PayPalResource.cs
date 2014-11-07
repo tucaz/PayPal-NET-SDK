@@ -38,6 +38,23 @@ namespace PayPal
         /// <exception cref="PayPal.Exception.HttpException">Thrown if there was an error sending the request.</exception>
         /// <exception cref="PayPal.Exception.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
         /// <exception cref="PayPal.Exception.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
+        public static object ConfigureAndExecute(APIContext apiContext, HttpMethod httpMethod, string resource, string payload = "")
+        {
+            return ConfigureAndExecute<object>(apiContext, httpMethod, resource, payload);
+        }
+
+        /// <summary>
+        /// Configures and executes REST call: Supports JSON
+        /// </summary>
+        /// <typeparam name="T">Generic Type parameter for response object</typeparam>
+        /// <param name="apiContext">APIContext object</param>
+        /// <param name="httpMethod">HttpMethod type</param>
+        /// <param name="resource">URI path of the resource</param>
+        /// <param name="payload">JSON request payload</param>
+        /// <returns>Response object or null otherwise for void API calls</returns>
+        /// <exception cref="PayPal.Exception.HttpException">Thrown if there was an error sending the request.</exception>
+        /// <exception cref="PayPal.Exception.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
+        /// <exception cref="PayPal.Exception.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
         public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payload = "")
         {
             Dictionary<string, string> config = null;
@@ -76,59 +93,6 @@ namespace PayPal
             IAPICallPreHandler apiCallPreHandler = CreateIAPICallPreHandler(config, headersMap, authorizationToken, requestId, payload, apiContext.SdkVersion);
 
             return ConfigureAndExecute<T>(config, apiCallPreHandler, httpMethod, resourcePath);
-        }
-
-        /// <summary>
-        /// Configures and executes REST call: Supports JSON
-        /// </summary>
-        /// <typeparam name="T">Generic Type parameter for response object</typeparam>
-        /// <param name="accessToken">OAuth AccessToken to be used for the call.</param>
-        /// <param name="httpMethod">HttpMethod type</param>
-        /// <param name="resource">URI path of the resource</param>
-        /// <param name="payload">JSON request payload</param>
-        /// <returns>Response object or null otherwise for void API calls</returns>
-        [Obsolete("'ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payload)' is obsolete: 'The recommended alternative is to pass accessToken to APIContext object and use ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad) version.'")]
-        public static T ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payload)
-        {
-            APIContext apiContext = new APIContext(accessToken);
-            return ConfigureAndExecute<T>(apiContext, httpMethod, resource, null, payload);
-        }
-
-        /// <summary>
-        /// Configures and executes REST call: Supports JSON
-        /// </summary>
-        /// <typeparam name="T">Generic Type parameter for response object</typeparam>
-        /// <param name="apiContext">APIContext object</param>
-        /// <param name="httpMethod">HttpMethod type</param>
-        /// <param name="resource">URI path of the resource</param>
-        /// <param name="headersMap">HTTP Headers</param>
-        /// <param name="payload">JSON request payload</param>
-        /// <returns>Response object or null otherwise for void API calls</returns>
-        [Obsolete("'ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payload)' is obsolete: 'The recommended alternative is to pass Custom HTTP-Headers to APIContext HeadersMap and use ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad) version.'")]
-        public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payload)
-        {
-            // Code refactored; Calls supported method with only one option to pass
-            // Custom HTTP headers through APIContext object
-            if (apiContext == null)
-            {
-                throw new PayPalException("APIContext object is null");
-            }
-
-            // Merge headersMap argument with APIContext HeadersMap
-            Dictionary<string, string> apiHeaders = apiContext.HTTPHeaders;
-            if (apiHeaders == null)
-            {
-                apiHeaders = new Dictionary<string, string>();
-            }
-            if (headersMap != null && headersMap.Count > 0)
-            {
-                foreach (KeyValuePair<string, string> header in headersMap)
-                {
-                    apiHeaders.Add(header.Key.Trim(), header.Value.Trim());
-                }
-            }
-            apiContext.HTTPHeaders = apiHeaders;
-            return ConfigureAndExecute<T>(apiContext, httpMethod, resource, payload);
         }
 
         /// <summary>

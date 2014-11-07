@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace PayPal.Api
 {
-    public class PayPalSerializableObject
+    /// <summary>
+    /// Represents a PayPal model object that can be serialized to and from a JSON string.
+    /// </summary>
+    public class PayPalSerializableObject : IPayPalSerializableObject
     {
         /// <summary>
-        /// Converts the object to JSON string
+        /// Converts this object to a JSON string.
         /// </summary>
+        /// <returns>A JSON-formatted string.</returns>
         public virtual string ConvertToJson()
         {
             return JsonFormatter.ConvertToJson(this);

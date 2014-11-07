@@ -109,7 +109,6 @@
     <Compile Include="ShippingAddressTest.cs" />
     <Compile Include="ShippingInfoTest.cs" />
     <Compile Include="TermsTest.cs" />
-    <Compile Include="TransactionsTest.cs" />
     <Compile Include="TransactionTest.cs" />
     <Compile Include="UnitTestUtil.cs" />
     <Compile Include="WebProfileTest.cs" />

@@ -101,7 +101,7 @@ namespace PayPal.UnitTest
         {
             var payment = GetPaymentForSale();
             string accessToken = null;
-            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => payment.Create(accessToken));
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => payment.Create(new APIContext(accessToken)));
         }
 
         [TestMethod()]
@@ -117,9 +117,7 @@ namespace PayPal.UnitTest
         public void PaymentListHistoryTest()
         {
             var context = UnitTestUtil.GetApiContext();
-            var containerDictionary = new Dictionary<string, string>();
-            containerDictionary.Add("count", "10");
-            var paymentHistory = Payment.List(context, containerDictionary);
+            var paymentHistory = Payment.List(context, count: 10);
             Assert.AreEqual(10, paymentHistory.count);
         }
 

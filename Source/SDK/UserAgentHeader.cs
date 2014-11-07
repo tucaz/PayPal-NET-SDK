@@ -28,7 +28,7 @@ namespace PayPal
         /// <returns>A string containing the signature for the UserAgent header.</returns>
         private static string GetUserAgentHeader()
         {
-            var header = new StringBuilder("PayPal-NET-SDK " + BaseConstants.SdkVersion + " (");
+            var header = new StringBuilder("PayPalSDK/PayPal-NET-SDK " + BaseConstants.SdkVersion + " (");
             header.Append(string.Join(";", new string[] 
             {
                 FormatUserAgentParameter("lang", "DOTNET"),

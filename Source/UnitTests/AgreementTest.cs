@@ -107,8 +107,8 @@ namespace PayPal.UnitTest
         [TestMethod()]
         public void AgreementSearchTest()
         {
-            DateTime startDate = new DateTime(2014, 10, 1);
-            DateTime endDate = new DateTime(2014, 10, 14);
+            var startDate = "2014-10-01";
+            var endDate = "2014-10-14";
             var transactions = Agreement.ListTransactions(UnitTestUtil.GetApiContext(), "I-9STXMKR58UNN", startDate, endDate);
             Assert.IsNotNull(transactions);
             Assert.IsNotNull(transactions.agreement_transaction_list);

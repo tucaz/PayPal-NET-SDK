@@ -10,7 +10,7 @@ namespace PayPal.UnitTest
         public static CreditCard GetCreditCard()
         {
             CreditCard card = new CreditCard();
-            card.cvv2 = 962;
+            card.cvv2 = "962";
             card.expire_month = 01;
             card.expire_year = 2015;
             card.first_name = "John";
@@ -38,7 +38,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(card.last_name, "Doe");
             Assert.AreEqual(card.expire_month, 01);
             Assert.AreEqual(card.expire_year, 2015);
-            Assert.AreEqual(card.cvv2, 962);
+            Assert.AreEqual(card.cvv2, "962");
             Assert.AreEqual(card.id, "002");
             Assert.AreEqual(card.external_customer_id, "008");
             Assert.AreEqual(add.city, card.billing_address.city);
