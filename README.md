@@ -1,16 +1,48 @@
-# PayPal REST API SDK for .NET
+# PayPal .NET SDK
 
 > **Before using this SDK, please be aware of the [existing issues and currently available or upcoming features](https://github.com/paypal/rest-api-sdk-python/wiki/Existing-Issues-and-Unavailable%5CUpcoming-features) for the PayPal REST APIs (which all PayPal REST API SDKs are based upon).**
 
 ## Contents
 
-* [Prerequisites](https://github.com/paypal/rest-api-sdk-dotnet#prerequisites)
-* [Getting Started](https://github.com/paypal/rest-api-sdk-dotnet#getting-started)
-  * 1. [Download the Dependencies](https://github.com/paypal/rest-api-sdk-dotnet#download-the-dependencies)
-  * 2. [Configure Your Application](https://github.com/paypal/rest-api-sdk-dotnet#configure-your-application)
-  * 3. [Make Your First Call](https://github.com/paypal/rest-api-sdk-dotnet#make-your-first-call)
-* [NuGet](https://github.com/paypal/rest-api-sdk-dotnet#nuget)
-* [License](https://github.com/paypal/rest-api-sdk-dotnet#license)
+* [Upgrade Instructions](https://github.com/paypal/PayPal-NET-SDK#upgrade-instructions)
+* [Prerequisites](https://github.com/paypal/PayPal-NET-SDK#prerequisites)
+* [Getting Started](https://github.com/paypal/PayPal-NET-SDK#getting-started)
+  * 1. [Download the Dependencies](https://github.com/paypal/PayPal-NET-SDK#1-download-the-dependencies)
+  * 2. [Configure Your Application](https://github.com/paypal/PayPal-NET-SDK#2-configure-your-application)
+  * 3. [Make Your First Call](https://github.com/paypal/PayPal-NET-SDK#3-make-your-first-call)
+* [NuGet](https://github.com/paypal/PayPal-NET-SDK#nuget)
+* [License](https://github.com/paypal/PayPal-NET-SDK#license)
+
+## Upgrade Instructions
+
+> **ATTENTION:** If you are upgrading from the previous REST API SDK, you will need to make the following changes to the namespaces.  This was necessary to avoid namespace conflicts with the previous Core SDK that has since been integrated into this library.
+
+### Web.config and App.config changes
+
+The following section in your **web.config** or **app.config** needs to be changed from:
+````xml
+<section name="paypal" type="PayPal.Manager.SDKConfigHandler, PayPalCoreSDK" />
+````
+
+...to:
+````xml
+<section name="paypal" type="PayPal.SDKConfigHandler, PayPalSDK" />
+````
+
+### Namespace changes
+
+| Old Namespace | New Namespace |
+| ------------- | ------------- |
+| `PayPal.Manager` | `PayPal` |
+| `PayPal.Exception` | `PayPal` |
+| `PayPal.OpenIdConnect` | `PayPal.Api` |
+
+### Classes that have switched namespaces
+
+| Class | Old Namespace | New Namespace |
+| ----- | ------------- | ------------- |
+| `APIContext` | `PayPal` | `PayPal.Api` |
+| `BaseConstants` | `PayPal` | `PayPal.Api` |
 
 ## Prerequisites
 
