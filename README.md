@@ -4,18 +4,18 @@
 
 ## Contents
 
-* [Upgrade Instructions](https://github.com/paypal/PayPal-NET-SDK#upgrade-instructions)
-* [Prerequisites](https://github.com/paypal/PayPal-NET-SDK#prerequisites)
-* [Getting Started](https://github.com/paypal/PayPal-NET-SDK#getting-started)
-  * 1. [Download the Dependencies](https://github.com/paypal/PayPal-NET-SDK#1-download-the-dependencies)
-  * 2. [Configure Your Application](https://github.com/paypal/PayPal-NET-SDK#2-configure-your-application)
-  * 3. [Make Your First Call](https://github.com/paypal/PayPal-NET-SDK#3-make-your-first-call)
-* [NuGet](https://github.com/paypal/PayPal-NET-SDK#nuget)
-* [License](https://github.com/paypal/PayPal-NET-SDK#license)
+* [Upgrade Instructions](#upgrade-instructions)
+* [Prerequisites](#prerequisites)
+* [Getting Started](#getting-started)
+  * 1. [Download the Dependencies](#1-download-the-dependencies)
+  * 2. [Configure Your Application](#2-configure-your-application)
+  * 3. [Make Your First Call](#3-make-your-first-call)
+* [NuGet](#nuget)
+* [License](#license)
 
 ## Upgrade Instructions
 
-> **ATTENTION:** If you are upgrading from the previous REST API SDK, you will need to make the following changes to the namespaces.  This was necessary to avoid namespace conflicts with the previous Core SDK that has since been integrated into this library.
+> **ATTENTION:** If you are upgrading from the previous REST API SDK, you will need to make the following changes to your project.  This was necessary to avoid namespace conflicts with the previous Core SDK that has since been integrated into this library.
 
 ### Web.config and App.config changes
 
@@ -47,7 +47,7 @@ The following section in your **web.config** or **app.config** needs to be chang
 ## Prerequisites
 
 * Visual Studio 2010 or higher
-* [NuGet](https://github.com/paypal/PayPal-NET-SDK#nuget)
+* [NuGet](#nuget)
 
 ## Getting Started
 
@@ -198,20 +198,17 @@ var payment = Payment.Get(apiContext, paymentId);
 
 For more information on what features are supported by this SDK, refer to the [REST API Reference](https://developer.paypal.com/docs/api/) page on [developer.paypal.com](https://developer.paypal.com/).
 
-To get more code samples for using the SDK with the various PayPal features, refer to the [Samples](https://github.com/paypal/rest-api-sdk-dotnet/tree/master/Samples) project in this repository.
+To get more code samples for using the SDK with the various PayPal features, refer to the [Samples](https://github.com/paypal/PayPal-NET-SDK/tree/master/Samples) project in this repository.
 
 
 ## NuGet 
 
-NuGet is a Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects that use the .NET Framework.  If you develop a library or tool that you want to share with other developers, you create a NuGet package and store the package in a NuGet repository. If you want to use a library or tool that someone else has developed, you retrieve the package from the repository and install it in your Visual Studio project or solution. When you install the package, NuGet copies files to your solution and automatically makes whatever changes are needed, such as adding references and changing your app.config or web.config file. If you decide to remove the library, NuGet removes files and reverses whatever changes it made in your project so that no clutter is left.
+[NuGet](http://www.nuget.org) is a Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects that use the .NET Framework.  If you develop a library or tool that you want to share with other developers, you create a NuGet package and store the package in a NuGet repository. If you want to use a library or tool that someone else has developed, you retrieve the package from the repository and install it in your Visual Studio project or solution. When you install the package, NuGet copies files to your solution and automatically makes whatever changes are needed, such as adding references and changing your app.config or web.config file. If you decide to remove the library, NuGet removes files and reverses whatever changes it made in your project so that no clutter is left.
 
-Here is how you can get NuGet working on your IDE - 
-
-* [Installing NuGet in Visual Studio 2005 & 2008] (https://github.com/paypal/sdk-core-dotnet/wiki/Using-Nuget-in-Visual-Studio-2005-&-2008)
-* [Installing NuGet in Visual Studio 2010 & 2012] (https://github.com/paypal/sdk-core-dotnet/wiki/Using-Nuget-in-Visual-Studio-2010-&-2012)
+To install and configure NuGet with your version of Visual Studio, please refer to the [NuGet Installation Guide](http://docs.nuget.org/docs/start-here/installing-nuget).
 
 ## License
 
-* PayPal, Inc. SDK License - [LICENSE.txt](https://github.com/paypal/rest-api-sdk-dotnet/blob/master/LICENSE.txt)
+* PayPal, Inc. SDK License - [LICENSE.txt](https://github.com/paypal/PayPal-NET-SDK/blob/master/LICENSE.txt)
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/paypal/rest-api-sdk-dotnet/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/paypal/PayPal-NET-SDK/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
