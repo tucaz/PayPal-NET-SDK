@@ -28,9 +28,12 @@ namespace PayPal
                 sb.AppendLine("   URI:      " + this.Details.information_link);
                 sb.AppendLine("   Debug ID: " + this.Details.debug_id);
 
-                foreach (ErrorDetails errorDetails in this.Details.details)
+                if (this.Details.details != null)
                 {
-                    sb.AppendLine("   Details:  " + errorDetails.field + " -> " + errorDetails.issue);
+                    foreach (ErrorDetails errorDetails in this.Details.details)
+                    {
+                        sb.AppendLine("   Details:  " + errorDetails.field + " -> " + errorDetails.issue);
+                    }
                 }
                 this.LogMessage(sb.ToString());
             }

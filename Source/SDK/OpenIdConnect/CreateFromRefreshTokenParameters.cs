@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PayPal.OpenIdConnect
+namespace PayPal.Api
 {
     public class CreateFromRefreshTokenParameters : ClientCredentials
     {

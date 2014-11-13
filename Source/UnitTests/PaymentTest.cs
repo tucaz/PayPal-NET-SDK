@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using PayPal.Api;
 using PayPal;
-using PayPal.Manager;
 using PayPal.Util;
 using System;
 

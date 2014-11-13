@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Net;
 using Newtonsoft.Json;
-using PayPal.Manager;
 using PayPal.Log;
 using System.Text;
 using PayPal.Api;

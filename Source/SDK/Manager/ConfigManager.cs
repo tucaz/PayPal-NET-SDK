@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 
-namespace PayPal.Manager
+namespace PayPal.Api
 {    
     /// <summary>
     /// ConfigManager loads the configuration file and hands out appropriate parameters to application

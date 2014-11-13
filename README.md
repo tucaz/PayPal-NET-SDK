@@ -26,7 +26,7 @@ The following section in your **web.config** or **app.config** needs to be chang
 
 ...to:
 ````xml
-<section name="paypal" type="PayPal.SDKConfigHandler, PayPalSDK" />
+<section name="paypal" type="PayPal.SDKConfigHandler, PayPal" />
 ````
 
 ### Namespace changes
@@ -46,8 +46,8 @@ The following section in your **web.config** or **app.config** needs to be chang
 
 ## Prerequisites
 
-* Visual Studio 2008 or higher
-* [NuGet](https://github.com/paypal/rest-api-sdk-dotnet#nuget)
+* Visual Studio 2010 or higher
+* [NuGet](https://github.com/paypal/PayPal-NET-SDK#nuget)
 
 ## Getting Started
 
@@ -56,7 +56,7 @@ The following section in your **web.config** or **app.config** needs to be chang
 To begin using this SDK, first download this SDK from NuGet.
 
 ````
-NuGet Install -Package RestApiSDK
+NuGet Install -Package PayPal
 ````
 
 Optionally, also download [log4net](https://www.nuget.org/packages/log4net/) to give your application enhanced logging capabilities.
@@ -66,8 +66,7 @@ NuGet Install -Package log4net
 ````
 
 Once all the libraries are downloaded, simply add the following libraries to your project references (**Project** > **Add Reference...**):
- * RestApiSDK.dll
- * PayPalCoreSDK.dll
+ * PayPal.dll
  * Newtonsoft.Json.dll
  * log4net.dll
 
@@ -82,7 +81,7 @@ When using the SDK with your application, the SDK will attempt to look for PayPa
   NOTE: This element MUST be the first child under the root element in the *.config file.
   -->
   <configSections>
-    <section name="paypal" type="PayPal.Manager.SDKConfigHandler, PayPalCoreSDK" />
+    <section name="paypal" type="PayPal.SDKConfigHandler, PayPal" />
     <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net"/>
   </configSections>
 
@@ -130,7 +129,6 @@ The following are values that can be specified in the `<paypal>` section of the 
 | `mode` | Determines which PayPal endpoint URL will be used with your application. Possible values are `live` or `sandbox`. |
 | `endpoint` | Overrides the default REST endpoint URL as well as `mode`, if set. |
 | `oauth.EndPoint` | Overrides the default endpoint URL used for gettings OAuth tokens. |
-| `IPNEndpoint` | Overrides the default endpoint URL used for validating IPN messages. |
 | `requestRetries` | The number of times HTTP requests should be attempted by the SDK before an error is thrown. Default value is `3`. |
 | `connectionTimeout` | The amount of time (in milliseconds) before an HTTP request should timeout. Default value is `30000`. |
 | `clientId` | Your application's **Client ID** as specified on your PayPal account's [My REST Apps](https://developer.paypal.com/webapps/developer/applications/myapps) page for your specific application. |
@@ -145,8 +143,11 @@ The following are values that can be specified in the `<paypal>` section of the 
 Before you can begin making various calls to PayPal's REST APIs via the SDK, you must first authenticate with PayPal using an **OAuth access token** that can be used with each call.  To do this, you will need to use the `OAuthTokenCredential` class.
 
 ````c#
+using PayPal;
+using PayPal.Api;
+
 // Get a reference to the config
-var config = PayPal.Manager.ConfigManager.Instance.GetProperties();
+var config = ConfigManager.Instance.GetProperties();
 
 // Read the clientId and clientSecret stored in the config
 var clientId = config[BaseConstants.ClientId];

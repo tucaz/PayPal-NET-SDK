@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PayPal
+namespace PayPal.Api
 {
     public class SDKVersion
     {

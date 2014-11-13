@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using PayPal;
 using PayPal.Api;
-using PayPal.Manager;
 
 namespace PayPal.UnitTest
 {

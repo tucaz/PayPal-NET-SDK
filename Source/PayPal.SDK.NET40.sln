@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPal.SDK.NET40", "SDK\PayPal.SDK.NET40.csproj", "{CFCC4700-771A-46BA-A189-137034601158}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPal.SDK.NET40.UnitTests", "UnitTests\PayPal.SDK.NET40.UnitTests.csproj", "{0F307BFE-6D0C-4296-9D09-148A4DF275CF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CFCC4700-771A-46BA-A189-137034601158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFCC4700-771A-46BA-A189-137034601158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFCC4700-771A-46BA-A189-137034601158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFCC4700-771A-46BA-A189-137034601158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F307BFE-6D0C-4296-9D09-148A4DF275CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F307BFE-6D0C-4296-9D09-148A4DF275CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F307BFE-6D0C-4296-9D09-148A4DF275CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F307BFE-6D0C-4296-9D09-148A4DF275CF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

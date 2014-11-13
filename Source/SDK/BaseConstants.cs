@@ -1,7 +1,7 @@
 using System.Text;
 using PayPal.Util;
 
-namespace PayPal
+namespace PayPal.Api
 {
     public static class BaseConstants
     {

@@ -1,6 +1,6 @@
 using System.Configuration;
 
-namespace PayPal.Manager
+namespace PayPal
 {
     /// <summary>
     /// Custom handler for SDK configuration section as defined in App.Config or Web.Config files

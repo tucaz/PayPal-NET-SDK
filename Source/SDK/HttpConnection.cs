@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Net;
 using System.IO;
-using PayPal.Manager;
 using System.Globalization;
 using PayPal.Log;
 
-namespace PayPal
+namespace PayPal.Api
 {
     public class HttpConnection
     {

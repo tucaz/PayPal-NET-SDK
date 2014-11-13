@@ -5,7 +5,6 @@ using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PayPal;
-using PayPal.Manager;
 using PayPal.Log;
 using System.Web;
 
@@ -48,61 +47,37 @@ namespace PayPal.Api
         /// <summary>
         /// Gets the client ID to be used when creating an OAuth token.
         /// </summary>
-        public string ClientId
-        {
-            get;
-            private set;
-        }
+        public string ClientId { get; private set; }
 
         /// <summary>
         /// Gets the client secret to be used when creating an OAuth token.
         /// </summary>
-        public string ClientSecret
-        {
-            get;
-            private set;
-        }
+        public string ClientSecret { get; private set; }
 
         /// <summary>
         /// Gets the application ID returned by OAuth servers.
         /// Must first call <see cref="OAuthtokenCredentials.GetAccessToken()"/> to populate this property.
         /// </summary>
-        public string ApplicationId
-        {
-            get;
-            private set;
-        }
+        public string ApplicationId { get; private set; }
 
         /// <summary>
         /// Gets or sets the lifetime of a created access token in seconds.
         /// Must first call <see cref="OAuthtokenCredentials.GetAccessToken()"/> to populate this property.
         /// </summary>
-        public int AccessTokenExpirationInSeconds
-        {
-            get;
-            set;
-        }
+        public int AccessTokenExpirationInSeconds { get; set; }
 
         /// <summary>
         /// Gets the last date when access token was generated.
         /// Must first call <see cref="OAuthtokenCredentials.GetAccessToken()"/> to populate this property.
         /// </summary>
-        public DateTime AccessTokenLastCreationDate
-        {
-            get;
-            private set;
-        }
+        public DateTime AccessTokenLastCreationDate { get; private set; }
 
         /// <summary>
         /// Gets or sets the safety gap when checking the expiration of an already created access token in seconds.
         /// If the elapsed time since the last access token was created is more than the expiration - the safety gap,
         /// then a new token will be created when calling <see cref="OAuthTokenCredential.GetAccessToken()"/>.
         /// </summary>
-        public int AccessTokenExpirationSafetyGapInSeconds
-        {
-            get;
-            set;
-        }
+        public int AccessTokenExpirationSafetyGapInSeconds { get; set; }
                
         /// <summary>
         /// Client Id and Secret for the OAuth

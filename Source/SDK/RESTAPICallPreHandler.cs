@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using PayPal.Manager;
 
-namespace PayPal
+namespace PayPal.Api
 {
     /// <summary>
     /// RESTApiCallPreHandler requires a configuration system to function properly. Pass

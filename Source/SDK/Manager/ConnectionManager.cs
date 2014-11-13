@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using PayPal.Log;
 
-namespace PayPal.Manager
+namespace PayPal.Api
 {
     /// <summary>
     ///  ConnectionManager retrieves HttpConnection objects used by API service

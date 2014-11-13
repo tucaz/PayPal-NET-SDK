@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PayPal;
 using PayPal.Api;
-using PayPal.Manager;
 
 namespace PayPal.UnitTest
 {

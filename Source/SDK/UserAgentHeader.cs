@@ -4,7 +4,7 @@ using System.Management;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace PayPal
+namespace PayPal.Api
 {
     /// <summary>
     /// PayPal User-Agent Header implementation class

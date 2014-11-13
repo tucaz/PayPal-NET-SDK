@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
 using System.Text.RegularExpressions;
-using PayPal.OpenIdConnect;
 using PayPal.Api;
 
 namespace PayPal.Util
