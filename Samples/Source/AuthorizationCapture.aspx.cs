@@ -10,65 +10,33 @@ using PayPal;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using PayPal.Sample.Utilities;
 
 namespace PayPal.Sample
 {
-    public partial class AuthorizationCapture : System.Web.UI.Page
+    public partial class AuthorizationCapture : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-            Capture capture = null;
-            try
-            {
-                // ### Api Context
-                // Pass in a `APIContext` object to authenticate 
-                // the call and to send a unique request id 
-                // (that ensures idempotency). The SDK generates
-                // a request id if you do not pass one explicitly. 
-                // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
-                APIContext apiContext = Configuration.GetAPIContext();
-                                
-                // ###Authorization
-                // Retrieve a Authorization object
-                // by making a Payment with intent
-                // as `authorize`
-                Authorization authorization = Common.CreateAuthorization(apiContext);
+                // Retrieve a payment Authorization objectby making a Payment with intent as `authorize`.
+                var authorization = Common.CreateAuthorization(this.flow, this.apiContext);
 
-                // ###Amount
-                // Let's you specify a capture amount.
-                Amount amnt = new Amount();
-                amnt.currency = "USD";
-                amnt.total = "4.54";
-
-                capture = new Capture();
-                capture.amount = amnt;
-
-                // ##IsFinalCapture
-                // If set to true, all remaining 
-                // funds held by the authorization 
-                // will be released in the funding 
-                // instrument. Default is `false`.
-                capture.is_final_capture = true;                      
+                // Specify an amount to capture.  By setting 'is_final_capture' to true, all remaining funds held by the authorization will be released from the funding instrument.
+                var capture = new Capture()
+                {
+                    amount = new Amount()
+                    {
+                        currency = "USD",
+                        total = "4.54"
+                    },
+                    is_final_capture = true
+                };
                 
                 // Capture an authorized payment by POSTing to
                 // URI v1/payments/authorization/{authorization_id}/capture
-                Capture responseCapture = authorization.Capture(apiContext, capture);
-                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(responseCapture.ConvertToJson()));
-            }
-            catch (PayPalException ex)
-            {
-                CurrContext.Items.Add("Error", ex.Message);
-            }
-
-            if (capture != null)
-            {
-                CurrContext.Items.Add("RequestJson", Common.FormatJsonString(capture.ConvertToJson()));
-            }
-
-            Server.Transfer("~/Response.aspx");
-
+                this.flow.AddNewRequest("Capture authorized payment", capture, string.Format("URI: v1/payments/authorization/{0}/capture", authorization.id));
+                var responseCapture = authorization.Capture(this.apiContext, capture);
+                this.flow.RecordResponse(responseCapture);
         }
-
     }
 }

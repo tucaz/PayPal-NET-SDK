@@ -16,48 +16,45 @@ using Newtonsoft.Json;
 
 namespace PayPal.Sample
 {
-    public partial class PaymentExperienceGet : System.Web.UI.Page
+    public partial class PaymentExperienceGet : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            var CurrContext = HttpContext.Current;
-            var profile = new WebProfile();
-
-            try
+            // Setup the profile we want to create
+            var profile = new WebProfile()
             {
-                var apiContext = Configuration.GetAPIContext();
+                name = Guid.NewGuid().ToString(),
+                presentation = new Presentation()
+                {
+                    brand_name = "Sample brand",
+                    locale_code = "US",
+                    logo_image = "https://www.paypal.com/"
+                },
+                input_fields = new InputFields()
+                {
+                    address_override = 1,
+                    allow_note = true,
+                    no_shipping = 0
+                },
+                flow_config = new FlowConfig()
+                {
+                    bank_txn_pending_url = "https://www.paypal.com/",
+                    landing_page_type = "billing"
+                }
+            };
 
-                // Setup the profile we want to create
-                profile.name = Guid.NewGuid().ToString();
-                profile.presentation = new Presentation();
-                profile.presentation.brand_name = "Sample brand";
-                profile.presentation.locale_code = "US";
-                profile.presentation.logo_image = "https://www.paypal.com/";
-                profile.input_fields = new InputFields();
-                profile.input_fields.address_override = 1;
-                profile.input_fields.allow_note = true;
-                profile.input_fields.no_shipping = 0;
-                profile.flow_config = new FlowConfig();
-                profile.flow_config.bank_txn_pending_url = "https://www.paypal.com/";
-                profile.flow_config.landing_page_type = "billing";
+            // Create the profile
+            this.flow.AddNewRequest("Create profile", profile);
+            var response = profile.Create(this.apiContext);
+            this.flow.RecordResponse(response);
 
-                // Create the profile
-                var response = profile.Create(apiContext);
+            // Get the profile using the ID returned from the previous Create() call.
+            this.flow.AddNewRequest("Retrieve profile", description: "ID: " + response.id);
+            var retrievedProfile = WebProfile.Get(this.apiContext, response.id);
+            this.flow.RecordResponse(retrievedProfile);
 
-                // Get the profile using the ID returned from the previous Create() call.
-                var retrievedProfile = WebProfile.Get(apiContext, response.id);
-
-                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(retrievedProfile.ConvertToJson()));
-
-                // Delete the newly-created profile
-                retrievedProfile.Delete(apiContext);
-            }
-            catch (Exception ex)
-            {
-                CurrContext.Items.Add("Error", ex.Message);
-            }
-
-            Server.Transfer("~/Response.aspx");
+            // Cleanup by deleting the newly-created profile
+            retrievedProfile.Delete(this.apiContext);
         }
     }
 }

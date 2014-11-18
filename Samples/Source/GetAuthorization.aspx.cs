@@ -12,41 +12,23 @@ using Newtonsoft.Json.Linq;
 
 namespace PayPal.Sample
 {
-    public partial class GetAuthorization : System.Web.UI.Page
+    public partial class GetAuthorization : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-            try
-            {
-                // ### Api Context
-                // Pass in a `APIContext` object to authenticate 
-                // the call and to send a unique request id 
-                // (that ensures idempotency). The SDK generates
-                // a request id if you do not pass one explicitly. 
-                 // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
-                APIContext apiContext = Configuration.GetAPIContext();
+            // ###Authorization
+            // Retrieve an Authorization Id
+            // by making a Payment with intent
+            // as 'authorize' and parsing through
+            // the Payment object
+            string authorizationId = Common.CreateAuthorization(this.flow, this.apiContext).id;
 
-                // ###Authorization
-                // Retrieve an Authorization Id
-                // by making a Payment with intent
-                // as 'authorize' and parsing through
-                // the Payment object
-                string authorizationId = Common.CreateAuthorization(apiContext).id;
-
-                // Get Authorization by sending
-                // a GET request with authorization Id
-                // to the
-                // URI v1/payments/authorization/{id}
-                Authorization authorization = Authorization.Get(apiContext, authorizationId);
-                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(authorization.ConvertToJson()));
-            }
-            catch (PayPalException ex)
-            {
-                CurrContext.Items.Add("Error", ex.Message);
-            }
-
-            Server.Transfer("~/Response.aspx");
+            // Get Authorization by sending
+            // a GET request with authorization Id
+            // to the
+            // URI v1/payments/authorization/{id}
+            this.flow.AddNewRequest("Get authorization details", description: "ID: " + authorizationId);
+            this.flow.RecordResponse(Authorization.Get(this.apiContext, authorizationId));
         }
 
     }

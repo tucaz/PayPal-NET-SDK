@@ -11,71 +11,48 @@ using System.Collections.Generic;
 
 namespace PayPal.Sample
 {
-    public partial class OrderSample : System.Web.UI.Page
+    public partial class OrderSample : BaseSamplePage
     {
-        private APIContext apiContext;
         private Order order;
         private Amount amount;
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-
-            // ### Api Context
-            // Pass in a `APIContext` object to authenticate 
-            // the call and to send a unique request id 
-            // (that ensures idempotency). The SDK generates
-            // a request id if you do not pass one explicitly. 
-            // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
-            this.apiContext = Configuration.GetAPIContext();
-
-            try
+            string payerId = Request.Params["PayerID"];
+            if (string.IsNullOrEmpty(payerId))
             {
-                string payerId = Request.Params["PayerID"];
-                if (string.IsNullOrEmpty(payerId))
+                // Creating a payment
+                string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/OrderSample.aspx?";
+                var guid = Convert.ToString((new Random()).Next(100000));
+                var createdPayment = Common.CreatePaymentOrder(this.flow, this.apiContext, baseURI + "guid=" + guid);
+
+                var links = createdPayment.links.GetEnumerator();
+
+                while (links.MoveNext())
                 {
-                    // Creating a payment
-                    string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/OrderSample.aspx?";
-                    var guid = Convert.ToString((new Random()).Next(100000));
-                    var createdPayment = Common.CreatePaymentOrder(HttpContext.Current, apiContext, baseURI + "guid=" + guid);
-
-                    CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(createdPayment.ConvertToJson()));
-
-                    var links = createdPayment.links.GetEnumerator();
-
-                    while (links.MoveNext())
+                    Links lnk = links.Current;
+                    if (lnk.rel.ToLower().Trim().Equals("approval_url"))
                     {
-                        Links lnk = links.Current;
-                        if (lnk.rel.ToLower().Trim().Equals("approval_url"))
-                        {
-                            CurrContext.Items.Add("RedirectURL", lnk.href);
-                        }
+                        HttpContext.Current.Items.Add("RedirectURL", lnk.href);
                     }
-                    Session.Add(guid, createdPayment.id);
                 }
-                else
-                {
-                    // Execute the order
-                    var executedPayment = Common.ExecutePayment(apiContext, payerId, Request.Params["guid"]);
-                    CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(executedPayment.ConvertToJson()));
-
-                    this.order = executedPayment.transactions[0].related_resources[0].order;
-                    this.amount = executedPayment.transactions[0].amount;
-
-                    // Once the order has been executed, an order ID is returned that can be used
-                    // to do one of the following:
-                    // this.AuthorizeOrder();
-                    // this.CaptureOrder();
-                    // this.VoidOrder();
-                    // this.RefundOrder();
-                }
+                Session.Add(guid, createdPayment.id);
             }
-            catch (Exception ex)
+            else
             {
-                CurrContext.Items.Add("Error", ex.Message);
-            }
+                // Execute the order
+                var executedPayment = Common.ExecutePayment(this.flow, this.apiContext, payerId, Request.Params["guid"]);
 
-            Server.Transfer("~/Response.aspx");
+                this.order = executedPayment.transactions[0].related_resources[0].order;
+                this.amount = executedPayment.transactions[0].amount;
+
+                // Once the order has been executed, an order ID is returned that can be used
+                // to do one of the following:
+                // this.AuthorizeOrder();
+                // this.CaptureOrder();
+                // this.VoidOrder();
+                // this.RefundOrder();
+            }
         }
 
         /// <summary>

@@ -112,6 +112,9 @@
     <Compile Include="AuthorizationVoid.aspx.designer.cs">
       <DependentUpon>AuthorizationVoid.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BaseSamplePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="BillingAgreementCreateAndExecute.aspx.cs">
       <DependentUpon>BillingAgreementCreateAndExecute.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -328,6 +331,8 @@
     <Compile Include="GetCreditCard.aspx.designer.cs">
       <DependentUpon>GetCreditCard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\RequestFlowItem.cs" />
+    <Compile Include="Utilities\RequestFlow.cs" />
     <Compile Include="Utilities\SampleCategory.cs" />
     <Compile Include="Utilities\SampleItem.cs" />
   </ItemGroup>

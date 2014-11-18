@@ -13,43 +13,19 @@ using System.Collections.Generic;
 
 namespace PayPal.Sample
 {
-    public partial class AuthorizationVoid : System.Web.UI.Page
+    public partial class AuthorizationVoid : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-            Authorization authorization = null;
-            try
-            {
-                // ### Api Context
-                // Pass in a `APIContext` object to authenticate 
-                // the call and to send a unique request id 
-                // (that ensures idempotency). The SDK generates
-                // a request id if you do not pass one explicitly. 
-                // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
-                APIContext apiContext = Configuration.GetAPIContext();   
-               
-                // ###Authorization
-                // Create an Authorization 
-                // by making a Payment with intent
-                // as 'authorize'
-                authorization = Common.CreateAuthorization(apiContext);
+            // ###Authorization
+            // Create an Authorization 
+            // by making a Payment with intent
+            // as 'authorize'
+            var authorization = Common.CreateAuthorization(this.flow, this.apiContext);
 
-                // Void an Authorization
-                // by POSTing to 
-                // URI v1/payments/authorization/{authorization_id}/void
-                Authorization returnAuthorization = authorization.Void(apiContext);
-                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(returnAuthorization.ConvertToJson()));
-            }
-            catch (PayPalException ex)
-            {
-                CurrContext.Items.Add("Error", ex.Message);
-            }
-            
-            Server.Transfer("~/Response.aspx");
-
+            // Void the authorization
+            this.flow.AddNewRequest("Void authorization", description: string.Format("URI: v1/payments/authorization/{0}/void", authorization.id));
+            this.flow.RecordResponse(authorization.Void(this.apiContext));
         }
-
-        
     }
 }

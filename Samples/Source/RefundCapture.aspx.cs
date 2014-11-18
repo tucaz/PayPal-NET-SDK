@@ -12,60 +12,38 @@ using System.Collections.Generic;
 
 namespace PayPal.Sample
 {
-    public partial class RefundCapture : System.Web.UI.Page
+    public partial class RefundCapture : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-            Refund refund = null;
-            try
+            // ###Authorization
+            // Retrieve a Authorization object
+            // by making a Payment with intent
+            // as 'authorize'
+            var authorization = Common.CreateAuthorization(this.flow, this.apiContext);
+
+            /// ###Capture
+            // Create a Capture object
+            // by doing a capture on
+            // Authorization object
+            var capture = Common.GetCapture(this.flow, this.apiContext, authorization);
+
+            /// ###Refund
+            /// Create a Refund object
+            var refund = new Refund()
             {
+                amount = new Amount()
+                {
+                    currency = "USD",
+                    total = "0.50"
+                }
+            };
 
-                // ### Api Context
-                // Pass in a `APIContext` object to authenticate 
-                // the call and to send a unique request id 
-                // (that ensures idempotency). The SDK generates
-                // a request id if you do not pass one explicitly. 
-                 // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
-                APIContext apiContext = Configuration.GetAPIContext();
-
-                // ###Authorization
-                // Retrieve a Authorization object
-                // by making a Payment with intent
-                // as 'authorize'
-                Authorization authorization = Common.CreateAuthorization(apiContext);
-
-                /// ###Capture
-                // Create a Capture object
-                // by doing a capture on
-                // Authorization object
-                Capture capture = Common.GetCapture(apiContext, authorization);
-
-                /// ###Refund
-                /// Create a Refund object
-                refund = new Refund();
-
-                // ###Amount
-                // Let's you specify a capture amount.
-                Amount refundAmount = new Amount();
-                refundAmount.currency = "USD";
-                refundAmount.total = "0.50";
-
-                refund.amount = refundAmount;
-
-                // Do a Refund by
-                // POSTing to 
-                // URI v1/payments/capture/{capture_id}/refund
-                Refund responseRefund = capture.Refund(Configuration.GetAPIContext(), refund);
-                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(responseRefund.ConvertToJson()));
-
-            }
-            catch (PayPalException ex)
-            {
-                CurrContext.Items.Add("Error", ex.Message);
-            }
-            CurrContext.Items.Add("RequestJson", Common.FormatJsonString(refund.ConvertToJson()));
-            Server.Transfer("~/Response.aspx");
+            // Do a Refund by
+            // POSTing to 
+            // URI v1/payments/capture/{capture_id}/refund
+            this.flow.AddNewRequest("Capture refund", refund, "ID: " + capture.id);
+            this.flow.RecordResponse(capture.Refund(Configuration.GetAPIContext(), refund));
         }
     }
 }

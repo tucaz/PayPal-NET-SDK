@@ -12,61 +12,39 @@ using System.Collections.Generic;
 
 namespace PayPal.Sample
 {
-    public partial class PaymentWithPayPal : System.Web.UI.Page
+    public partial class PaymentWithPayPal : BaseSamplePage
     {
         private Payment payment;
         private FuturePayment futurePayment;
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-
-            // ### Api Context
-            // Pass in a `APIContext` object to authenticate 
-            // the call and to send a unique request id 
-            // (that ensures idempotency). The SDK generates
-            // a request id if you do not pass one explicitly. 
-             // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
-            APIContext apiContext = Configuration.GetAPIContext();
-
-            try
+            string payerId = Request.Params["PayerID"];
+            if (string.IsNullOrEmpty(payerId))
             {
-                string payerId = Request.Params["PayerID"];
-                if (string.IsNullOrEmpty(payerId))
+                // Creating a payment
+                string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/PaymentWithPayPal.aspx?";
+                var guid = Convert.ToString((new Random()).Next(100000));
+                var createdPayment = this.CreatePayment(this.apiContext, baseURI + "guid=" + guid);
+
+                var links = createdPayment.links.GetEnumerator();
+
+                while (links.MoveNext())
                 {
-                    // Creating a payment
-                    string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/PaymentWithPayPal.aspx?";
-                    var guid = Convert.ToString((new Random()).Next(100000));
-                    var createdPayment = this.CreatePayment(apiContext, baseURI + "guid=" + guid);
-
-                    CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(createdPayment.ConvertToJson()));
-
-                    var links = createdPayment.links.GetEnumerator();
-
-                    while (links.MoveNext())
+                    Links lnk = links.Current;
+                    if (lnk.rel.ToLower().Trim().Equals("approval_url"))
                     {
-                        Links lnk = links.Current;
-                        if (lnk.rel.ToLower().Trim().Equals("approval_url"))
-                        {
-                            CurrContext.Items.Add("RedirectURL", lnk.href);
-                        }
+                        HttpContext.Current.Items.Add("RedirectURL", lnk.href);
                     }
-                    Session.Add(guid, createdPayment.id);
                 }
-                else
-                {
-                    // Executing a payment
-                    var guid = Request.Params["guid"];
-                    var executedPayment = this.ExecutePayment(apiContext, payerId, Session[guid] as string);
-                    CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(executedPayment.ConvertToJson()));
-                }
+                Session.Add(guid, createdPayment.id);
             }
-            catch (Exception ex)
+            else
             {
-                CurrContext.Items.Add("Error", ex.Message);
+                // Executing a payment
+                var guid = Request.Params["guid"];
+                var executedPayment = this.ExecutePayment(this.apiContext, payerId, Session[guid] as string);
             }
-
-            Server.Transfer("~/Response.aspx");
 
         }
 
@@ -81,8 +59,11 @@ namespace PayPal.Sample
         {
             var paymentExecution = new PaymentExecution() { payer_id = payerId };
             this.payment = new Payment() { id = paymentId };
-            HttpContext.Current.Items.Add("RequestJson", Common.FormatJsonString(paymentExecution.ConvertToJson()));
-            return this.payment.Execute(apiContext, paymentExecution);
+
+            this.flow.AddNewRequest("Execute PayPal payment", this.payment);
+            var executedPayment = this.payment.Execute(this.apiContext, paymentExecution);
+            this.flow.RecordResponse(executedPayment);
+            return executedPayment;
         }
 
         /// <summary>
@@ -148,7 +129,7 @@ namespace PayPal.Sample
             transactionList.Add(new Transaction()
             {
                 description = "Transaction description.",
-                invoice_number = "456789",
+                invoice_number = Common.GetRandomInvoiceNumber(),
                 amount = amount,
                 item_list = itemList
             });
@@ -165,8 +146,10 @@ namespace PayPal.Sample
             };
 
             // Create a payment using a valid APIContext
-            HttpContext.Current.Items.Add("RequestJson", Common.FormatJsonString(payment.ConvertToJson()));
-            return this.payment.Create(apiContext);
+            this.flow.AddNewRequest("Create PayPal payment", payment);
+            var createdPayment = this.payment.Create(this.apiContext);
+            this.flow.RecordResponse(createdPayment);
+            return createdPayment;
         }
 
         /// <summary>
@@ -246,7 +229,7 @@ namespace PayPal.Sample
 		    var apiContext = new APIContext();
             apiContext.Config = Configuration.GetConfig();
 
-            var tokenInfo = Tokeninfo.CreateFromAuthorizationCodeForFuturePayments(apiContext, authorizationCodeParameters);
+            var tokenInfo = Tokeninfo.CreateFromAuthorizationCodeForFuturePayments(this.apiContext, authorizationCodeParameters);
             var accessToken = string.Format("{0} {1}", tokenInfo.token_type, tokenInfo.access_token);
 
             // ###Payment

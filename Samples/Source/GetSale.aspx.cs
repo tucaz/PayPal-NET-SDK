@@ -11,32 +11,15 @@ using Newtonsoft.Json;
 
 namespace PayPal.Sample
 {
-    public partial class GetSale : System.Web.UI.Page
+    public partial class GetSale : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-            try
-            {
-                // ### Api Context
-                // Pass in a `APIContext` object to authenticate 
-                // the call and to send a unique request id 
-                // (that ensures idempotency). The SDK generates
-                // a request id if you do not pass one explicitly. 
-                 // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
-                APIContext apiContext = Configuration.GetAPIContext();
-                
-                // ### Sale
-                // Pass an APIContext and the ID of the sale
-                // transaction from your payment resource.
-                Sale selling = Sale.Get(apiContext, "4V7971043K262623A");
-                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(selling.ConvertToJson()));
-            }
-            catch (PayPalException ex)
-            {
-                CurrContext.Items.Add("Error", ex.Message);
-            }
-            Server.Transfer("~/Response.aspx");
+            APIContext apiContext = Configuration.GetAPIContext();
+
+            var saleId = "4V7971043K262623A";
+            this.flow.AddNewRequest("Get sale", description: "ID: " + saleId);
+            this.flow.RecordResponse(Sale.Get(this.apiContext, saleId));
         }
     }
 }

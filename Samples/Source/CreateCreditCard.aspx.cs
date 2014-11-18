@@ -16,50 +16,28 @@ using Newtonsoft.Json;
 
 namespace PayPal.Sample
 {
-    public partial class CreateCreditCard : System.Web.UI.Page
+    public partial class CreateCreditCard : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-
             // ###CreditCard
             // A resource representing a credit card that can be
             // used to fund a payment.
-            CreditCard credtCard = new CreditCard();
-            credtCard.expire_month = 11;
-            credtCard.expire_year = 2018;
-            credtCard.number = "4417119669820331";
-            credtCard.type = "visa";
-
-            try
+            var card = new CreditCard()
             {
-                 // ### Api Context
-                 // Pass in a `APIContext` object to authenticate 
-                 // the call and to send a unique request id 
-                 // (that ensures idempotency). The SDK generates
-                 // a request id if you do not pass one explicitly. 
-                  // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
-                APIContext apiContext = Configuration.GetAPIContext();
+                expire_month = 11,
+                expire_year = 2018,
+                number = "4877274905927862",
+                type = "visa"
+            };
 
-                // ###Save
-                // Creates the credit card as a resource
-                // in the PayPal vault. The response contains
-                // an 'id' that you can use to refer to it
-                // in the future payments.
-                CreditCard createdCreditCard = credtCard.Create(apiContext);
-                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(createdCreditCard.ConvertToJson()));
-            }
-            catch (PayPalException ex)
-            {
-                CurrContext.Items.Add("Error", ex.Message);
-            }
-
-            if (credtCard != null)
-            {
-                CurrContext.Items.Add("RequestJson", Common.FormatJsonString(credtCard.ConvertToJson()));
-            }
-
-            Server.Transfer("~/Response.aspx");
+            // ###Save
+            // Creates the credit card as a resource
+            // in the PayPal vault. The response contains
+            // an 'id' that you can use to refer to it
+            // in the future payments.
+            this.flow.AddNewRequest("Create credit card", card);
+            this.flow.RecordResponse(card.Create(this.apiContext));
         }
     }
 }

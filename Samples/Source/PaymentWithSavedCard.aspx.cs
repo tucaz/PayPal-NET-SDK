@@ -12,111 +12,69 @@ using System.Collections.Generic;
 
 namespace PayPal.Sample
 {
-    public partial class PaymentWithSavedCard : System.Web.UI.Page
+    public partial class PaymentWithSavedCard : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-
-            // ###Items
             // Items within a transaction.
-            Item item = new Item();
-            item.name = "Item Name";
-            item.currency = "USD";
-            item.price = "1";
-            item.quantity = "5";
-            item.sku = "sku";
+            var item = new Item()
+            {
+                name = "Item Name",
+                currency = "USD",
+                price = "1",
+                quantity = "5",
+                sku = "sku"
+            };
 
-            List<Item> itms = new List<Item>();
-            itms.Add(item);
-            ItemList itemList = new ItemList();
-            itemList.items = itms;
+            // A resource representing a credit card that can be used to fund a payment.
+            var credCardToken = new CreditCardToken()
+            {
+                credit_card_id = "CARD-0F049886A57009534KRVL4LQ"
+            };
 
-            // ###CreditCard
-            // A resource representing a credit card that can be
-            // used to fund a payment.
-            CreditCardToken credCardToken = new CreditCardToken();
-            credCardToken.credit_card_id = "CARD-5MY32504F4899612AKIHAQHY";
+            var amnt = new Amount()
+            {
+                currency = "USD",
+                total = "7",
+                details = new Details()
+                {
+                    shipping = "1",
+                    subtotal = "5",
+                    tax = "1"
+                }
+            };
 
-            // ###Details
-            // Let's you specify details of a payment amount.
-            Details details = new Details();
-            details.shipping = "1";
-            details.subtotal = "5";
-            details.tax = "1";
-
-            // ###Amount
-            // Let's you specify a payment amount.
-            Amount amnt = new Amount();
-            amnt.currency = "USD";
-            // Total must be equal to the sum of shipping, tax and subtotal.
-            amnt.total = "7";
-            amnt.details = details;
-
-            // ###Transaction
             // A transaction defines the contract of a
             // payment - what is the payment for and who
             // is fulfilling it. 
-            Transaction tran = new Transaction();
-            tran.amount = amnt;
-            tran.description = "This is the payment transaction description.";
-            tran.item_list = itemList;
-
-            // The Payment creation API requires a list of
-            // Transaction; add the created `Transaction`
-            // to a List
-            List<Transaction> transactions = new List<Transaction>();
-            transactions.Add(tran);
-
-            // ###FundingInstrument
-            // A resource representing a Payer's funding instrument.
-            // For stored credit card payments, set the CreditCardToken
-            // field on this object.
-            FundingInstrument fundInstrument = new FundingInstrument();
-            fundInstrument.credit_card_token = credCardToken;
-
-            // The Payment creation API requires a list of
-            // FundingInstrument; add the created `FundingInstrument`
-            // to a List
-            List<FundingInstrument> fundingInstrumentList = new List<FundingInstrument>();
-            fundingInstrumentList.Add(fundInstrument);
-
-            // ###Payer
-            // A resource representing a Payer that funds a payment
-            // Use the List of `FundingInstrument` and the Payment Method
-            // as 'credit_card'
-            Payer payr = new Payer();
-            payr.funding_instruments = fundingInstrumentList;
-            payr.payment_method = "credit_card";
-
-            // ###Payment
-            // A Payment Resource; create one using
-            // the above types and intent as 'sale'
-            Payment pymnt = new Payment();
-            pymnt.intent = "sale";
-            pymnt.payer = payr;
-            pymnt.transactions = transactions;
-
-            try
+            var tran = new Transaction()
             {
-                // ### Api Context
-                // Pass in a `APIContext` object to authenticate 
-                // the call and to send a unique request id 
-                // (that ensures idempotency). The SDK generates
-                // a request id if you do not pass one explicitly. 
-                 // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
-                APIContext apiContext = Configuration.GetAPIContext();
+                amount = amnt,
+                description = "This is the payment transaction description.",
+                item_list = new ItemList() { items = new List<Item>() { item } }
+            };
 
-                // Create a payment using a valid APIContext
-                Payment createdPayment = pymnt.Create(apiContext);
-                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(createdPayment.ConvertToJson()));
-            }
-            catch (PayPalException ex)
+            // A resource representing a Payer's funding instrument. For stored credit card payments, set the CreditCardToken field on this object.
+            var fundInstrument = new FundingInstrument()
             {
-                CurrContext.Items.Add("Error", ex.Message);
-            }
-            CurrContext.Items.Add("RequestJson", Common.FormatJsonString(pymnt.ConvertToJson()));
-            Server.Transfer("~/Response.aspx");
+                credit_card_token = credCardToken
+            };
+
+            // A Payment Resource; create one using the above types and intent as 'sale'
+            var pymnt = new Payment()
+            {
+                intent = "sale",
+                payer = new Payer()
+                {
+                    funding_instruments = new List<FundingInstrument>() { fundInstrument },
+                    payment_method = "credit_card"
+                },
+                transactions = new List<Transaction>() { tran }
+            };
+
+            // Create a payment using a valid APIContext
+            this.flow.AddNewRequest("Create credit card payment", pymnt);
+            this.flow.RecordResponse(pymnt.Create(this.apiContext));
         }
     }
 }

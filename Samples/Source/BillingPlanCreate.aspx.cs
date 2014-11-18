@@ -21,25 +21,14 @@ namespace PayPal.Sample
     /// Sample for creating PayPal Billing Plans:
     /// https://developer.paypal.com/webapps/developer/docs/integration/direct/create-billing-plan/
     /// </summary>
-    public partial class BillingPlanCreate : System.Web.UI.Page
+    public partial class BillingPlanCreate : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            try
-            {
-                var plan = CreatePlanObject(HttpContext.Current);
-                HttpContext.Current.Items.Add("RequestJson", Common.FormatJsonString(plan.ConvertToJson()));
+            var plan = CreatePlanObject(HttpContext.Current);
 
-                var apiContext = Configuration.GetAPIContext();
-                var createdPlan = plan.Create(apiContext);
-                HttpContext.Current.Items.Add("ResponseJson", Common.FormatJsonString(createdPlan.ConvertToJson()));
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Items.Add("Error", ex.Message);
-            }
-
-            Server.Transfer("~/Response.aspx");
+            this.flow.AddNewRequest("Create billing plan", plan);
+            this.flow.RecordResponse(plan.Create(this.apiContext));
         }
 
         /// <summary>

@@ -11,36 +11,15 @@ using Newtonsoft.Json;
 
 namespace PayPal.Sample
 {
-    public partial class GetPayment : System.Web.UI.Page
+    public partial class GetPayment : BaseSamplePage
     {
-        // ##GetPaymentByPaymentId
-        // Call the method with a valid Payment ID
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-            try
-            {
-                // ### Api Context
-                // Pass in a `APIContext` object to authenticate 
-                // the call and to send a unique request id 
-                // (that ensures idempotency). The SDK generates
-                // a request id if you do not pass one explicitly. 
-                 // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
-                APIContext apiContext = Configuration.GetAPIContext();
-                
-                // Retrieve the payment object by calling the
-                // static `Get` method
-                // on the Payment class by passing a valid
-                // APIContext and Payment ID
-                Payment pymnt = Payment.Get(apiContext, "PAY-9NE62270P51995617KRH6XOY");
+            APIContext apiContext = Configuration.GetAPIContext();
 
-                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(pymnt.ConvertToJson()));
-            }
-            catch (PayPalException ex)
-            {
-                CurrContext.Items.Add("Error", ex.Message);
-            }
-            Server.Transfer("~/Response.aspx");
+            var paymentId = "PAY-9NE62270P51995617KRH6XOY";
+            this.flow.AddNewRequest("Get payment details", description: "ID: " + paymentId);
+            this.flow.RecordResponse(Payment.Get(this.apiContext, paymentId));
         }
     }
 }

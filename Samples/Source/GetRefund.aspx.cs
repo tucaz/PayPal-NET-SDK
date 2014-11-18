@@ -11,32 +11,16 @@ using Newtonsoft.Json;
 
 namespace PayPal.Sample
 {
-    public partial class GetRefund : System.Web.UI.Page
+    public partial class GetRefund : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-            try
-            {
-                // ### Api Context
-                // Pass in a `APIContext` object to authenticate 
-                // the call and to send a unique request id 
-                // (that ensures idempotency). The SDK generates
-                // a request id if you do not pass one explicitly. 
-                // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
-                APIContext apiContext = Configuration.GetAPIContext();
-
-                // ### Refund
-                // Pass an APIContext and the ID of the refunded
-                // transaction 
-                Refund refund = Refund.Get(apiContext, "7B165985YD577493B");
-                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(refund.ConvertToJson()));
-            }
-            catch (PayPalException ex)
-            {
-                CurrContext.Items.Add("Error", ex.Message);
-            }
-            Server.Transfer("~/Response.aspx");
+            // ### Refund
+            // Pass an APIContext and the ID of the refunded
+            // transaction 
+            var refundId = "7B165985YD577493B";
+            this.flow.AddNewRequest("Get refund details", description: "ID: " + refundId);
+            this.flow.RecordResponse(Refund.Get(this.apiContext, refundId));
         }
     }
 }

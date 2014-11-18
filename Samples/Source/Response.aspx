@@ -1,45 +1,62 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Response.aspx.cs" Inherits="PayPal.Sample.Response" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="StyleSection" runat="server">
-    <style type="text/css">
-        body {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentSection" runat="server">
-    <table style="border-collapse: collapse">
-        <tr>
-            <td><a href="../">Back</a><br/>
-            <%if (RedirectURL != null) {%><a href= '<%=RedirectURL%>'><%if (RedirectURLText != null){%><%=RedirectURLText%><%}else{%>Redirect to PayPal to approve the payment<%}%></a><br /><%}%></td>
-		</tr>
-		<tr class="header">
-			<td>Request</td>
-		</tr>
-		<tr>
-			<td>
-			    <pre id="request"><%if (RequestMessage != null){%><%=RequestMessage%><%}else{%>
-No payload for this request
-<%}%></pre>
-            </td>
-		</tr>
-		<tr class="header">
-			<td><%if (ResponseTitle != null){%><%=ResponseTitle%><%} else {%>Response<%}%></td>
-		</tr>
-		<tr>
-			<td>
-			    <pre id="response">
-<%if (ResponseMessage != null){%><%=ResponseMessage%><%} else if (ErrorMessage != null){%><%=ErrorMessage%><%}%>
-</pre>
-			</td>
-		</tr>
-		<tr>
-			<td>
-                <br />
-                <a href="../">Back</a>
-            </td>
-		</tr>
-	</table>        
-    <br />
-    <br />
+    <div class="row">
+        <div class="col-md-2 pull-left"><a href="Default.aspx"><h4>&lArr; Back to Samples</h4></a><br /><br /></div>
+        <div class="col-md-1 pull-right"><img  src="images/pp_v_rgb.png" height="70" /></div>
+    </div>
+    <div class="clearfix visible-xs-block"></div>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <% for (int i = 0; i < this.Flow.Items.Count; i++) {%>
+        <% var step = "step-" + (i + 1); %>
+        <% var heading = "heading-" + (i + 1); %>
+        <% var prettyRequest = "<pre class=\"prettyprint\">" + this.FormatPayloadText(this.Flow.Items[i].Request, true) + "</pre>"; %>
+        <% var prettyResponse = "<pre class=\"" + (this.Flow.Items[i].IsErrorResponse ? "error" : "prettyprint") + "\">" + this.FormatPayloadText(this.Flow.Items[i].Response, false) + "</pre>"; %>
+        <div class="panel panel-default">
+            <div class="panel-heading <% if (this.Flow.Items[i].IsErrorResponse) { %>error<%}%>" role="tab">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#<%= step %>" aria-expanded="false" aria-controls="<%= step %>"><%= i+1 %>. <%= this.Flow.Items[i].Title %><% if (this.Flow.Items[i].IsErrorResponse) { %> (Failed)<% } %></a>
+                </h4>
+            </div>
+            <div id="<%= step %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="<%= heading %>">
+                <div class="panel-body">
+                    <%if (!string.IsNullOrEmpty(this.Flow.Items[i].Description)) { %><div><%= this.Flow.Items[i].Description %></div><% } %>
+                    <!-- Large view -->
+                    <div class="row hidden-xs hidden-sm hidden-md">
+                        <div class="col-md-6">
+                            <h4>Request</h4>
+                            <%= prettyRequest %>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="<% if (this.Flow.Items[i].IsErrorResponse) { %>error<% } %>">Response</h4>
+                            <% foreach(var message in this.Flow.Items[i].Messages) { %>
+                            <div class ="flow-message <%= this.GetMessageClass(message)%>"><%= this.GetMessageWithMarkup(message) %></div>
+                            <%} %>
+                            <%= prettyResponse %>
+                        </div>
+                    </div>
+                    <!-- Small view -->
+                    <div class="hidden-lg">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" ><a href="#<%= step %>-request" role="tab" data-toggle="tab">Request</a></li>
+                            <li role="presentation" class="active"><a href="#<%= step %>-response" role="tab" data-toggle="tab">Response</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane" id="<%= step %>-request">
+                                <%= prettyRequest %>
+                            </div>
+                            <div role="tabpanel" class="tab-pane active" id="<%= step %>-response">
+                                <% foreach(var message in this.Flow.Items[i].Messages) { %>
+                                <div class ="flow-message <%= this.GetMessageClass(message)%>"><%= this.GetMessageWithMarkup(message) %></div>
+                                <%} %>
+                                <%= prettyResponse %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%} %>
+    </div>
 </asp:Content>

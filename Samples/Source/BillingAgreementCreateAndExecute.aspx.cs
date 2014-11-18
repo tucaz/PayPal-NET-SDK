@@ -15,38 +15,19 @@ using PayPal.Api;
 
 namespace PayPal.Sample
 {
-    public partial class BillingAgreementCreateAndExecute : System.Web.UI.Page
+    public partial class BillingAgreementCreateAndExecute : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-
-            // ### Api Context
-            // Pass in a `APIContext` object to authenticate 
-            // the call and to send a unique request id 
-            // (that ensures idempotency). The SDK generates
-            // a request id if you do not pass one explicitly. 
-            // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
-            APIContext apiContext = Configuration.GetAPIContext();
-
-            try
+            string token = Request.Params["token"];
+            if (string.IsNullOrEmpty(token))
             {
-                string token = Request.Params["token"];
-                if (string.IsNullOrEmpty(token))
-                {
-                    this.CreateBillingAgreement();
-                }
-                else
-                {
-                    this.ExecuteBillingAgreement(token);
-                }
+                this.CreateBillingAgreement();
             }
-            catch (Exception ex)
+            else
             {
-                CurrContext.Items.Add("Error", ex.Message);
+                this.ExecuteBillingAgreement(token);
             }
-
-            Server.Transfer("~/Response.aspx");
         }
 
         /// <summary>
@@ -54,14 +35,15 @@ namespace PayPal.Sample
         /// </summary>
         private void CreateBillingAgreement()
         {
-            var apiContext = Configuration.GetAPIContext();
-
             // Before we can setup the billing agreement, we must first create a
             // billing plan that includes a redirect URL back to this test server.
             var plan = BillingPlanCreate.CreatePlanObject(HttpContext.Current);
             var guid = Convert.ToString((new Random()).Next(100000));
             plan.merchant_preferences.return_url = Request.Url.ToString() + "?guid=" + guid;
-            var createdPlan = plan.Create(apiContext);
+
+            this.flow.AddNewRequest("Create new billing plan", plan);
+            var createdPlan = plan.Create(this.apiContext);
+            this.flow.RecordResponse(createdPlan);
 
             // Activate the plan
             var patch = new Patch()
@@ -72,7 +54,9 @@ namespace PayPal.Sample
             };
             var patchRequest = new PatchRequest();
             patchRequest.Add(patch);
-            createdPlan.Update(apiContext, patchRequest);
+            this.flow.AddNewRequest("Update the plan", patchRequest);
+            createdPlan.Update(this.apiContext, patchRequest);
+            this.flow.RecordActionSuccess("Plan updated successfully");
 
             // With the plan created and activated, we can now create the
             // billing agreement.
@@ -96,12 +80,10 @@ namespace PayPal.Sample
                 shipping_address = shippingAddress
             };
 
-            HttpContext.Current.Items.Add("RequestJson", Common.FormatJsonString(agreement.ConvertToJson()));
-
             // Create the billing agreement.
-            var createdAgreement = agreement.Create(apiContext);
-
-            HttpContext.Current.Items.Add("ResponseJson", Common.FormatJsonString(createdAgreement.ConvertToJson()));
+            this.flow.AddNewRequest("Create billing agreement", agreement);
+            var createdAgreement = agreement.Create(this.apiContext);
+            this.flow.RecordResponse(createdAgreement);
 
             // Get the redirect URL to allow the user to be redirected to PayPal to accept the agreement.
             var links = createdAgreement.links.GetEnumerator();
@@ -126,8 +108,9 @@ namespace PayPal.Sample
             // Executing a payment
             var apiContext = Configuration.GetAPIContext();
             var agreement = new Agreement() { token = token };
-            var executedAgreement = agreement.Execute(apiContext);
-            HttpContext.Current.Items.Add("ResponseJson", Common.FormatJsonString(executedAgreement.ConvertToJson()));
+
+            this.flow.AddNewRequest("Execute billing agreement", description: string.Format("URI: v1/payments/billing-agreements/{0}/agreement-execute", agreement.token));
+            this.flow.RecordResponse(agreement.Execute(this.apiContext));
         }
     }
 }

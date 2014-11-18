@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using PayPal.Api;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using PayPal.Sample.Utilities;
 
 namespace PayPal.Sample
 {
@@ -20,21 +21,14 @@ namespace PayPal.Sample
     /// Sample for retrieving a PayPal Billing Plan
     /// More Information: https://developer.paypal.com/webapps/developer/docs/api/#retrieve-a-plan
     /// </summary>
-    public partial class BillingPlanGet : System.Web.UI.Page
+    public partial class BillingPlanGet : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            try
-            {
-                var plan = Plan.Get(Configuration.GetAPIContext(), "P-5FY40070P6526045UHFWUVEI");
-                HttpContext.Current.Items.Add("ResponseJson", Common.FormatJsonString(plan.ConvertToJson()));
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Items.Add("Error", ex.Message);
-            }
-
-            Server.Transfer("~/Response.aspx");
+            var planId = "P-5FY40070P6526045UHFWUVEI";
+            this.flow.AddNewRequest(title: "Create billing plan", description: "ID: " + planId);
+            var plan = Plan.Get(Configuration.GetAPIContext(), planId);
+            this.flow.RecordResponse(plan);
         }
     }
 }

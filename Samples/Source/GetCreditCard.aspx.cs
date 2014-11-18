@@ -12,33 +12,16 @@ using Newtonsoft.Json;
 
 namespace PayPal.Sample
 {
-    public partial class GetCreditCard : System.Web.UI.Page
+    public partial class GetCreditCard : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-            try
-            {
-                // ### Api Context
-                // Pass in a `APIContext` object to authenticate 
-                // the call and to send a unique request id 
-                // (that ensures idempotency). The SDK generates
-                // a request id if you do not pass one explicitly. 
-                 // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
-                APIContext apiContext = Configuration.GetAPIContext();
-
-                // Retrieve the CreditCard object by calling the
-                // static 'Get' method on the CreditCard resource
-                // by passing a valid APIContext and CreditCard ID
-                CreditCard card = CreditCard.Get(apiContext, "CARD-00N04036H5458422MKRIAWHY");
-                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(card.ConvertToJson()));
-            }
-            catch (PayPalException ex)
-            {
-                CurrContext.Items.Add("Error", ex.Message);
-            }
-
-            Server.Transfer("~/Response.aspx");
+            // Retrieve the CreditCard object by calling the
+            // static 'Get' method on the CreditCard resource
+            // by passing a valid APIContext and CreditCard ID
+            var cardId = "CARD-00N04036H5458422MKRIAWHY";
+            this.flow.AddNewRequest("Retrieve credit card details", description: "ID: " + cardId);
+            this.flow.RecordResponse(CreditCard.Get(this.apiContext, cardId));
         }
     }
 }

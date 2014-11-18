@@ -12,46 +12,21 @@ using System.Collections.Generic;
 
 namespace PayPal.Sample
 {
-    public partial class GetCapture : System.Web.UI.Page
+    public partial class GetCapture : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            HttpContext CurrContext = HttpContext.Current;
-            try
-            {
-                // ### Api Context
-                // Pass in a `APIContext` object to authenticate 
-                // the call and to send a unique request id 
-                // (that ensures idempotency). The SDK generates
-                // a request id if you do not pass one explicitly. 
-                 // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext..
-                APIContext apiContext = Configuration.GetAPIContext();
+            // Retrieve a Authorization object by making a Payment with intent as `authorize`
+            var authorization = Common.CreateAuthorization(this.flow, this.apiContext);
 
-                // ###Authorization
-                // Retrieve a Authorization object
-                // by making a Payment with intent
-                // as `authorize`
-                Authorization authorization = Common.CreateAuthorization(apiContext);
+            // Create a Capture object by doing a capture on Authorization object and retrieve the Id
+            var capture = Common.GetCapture(this.flow, this.apiContext, authorization);
 
-                /// ###Capture
-                // Create a Capture object
-                // by doing a capture on
-                // Authorization object
-                // and retrieve the Id
-                Capture capture = Common.GetCapture(apiContext, authorization);
-
-                // Retrieve the Capture object by
-                // doing a GET call to 
-                // URI v1/payments/capture/{capture_id}
-                capture = Capture.Get(apiContext, capture.id);
-                CurrContext.Items.Add("ResponseJson", Common.FormatJsonString(capture.ConvertToJson()));
-            }
-            catch (PayPalException ex)
-            {
-                CurrContext.Items.Add("Error", ex.Message);
-            }
-
-            Server.Transfer("~/Response.aspx");
+            // Retrieve the Capture object by
+            // doing a GET call to 
+            // URI v1/payments/capture/{capture_id}
+            this.flow.AddNewRequest("Retrieve capture details", description: "ID: " + capture.id);
+            this.flow.RecordResponse(Capture.Get(this.apiContext, capture.id));
         }
     }
 }

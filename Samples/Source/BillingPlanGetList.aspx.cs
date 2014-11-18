@@ -20,21 +20,12 @@ namespace PayPal.Sample
     /// Sample for getting a list of PayPal Billing Plans associated with the account configured in web.config.
     /// More Information: https://developer.paypal.com/webapps/developer/docs/api/#list-plans
     /// </summary>
-    public partial class BillingPlanGetList : System.Web.UI.Page
+    public partial class BillingPlanGetList : BaseSamplePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void RunSample()
         {
-            try
-            {
-                var planList = Plan.List(Configuration.GetAPIContext());
-                HttpContext.Current.Items.Add("ResponseJson", Common.FormatJsonString(planList.ConvertToJson()));
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Items.Add("Error", ex.Message);
-            }
-
-            Server.Transfer("~/Response.aspx");
+            this.flow.AddNewRequest("Retrieve list of billing plans");
+            this.flow.RecordResponse(Plan.List(this.apiContext));
         }
     }
 }
