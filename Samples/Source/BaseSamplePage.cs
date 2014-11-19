@@ -9,7 +9,6 @@ namespace PayPal.Sample
 {
     public abstract class BaseSamplePage : System.Web.UI.Page
     {
-        protected APIContext apiContext;
         protected RequestFlow flow;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -18,10 +17,9 @@ namespace PayPal.Sample
             this.RegisterSampleRequestFlow();
             try
             {
-                this.apiContext = Configuration.GetAPIContext();
                 this.RunSample();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 this.flow.RecordException(ex);
             }
@@ -39,7 +37,7 @@ namespace PayPal.Sample
             {
                 this.flow = new RequestFlow();
             }
-            HttpContext.Current.Items.Add("Flow", flow);
+            HttpContext.Current.Items["Flow"] = this.flow;
         }
     }
 }

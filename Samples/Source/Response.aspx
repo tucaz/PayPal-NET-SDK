@@ -21,7 +21,18 @@
             </div>
             <div id="<%= step %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="<%= heading %>">
                 <div class="panel-body">
-                    <%if (!string.IsNullOrEmpty(this.Flow.Items[i].Description)) { %><div><%= this.Flow.Items[i].Description %></div><% } %>
+                    <%if (!string.IsNullOrEmpty(this.Flow.Items[i].Description)) { %>
+                    <div><%= this.Flow.Items[i].Description %></div>
+                    <% } %>
+
+                    <%if (!string.IsNullOrEmpty(this.Flow.Items[i].RedirectUrl)) { %>
+                    <%if (this.Flow.Items[i].IsRedirectApproved) {%>
+                    <div class="success"><i class="fa fa-check-circle"></i> <%= this.Flow.Items[i].RedirectUrlText %></div>
+                    <%}else{%>
+                    <div><a href="<%= this.Flow.Items[i].RedirectUrl %>"><i class="fa fa-paypal"></i> <%= this.Flow.Items[i].RedirectUrlText %></a></div>
+                    <%} %>
+                    <% } %>
+
                     <!-- Large view -->
                     <div class="row hidden-xs hidden-sm hidden-md">
                         <div class="col-md-6">

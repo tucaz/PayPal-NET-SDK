@@ -2,11 +2,8 @@
 // This sample code demonstrates how to create a new payment order.
 // API used: POST /v1/payments/payment
 using System;
-using System.Web;
 using PayPal.Api;
-using PayPal;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
+using PayPal.Sample.Utilities;
 using System.Collections.Generic;
 
 namespace PayPal.Sample
@@ -18,31 +15,120 @@ namespace PayPal.Sample
 
         protected override void RunSample()
         {
+            // ### Api Context
+            // Pass in a `APIContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+            // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
+            var apiContext = Configuration.GetAPIContext();
+
             string payerId = Request.Params["PayerID"];
             if (string.IsNullOrEmpty(payerId))
             {
-                // Creating a payment
+                // ###Payer
+                // A resource representing a Payer that funds a payment
+                // Payment Method
+                // as `paypal`
+                var payer = new Payer() { payment_method = "paypal" };
+
+                // # Redirect URLS
                 string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/OrderSample.aspx?";
                 var guid = Convert.ToString((new Random()).Next(100000));
-                var createdPayment = Common.CreatePaymentOrder(this.flow, this.apiContext, baseURI + "guid=" + guid);
+                var redirectUrl = baseURI + "guid=" + guid;
+                var redirUrls = new RedirectUrls()
+                {
+                    cancel_url = redirectUrl + "&cancel=true",
+                    return_url = redirectUrl
+                };
 
+                // ###Amount
+                // Lets you specify a payment amount.
+                var amount = new Amount()
+                {
+                    currency = "USD",
+                    total = "5.00"
+                };
+
+                // ###Transaction
+                // A transaction defines the contract of a
+                // payment - what is the payment for and who
+                // is fulfilling it. 
+                var transactionList = new List<Transaction>();
+
+                // The Payment creation API requires a list of
+                // Transaction; add the created `Transaction`
+                // to a List
+                transactionList.Add(new Transaction()
+                {
+                    description = "Transaction description.",
+                    amount = amount
+                });
+
+                // ###Payment
+                // Create a payment with the intent set to 'order'
+                var payment = new Payment()
+                {
+                    intent = "order",
+                    payer = payer,
+                    transactions = transactionList,
+                    redirect_urls = redirUrls
+                };
+
+                // ^ Ignore workflow code segment
+                #region Track Workflow
+                flow.AddNewRequest("Create payment order", payment);
+                #endregion
+
+                // Create the payment resource.
+                var createdPayment = payment.Create(apiContext);
+
+                // ^ Ignore workflow code segment
+                #region Track Workflow
+                flow.RecordResponse(createdPayment);
+                #endregion
+
+                // Use the `approval_url` link provided by the returned object to approve the order payment.
                 var links = createdPayment.links.GetEnumerator();
-
                 while (links.MoveNext())
                 {
-                    Links lnk = links.Current;
-                    if (lnk.rel.ToLower().Trim().Equals("approval_url"))
+                    var link = links.Current;
+                    if (link.rel.ToLower().Trim().Equals("approval_url"))
                     {
-                        HttpContext.Current.Items.Add("RedirectURL", lnk.href);
+                        this.flow.RecordRedirectUrl("Redirect to PayPal to approve the order...", link.href);
                     }
                 }
+                Session.Add("flow-" + guid, this.flow);
                 Session.Add(guid, createdPayment.id);
             }
             else
             {
-                // Execute the order
-                var executedPayment = Common.ExecutePayment(this.flow, this.apiContext, payerId, Request.Params["guid"]);
+                // ^ Ignore workflow code segment
+                #region Track Workflow
+                this.flow = Session["flow-" + Request.Params["guid"]] as RequestFlow;
+                this.RegisterSampleRequestFlow();
+                this.flow.RecordApproval("Order payment approved successfully.");
+                #endregion
 
+                // Execute the order
+                var paymentId = Request.Params["guid"];
+                var paymentExecution = new PaymentExecution() { payer_id = payerId };
+                var payment = new Payment() { id = paymentId };
+
+                // ^ Ignore workflow code segment
+                #region Track Workflow
+                flow.AddNewRequest("Execute payment", payment);
+                #endregion
+
+                // Execute the order payment.
+                var executedPayment = payment.Execute(apiContext, paymentExecution);
+
+                // ^ Ignore workflow code segment
+                #region Track Workflow
+                flow.RecordResponse(executedPayment);
+                #endregion
+
+                // Get the information about the executed order from the returned payment object.
                 this.order = executedPayment.transactions[0].related_resources[0].order;
                 this.amount = executedPayment.transactions[0].amount;
 
@@ -52,6 +138,8 @@ namespace PayPal.Sample
                 // this.CaptureOrder();
                 // this.VoidOrder();
                 // this.RefundOrder();
+
+                // For more information, please visit [PayPal Developer REST API Reference](https://developer.paypal.com/docs/api/).
             }
         }
 
@@ -63,9 +151,9 @@ namespace PayPal.Sample
         /// More Information:
         /// https://developer.paypal.com/webapps/developer/docs/integration/direct/create-process-order/#authorize-an-order
         /// </summary>
-        private void AuthorizeOrder()
+        private void AuthorizeOrder(APIContext apiContext)
         {
-            this.order.Authorize(this.apiContext);
+            this.order.Authorize(apiContext);
         }
 
         /// <summary>
@@ -77,12 +165,12 @@ namespace PayPal.Sample
         /// More Information:
         /// https://developer.paypal.com/webapps/developer/docs/integration/direct/create-process-order/#capture-an-order
         /// </summary>
-        private void CaptureOrder()
+        private void CaptureOrder(APIContext apiContext)
         {
             var capture = new Capture();
             capture.amount = this.amount;
             capture.is_final_capture = true;
-            this.order.Capture(this.apiContext, capture);
+            this.order.Capture(apiContext, capture);
         }
 
         /// <summary>
@@ -94,9 +182,9 @@ namespace PayPal.Sample
         /// More Information:
         /// https://developer.paypal.com/webapps/developer/docs/api/#void-an-order
         /// </summary>
-        private void VoidOrder()
+        private void VoidOrder(APIContext apiContext)
         {
-            this.order.Void(this.apiContext);
+            this.order.Void(apiContext);
         }
     }
 }

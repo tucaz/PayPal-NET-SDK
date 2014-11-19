@@ -21,29 +21,21 @@ namespace PayPal.Sample
                         Title = "Payments",
                         Items = new List<SampleItem>()
                         {
-                            new SampleItem() { Title = "Direct credit card payments", ExecutePage = "PaymentWithCreditCard.aspx" },
-                            new SampleItem() { Title = "PayPal account payments", ExecutePage = "PaymentWithPayPal.aspx" },
-                            new SampleItem() { Title = "Stored credit card payments", ExecutePage = "PaymentWithSavedCard.aspx" },
-                            new SampleItem() { Title = "Get payment details", ExecutePage = "GetPayment.aspx" },
-                            new SampleItem() { Title = "Get payment history", ExecutePage = "GetPaymentHistory.aspx" },
-                            new SampleItem() { Title = "Run order sample", ExecutePage = "OrderSample.aspx" }
-                        }
-                    },
-                    new SampleCategory()
-                    {
-                        Title = "Sale",
-                        Items = new List<SampleItem>()
-                        {
-                            new SampleItem() { Title = "Get sale payment details", ExecutePage = "GetSale.aspx" },
-                            new SampleItem() { Title = "Refund a sale payment", ExecutePage = "SaleRefund.aspx" }
-                        }
-                    },
-                    new SampleCategory()
-                    {
-                        Title = "Refund",
-                        Items = new List<SampleItem>()
-                        {
-                            new SampleItem() { Title = "Get refund details", ExecutePage = "GetRefund.aspx" }
+                            new SampleItem() { Title = "Make a payment with a PayPal account", ExecutePage = "PaymentWithPayPal.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Make a payment with a credit card", ExecutePage = "PaymentWithCreditCard.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Make a payment with a stored credit card", ExecutePage = "PaymentWithSavedCard.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Retrieve the details of a payment", ExecutePage = "GetPayment.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Retrieve a history of payments", ExecutePage = "GetPaymentHistory.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Retrieve the details of a sale transaction (completed payment)", ExecutePage = "GetSale.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Refund a sale", ExecutePage = "SaleRefund.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Retrieve the details of a refund", ExecutePage = "GetRefund.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Create and process an order", ExecutePage = "OrderSample.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Retrieve the details of an authorized payment", ExecutePage = "GetAuthorization.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Capture an authorized payment", ExecutePage = "AuthorizationCapture.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Void an authorized payment", ExecutePage = "AuthorizationVoid.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Reauthorize a payment", ExecutePage = "Reauthorization.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Retrieve the details of a captured payment", ExecutePage = "GetCapture.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Refund a captured payment", ExecutePage = "RefundCapture.aspx", HasSourcePage = true }
                         }
                     },
                     new SampleCategory()
@@ -51,42 +43,22 @@ namespace PayPal.Sample
                         Title = "Vault",
                         Items = new List<SampleItem>()
                         {
-                            new SampleItem() { Title = "Save a credit card", ExecutePage = "CreateCreditCard.aspx" },
-                            new SampleItem() { Title = "Get credit card details", ExecutePage = "GetCreditCard.aspx" },
-                            new SampleItem() { Title = "Delete a credit card", ExecutePage = "DeleteCreditCard.aspx" }
+                            new SampleItem() { Title = "Create and store a credit card", ExecutePage = "CreateCreditCard.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Retrieve the details of a credit card", ExecutePage = "GetCreditCard.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Delete a credit card", ExecutePage = "DeleteCreditCard.aspx", HasSourcePage = true }
                         }
                     },
                     new SampleCategory()
                     {
-                        Title = "Authorization",
+                        Title = "Web Experience Profiles for Payments",
                         Items = new List<SampleItem>()
                         {
-                            new SampleItem() { Title = "Get authorized payment details", ExecutePage = "GetAuthorization.aspx" },
-                            new SampleItem() { Title = "Capture an authorized payment", ExecutePage = "AuthorizationCapture.aspx" },
-                            new SampleItem() { Title = "Void an authorized payment", ExecutePage = "AuthorizationVoid.aspx" },
-                            new SampleItem() { Title = "Reauthorize an authorized payment", ExecutePage = "Reauthorization.aspx" }
-                        }
-                    },
-                    new SampleCategory()
-                    {
-                        Title = "Capture",
-                        Items = new List<SampleItem>()
-                        {
-                            new SampleItem() { Title = "Get captured payment details", ExecutePage = "GetCapture.aspx" },
-                            new SampleItem() { Title = "Refund captured payment", ExecutePage = "RefundCapture.aspx" }
-                        }
-                    },
-                    new SampleCategory()
-                    {
-                        Title = "Payment Experience (Web Profiles)",
-                        Items = new List<SampleItem>()
-                        {
-                            new SampleItem() { Title = "Create a new web experience profile", ExecutePage = "PaymentExperienceCreate.aspx" },
-                            new SampleItem() { Title = "Retrieve a web experience profile", ExecutePage = "PaymentExperienceGet.aspx" },
-                            new SampleItem() { Title = "List web experience profiles", ExecutePage = "PaymentExperienceGetList.aspx" },
-                            new SampleItem() { Title = "Update a web experience profile", ExecutePage = "PaymentExperienceUpdate.aspx" },
-                            new SampleItem() { Title = "Partially update a web experience profile", ExecutePage = "PaymentExperiencePartialUpdate.aspx" },
-                            new SampleItem() { Title = "Delete a web experience profile", ExecutePage = "PaymentExperienceDelete.aspx" }
+                            new SampleItem() { Title = "Create a new web experience profile", ExecutePage = "PaymentExperienceCreate.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Retrieve a web experience profile", ExecutePage = "PaymentExperienceGet.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "List web experience profiles", ExecutePage = "PaymentExperienceGetList.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Update a web experience profile", ExecutePage = "PaymentExperienceUpdate.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Partially update a web experience profile", ExecutePage = "PaymentExperiencePartialUpdate.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Delete a web experience profile", ExecutePage = "PaymentExperienceDelete.aspx", HasSourcePage = true }
                         }
                     },
                     new SampleCategory()
@@ -94,31 +66,20 @@ namespace PayPal.Sample
                         Title = "Billing Plans &amp; Agreements",
                         Items = new List<SampleItem>()
                         {
-                            new SampleItem() { Title = "Create a billing plan", ExecutePage = "BillingPlanCreate.aspx" },
-                            new SampleItem() { Title = "Update a billing plan", ExecutePage = "BillingPlanUpdate.aspx" },
-                            new SampleItem() { Title = "Retrieve a billing plan", ExecutePage = "BillingPlanGet.aspx" },
-                            new SampleItem() { Title = "List billing plans", ExecutePage = "BillingPlanGetList.aspx" },
-                            new SampleItem() { Title = "Create &amp; execute a billing agreement", ExecutePage = "BillingAgreementCreateAndExecute.aspx" }
+                            new SampleItem() { Title = "Create a billing plan", ExecutePage = "BillingPlanCreate.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Update a billing plan", ExecutePage = "BillingPlanUpdate.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Retrieve the details of a billing plan", ExecutePage = "BillingPlanGet.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Retrieve a list of billing plans", ExecutePage = "BillingPlanGetList.aspx", HasSourcePage = true },
+                            new SampleItem() { Title = "Create &amp; execute a billing agreement", ExecutePage = "BillingAgreementCreateAndExecute.aspx", HasSourcePage = true }
                         }
                     }
                 };
-
-
-
-                // Billing Plans & Agreements
-
-                // Sale
-
-                // Vault
-
-                // Authorization, Capture, Order
-
-                // Payment Experience
-
-                // Invoice
-
-                // Identity (LIPP)
             }
+        }
+
+        private string GetSourceLink(string page)
+        {
+            return string.Format("{0}?viewSource=true", page);
         }
     }
 }

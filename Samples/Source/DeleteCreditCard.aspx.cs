@@ -16,16 +16,56 @@ namespace PayPal.Sample
     {
         protected override void RunSample()
         {
-            var createdCardId = Common.SaveCreditCard(this.flow, this.apiContext).id;
+            // ### Api Context
+            // Pass in a `APIContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+            // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
+            var apiContext = Configuration.GetAPIContext();
+
+            // Create a new credit card resource that will be deleted for demonstration purposes.
+            var credtCard = new CreditCard()
+            {
+                expire_month = 11,
+                expire_year = 2018,
+                number = "4877274905927862",
+                type = "visa"
+            };
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
+            flow.AddNewRequest("Create credit card", credtCard);
+            #endregion
+
+            // Creates the credit card as a resource in the PayPal vault. The response contains an 'id' that you can use to refer to it in future payments.
+            var createdCreditCard = credtCard.Create(apiContext);
+            var createdCardId = createdCreditCard.id;
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
+            flow.RecordResponse(createdCreditCard);
             this.flow.AddNewRequest("Get stored credit card details", description: "ID: " + createdCardId);
-            var card = CreditCard.Get(this.apiContext, createdCardId);
+            #endregion
+
+            // Retrieve the credit card information for the new created resource.
+            var card = CreditCard.Get(apiContext, createdCardId);
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
             this.flow.RecordResponse(card);
+            this.flow.AddNewRequest("Delete credit card", description: "ID: " + card.id);
+            #endregion
 
             // Delete the credit card
-            this.flow.AddNewRequest("Delete credit card", description: "ID: " + card.id);
-            card.Delete(this.apiContext);
-            this.flow.RecordActionSuccess("Credit card deleted successfully");
+            card.Delete(apiContext);
 
+            // ^ Ignore workflow code segment
+            #region Track Workflow
+            this.flow.RecordActionSuccess("Credit card deleted successfully");
+            #endregion
+
+            // For more information, please visit [PayPal Developer REST API Reference](https://developer.paypal.com/docs/api/).
         }
     }
 }

@@ -58,6 +58,21 @@ namespace PayPal.Sample.Utilities
         public bool IsErrorResponse { get; set; }
 
         /// <summary>
+        /// Gets or sets a redirect URL that should accompany this flow item.
+        /// </summary>
+        public string RedirectUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the text for the redirect URL.
+        /// </summary>
+        public string RedirectUrlText { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the redirect URL has been approved.
+        /// </summary>
+        public bool IsRedirectApproved { get; set; }
+
+        /// <summary>
         /// Default constructor.
         /// </summary>
         public RequestFlowItem()

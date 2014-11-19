@@ -81,5 +81,33 @@ namespace PayPal.Sample.Utilities
                 this.Items.Last().RecordException(ex);
             }
         }
+
+        /// <summary>
+        /// Records a redirect URL that should be displayed with a flow item.
+        /// </summary>
+        /// <param name="text">The display text</param>
+        /// <param name="redirectUrl">The URL for the redirect</param>
+        public void RecordRedirectUrl(string text, string redirectUrl)
+        {
+            if(this.Items.Any())
+            {
+                this.Items.Last().RedirectUrlText = text;
+                this.Items.Last().RedirectUrl = redirectUrl;
+            }
+        }
+
+        /// <summary>
+        /// Records that a resource has been approved for payment.
+        /// </summary>
+        /// <param name="message"></param>
+        public void RecordApproval(string message)
+        {
+            if (this.Items.Any())
+            {
+                this.Items.Last().Title += " (Approved!)";
+                this.Items.Last().RedirectUrlText = message;
+                this.Items.Last().IsRedirectApproved = true;
+            }
+        }
     }
 }

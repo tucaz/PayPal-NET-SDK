@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
-using PayPal;
 using PayPal.Api;
+using PayPal.Sample.Utilities;
 
 namespace PayPal.Sample
 {
@@ -19,21 +9,36 @@ namespace PayPal.Sample
     {
         protected override void RunSample()
         {
+            // ### Api Context
+            // Pass in a `APIContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+            // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
+            var apiContext = Configuration.GetAPIContext();
+
             string token = Request.Params["token"];
             if (string.IsNullOrEmpty(token))
             {
-                this.CreateBillingAgreement();
+                this.CreateBillingAgreement(apiContext);
             }
             else
             {
-                this.ExecuteBillingAgreement(token);
+                // ^ Ignore workflow code segment
+                #region Track Workflow
+                this.flow = Session["flow-" + Request.Params["guid"]] as RequestFlow;
+                this.RegisterSampleRequestFlow();
+                this.flow.RecordApproval("Agreement approved successfully.");
+                #endregion
+
+                this.ExecuteBillingAgreement(apiContext, token);
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private void CreateBillingAgreement()
+        private void CreateBillingAgreement(APIContext apiContext)
         {
             // Before we can setup the billing agreement, we must first create a
             // billing plan that includes a redirect URL back to this test server.
@@ -41,25 +46,42 @@ namespace PayPal.Sample
             var guid = Convert.ToString((new Random()).Next(100000));
             plan.merchant_preferences.return_url = Request.Url.ToString() + "?guid=" + guid;
 
+            // ^ Ignore workflow code segment
+            #region Track Workflow
             this.flow.AddNewRequest("Create new billing plan", plan);
-            var createdPlan = plan.Create(this.apiContext);
+            #endregion
+
+            var createdPlan = plan.Create(apiContext);
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
             this.flow.RecordResponse(createdPlan);
+            #endregion
 
             // Activate the plan
-            var patch = new Patch()
+            var patchRequest = new PatchRequest()
             {
-                op = "replace",
-                path = "/",
-                value = new Plan() { state = "ACTIVE" }
+                new Patch()
+                {
+                    op = "replace",
+                    path = "/",
+                    value = new Plan() { state = "ACTIVE" }
+                }
             };
-            var patchRequest = new PatchRequest();
-            patchRequest.Add(patch);
-            this.flow.AddNewRequest("Update the plan", patchRequest);
-            createdPlan.Update(this.apiContext, patchRequest);
-            this.flow.RecordActionSuccess("Plan updated successfully");
 
-            // With the plan created and activated, we can now create the
-            // billing agreement.
+            // ^ Ignore workflow code segment
+            #region Track Workflow
+            this.flow.AddNewRequest("Update the plan", patchRequest);
+            #endregion
+
+            createdPlan.Update(apiContext, patchRequest);
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
+            this.flow.RecordActionSuccess("Plan updated successfully");
+            #endregion
+
+            // With the plan created and activated, we can now create the billing agreement.
             var payer = new Payer() { payment_method = "paypal" };
             var shippingAddress = new ShippingAddress()
             {
@@ -80,37 +102,52 @@ namespace PayPal.Sample
                 shipping_address = shippingAddress
             };
 
-            // Create the billing agreement.
+            // ^ Ignore workflow code segment
+            #region Track Workflow
             this.flow.AddNewRequest("Create billing agreement", agreement);
-            var createdAgreement = agreement.Create(this.apiContext);
+            #endregion
+
+            // Create the billing agreement.
+            var createdAgreement = agreement.Create(apiContext);
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
             this.flow.RecordResponse(createdAgreement);
+            #endregion
 
             // Get the redirect URL to allow the user to be redirected to PayPal to accept the agreement.
             var links = createdAgreement.links.GetEnumerator();
 
             while (links.MoveNext())
             {
-                Links lnk = links.Current;
-                if (lnk.rel.ToLower().Trim().Equals("approval_url"))
+                var link = links.Current;
+                if (link.rel.ToLower().Trim().Equals("approval_url"))
                 {
-                    HttpContext.Current.Items.Add("RedirectURLText", "Redirect to PayPal to approve billing agreement...");
-                    HttpContext.Current.Items.Add("RedirectURL", lnk.href);
+                    this.flow.RecordRedirectUrl("Redirect to PayPal to approve billing agreement...", link.href);
                 }
             }
+            Session.Add("flow-" + guid, this.flow);
             Session.Add(guid, createdAgreement.token);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private void ExecuteBillingAgreement(string token)
+        private void ExecuteBillingAgreement(APIContext apiContext, string token)
         {
-            // Executing a payment
-            var apiContext = Configuration.GetAPIContext();
             var agreement = new Agreement() { token = token };
 
+            // ^ Ignore workflow code segment
+            #region Track Workflow
             this.flow.AddNewRequest("Execute billing agreement", description: string.Format("URI: v1/payments/billing-agreements/{0}/agreement-execute", agreement.token));
-            this.flow.RecordResponse(agreement.Execute(this.apiContext));
+            #endregion
+            
+            var executedAgreement = agreement.Execute(apiContext);
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
+            this.flow.RecordResponse(executedAgreement);
+            #endregion
         }
     }
 }

@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en"><head><title>Response.aspx</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Response.aspx"><meta name="groc-project-path" content="Response.aspx.cs"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">Response.aspx.cs</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">﻿<span class="hljs-keyword">using</span> PayPal.Sample.Utilities;
+<span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Web;
+
+namespace PayPal.Sample
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">partial</span> <span class="hljs-keyword">class</span> Response : System.Web.UI.Page
+    {
+        <span class="hljs-keyword">public</span> RequestFlow Flow { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Page_Load</span>(<span class="hljs-keyword">object</span> sender, EventArgs e)
+        {
+            <span class="hljs-keyword">if</span> (!IsPostBack)
+            {
+                <span class="hljs-keyword">this</span>.Flow = <span class="hljs-keyword">this</span>.GetFromContext&lt;RequestFlow&gt;(<span class="hljs-string">"Flow"</span>);
+            }
+        }
+
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> </span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;param name="text"&gt;</span><span class="hljs-xmlDocTag">&lt;/param&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;param name="isRequest"&gt;</span><span class="hljs-xmlDocTag">&lt;/param&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;returns&gt;</span><span class="hljs-xmlDocTag">&lt;/returns&gt;</span></span>
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">string</span> <span class="hljs-title">FormatPayloadText</span>(<span class="hljs-keyword">string</span> text, <span class="hljs-keyword">bool</span> isRequest)
+        {
+            <span class="hljs-keyword">if</span>(<span class="hljs-keyword">string</span>.IsNullOrEmpty(text))
+            {
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">string</span>.Format(<span class="hljs-string">"No payload for this {0}."</span>, (isRequest ? <span class="hljs-string">"request"</span> : <span class="hljs-string">"response"</span>));
+            }
+            <span class="hljs-keyword">return</span> text;
+        }
+
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> Gets the CSS class for the specified message.</span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;param name="message"&gt;</span><span class="hljs-xmlDocTag">&lt;/param&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;returns&gt;</span><span class="hljs-xmlDocTag">&lt;/returns&gt;</span></span>
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetMessageClass</span>(RequestFlowItemMessage message)
+        {
+            <span class="hljs-keyword">switch</span>(message.Type)
+            {
+                <span class="hljs-keyword">case</span> RequestFlowItemMessageType.Error:
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">"error"</span>;
+                <span class="hljs-keyword">case</span> RequestFlowItemMessageType.Success:
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">"success"</span>;
+                <span class="hljs-keyword">default</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">string</span>.Empty;
+            }
+        }
+
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> Formats the message to include an accompanying icon from Font Awesome (http://fortawesome.github.io/Font-Awesome/).</span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;param name="message"&gt;</span><span class="hljs-xmlDocTag">&lt;/param&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;returns&gt;</span><span class="hljs-xmlDocTag">&lt;/returns&gt;</span></span>
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetMessageWithMarkup</span>(RequestFlowItemMessage message)
+        {
+            <span class="hljs-keyword">var</span> iconText = <span class="hljs-string">""</span>;
+            <span class="hljs-keyword">switch</span>(message.Type)
+            {
+                <span class="hljs-keyword">case</span> RequestFlowItemMessageType.Error:
+                    iconText = <span class="hljs-string">"&lt;i class=\"fa fa-times-circle\"&gt;&lt;/i&gt;"</span>;
+                    <span class="hljs-keyword">break</span>;
+
+                <span class="hljs-keyword">case</span> RequestFlowItemMessageType.Success:
+                    iconText = <span class="hljs-string">"&lt;i class=\"fa fa-check-circle\"&gt;&lt;/i&gt;"</span>;
+                    <span class="hljs-keyword">break</span>;
+
+                <span class="hljs-keyword">case</span> RequestFlowItemMessageType.General:
+                    iconText = <span class="hljs-string">"&lt;i class=\"fa fa-info-circle\"&gt;&lt;/i&gt;"</span>;
+                    <span class="hljs-keyword">break</span>;
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">string</span>.Format(<span class="hljs-string">"{0} {1}"</span>, iconText, message.Message);
+        }
+
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> </span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;param name="key"&gt;</span><span class="hljs-xmlDocTag">&lt;/param&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;returns&gt;</span><span class="hljs-xmlDocTag">&lt;/returns&gt;</span></span>
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetStringFromContext</span>(<span class="hljs-keyword">string</span> key)
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.GetFromContext&lt;<span class="hljs-keyword">string</span>&gt;(key);
+        }
+
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> </span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;typeparam name="T"&gt;</span><span class="hljs-xmlDocTag">&lt;/typeparam&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;param name="key"&gt;</span><span class="hljs-xmlDocTag">&lt;/param&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;returns&gt;</span><span class="hljs-xmlDocTag">&lt;/returns&gt;</span></span>
+        <span class="hljs-keyword">private</span> T GetFromContext&lt;T&gt;(<span class="hljs-keyword">string</span> key)
+        {
+            <span class="hljs-keyword">if</span>(HttpContext.Current.Items.Contains(key))
+            {
+                <span class="hljs-keyword">return</span> (T)HttpContext.Current.Items[key];
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">default</span>(T);
+        }
+    }
+}</div></div></div></div></body></html>

@@ -2,12 +2,7 @@
 // This sample code demonstrates how you can process a 
 // Payment using a previously saved credit card.
 // API used: /v1/payments/payment
-using System;
-using System.Web;
-using PayPal;
 using PayPal.Api;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace PayPal.Sample
@@ -16,6 +11,14 @@ namespace PayPal.Sample
     {
         protected override void RunSample()
         {
+            // ### Api Context
+            // Pass in a `APIContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+            // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
+            var apiContext = Configuration.GetAPIContext();
+
             // Items within a transaction.
             var item = new Item()
             {
@@ -72,9 +75,20 @@ namespace PayPal.Sample
                 transactions = new List<Transaction>() { tran }
             };
 
-            // Create a payment using a valid APIContext
+            // ^ Ignore workflow code segment
+            #region Track Workflow
             this.flow.AddNewRequest("Create credit card payment", pymnt);
-            this.flow.RecordResponse(pymnt.Create(this.apiContext));
+            #endregion
+
+            // Create a payment using a valid APIContext
+            var createdPayment = pymnt.Create(apiContext);
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
+            this.flow.RecordResponse(createdPayment);
+            #endregion
+
+            // For more information, please visit [PayPal Developer REST API Reference](https://developer.paypal.com/docs/api/).
         }
     }
 }

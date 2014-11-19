@@ -6,14 +6,7 @@
 // use to filter, and paginate through the
 // payments list.
 // API used: GET /v1/payments/payments
-using System;
-using System.Web;
-using System.Collections.Generic;
-using PayPal;
 using PayPal.Api;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using PayPal.Util;
 
 namespace PayPal.Sample
 {
@@ -21,6 +14,19 @@ namespace PayPal.Sample
     {
         protected override void RunSample()
         {
+            // ### Api Context
+            // Pass in a `APIContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+            // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
+            var apiContext = Configuration.GetAPIContext();
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
+            this.flow.AddNewRequest("Retrieve payment history");
+            #endregion
+
             // ###Retrieve
             // Retrieve the PaymentHistory by calling the
             // static `List` method
@@ -29,8 +35,14 @@ namespace PayPal.Sample
             // for paginations and filtering.
             // Refer the API documentation
             // for valid values for keys
-            this.flow.AddNewRequest("Retrieve payment history");
-            this.flow.RecordResponse(Payment.List(this.apiContext, count: 10, startIndex: 5));
+            var paymentList = Payment.List(apiContext, count: 10, startIndex: 5);
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
+            this.flow.RecordResponse(paymentList);
+            #endregion
+
+            // For more information, please visit [PayPal Developer REST API Reference](https://developer.paypal.com/docs/api/).
         }
     }
 }

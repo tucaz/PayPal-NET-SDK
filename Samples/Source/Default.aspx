@@ -36,8 +36,8 @@
                                         <div class="col-md-9 "><h5><%= item.Title %><% if (!string.IsNullOrEmpty(item.Note)) { %> <small>(<%= item.Note %>)</small><%} %></h5></div>
                                         <div class="col-md-3">
                                             <a href="<%= item.ExecutePage %>" class="btn btn-primary pull-left" >Execute <i class="fa fa-play-circle-o"></i></a>
-                                            <%if (!string.IsNullOrEmpty(item.SourcePage)) { %>
-                                            <a href="<%= item.SourcePage %>" class="btn btn-default pull-right" >Source <i class="fa fa-file-code-o"></i></a>
+                                            <%if (item.HasSourcePage) { %>
+                                            <a href="Source/<%= item.ExecutePage %>.html" class="btn btn-default pull-right" >Source <i class="fa fa-file-code-o"></i></a>
                                             <%} %>
                                         </div>
                                     </div>

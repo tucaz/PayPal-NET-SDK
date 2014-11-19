@@ -366,20 +366,6 @@
     <Content Include="assets\sideNavOut.png" />
     <Content Include="assets\sideNavOver.png" />
     <Content Include="assets\style.css" />
-    <Content Include="Source\AuthorizationCapture.aspx.html" />
-    <Content Include="Source\AuthorizationVoid.aspx.html" />
-    <Content Include="Source\CreateCreditCard.aspx.html" />
-    <Content Include="Source\GetAuthorization.aspx.html" />
-    <Content Include="Source\GetCapture.aspx.html" />
-    <Content Include="Source\GetCreditCard.aspx.html" />
-    <Content Include="Source\GetPayment.aspx.html" />
-    <Content Include="Source\GetPaymentHistory.aspx.html" />
-    <Content Include="Source\GetSale.aspx.html" />
-    <Content Include="Source\PaymentWithCreditCard.aspx.html" />
-    <Content Include="Source\PaymentWithPayPal.aspx.html" />
-    <Content Include="Source\PaymentWithSavedCard.aspx.html" />
-    <Content Include="Source\RefundCapture.aspx.html" />
-    <Content Include="Source\SaleRefund.aspx.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

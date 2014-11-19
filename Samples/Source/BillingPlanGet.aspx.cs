@@ -26,9 +26,20 @@ namespace PayPal.Sample
         protected override void RunSample()
         {
             var planId = "P-5FY40070P6526045UHFWUVEI";
+
+            #region Track Workflow
+            //--------------------
             this.flow.AddNewRequest(title: "Create billing plan", description: "ID: " + planId);
+            //--------------------
+            #endregion
+
             var plan = Plan.Get(Configuration.GetAPIContext(), planId);
+
+            #region Track Workflow
+            //--------------------
             this.flow.RecordResponse(plan);
+            //--------------------
+            #endregion
         }
     }
 }

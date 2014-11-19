@@ -23,8 +23,8 @@ namespace PayPal.Sample.Utilities
         public string ExecutePage { get; set; }
 
         /// <summary>
-        /// Gets or sets the ASPX page that contains the source code for this sample.
+        /// Gets or sets whether or not the sample has a source code HTML page generated for it.
         /// </summary>
-        public string SourcePage { get; set; }
+        public bool HasSourcePage { get; set; }
     }
 }

@@ -20,40 +20,82 @@ namespace PayPal.Sample
     {
         protected override void RunSample()
         {
-            var profile = new WebProfile();
-            var patchRequest = new PatchRequest();
+            // ### Api Context
+            // Pass in a `APIContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+            // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
+            var apiContext = Configuration.GetAPIContext();
 
             // Setup the profile we want to create
-            profile.name = Guid.NewGuid().ToString();
-            profile.presentation = new Presentation();
-            profile.presentation.brand_name = "Sample brand";
-            profile.presentation.locale_code = "US";
-            profile.presentation.logo_image = "https://www.paypal.com/";
-            profile.input_fields = new InputFields();
-            profile.input_fields.address_override = 1;
-            profile.input_fields.allow_note = true;
-            profile.input_fields.no_shipping = 0;
-            profile.flow_config = new FlowConfig();
-            profile.flow_config.bank_txn_pending_url = "https://www.paypal.com/";
-            profile.flow_config.landing_page_type = "billing";
+            var profile = new WebProfile()
+            {
+                name = Guid.NewGuid().ToString(),
+                presentation = new Presentation()
+                {
+                    brand_name = "Sample brand",
+                    locale_code = "US",
+                    logo_image = "https://www.paypal.com/"
+                },
+                input_fields = new InputFields()
+                {
+                    address_override = 1,
+                    allow_note = true,
+                    no_shipping = 0
+                },
+                flow_config = new FlowConfig()
+                {
+                    bank_txn_pending_url = "https://www.paypal.com/",
+                    landing_page_type = "billing"
+                }
+            };
+
+            #region Track Workflow
+            //--------------------
+            this.flow.AddNewRequest("Create profile", profile);
+            //--------------------
+            #endregion
 
             // Create the profile
-            this.flow.AddNewRequest("Create profile", profile);
-            var response = profile.Create(this.apiContext);
+            var response = profile.Create(apiContext);
+
+            #region Track Workflow
+            //--------------------
             this.flow.RecordResponse(response);
+            this.flow.AddNewRequest("Retrieve profile details", description: "ID: " + response.id);
+            //--------------------
+            #endregion
 
             // Get the profile object and update the profile.
-            this.flow.AddNewRequest("Retrieve profile details", description: "ID: " + response.id);
-            var retrievedProfile = WebProfile.Get(this.apiContext, response.id);
+            var retrievedProfile = WebProfile.Get(apiContext, response.id);
+
+            #region Track Workflow
+            //--------------------
             this.flow.RecordResponse(retrievedProfile);
+            //--------------------
+            #endregion
+
             retrievedProfile.name = "A new name";
 
+            #region Track Workflow
+            //--------------------
             this.flow.AddNewRequest("Update profile", retrievedProfile);
-            retrievedProfile.Update(this.apiContext);
-            this.flow.RecordActionSuccess("Profile updated successfully");
+            //--------------------
+            #endregion
 
+            retrievedProfile.Update(apiContext);
+
+            #region Track Workflow
+            //--------------------
+            this.flow.RecordActionSuccess("Profile updated successfully");
+            //--------------------
+            #endregion
+
+            #region Cleanup
             // Cleanup by deleting the newly-created profile
-            retrievedProfile.Delete(this.apiContext);
+            retrievedProfile.Delete(apiContext);
+            #endregion
         }
     }
 }

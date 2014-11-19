@@ -3,12 +3,7 @@
 // process a refund on a sale transaction created 
 // using the Payments API.
 // API used: /v1/payments/sale/{sale-id}/refund
-using System;
-using System.Web;
-using PayPal;
 using PayPal.Api;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 
 namespace PayPal.Sample
 {
@@ -16,6 +11,14 @@ namespace PayPal.Sample
     {
         protected override void RunSample()
         {
+            // ### Api Context
+            // Pass in a `APIContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+            // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
+            var apiContext = Configuration.GetAPIContext();
+
             // A refund transaction. Use the amount to create a refund object
             var refund = new Refund()
             {
@@ -27,12 +30,25 @@ namespace PayPal.Sample
             };
 
             // Create a Sale object with the given sale transaction id.
-            Sale sale = new Sale();
-            sale.id = "1L304068UD1406339";
+            var sale = new Sale()
+            {
+                id = "1L304068UD1406339"
+            };
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
+            this.flow.AddNewRequest("Refund sale", refund, string.Format("URI: /v1/payments/sale/{0}/refund", sale.id));
+            #endregion
             
             // Refund by posting Refund object using a valid APIContext
-            this.flow.AddNewRequest("Refund sale", refund, string.Format("URI: /v1/payments/sale/{0}/refund", sale.id));
-            this.flow.RecordResponse(sale.Refund(this.apiContext, refund));
+            var response = sale.Refund(apiContext, refund);
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
+            this.flow.RecordResponse(response);
+            #endregion
+
+            // For more information, please visit [PayPal Developer REST API Reference](https://developer.paypal.com/docs/api/).
         }
     }
 }

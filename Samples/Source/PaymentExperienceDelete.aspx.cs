@@ -20,6 +20,14 @@ namespace PayPal.Sample
     {
         protected override void RunSample()
         {
+            // ### Api Context
+            // Pass in a `APIContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+            // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
+            var apiContext = Configuration.GetAPIContext();
+
             // Setup the profile we want to create
             var profile = new WebProfile()
             {
@@ -43,19 +51,39 @@ namespace PayPal.Sample
                 }
             };
 
-            // Create the profile
+            #region Track Workflow
+            //--------------------
             this.flow.AddNewRequest("Create profile", profile);
-            var response = profile.Create(this.apiContext);
+            //--------------------
+            #endregion
+
+            // Create the profile
+            var response = profile.Create(apiContext);
+
+            #region Track Workflow
+            //--------------------
             this.flow.RecordResponse(response);
+            this.flow.AddNewRequest("Retrieve profile", description: "ID: " + response.id);
+            //--------------------
+            #endregion
 
             // Delete the newly-created profile
-            this.flow.AddNewRequest("Retrieve profile", description: "ID: " + response.id);
-            var retrievedProfile = WebProfile.Get(this.apiContext, response.id);
-            this.flow.RecordResponse(retrievedProfile);
+            var retrievedProfile = WebProfile.Get(apiContext, response.id);
 
+            #region Track Workflow
+            //--------------------
+            this.flow.RecordResponse(retrievedProfile);
             this.flow.AddNewRequest("Delete profile", description: "ID: " + retrievedProfile.id);
-            retrievedProfile.Delete(this.apiContext);
+            //--------------------
+            #endregion
+
+            retrievedProfile.Delete(apiContext);
+
+            #region Track Workflow
+            //--------------------
             this.flow.RecordActionSuccess("Profile deleted successfully");
+            //--------------------
+            #endregion
         }
     }
 }
