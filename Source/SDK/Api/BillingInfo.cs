@@ -38,7 +38,7 @@ namespace PayPal.Api
         /// Address of the invoice recipient.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "address")]
-        public Address address { get; set; }
+        public InvoiceAddress address { get; set; }
 
         /// <summary>
         /// Language of the email sent to the payer. Will only be used if payer doesn't have a PayPal account.

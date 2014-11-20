@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\APIContext.cs" />
+    <Compile Include="Api\BaseAddress.cs" />
     <Compile Include="Api\CarrierAccountToken.cs" />
     <Compile Include="Api\CurrencyConversion.cs" />
     <Compile Include="Api\FundingDetail.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Api\InstallmentInfo.cs" />
     <Compile Include="Api\InstallmentOption.cs" />
     <Compile Include="Api\IPayPalSerializableObject.cs" />
+    <Compile Include="Api\InvoiceAddress.cs" />
     <Compile Include="Api\OAuthTokenCredential.cs" />
     <Compile Include="Api\Address.cs" />
     <Compile Include="Api\Agreement.cs" />

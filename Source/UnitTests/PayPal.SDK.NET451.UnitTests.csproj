@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8C1F1EDA-1D76-4b5f-B20E-3352DA699B76}</ProjectGuid>
+    <ProjectGuid>{8C1F1EDA-1D76-4B5F-B20E-3352DA699B76}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PayPal.UnitTest</RootNamespace>
@@ -106,6 +106,7 @@
     <Compile Include="ShippingInfoTest.cs" />
     <Compile Include="TermsTest.cs" />
     <Compile Include="TransactionTest.cs" />
+    <Compile Include="InvoiceAddressTest.cs" />
     <Compile Include="UnitTestUtil.cs" />
     <Compile Include="WebProfileTest.cs" />
   </ItemGroup>

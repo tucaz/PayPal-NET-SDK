@@ -106,6 +106,7 @@
     <Compile Include="ShippingInfoTest.cs" />
     <Compile Include="TermsTest.cs" />
     <Compile Include="TransactionTest.cs" />
+    <Compile Include="InvoiceAddressTest.cs" />
     <Compile Include="UnitTestUtil.cs" />
     <Compile Include="WebProfileTest.cs" />
   </ItemGroup>

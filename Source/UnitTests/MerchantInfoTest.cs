@@ -19,7 +19,7 @@ namespace PayPal.UnitTest
             "\"last_name\":\"Doctor\"," +
             "\"business_name\":\"Medical Professionals, LLC\"," +
             "\"phone\":" + PhoneTest.PhoneJson + "," +
-            "\"address\":" + AddressTest.AddressJson + "}";
+            "\"address\":" + InvoiceAddressTest.InvoiceAddressJson + "}";
 
         public static MerchantInfo GetMerchantInfo()
         {

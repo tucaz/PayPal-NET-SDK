@@ -17,7 +17,7 @@ namespace PayPal.UnitTest
             "{\"first_name\":\"Sally\"," +
             "\"last_name\":\"Patient\"," +
             "\"business_name\":\"Not applicable\"," +
-            "\"address\":" + AddressTest.AddressJson + "}";
+            "\"address\":" + InvoiceAddressTest.InvoiceAddressJson + "}";
 
         public static ShippingInfo GetShippingInfo()
         {

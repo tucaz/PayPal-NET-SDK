@@ -8,12 +8,12 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
-    public class Address : BaseAddress
+    public class InvoiceAddress : BaseAddress
     {
         /// <summary>
         /// Phone number in E.123 format.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "phone")]
-        public string phone { get; set; }
+        public Phone phone { get; set; }
     }
 }

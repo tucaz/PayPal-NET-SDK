@@ -32,7 +32,7 @@ namespace PayPal.Api
         /// Address of the merchant.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "address")]
-        public Address address { get; set; }
+        public InvoiceAddress address { get; set; }
 
         /// <summary>
         /// Company business name of the merchant. 100 characters max.
