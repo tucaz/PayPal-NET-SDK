@@ -62,5 +62,16 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(createdInvoice.id);
             Assert.AreEqual(invoice.note, createdInvoice.note);
         }
+
+        [TestMethod]
+        public void InvoiceQrCodeTest()
+        {
+            var invoice = GetInvoice();
+            var createdInvoice = invoice.Create(UnitTestUtil.GetApiContext());
+            var qrCode = Invoice.QrCode(UnitTestUtil.GetApiContext(), createdInvoice.id);
+            Assert.IsNotNull(qrCode);
+            Assert.IsTrue(!string.IsNullOrEmpty(qrCode.image));
+            createdInvoice.Delete(UnitTestUtil.GetApiContext());
+        }
     }
 }

@@ -7,7 +7,6 @@ using PayPal.Log;
 using System.Text;
 using PayPal.Api;
 using System.IO;
-using System.Drawing;
 
 namespace PayPal
 {
@@ -167,16 +166,6 @@ namespace PayPal
                     else if (typeof(T).Name.Equals("String"))
                     {
                         return (T)Convert.ChangeType(response, typeof(T));
-                    }
-                    else if (typeof(T).Equals(typeof(System.Drawing.Image)))
-                    {
-                        // The response is a base-64-encoded stream. Start by creating a memory stream so the Image class can read the data.
-                        var imageBytes = Convert.FromBase64String(response);
-                        using (var memoryStream = new MemoryStream(imageBytes, 0, imageBytes.Length))
-                        {
-                            memoryStream.Write(imageBytes, 0, imageBytes.Length);
-                            return (T)Convert.ChangeType(Image.FromStream(memoryStream, true), typeof(Image));
-                        }
                     }
                     else
                     {

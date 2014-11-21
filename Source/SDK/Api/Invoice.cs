@@ -5,7 +5,6 @@
 //
 //==============================================================================
 using System.Collections.Generic;
-using System.Drawing;
 using Newtonsoft.Json;
 using PayPal.Util;
 
@@ -172,7 +171,7 @@ namespace PayPal.Api
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="search">Search</param>
         /// <returns>InvoiceSearchResponse</returns>
-        public InvoiceSearchResponse Search(APIContext apiContext, Search search)
+        public static InvoiceSearchResponse Search(APIContext apiContext, Search search)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);

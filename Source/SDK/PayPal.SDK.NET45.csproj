@@ -54,7 +54,6 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -69,6 +68,7 @@
     <Compile Include="Api\FundingDetail.cs" />
     <Compile Include="Api\FundingOption.cs" />
     <Compile Include="Api\FundingSource.cs" />
+    <Compile Include="Api\Image.cs" />
     <Compile Include="Api\Incentive.cs" />
     <Compile Include="Api\InstallmentInfo.cs" />
     <Compile Include="Api\InstallmentOption.cs" />
