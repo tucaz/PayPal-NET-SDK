@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PayPal.SDK.Sample.VS._2013
+namespace PayPal.Sample
 {
 
 
-    public partial class Contact
+    public partial class InvoiceUpdate
     {
     }
 }

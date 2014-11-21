@@ -70,6 +70,9 @@
                 color: #EEE;
                 text-decoration: none;
             }
+            li.list-group-item:hover {
+                background-color: #eee;
+            }
         </style>
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -119,9 +122,9 @@
                 <div class="footer-div">
                     <ul class="footer-links">
                         <li>
-                            <a href="https://github.com/paypal/PayPal-NET-SDK" target="_blank"><i class="fa fa-github"></i> Github</a></li>
+                            <a href="https://github.com/paypal/PayPal-NET-SDK" target="_blank"><i class="fa fa-github"></i> GitHub</a></li>
                         <li>
-                            <a href="https://developer.paypal.com/webapps/developer/docs/api/" target="_blank"><i class="fa fa-book"></i> REST API Reference</a>
+                            <a href="https://developer.paypal.com/webapps/developer/docs/api/" target="_blank"><i class="fa fa-book"></i> PayPal REST API Reference</a>
                         </li>
                         <li>
                             <a href="https://github.com/paypal/PayPal-NET-SDK/issues" target="_blank"><i class="fa fa-exclamation-triangle"></i> Report Issues </a>

@@ -45,6 +45,12 @@
                             <div class ="flow-message <%= this.GetMessageClass(message)%>"><%= this.GetMessageWithMarkup(message) %></div>
                             <%} %>
                             <%= prettyResponse %>
+                            <% if (!string.IsNullOrEmpty(this.Flow.Items[i].ImagePath))
+                               {
+                                   this.SampleImage.ImageUrl = this.Flow.Items[i].ImagePath;
+                                   %>
+                            <div><asp:Image ID="SampleImage" runat="server"/></div>
+                            <% }%>
                         </div>
                     </div>
                     <!-- Small view -->
@@ -62,6 +68,12 @@
                                 <div class ="flow-message <%= this.GetMessageClass(message)%>"><%= this.GetMessageWithMarkup(message) %></div>
                                 <%} %>
                                 <%= prettyResponse %>
+                                <% if (!string.IsNullOrEmpty(this.Flow.Items[i].ImagePath))
+                                   {
+                                       this.SampleImage.ImageUrl = this.Flow.Items[i].ImagePath;
+                                       %>
+                                <div><asp:Image ID="Image1" runat="server"/></div>
+                                <% }%>
                             </div>
                         </div>
                     </div>

@@ -53,7 +53,6 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -76,6 +75,18 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="GetRefund.aspx" />
     <Content Include="assets\logo_paypal_106x29.png" />
+    <Content Include="InvoiceCancel.aspx" />
+    <Content Include="InvoiceCreate.aspx" />
+    <Content Include="InvoiceDelete.aspx" />
+    <Content Include="InvoiceGet.aspx" />
+    <Content Include="InvoiceGetList.aspx" />
+    <Content Include="InvoiceGetQrCode.aspx" />
+    <Content Include="InvoiceRecordPayment.aspx" />
+    <Content Include="InvoiceRecordRefund.aspx" />
+    <Content Include="InvoiceSearch.aspx" />
+    <Content Include="InvoiceSend.aspx" />
+    <Content Include="InvoiceSendReminder.aspx" />
+    <Content Include="InvoiceUpdate.aspx" />
     <Content Include="OrderSample.aspx" />
     <Content Include="PaymentExperienceCreate.aspx" />
     <Content Include="PaymentExperienceDelete.aspx" />
@@ -163,6 +174,90 @@
     </Compile>
     <Compile Include="GetRefund.aspx.designer.cs">
       <DependentUpon>GetRefund.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceCancel.aspx.cs">
+      <DependentUpon>InvoiceCancel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoiceCancel.aspx.designer.cs">
+      <DependentUpon>InvoiceCancel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceCreate.aspx.cs">
+      <DependentUpon>InvoiceCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoiceCreate.aspx.designer.cs">
+      <DependentUpon>InvoiceCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDelete.aspx.cs">
+      <DependentUpon>InvoiceDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoiceDelete.aspx.designer.cs">
+      <DependentUpon>InvoiceDelete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceGet.aspx.cs">
+      <DependentUpon>InvoiceGet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoiceGet.aspx.designer.cs">
+      <DependentUpon>InvoiceGet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceGetList.aspx.cs">
+      <DependentUpon>InvoiceGetList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoiceGetList.aspx.designer.cs">
+      <DependentUpon>InvoiceGetList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceGetQrCode.aspx.cs">
+      <DependentUpon>InvoiceGetQrCode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoiceGetQrCode.aspx.designer.cs">
+      <DependentUpon>InvoiceGetQrCode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceRecordPayment.aspx.cs">
+      <DependentUpon>InvoiceRecordPayment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoiceRecordPayment.aspx.designer.cs">
+      <DependentUpon>InvoiceRecordPayment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceRecordRefund.aspx.cs">
+      <DependentUpon>InvoiceRecordRefund.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoiceRecordRefund.aspx.designer.cs">
+      <DependentUpon>InvoiceRecordRefund.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceSearch.aspx.cs">
+      <DependentUpon>InvoiceSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoiceSearch.aspx.designer.cs">
+      <DependentUpon>InvoiceSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceSend.aspx.cs">
+      <DependentUpon>InvoiceSend.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoiceSend.aspx.designer.cs">
+      <DependentUpon>InvoiceSend.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceSendReminder.aspx.cs">
+      <DependentUpon>InvoiceSendReminder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoiceSendReminder.aspx.designer.cs">
+      <DependentUpon>InvoiceSendReminder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceUpdate.aspx.cs">
+      <DependentUpon>InvoiceUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoiceUpdate.aspx.designer.cs">
+      <DependentUpon>InvoiceUpdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Main.Master.cs">
       <DependentUpon>Main.Master</DependentUpon>
@@ -362,20 +457,6 @@
     <Content Include="assets\sideNavOut.png" />
     <Content Include="assets\sideNavOver.png" />
     <Content Include="assets\style.css" />
-    <Content Include="Source\AuthorizationCapture.aspx.html" />
-    <Content Include="Source\AuthorizationVoid.aspx.html" />
-    <Content Include="Source\CreateCreditCard.aspx.html" />
-    <Content Include="Source\GetAuthorization.aspx.html" />
-    <Content Include="Source\GetCapture.aspx.html" />
-    <Content Include="Source\GetCreditCard.aspx.html" />
-    <Content Include="Source\GetPayment.aspx.html" />
-    <Content Include="Source\GetPaymentHistory.aspx.html" />
-    <Content Include="Source\GetSale.aspx.html" />
-    <Content Include="Source\PaymentWithCreditCard.aspx.html" />
-    <Content Include="Source\PaymentWithPayPal.aspx.html" />
-    <Content Include="Source\PaymentWithSavedCard.aspx.html" />
-    <Content Include="Source\RefundCapture.aspx.html" />
-    <Content Include="Source\SaleRefund.aspx.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

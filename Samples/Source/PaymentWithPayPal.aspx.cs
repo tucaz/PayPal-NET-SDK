@@ -242,8 +242,11 @@ namespace PayPal.Sample
             // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
             var apiContext = Configuration.GetAPIContext();
 
+
             var tokenInfo = Tokeninfo.CreateFromAuthorizationCodeForFuturePayments(apiContext, authorizationCodeParameters);
             var accessToken = string.Format("{0} {1}", tokenInfo.token_type, tokenInfo.access_token);
+
+            var futurePaymentApiContext = Configuration.GetAPIContext(accessToken);
 
             // ###Payment
             // A FuturePayment Resource
@@ -254,7 +257,7 @@ namespace PayPal.Sample
                 transactions = transactionList,
                 redirect_urls = redirUrls
             };
-            return futurePayment.Create(accessToken, correlationId);
+            return futurePayment.Create(futurePaymentApiContext, correlationId);
         }
     }
 }

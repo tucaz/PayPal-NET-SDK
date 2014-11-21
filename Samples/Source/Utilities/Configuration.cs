@@ -37,14 +37,14 @@ namespace PayPal.Sample
         }
 
         // Returns APIContext object
-        public static APIContext GetAPIContext()
+        public static APIContext GetAPIContext(string accessToken = "")
         {
             // ### Api Context
             // Pass in a `APIContext` object to authenticate 
             // the call and to send a unique request id 
             // (that ensures idempotency). The SDK generates
             // a request id if you do not pass one explicitly. 
-            APIContext apiContext = new APIContext(GetAccessToken());
+            var apiContext = new APIContext(string.IsNullOrEmpty(accessToken) ? GetAccessToken() : accessToken);
             apiContext.Config = GetConfig();
 
             // Use this variant if you want to pass in a request id  

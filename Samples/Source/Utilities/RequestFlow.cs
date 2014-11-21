@@ -1,6 +1,7 @@
 ﻿using PayPal.Api;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -63,6 +64,21 @@ namespace PayPal.Sample.Utilities
             if(this.Items.Any())
             {
                 this.Items.Last().RecordSuccess(message);
+            }
+        }
+
+        /// <summary>
+        /// Records an image that was returned from a call (e.g. Invoice.QrCode)
+        /// </summary>
+        /// <param name="image"></param>
+        public void RecordImage(Image image)
+        {
+            if(this.Items.Any())
+            {
+                var filename = "Images/sample.png";
+                var serverRoot = HttpContext.Current.Server.MapPath(null);
+                image.Save(Path.Combine(serverRoot, filename));
+                this.Items.Last().ImagePath = filename;
             }
         }
 

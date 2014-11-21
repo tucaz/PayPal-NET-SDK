@@ -73,6 +73,11 @@ namespace PayPal.Sample.Utilities
         public bool IsRedirectApproved { get; set; }
 
         /// <summary>
+        /// Gets or sets an image associated with this flow item.
+        /// </summary>
+        public string ImagePath { get; set; }
+
+        /// <summary>
         /// Default constructor.
         /// </summary>
         public RequestFlowItem()

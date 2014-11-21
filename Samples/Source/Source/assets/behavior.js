@@ -383,27 +383,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "CSharp"
         },
-        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\Default.aspx.cs",
-        "projectPath": "Default.aspx.cs",
-        "targetPath": "Default.aspx",
-        "pageTitle": "Default.aspx",
-        "title": "Default.aspx"
-      },
-      "depth": 1,
-      "outline": []
-    }, {
-      "type": "file",
-      "data": {
-        "language": {
-          "nameMatchers": [".cs"],
-          "pygmentsLexer": "csharp",
-          "highlightJS": "cs",
-          "multiLineComment": ["/*", "*", "*/"],
-          "singleLineComment": ["//"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CSharp"
-        },
         "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\DeleteCreditCard.aspx.cs",
         "projectPath": "DeleteCreditCard.aspx.cs",
         "targetPath": "DeleteCreditCard.aspx",
@@ -899,6 +878,1293 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "level": 3,
             "title": "Api Context",
             "slug": "api-context"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\InvoiceCancel.aspx.cs",
+        "projectPath": "InvoiceCancel.aspx.cs",
+        "targetPath": "InvoiceCancel.aspx",
+        "pageTitle": "InvoiceCancel.aspx",
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Cancel an invoice",
+            "slug": "cancel-an-invoice",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Api Context",
+                "slug": "api-context"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Create an invoice",
+                "slug": "create-an-invoice"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Merchant Information",
+                    "slug": "merchant-information"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Billing Information",
+                    "slug": "billing-information"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Invoice Items",
+                    "slug": "invoice-items"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Invoice Note",
+                    "slug": "invoice-note"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Payment Term",
+                    "slug": "payment-term"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Shipping Information",
+                    "slug": "shipping-information"
+                  },
+                  "depth": 4
+                }
+              ]
+            }
+          ]
+        },
+        "title": "Cancel an invoice"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Create an invoice",
+            "slug": "create-an-invoice"
+          },
+          "depth": 3,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Merchant Information",
+                "slug": "merchant-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Billing Information",
+                "slug": "billing-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Items",
+                "slug": "invoice-items"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Note",
+                "slug": "invoice-note"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Payment Term",
+                "slug": "payment-term"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Shipping Information",
+                "slug": "shipping-information"
+              },
+              "depth": 4
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\InvoiceCreate.aspx.cs",
+        "projectPath": "InvoiceCreate.aspx.cs",
+        "targetPath": "InvoiceCreate.aspx",
+        "pageTitle": "InvoiceCreate.aspx",
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Create an invoice",
+            "slug": "create-an-invoice",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Api Context",
+                "slug": "api-context"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Create an invoice",
+                "slug": "create-an-invoice"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Merchant Information",
+                    "slug": "merchant-information"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Billing Information",
+                    "slug": "billing-information"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Invoice Items",
+                    "slug": "invoice-items"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Invoice Note",
+                    "slug": "invoice-note"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Payment Term",
+                    "slug": "payment-term"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Shipping Information",
+                    "slug": "shipping-information"
+                  },
+                  "depth": 4
+                }
+              ]
+            }
+          ]
+        },
+        "title": "Create an invoice"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Create an invoice",
+            "slug": "create-an-invoice"
+          },
+          "depth": 3,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Merchant Information",
+                "slug": "merchant-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Billing Information",
+                "slug": "billing-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Items",
+                "slug": "invoice-items"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Note",
+                "slug": "invoice-note"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Payment Term",
+                "slug": "payment-term"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Shipping Information",
+                "slug": "shipping-information"
+              },
+              "depth": 4
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\InvoiceDelete.aspx.cs",
+        "projectPath": "InvoiceDelete.aspx.cs",
+        "targetPath": "InvoiceDelete.aspx",
+        "pageTitle": "InvoiceDelete.aspx",
+        "title": "InvoiceDelete.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Create an invoice",
+            "slug": "create-an-invoice"
+          },
+          "depth": 3,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Merchant Information",
+                "slug": "merchant-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Billing Information",
+                "slug": "billing-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Items",
+                "slug": "invoice-items"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Note",
+                "slug": "invoice-note"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Payment Term",
+                "slug": "payment-term"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Shipping Information",
+                "slug": "shipping-information"
+              },
+              "depth": 4
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\InvoiceGet.aspx.cs",
+        "projectPath": "InvoiceGet.aspx.cs",
+        "targetPath": "InvoiceGet.aspx",
+        "pageTitle": "InvoiceGet.aspx",
+        "title": "InvoiceGet.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\InvoiceGetList.aspx.cs",
+        "projectPath": "InvoiceGetList.aspx.cs",
+        "targetPath": "InvoiceGetList.aspx",
+        "pageTitle": "InvoiceGetList.aspx",
+        "title": "InvoiceGetList.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\InvoiceGetQrCode.aspx.cs",
+        "projectPath": "InvoiceGetQrCode.aspx.cs",
+        "targetPath": "InvoiceGetQrCode.aspx",
+        "pageTitle": "InvoiceGetQrCode.aspx",
+        "title": "InvoiceGetQrCode.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Create an invoice",
+            "slug": "create-an-invoice"
+          },
+          "depth": 3,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Merchant Information",
+                "slug": "merchant-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Billing Information",
+                "slug": "billing-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Items",
+                "slug": "invoice-items"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Note",
+                "slug": "invoice-note"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Payment Term",
+                "slug": "payment-term"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Shipping Information",
+                "slug": "shipping-information"
+              },
+              "depth": 4
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\InvoiceRecordPayment.aspx.cs",
+        "projectPath": "InvoiceRecordPayment.aspx.cs",
+        "targetPath": "InvoiceRecordPayment.aspx",
+        "pageTitle": "InvoiceRecordPayment.aspx",
+        "title": "InvoiceRecordPayment.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Create an invoice",
+            "slug": "create-an-invoice"
+          },
+          "depth": 3,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Merchant Information",
+                "slug": "merchant-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Billing Information",
+                "slug": "billing-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Items",
+                "slug": "invoice-items"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Note",
+                "slug": "invoice-note"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Payment Term",
+                "slug": "payment-term"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Shipping Information",
+                "slug": "shipping-information"
+              },
+              "depth": 4
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\InvoiceRecordRefund.aspx.cs",
+        "projectPath": "InvoiceRecordRefund.aspx.cs",
+        "targetPath": "InvoiceRecordRefund.aspx",
+        "pageTitle": "InvoiceRecordRefund.aspx",
+        "title": "InvoiceRecordRefund.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Create an invoice",
+            "slug": "create-an-invoice"
+          },
+          "depth": 3,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Merchant Information",
+                "slug": "merchant-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Billing Information",
+                "slug": "billing-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Items",
+                "slug": "invoice-items"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Note",
+                "slug": "invoice-note"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Payment Term",
+                "slug": "payment-term"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Shipping Information",
+                "slug": "shipping-information"
+              },
+              "depth": 4
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\InvoiceSearch.aspx.cs",
+        "projectPath": "InvoiceSearch.aspx.cs",
+        "targetPath": "InvoiceSearch.aspx",
+        "pageTitle": "InvoiceSearch.aspx",
+        "title": "InvoiceSearch.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\InvoiceSend.aspx.cs",
+        "projectPath": "InvoiceSend.aspx.cs",
+        "targetPath": "InvoiceSend.aspx",
+        "pageTitle": "InvoiceSend.aspx",
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Send an invoice",
+            "slug": "send-an-invoice",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Api Context",
+                "slug": "api-context"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Create an invoice",
+                "slug": "create-an-invoice"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Merchant Information",
+                    "slug": "merchant-information"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Billing Information",
+                    "slug": "billing-information"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Invoice Items",
+                    "slug": "invoice-items"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Invoice Note",
+                    "slug": "invoice-note"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Payment Term",
+                    "slug": "payment-term"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Shipping Information",
+                    "slug": "shipping-information"
+                  },
+                  "depth": 4
+                }
+              ]
+            }
+          ]
+        },
+        "title": "Send an invoice"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Create an invoice",
+            "slug": "create-an-invoice"
+          },
+          "depth": 3,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Merchant Information",
+                "slug": "merchant-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Billing Information",
+                "slug": "billing-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Items",
+                "slug": "invoice-items"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Note",
+                "slug": "invoice-note"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Payment Term",
+                "slug": "payment-term"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Shipping Information",
+                "slug": "shipping-information"
+              },
+              "depth": 4
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\InvoiceSendReminder.aspx.cs",
+        "projectPath": "InvoiceSendReminder.aspx.cs",
+        "targetPath": "InvoiceSendReminder.aspx",
+        "pageTitle": "InvoiceSendReminder.aspx",
+        "title": "InvoiceSendReminder.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Create an invoice",
+            "slug": "create-an-invoice"
+          },
+          "depth": 3,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Merchant Information",
+                "slug": "merchant-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Billing Information",
+                "slug": "billing-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Items",
+                "slug": "invoice-items"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Note",
+                "slug": "invoice-note"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Payment Term",
+                "slug": "payment-term"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Shipping Information",
+                "slug": "shipping-information"
+              },
+              "depth": 4
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\InvoiceUpdate.aspx.cs",
+        "projectPath": "InvoiceUpdate.aspx.cs",
+        "targetPath": "InvoiceUpdate.aspx",
+        "pageTitle": "InvoiceUpdate.aspx",
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Update an invoice",
+            "slug": "update-an-invoice",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Api Context",
+                "slug": "api-context"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Create an invoice",
+                "slug": "create-an-invoice"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Merchant Information",
+                    "slug": "merchant-information"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Billing Information",
+                    "slug": "billing-information"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Invoice Items",
+                    "slug": "invoice-items"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Invoice Note",
+                    "slug": "invoice-note"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Payment Term",
+                    "slug": "payment-term"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Shipping Information",
+                    "slug": "shipping-information"
+                  },
+                  "depth": 4
+                }
+              ]
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Create the invoice",
+                "slug": "create-the-invoice"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "API issue workaround (PPTIPS-1932)",
+                "slug": "api-issue-workaround-pptips-1932"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Apply some changes",
+                "slug": "apply-some-changes"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Update the invoice",
+                "slug": "update-the-invoice"
+              },
+              "depth": 3
+            }
+          ]
+        },
+        "title": "Update an invoice"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Create an invoice",
+            "slug": "create-an-invoice"
+          },
+          "depth": 3,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Merchant Information",
+                "slug": "merchant-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Billing Information",
+                "slug": "billing-information"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Items",
+                "slug": "invoice-items"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Invoice Note",
+                "slug": "invoice-note"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Payment Term",
+                "slug": "payment-term"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Shipping Information",
+                "slug": "shipping-information"
+              },
+              "depth": 4
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Create the invoice",
+            "slug": "create-the-invoice"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "API issue workaround (PPTIPS-1932)",
+            "slug": "api-issue-workaround-pptips-1932"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Apply some changes",
+            "slug": "apply-some-changes"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Update the invoice",
+            "slug": "update-the-invoice"
           },
           "depth": 3
         }
@@ -1667,27 +2933,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "depth": 3
         }
       ]
-    }, {
-      "type": "file",
-      "data": {
-        "language": {
-          "nameMatchers": [".cs"],
-          "pygmentsLexer": "csharp",
-          "highlightJS": "cs",
-          "multiLineComment": ["/*", "*", "*/"],
-          "singleLineComment": ["//"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CSharp"
-        },
-        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\Response.aspx.cs",
-        "projectPath": "Response.aspx.cs",
-        "targetPath": "Response.aspx",
-        "pageTitle": "Response.aspx",
-        "title": "Response.aspx"
-      },
-      "depth": 1,
-      "outline": []
     }, {
       "type": "file",
       "data": {
