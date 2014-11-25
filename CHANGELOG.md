@@ -7,7 +7,13 @@ PayPal .NET SDK release notes
 * Removed .NET 3.5 support
 * Added .NET 4.5.1 support
 * Updated Invoice support
-* Updated samples
+  * Fixed Invoice.Create
+  * Fixed Invoice.Search
+  * Added Invoice.QrCode
+* Updated Credit Card support
+  * Fixed CreditCard.Update
+  * Added CreditCard.List
+* Updated Samples project
 
 ## v0.11.0
 * Added billing plans and agreements support
