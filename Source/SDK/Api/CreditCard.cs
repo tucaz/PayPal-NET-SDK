@@ -33,13 +33,13 @@ namespace PayPal.Api
         /// 2 digit card expiry month.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "expire_month")]
-        public int? expire_month { get; set; }
+        public int expire_month { get; set; }
 
         /// <summary>
         /// 4 digit card expiry year
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "expire_year")]
-        public int? expire_year { get; set; }
+        public int expire_year { get; set; }
 
         /// <summary>
         /// Card validation code. Only supported when making a Payment but not when saving a credit card for future use.
