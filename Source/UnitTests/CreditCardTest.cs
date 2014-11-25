@@ -77,6 +77,15 @@ namespace PayPal.UnitTest
             retrievedCreditCard.Delete(UnitTestUtil.GetApiContext());
         }
 
+        [TestMethod]
+        public void CreditCardListTest()
+        {
+            var creditCardList = CreditCard.List(UnitTestUtil.GetApiContext(), startTime: "2014-11-01T19:27:56Z", endTime: "2014-12-25T19:27:56Z");
+            Assert.IsNotNull(creditCardList);
+            Assert.IsTrue(creditCardList.total_items > 0);
+            Assert.IsTrue(creditCardList.total_pages > 0);
+        }
+
         [TestMethod()]
         public void CreditCardNullIdTest()
         {

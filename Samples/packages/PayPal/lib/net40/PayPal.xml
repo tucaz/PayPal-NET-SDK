@@ -1841,6 +1841,21 @@
             
             </summary>
         </member>
+        <member name="P:PayPal.Api.CreditCardList.items">
+            <summary>
+            A list of credit card resources
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.CreditCardList.total_items">
+            <summary>
+            Total number of items present in the given list. Note that the number of items might be larger than the records in the current page.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.CreditCardList.total_pages">
+            <summary>
+            Total number of pages that exist, for the total number of items, with the given page size.
+            </summary>
+        </member>
         <member name="F:PayPal.Api.APIContext.token">
             <summary>
             Access Token
@@ -2861,13 +2876,15 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="creditCardId">Identifier of the credit card resource to obtain the data for.</param>
         </member>
-        <member name="M:PayPal.Api.CreditCard.Update(PayPal.Api.APIContext)">
+        <member name="M:PayPal.Api.CreditCard.Update(PayPal.Api.APIContext,PayPal.Api.PatchRequest)">
             <summary>
             Update information in a previously saved card. Only the modified fields need to be passed in the request.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="patchRequest">PatchRequest</param>
             <returns>CreditCard</returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:PayPal.Api.CreditCard.List(PayPal.Api.APIContext,System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String)" -->
         <member name="P:PayPal.Api.CreditCard.id">
             <summary>
             ID of the credit card being saved for later use.
@@ -2918,9 +2935,29 @@
             A unique identifier of the customer to whom this bank account belongs to. Generated and provided by the facilitator. This is required when creating or using a stored funding instrument in vault.
             </summary>
         </member>
+        <member name="P:PayPal.Api.CreditCard.merchant_id">
+            <summary>
+            A user provided, optional convenvience field that functions as a unique identifier for the merchant on behalf of whom this credit card is being stored for. Note that this has no relation to PayPal merchant id
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.CreditCard.external_card_id">
+            <summary>
+            A unique identifier of the bank account resource. Generated and provided by the facilitator so it can be used to restrict the usage of the bank account to the specific merchant.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.CreditCard.state">
             <summary>
             State of the funding instrument.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.CreditCard.create_time">
+            <summary>
+            Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates creation time.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.CreditCard.update_time">
+            <summary>
+            Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the updation time.
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCard.valid_until">
@@ -4345,26 +4382,6 @@
         <member name="P:PayPal.Api.Error.details">
             <summary>
             Additional details of the error
-            </summary>
-        </member>
-        <member name="M:PayPal.Api.CreditCardHistory.ConvertToJson">
-            <summary>
-            Converts the object to JSON string
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.CreditCardHistory.credit_cards">
-            <summary>
-            A list of credit card resources
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.CreditCardHistory.count">
-            <summary>
-            Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.CreditCardHistory.next_id">
-            <summary>
-            Identifier of the next element to get the next range of results.
             </summary>
         </member>
         <member name="T:PayPal.SDKConfigHandler">

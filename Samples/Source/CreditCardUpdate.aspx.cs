@@ -1,17 +1,8 @@
-﻿// #CreateCreditCard Sample
-// Using the 'vault' API, you can store a 
-// Credit Card securely on PayPal. You can
-// use a saved Credit Card to process
-// a payment in the future.
-// The following code demonstrates how 
-// can save a Credit Card on PayPal using 
-// the Vault API.
-// API used: POST /v1/vault/credit-card
-using PayPal.Api;
+﻿using PayPal.Api;
 
 namespace PayPal.Sample
 {
-    public partial class CreateCreditCard : BaseSamplePage
+    public partial class CreditCardUpdate : BaseSamplePage
     {
         protected override void RunSample()
         {
@@ -44,6 +35,32 @@ namespace PayPal.Sample
             #region Track Workflow
             //--------------------
             this.flow.RecordResponse(createdCard);
+            //--------------------
+            #endregion
+
+            // Create a `PatchRequest` that will define the fields to be updated in the credit card resource.
+            var patchRequest = new PatchRequest
+            {
+                new Patch
+                {
+                    op = "replace",
+                    path = "/expire_month",
+                    value = 12
+                }
+            };
+
+            #region Track Workflow
+            //--------------------
+            this.flow.AddNewRequest("Update credit card", patchRequest);
+            //--------------------
+            #endregion
+
+            // Update the credit card.
+            var updatedCard = createdCard.Update(apiContext, patchRequest);
+
+            #region Track Workflow
+            //--------------------
+            this.flow.RecordResponse(updatedCard);
             //--------------------
             #endregion
         }

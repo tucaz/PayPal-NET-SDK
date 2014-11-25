@@ -383,6 +383,76 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "CSharp"
         },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\CreditCardList.aspx.cs",
+        "projectPath": "CreditCardList.aspx.cs",
+        "targetPath": "CreditCardList.aspx",
+        "pageTitle": "CreditCardList.aspx",
+        "title": "CreditCardList.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Retrieve List of Credit Cards",
+            "slug": "retrieve-list-of-credit-cards"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\CreditCardUpdate.aspx.cs",
+        "projectPath": "CreditCardUpdate.aspx.cs",
+        "targetPath": "CreditCardUpdate.aspx",
+        "pageTitle": "CreditCardUpdate.aspx",
+        "title": "CreditCardUpdate.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
         "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\DeleteCreditCard.aspx.cs",
         "projectPath": "DeleteCreditCard.aspx.cs",
         "targetPath": "DeleteCreditCard.aspx",
@@ -2664,16 +2734,16 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "Details",
-                "slug": "details"
+                "title": "Amount",
+                "slug": "amount"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "Amount",
-                "slug": "amount"
+                "title": "Details",
+                "slug": "details"
               },
               "depth": 3
             }
@@ -2721,6 +2791,93 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 3
             }
           ]
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\PaymentWithPayPalWithDiscount.aspx.cs",
+        "projectPath": "PaymentWithPayPalWithDiscount.aspx.cs",
+        "targetPath": "PaymentWithPayPalWithDiscount.aspx",
+        "pageTitle": "PaymentWithPayPalWithDiscount.aspx",
+        "title": "PaymentWithPayPalWithDiscount.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Payment",
+            "slug": "payment"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Payer",
+            "slug": "payer"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Transaction",
+            "slug": "transaction"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Amount",
+            "slug": "amount"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Details",
+            "slug": "details"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Items",
+            "slug": "items"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Redirect URLS",
+            "slug": "redirect-urls"
+          },
+          "depth": 3
         }
       ]
     }, {

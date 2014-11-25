@@ -72,10 +72,34 @@ namespace PayPal.Api
         public string external_customer_id { get; set; }
 
         /// <summary>
+        /// A user provided, optional convenvience field that functions as a unique identifier for the merchant on behalf of whom this credit card is being stored for. Note that this has no relation to PayPal merchant id
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "merchant_id")]
+        public string merchant_id { get; set; }
+
+        /// <summary>
+        /// A unique identifier of the bank account resource. Generated and provided by the facilitator so it can be used to restrict the usage of the bank account to the specific merchant.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "external_card_id")]
+        public string external_card_id { get; set; }
+
+        /// <summary>
         /// State of the funding instrument.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string state { get; set; }
+
+        /// <summary>
+        /// Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates creation time.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
+        public string create_time { get; set; }
+
+        /// <summary>
+        /// Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the updation time.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
+        public string update_time { get; set; }
 
         /// <summary>
         /// Date/Time until this resource can be used fund a payment.
@@ -147,17 +171,46 @@ namespace PayPal.Api
         /// Update information in a previously saved card. Only the modified fields need to be passed in the request.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="patchRequest">PatchRequest</param>
         /// <returns>CreditCard</returns>
-        public CreditCard Update(APIContext apiContext)
+        public CreditCard Update(APIContext apiContext, PatchRequest patchRequest)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
             ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(patchRequest, "patchRequest");
 
             // Configure and send the request
             var pattern = "v1/vault/credit-cards/{0}";
             var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
-            return PayPalResource.ConfigureAndExecute<CreditCard>(apiContext, HttpMethod.PATCH, resourcePath, this.ConvertToJson());
+            return PayPalResource.ConfigureAndExecute<CreditCard>(apiContext, HttpMethod.PATCH, resourcePath, patchRequest.ConvertToJson());
+        }
+
+        /// <summary>
+        /// Retrieves a list of Credit Card resources.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="containerDictionary">Dictionary<String, String></param>
+        /// <returns>CreditCardHistory</returns>
+        public static CreditCardList List(APIContext apiContext, int pageSize = 10, int page = 1, string startTime = "", string endTime = "", string sortOrder = "", string sortBy = "", string merchantId = "", string externalCardId = "", string externalCustomerId = "")
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+
+            var queryParameters = new QueryParameters();
+            queryParameters["page_size"] = pageSize.ToString();
+            queryParameters["page"] = page.ToString();
+            queryParameters["start_time"] = startTime;
+            queryParameters["end_time"] = endTime;
+            queryParameters["sort_order"] = sortOrder;
+            queryParameters["sort_by"] = sortBy;
+            queryParameters["merchant_id"] = merchantId;
+            queryParameters["external_card_id"] = externalCardId;
+            queryParameters["external_customer_id"] = externalCustomerId;
+
+            // Configure and send the request
+            string resourcePath = "v1/vault/credit-card" + queryParameters.ToUrlFormattedString();
+            return PayPalResource.ConfigureAndExecute<CreditCardList>(apiContext, HttpMethod.GET, resourcePath);
         }
     }
 }

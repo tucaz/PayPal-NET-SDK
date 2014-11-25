@@ -71,6 +71,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="CreditCardList.aspx" />
+    <Content Include="CreditCardUpdate.aspx" />
     <Content Include="DeleteCreditCard.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="GetRefund.aspx" />
@@ -101,6 +103,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Main.Master" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
+    <Content Include="PaymentWithPayPalWithDiscount.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
@@ -160,6 +163,20 @@
     </Compile>
     <Compile Include="BillingPlanUpdate.aspx.designer.cs">
       <DependentUpon>BillingPlanUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CreditCardList.aspx.cs">
+      <DependentUpon>CreditCardList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreditCardList.aspx.designer.cs">
+      <DependentUpon>CreditCardList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CreditCardUpdate.aspx.cs">
+      <DependentUpon>CreditCardUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreditCardUpdate.aspx.designer.cs">
+      <DependentUpon>CreditCardUpdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="DeleteCreditCard.aspx.cs">
       <DependentUpon>DeleteCreditCard.aspx</DependentUpon>
@@ -314,6 +331,13 @@
     </Compile>
     <Compile Include="PaymentExperienceUpdate.aspx.designer.cs">
       <DependentUpon>PaymentExperienceUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentWithPayPalWithDiscount.aspx.cs">
+      <DependentUpon>PaymentWithPayPalWithDiscount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaymentWithPayPalWithDiscount.aspx.designer.cs">
+      <DependentUpon>PaymentWithPayPalWithDiscount.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reauthorization.aspx.cs">
       <DependentUpon>Reauthorization.aspx</DependentUpon>
