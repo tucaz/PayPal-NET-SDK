@@ -22,6 +22,7 @@ namespace PayPal.Sample
                         Items = new List<SampleItem>
                         {
                             new SampleItem { Title = "Make a payment with a PayPal account", ExecutePage = "PaymentWithPayPal.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Make a payment with a PayPal account and include a discount", ExecutePage = "PaymentWithPayPalWithDiscount.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Make a payment with a credit card", ExecutePage = "PaymentWithCreditCard.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Make a payment with a stored credit card", ExecutePage = "PaymentWithSavedCard.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Retrieve the details of a payment", ExecutePage = "GetPayment.aspx", HasSourcePage = true },
@@ -45,7 +46,9 @@ namespace PayPal.Sample
                         {
                             new SampleItem { Title = "Create and store a credit card", ExecutePage = "CreateCreditCard.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Retrieve the details of a credit card", ExecutePage = "GetCreditCard.aspx", HasSourcePage = true },
-                            new SampleItem { Title = "Delete a credit card", ExecutePage = "DeleteCreditCard.aspx", HasSourcePage = true }
+                            new SampleItem { Title = "Retrieve a list of credit cards", ExecutePage = "CreditCardList.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Delete a credit card", ExecutePage = "DeleteCreditCard.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Update a credit card", ExecutePage = "CreditCardUpdate.aspx", HasSourcePage = true }
                         }
                     },
                     new SampleCategory

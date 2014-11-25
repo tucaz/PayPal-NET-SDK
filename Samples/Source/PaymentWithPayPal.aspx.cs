@@ -26,15 +26,20 @@ namespace PayPal.Sample
             {
                 // ###Items
                 // Items within a transaction.
-                var itemList = new ItemList() { items = new List<Item>() };
-                itemList.items.Add(new Item()
+                var itemList = new ItemList() 
                 {
-                    name = "Item Name",
-                    currency = "USD",
-                    price = "15",
-                    quantity = "5",
-                    sku = "sku"
-                });
+                    items = new List<Item>() 
+                    {
+                        new Item()
+                        {
+                            name = "Item Name",
+                            currency = "USD",
+                            price = "15",
+                            quantity = "5",
+                            sku = "sku"
+                        }
+                    }
+                };
 
                 // ###Payer
                 // A resource representing a Payer that funds a payment
@@ -67,7 +72,7 @@ namespace PayPal.Sample
                 var amount = new Amount()
                 {
                     currency = "USD",
-                    total = "100", // Total must be equal to sum of shipping, tax and subtotal.
+                    total = "100.00", // Total must be equal to sum of shipping, tax and subtotal.
                     details = details
                 };
 
@@ -176,22 +181,21 @@ namespace PayPal.Sample
                 payment_method = "paypal"
             };
 
-            // ###Details
-            // Let's you specify details of a payment amount.
-            Details details = new Details()
-            {
-                tax = "15",
-                shipping = "10",
-                subtotal = "75"
-            };
-
             // ###Amount
             // Let's you specify a payment amount.
             var amount = new Amount()
             {
                 currency = "USD",
-                total = "100", // Total must be equal to sum of shipping, tax and subtotal.
-                details = details
+                // Total must be equal to sum of shipping, tax and subtotal.
+                total = "100",
+                // ###Details
+                // Let's you specify details of a payment amount.
+                details = new Details()
+                {
+                    tax = "15",
+                    shipping = "10",
+                    subtotal = "75"
+                }
             };
 
             // # Redirect URLS
