@@ -66,6 +66,7 @@
     <Compile Include="Api\APIContext.cs" />
     <Compile Include="Api\BaseAddress.cs" />
     <Compile Include="Api\CarrierAccountToken.cs" />
+    <Compile Include="Api\CreditCardList.cs" />
     <Compile Include="Api\CurrencyConversion.cs" />
     <Compile Include="Api\FundingDetail.cs" />
     <Compile Include="Api\FundingOption.cs" />
@@ -95,7 +96,6 @@
     <Compile Include="Api\CreateProfileResponse.cs" />
     <Compile Include="Api\Credit.cs" />
     <Compile Include="Api\CreditCard.cs" />
-    <Compile Include="Api\CreditCardHistory.cs" />
     <Compile Include="Api\CreditCardToken.cs" />
     <Compile Include="Api\Currency.cs" />
     <Compile Include="Api\CustomAmount.cs" />

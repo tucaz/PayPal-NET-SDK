@@ -9,24 +9,24 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
-    public class CreditCardList : PayPalSerializableObject
+    public class CreditCardList : PayPalResourceObject
     {
         /// <summary>
         /// A list of credit card resources
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_cards")]
-        public List<CreditCard> credit_cards { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "items")]
+        public List<CreditCard> items { get; set; }
 
         /// <summary>
-        /// Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items.
+        /// Total number of items present in the given list. Note that the number of items might be larger than the records in the current page.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "count")]
-        public int count { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "total_items")]
+        public int total_items { get; set; }
 
         /// <summary>
-        /// Identifier of the next element to get the next range of results.
+        /// Total number of pages that exist, for the total number of items, with the given page size.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "next_id")]
-        public string next_id { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "total_pages")]
+        public int total_pages { get; set; }
     }
 }
