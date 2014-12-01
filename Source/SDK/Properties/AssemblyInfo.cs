@@ -1,15 +1,21 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security;
+
+// To allow this assembly to work with more restrictive environments with higher
+// levels of trust, and because the released assembly is strong-name signed, the
+// AllowPartiallyTrustedCallers attribute must be set.
+[assembly: AllowPartiallyTrustedCallers]
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PayPal SDK for .NET")]
+[assembly: AssemblyTitle("PayPal .NET SDK")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("eBay Inc.")]
-[assembly: AssemblyProduct("PayPalSDK")]
+[assembly: AssemblyProduct("PayPal")]
 [assembly: AssemblyCopyright("Copyright © 2009-2014 eBay Inc.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
