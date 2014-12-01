@@ -186,16 +186,16 @@ namespace PayPal.Api
 
             var queryParameters = new QueryParameters();
             queryParameters["count"] = count.ToString();
-            queryParameters["start_id"] = startId.ToString();
+            queryParameters["start_id"] = startId;
             queryParameters["start_index"] = startIndex.ToString();
-            queryParameters["start_time"] = startTime.ToString();
-            queryParameters["end_time"] = endTime.ToString();
-            queryParameters["start_date"] = startDate.ToString();
-            queryParameters["end_date"] = endDate.ToString();
-            queryParameters["payee_email"] = payeeEmail.ToString();
-            queryParameters["payee_id"] = payeeId.ToString();
-            queryParameters["sort_by"] = sortBy.ToString();
-            queryParameters["sort_order"] = sortOrder.ToString();
+            queryParameters["start_time"] = startTime;
+            queryParameters["end_time"] = endTime;
+            queryParameters["start_date"] = startDate;
+            queryParameters["end_date"] = endDate;
+            queryParameters["payee_email"] = payeeEmail;
+            queryParameters["payee_id"] = payeeId;
+            queryParameters["sort_by"] = sortBy;
+            queryParameters["sort_order"] = sortOrder;
 
             // Configure and send the request
             var resourcePath = "v1/payments/payment" + queryParameters.ToUrlFormattedString();

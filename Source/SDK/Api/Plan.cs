@@ -138,10 +138,10 @@ namespace PayPal.Api
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             var queryParameters = new QueryParameters();
-            queryParameters["page"] = page.ToString();
-            queryParameters["status"] = status.ToString();
-            queryParameters["page_size"] = pageSize.ToString();
-            queryParameters["total_required"] = totalRequired.ToString();
+            queryParameters["page"] = page;
+            queryParameters["status"] = status;
+            queryParameters["page_size"] = pageSize;
+            queryParameters["total_required"] = totalRequired;
 
             // Configure and send the request
             var resourcePath = "v1/payments/billing-plans" + queryParameters.ToUrlFormattedString();

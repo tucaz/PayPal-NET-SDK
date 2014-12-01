@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\APIContext.cs" />
+    <Compile Include="Api\BankAccountList.cs" />
     <Compile Include="Api\BaseAddress.cs" />
     <Compile Include="Api\CarrierAccountToken.cs" />
     <Compile Include="Api\CreditCardList.cs" />

@@ -258,8 +258,8 @@ namespace PayPal.Api
             ArgumentValidator.Validate(agreementId, "agreementId");
 
             var queryParameters = new QueryParameters();
-            queryParameters["start_date"] = startDate.ToString();
-            queryParameters["end_date"] = endDate.ToString();
+            queryParameters["start_date"] = startDate;
+            queryParameters["end_date"] = endDate;
 
             // Configure and send the request
             var pattern = "v1/payments/billing-agreements/{0}/transactions";

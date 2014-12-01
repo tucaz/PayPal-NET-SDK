@@ -381,7 +381,7 @@ namespace PayPal.Api
             var queryParameters = new QueryParameters();
             queryParameters["width"] = width.ToString();
             queryParameters["height"] = height.ToString();
-            queryParameters["action"] = action.ToString();
+            queryParameters["action"] = action;
 
             // Configure and send the request
             var pattern = "v1/invoicing/invoices/{0}/qr-code";

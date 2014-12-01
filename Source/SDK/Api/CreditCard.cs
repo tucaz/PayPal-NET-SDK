@@ -190,9 +190,17 @@ namespace PayPal.Api
         /// Retrieves a list of Credit Card resources.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
-        /// <param name="containerDictionary">Dictionary<String, String></param>
-        /// <returns>CreditCardHistory</returns>
-        public static CreditCardList List(APIContext apiContext, int pageSize = 10, int page = 1, string startTime = "", string endTime = "", string sortOrder = "", string sortBy = "", string merchantId = "", string externalCardId = "", string externalCustomerId = "")
+        /// <param name="pageSize">Number of items to be returned in the current page size, by a GET operation.</param>
+        /// <param name="page">The page number to be retrieved, for the list of items, by the current GET request.</param>
+        /// <param name="startTime">Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the start of a range of results.</param>
+        /// <param name="endTime">Resource creation time as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the end of a range of results.</param>
+        /// <param name="sortOrder">Sort based on order of results. Options include 'asc' for ascending order or 'desc' for descending order.</param>
+        /// <param name="sortBy">Sort based on 'create_time' or 'update_time'.</param>
+        /// <param name="merchantId">Merchant identifier to filter the search results in list operations.</param>
+        /// <param name="externalCardId">Externally provided card identifier to filter the search results in list operations.</param>
+        /// <param name="externalCustomerId">Externally provided customer identifier to filter the search results in list operations.</param>
+        /// <returns>CreditCardList</returns>
+        public static CreditCardList List(APIContext apiContext, int pageSize = 10, int page = 1, string startTime = "", string endTime = "", string sortOrder = "asc", string sortBy = "create_time", string merchantId = "", string externalCardId = "", string externalCustomerId = "")
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
@@ -209,7 +217,7 @@ namespace PayPal.Api
             queryParameters["external_customer_id"] = externalCustomerId;
 
             // Configure and send the request
-            string resourcePath = "v1/vault/credit-card" + queryParameters.ToUrlFormattedString();
+            var resourcePath = "v1/vault/credit-cards" + queryParameters.ToUrlFormattedString();
             return PayPalResource.ConfigureAndExecute<CreditCardList>(apiContext, HttpMethod.GET, resourcePath);
         }
     }
