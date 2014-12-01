@@ -77,6 +77,11 @@
             Gets and sets HTTP Headers
             </summary>
         </member>
+        <member name="T:PayPal.Api.PayPalResourceObject">
+            <summary>
+            Represents a PayPal model object that will be returned from PayPal containing common resource data.
+            </summary>
+        </member>
         <member name="T:PayPal.Api.PayPalSerializableObject">
             <summary>
             Represents a PayPal model object that can be serialized to and from a JSON string.
@@ -93,6 +98,27 @@
             Converts this object to a JSON string.
             </summary>
             <returns>A JSON-formatted string.</returns>
+        </member>
+        <member name="P:PayPal.Api.PayPalResourceObject.links">
+            <summary>
+            A list of HATEOAS (Hypermedia as the Engine of Application State) links.
+            More information: https://developer.paypal.com/docs/api/#hateoas-links
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.BankAccountList.items">
+            <summary>
+            A list of bank account resources
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.BankAccountList.total_items">
+            <summary>
+            Total number of items present in the given list. Note that the number of items might be larger than the records in the current page.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.BankAccountList.total_pages">
+            <summary>
+            Total number of pages that exist, for the total number of items, with the given page size.
+            </summary>
         </member>
         <member name="P:PayPal.Api.BaseAddress.line1">
             <summary>
@@ -137,17 +163,6 @@
         <member name="P:PayPal.Api.CarrierAccountToken.external_customer_id">
             <summary>
             The unique identifier of the payer used when saving this carrier account instrument.
-            </summary>
-        </member>
-        <member name="T:PayPal.Api.PayPalResourceObject">
-            <summary>
-            Represents a PayPal model object that will be returned from PayPal containing common resource data.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.PayPalResourceObject.links">
-            <summary>
-            A list of HATEOAS (Hypermedia as the Engine of Application State) links.
-            More information: https://developer.paypal.com/docs/api/#hateoas-links
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCardList.items">
@@ -832,6 +847,22 @@
             <param name="patchRequest">PatchRequest</param>
             <returns>BankAccount</returns>
         </member>
+        <member name="M:PayPal.Api.BankAccount.List(PayPal.Api.APIContext,System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Retrieves a list of bank account resources.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="pageSize">Number of items to be returned in the current page size, by a GET operation. Defaults to a size of 10.</param>
+            <param name="page">The page number to be retrieved, for the list of items, by the current GET request. Defaults to a size of 1.</param>
+            <param name="startTime">Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the start of a range of results.</param>
+            <param name="endTime">Resource creation time as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the end of a range of results.</param>
+            <param name="sortOrder">Sort based on order of results. Options include 'asc' for ascending order or 'desc' for descending order. Defaults to 'asc'.</param>
+            <param name="sortBy">Sort based on 'create_time' or 'update_time'. Defaults to 'create_time'.</param>
+            <param name="merchantId">Identifier the merchants who owns this resource</param>
+            <param name="externalCustomerId">Identifier of the external customer resource to obtain the data for.</param>
+            <param name="externalAccountId">Identifier of the external bank account resource id to obtain the data for.</param>
+            <returns>BankAccountList</returns>
+        </member>
         <member name="P:PayPal.Api.BankAccount.id">
             <summary>
             ID of the bank account being saved for later use.
@@ -924,27 +955,32 @@
         </member>
         <member name="P:PayPal.Api.BankAccount.external_customer_id">
             <summary>
-            A unique identifier of the customer to whom this bank account belongs to. Generated and provided by the facilitator. This is required when creating or using a stored funding instrument in vault.
+            A unique identifier of the customer to whom this bank account belongs to.
             </summary>
         </member>
         <member name="P:PayPal.Api.BankAccount.merchant_id">
             <summary>
-            A unique identifier of the merchant for which this bank account has been stored for. Generated and provided by the facilitator so it can be used to restrict the usage of the bank account to the specific merchnt.
+            A user provided, optional convenvience field that functions as a unique identifier for the merchant on behalf of whom this bank account is being stored for. Note that this has no relation to PayPal merchant id
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.BankAccount.external_account_id">
+            <summary>
+            A client supplied unique identifier of the bank account resource, to faciliate easy look up of the resource, via GET queries
             </summary>
         </member>
         <member name="P:PayPal.Api.BankAccount.create_time">
             <summary>
-            Time the resource was created.
+            Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the start of a range of results.
             </summary>
         </member>
         <member name="P:PayPal.Api.BankAccount.update_time">
             <summary>
-            Time the resource was last updated.
+            Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the start of a range of results.
             </summary>
         </member>
         <member name="P:PayPal.Api.BankAccount.valid_until">
             <summary>
-            Date/Time until this resource can be used to fund a payment.
+            Date/Time as ISO8601 date-time format  until this resource can be used to fund a payment.
             </summary>
         </member>
         <member name="P:PayPal.Api.BankToken.bank_id">
@@ -1189,7 +1225,22 @@
             <param name="patchRequest">PatchRequest</param>
             <returns>CreditCard</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:PayPal.Api.CreditCard.List(PayPal.Api.APIContext,System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String)" -->
+        <member name="M:PayPal.Api.CreditCard.List(PayPal.Api.APIContext,System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Retrieves a list of Credit Card resources.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="pageSize">Number of items to be returned in the current page size, by a GET operation.</param>
+            <param name="page">The page number to be retrieved, for the list of items, by the current GET request.</param>
+            <param name="startTime">Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the start of a range of results.</param>
+            <param name="endTime">Resource creation time as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the end of a range of results.</param>
+            <param name="sortOrder">Sort based on order of results. Options include 'asc' for ascending order or 'desc' for descending order.</param>
+            <param name="sortBy">Sort based on 'create_time' or 'update_time'.</param>
+            <param name="merchantId">Merchant identifier to filter the search results in list operations.</param>
+            <param name="externalCardId">Externally provided card identifier to filter the search results in list operations.</param>
+            <param name="externalCustomerId">Externally provided customer identifier to filter the search results in list operations.</param>
+            <returns>CreditCardList</returns>
+        </member>
         <member name="P:PayPal.Api.CreditCard.id">
             <summary>
             ID of the credit card being saved for later use.

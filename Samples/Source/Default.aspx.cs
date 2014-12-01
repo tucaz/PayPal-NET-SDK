@@ -71,6 +71,7 @@ namespace PayPal.Sample
                         {
                             new SampleItem { Title = "Create a billing plan", ExecutePage = "BillingPlanCreate.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Update a billing plan", ExecutePage = "BillingPlanUpdate.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Delete a billing plan", ExecutePage = "BillingPlanDelete.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Retrieve the details of a billing plan", ExecutePage = "BillingPlanGet.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Retrieve a list of billing plans", ExecutePage = "BillingPlanGetList.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Create &amp; execute a billing agreement", ExecutePage = "BillingAgreementCreateAndExecute.aspx", HasSourcePage = true }

@@ -29,7 +29,8 @@ namespace PayPal.Sample
                 expire_month = 11,
                 expire_year = 2018,
                 number = "4877274905927862",
-                type = "visa"
+                type = "visa",
+                cvv2 = "874"
             };
 
             #region Track Workflow

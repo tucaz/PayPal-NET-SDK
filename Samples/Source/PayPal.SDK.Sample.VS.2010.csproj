@@ -60,6 +60,7 @@
   <ItemGroup>
     <Content Include="BillingAgreementCreateAndExecute.aspx" />
     <Content Include="BillingPlanCreate.aspx" />
+    <Content Include="BillingPlanDelete.aspx" />
     <Content Include="BillingPlanGet.aspx" />
     <Content Include="BillingPlanGetList.aspx" />
     <Content Include="BillingPlanUpdate.aspx" />
@@ -138,6 +139,13 @@
     </Compile>
     <Compile Include="BillingPlanCreate.aspx.designer.cs">
       <DependentUpon>BillingPlanCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BillingPlanDelete.aspx.cs">
+      <DependentUpon>BillingPlanDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BillingPlanDelete.aspx.designer.cs">
+      <DependentUpon>BillingPlanDelete.aspx</DependentUpon>
     </Compile>
     <Compile Include="BillingPlanGet.aspx.cs">
       <DependentUpon>BillingPlanGet.aspx</DependentUpon>

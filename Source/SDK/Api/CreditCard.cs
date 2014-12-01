@@ -45,7 +45,7 @@ namespace PayPal.Api
         /// Card validation code. Only supported when making a Payment but not when saving a credit card for future use.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cvv2")]
-        public string cvv2 { get; set; }
+        public int cvv2 { get; set; }
 
         /// <summary>
         /// Card holder's first name.

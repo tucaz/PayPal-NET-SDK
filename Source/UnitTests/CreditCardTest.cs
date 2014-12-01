@@ -10,7 +10,7 @@ namespace PayPal.UnitTest
         public static CreditCard GetCreditCard()
         {
             CreditCard card = new CreditCard();
-            card.cvv2 = "962";
+            card.cvv2 = 962;
             card.expire_month = 01;
             card.expire_year = 2015;
             card.first_name = "John";

@@ -18,7 +18,8 @@ namespace PayPal.Sample
             // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
             var apiContext = Configuration.GetAPIContext();
 
-            var paymentId = "PAY-9NE62270P51995617KRH6XOY";
+            // Specify a Payment ID to retrieve.  For demonstration purposes, we'll be using a previously-executed payment that used a PayPal account.
+            var paymentId = "PAY-77612305PF568741CKR4LELY";
 
             // ^ Ignore workflow code segment
             #region Track Workflow
