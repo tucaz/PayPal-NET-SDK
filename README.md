@@ -117,8 +117,14 @@ When using the SDK with your application, the SDK will attempt to look for PayPa
     PayPal.Log.DiagnosticsLogger: Provides more thorough logging of system diagnostic information and tracing code execution
   -->
   <appSettings>
-    <add key="PayPalLogger" value="PayPal.Log.DiagnosticsLogger, PayPal.Log.Log4netLogger"/>
+    <!-- Diagnostics logging is only available in a Full Trust environment. -->
+    <!-- <add key="PayPalLogger" value="PayPal.Log.DiagnosticsLogger, PayPal.Log.Log4netLogger"/> -->
+    <add key="PayPalLogger" value="PayPal.Log.Log4netLogger"/>
   </appSettings>
+  
+  <system.web>
+    <trust level="High" />
+  </system.web>
 </configuration>
 ````
 
