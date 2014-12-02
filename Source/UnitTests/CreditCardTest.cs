@@ -7,18 +7,19 @@ namespace PayPal.UnitTest
     [TestClass()]
     public class CreditCardTest
     {
+        public static readonly string CreditCardJson = "{" +
+            "\"cvv2\": \"962\"," +
+            "\"expire_month\": 01," +
+            "\"expire_year\": 2015," +
+            "\"first_name\": \"John\"," +
+            "\"last_name\": \"Doe\"," +
+            "\"number\": \"4825854086744369\"," +
+            "\"type\": \"visa\"," +
+            "\"billing_address\": " + AddressTest.AddressJson + "}";
+
         public static CreditCard GetCreditCard()
         {
-            CreditCard card = new CreditCard();
-            card.cvv2 = 962;
-            card.expire_month = 01;
-            card.expire_year = 2015;
-            card.first_name = "John";
-            card.last_name = "Doe";
-            card.number = "4825854086744369";
-            card.type = "visa";
-            card.billing_address = AddressTest.GetAddress();
-            return card;
+            return JsonFormatter.ConvertFromJson<CreditCard>(CreditCardJson);
         }
 
         public static CreditCard CreateCreditCard()
