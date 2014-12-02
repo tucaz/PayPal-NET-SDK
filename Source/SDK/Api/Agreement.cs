@@ -91,12 +91,23 @@ namespace PayPal.Api
         /// <returns>Agreement</returns>
         public Agreement Create(APIContext apiContext)
         {
+            return Agreement.Create(apiContext, this);
+        }
+
+        /// <summary>
+        /// Create a new billing agreement by passing the details for the agreement, including the name, description, start date, payer, and billing plan in the request JSON.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="agreement">The Agreement object to be used when creating the PayPal resource.</param>
+        /// <returns>Agreement</returns>
+        public static Agreement Create(APIContext apiContext, Agreement agreement)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             // Configure and send the request
             var resourcePath = "v1/payments/billing-agreements";
-            var resource = PayPalResource.ConfigureAndExecute<Agreement>(apiContext, HttpMethod.POST, resourcePath, this.ConvertToJson());
+            var resource = PayPalResource.ConfigureAndExecute<Agreement>(apiContext, HttpMethod.POST, resourcePath, agreement.ConvertToJson());
             resource.token = SDKUtil.GetTokenFromApprovalUrl(resource.links);
             return resource;
         }
@@ -108,12 +119,23 @@ namespace PayPal.Api
         /// <returns>Agreement</returns>
         public Agreement Execute(APIContext apiContext)
         {
+            return Agreement.Execute(apiContext, this.token);
+        }
+
+        /// <summary>
+        /// Execute a billing agreement after buyer approval by passing the payment token to the request URI.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="token">Payment token received after buyer approval of the billing agreement.</param>
+        /// <returns>Agreement</returns>
+        public static Agreement Execute(APIContext apiContext, string token)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             // Configure and send the request
             var pattern = "v1/payments/billing-agreements/{0}/agreement-execute";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.token });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { token });
             return PayPalResource.ConfigureAndExecute<Agreement>(apiContext, HttpMethod.POST, resourcePath);
         }
 
@@ -142,14 +164,25 @@ namespace PayPal.Api
         /// <param name="patchRequest">PatchRequest</param>
         public void Update(APIContext apiContext, PatchRequest patchRequest)
         {
+            Agreement.Update(apiContext, this.id, patchRequest);
+        }
+
+        /// <summary>
+        /// Update details of a billing agreement, such as the description, shipping address, and start date, by passing the ID of the agreement to the request URI.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="agreementId">ID of the billing agreement that will be updated.</param>
+        /// <param name="patchRequest">PatchRequest</param>
+        public static void Update(APIContext apiContext, string agreementId, PatchRequest patchRequest)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(agreementId, "agreementId");
             ArgumentValidator.Validate(patchRequest, "patchRequest");
 
             // Configure and send the request
             var pattern = "v1/payments/billing-agreements/{0}";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { agreementId });
             PayPalResource.ConfigureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, patchRequest.ConvertToJson());
         }
 
@@ -160,32 +193,54 @@ namespace PayPal.Api
         /// <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
         public void Suspend(APIContext apiContext, AgreementStateDescriptor agreementStateDescriptor)
         {
+            Agreement.Suspend(apiContext, this.id, agreementStateDescriptor);
+        }
+
+        /// <summary>
+        /// Suspend a particular billing agreement by passing the ID of the agreement to the request URI.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="agreementId">ID of the billing agreement that will be suspended.</param>
+        /// <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
+        public static void Suspend(APIContext apiContext, string agreementId, AgreementStateDescriptor agreementStateDescriptor)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(agreementId, "agreementId");
             ArgumentValidator.Validate(agreementStateDescriptor, "agreementStateDescriptor");
 
             // Configure and send the request
             var pattern = "v1/payments/billing-agreements/{0}/suspend";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { agreementId });
             PayPalResource.ConfigureAndExecute(apiContext, HttpMethod.POST, resourcePath, agreementStateDescriptor.ConvertToJson());
         }
 
         /// <summary>
-        /// Reactivate a suspended billing agreement by passing the ID of the agreement to the appropriate URI. In addition, pass an agreement_state_descriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
+        /// Reactivate a suspended billing agreement by passing the ID of the agreement to the appropriate URI. In addition, pass an AgreementStateDescriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
         public void ReActivate(APIContext apiContext, AgreementStateDescriptor agreementStateDescriptor)
         {
+            Agreement.ReActivate(apiContext, this.id, agreementStateDescriptor);
+        }
+
+        /// <summary>
+        /// Reactivate a suspended billing agreement by passing the ID of the agreement to the appropriate URI. In addition, pass an AgreementStateDescriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="agreementId">ID of the billing agreement that will be reactivated.</param>
+        /// <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
+        public static void ReActivate(APIContext apiContext, string agreementId, AgreementStateDescriptor agreementStateDescriptor)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(agreementId, "agreementId");
             ArgumentValidator.Validate(agreementStateDescriptor, "agreementStateDescriptor");
 
             // Configure and send the request
             var pattern = "v1/payments/billing-agreements/{0}/re-activate";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { agreementId });
             PayPalResource.ConfigureAndExecute(apiContext, HttpMethod.POST, resourcePath, agreementStateDescriptor.ConvertToJson());
         }
 
@@ -196,50 +251,83 @@ namespace PayPal.Api
         /// <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
         public void Cancel(APIContext apiContext, AgreementStateDescriptor agreementStateDescriptor)
         {
+            Agreement.Cancel(apiContext, this.id, agreementStateDescriptor);
+        }
+
+        /// <summary>
+        /// Cancel a billing agreement by passing the ID of the agreement to the request URI. In addition, pass an AgreementStateDescriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="agreementId">ID of the billing agreement that will be canceled.</param>
+        /// <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
+        public static void Cancel(APIContext apiContext, string agreementId, AgreementStateDescriptor agreementStateDescriptor)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(agreementId, "agreementId");
             ArgumentValidator.Validate(agreementStateDescriptor, "agreementStateDescriptor");
 
             // Configure and send the request
             var pattern = "v1/payments/billing-agreements/{0}/cancel";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { agreementId });
             PayPalResource.ConfigureAndExecute(apiContext, HttpMethod.POST, resourcePath, agreementStateDescriptor.ConvertToJson());
         }
 
         /// <summary>
-        /// Bill an outstanding amount for an agreement by passing the ID of the agreement to the request URI. In addition, pass an agreement_state_descriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
+        /// Bill an outstanding amount for an agreement by passing the ID of the agreement to the request URI. In addition, pass an AgreementStateDescriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
         public void BillBalance(APIContext apiContext, AgreementStateDescriptor agreementStateDescriptor)
         {
+            Agreement.BillBalance(apiContext, this.id, agreementStateDescriptor);
+        }
+
+        /// <summary>
+        /// Bill an outstanding amount for an agreement by passing the ID of the agreement to the request URI. In addition, pass an AgreementStateDescriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="agreementId">ID of the billing agreement to perform the operation against.</param>
+        /// <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
+        public static void BillBalance(APIContext apiContext, string agreementId, AgreementStateDescriptor agreementStateDescriptor)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(agreementId, "agreementId");
             ArgumentValidator.Validate(agreementStateDescriptor, "agreementStateDescriptor");
 
             // Configure and send the request
             var pattern = "v1/payments/billing-agreements/{0}/bill-balance";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { agreementId });
             PayPalResource.ConfigureAndExecute(apiContext, HttpMethod.POST, resourcePath, agreementStateDescriptor.ConvertToJson());
         }
 
         /// <summary>
-        /// Set the balance for an agreement by passing the ID of the agreement to the request URI. In addition, pass a common_currency object in the request JSON that specifies the currency type and value of the balance.
+        /// Set the balance for an agreement by passing the ID of the agreement to the request URI. In addition, pass a Currency object in the request JSON that specifies the currency type and value of the balance.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="currency">Currency</param>
         public void SetBalance(APIContext apiContext, Currency currency)
         {
+            Agreement.SetBalance(apiContext, this.id, currency);
+        }
+
+        /// <summary>
+        /// Set the balance for an agreement by passing the ID of the agreement to the request URI. In addition, pass a Currency object in the request JSON that specifies the currency type and value of the balance.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="agreementId">ID of the billing agreement to perform the operation against.</param>
+        /// <param name="currency">Currency</param>
+        public static void SetBalance(APIContext apiContext, string agreementId, Currency currency)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(agreementId, "agreementId");
             ArgumentValidator.Validate(currency, "currency");
 
             // Configure and send the request
             var pattern = "v1/payments/billing-agreements/{0}/set-balance";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { agreementId });
             PayPalResource.ConfigureAndExecute(apiContext, HttpMethod.POST, resourcePath, currency.ConvertToJson());
         }
 

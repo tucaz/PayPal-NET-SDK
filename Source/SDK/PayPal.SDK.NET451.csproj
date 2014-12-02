@@ -129,7 +129,6 @@
     <Compile Include="Api\PayerInfo.cs" />
     <Compile Include="Api\Payment.cs" />
     <Compile Include="Api\PaymentCard.cs" />
-    <Compile Include="Api\PaymentCardToken.cs" />
     <Compile Include="Api\PaymentDefinition.cs" />
     <Compile Include="Api\PaymentDetail.cs" />
     <Compile Include="Api\PaymentExecution.cs" />

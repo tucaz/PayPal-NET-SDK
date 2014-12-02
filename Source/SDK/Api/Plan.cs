@@ -97,12 +97,23 @@ namespace PayPal.Api
         /// <returns>Plan</returns>
         public Plan Create(APIContext apiContext)
         {
+            return Plan.Create(apiContext, this);
+        }
+
+        /// <summary>
+        /// Create a new billing plan by passing the details for the plan, including the plan name, description, and type, to the request URI.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="plan">The Plan object to be used to create the billing plan resource.</param>
+        /// <returns>Plan</returns>
+        public static Plan Create(APIContext apiContext, Plan plan)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             // Configure and send the request
             var resourcePath = "v1/payments/billing-plans";
-            return PayPalResource.ConfigureAndExecute<Plan>(apiContext, HttpMethod.POST, resourcePath, this.ConvertToJson());
+            return PayPalResource.ConfigureAndExecute<Plan>(apiContext, HttpMethod.POST, resourcePath, plan.ConvertToJson());
         }
 
         /// <summary>
@@ -112,14 +123,25 @@ namespace PayPal.Api
         /// <param name="patchRequest">PatchRequest</param>
         public void Update(APIContext apiContext, PatchRequest patchRequest)
         {
+            Plan.Update(apiContext, this.id, patchRequest);
+        }
+
+        /// <summary>
+        /// Replace specific fields within a billing plan by passing the ID of the billing plan to the request URI. In addition, pass a patch object in the request JSON that specifies the operation to perform, field to update, and new value for each update.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="planId">ID of the billing plan to be updated.</param>
+        /// <param name="patchRequest">PatchRequest</param>
+        public static void Update(APIContext apiContext, string planId, PatchRequest patchRequest)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(planId, "planId");
             ArgumentValidator.Validate(patchRequest, "patchRequest");
 
             // Configure and send the request
             var pattern = "v1/payments/billing-plans/{0}";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { planId });
             PayPalResource.ConfigureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, patchRequest.ConvertToJson());
         }
 
@@ -146,6 +168,34 @@ namespace PayPal.Api
             // Configure and send the request
             var resourcePath = "v1/payments/billing-plans" + queryParameters.ToUrlFormattedString();
             return PayPalResource.ConfigureAndExecute<PlanList>(apiContext, HttpMethod.GET, resourcePath);
+        }
+
+        /// <summary>
+        /// Deletes the specified billing plan.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        public void Delete(APIContext apiContext)
+        {
+            Plan.Delete(apiContext, this.id);
+        }
+
+        /// <summary>
+        /// Deletes the specified billing plan.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="planId">ID of the billing plan to delete.</param>
+        public static void Delete(APIContext apiContext, string planId)
+        {
+            var patchRequest = new PatchRequest
+            {
+                new Patch
+                {
+                    op = "replace",
+                    path = "/",
+                    value = new Plan { state = "DELETED" }
+                }
+            };
+            Plan.Update(apiContext, planId, patchRequest);
         }
     }
 }

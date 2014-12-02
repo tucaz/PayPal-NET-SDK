@@ -97,12 +97,23 @@ namespace PayPal.Api
         /// <returns>Payment</returns>
         public Payment Create(APIContext apiContext)
         {
+            return Payment.Create(apiContext, this);
+        }
+
+        /// <summary>
+        /// Creates (and processes) a new Payment Resource.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="payment">Payment object to be used in creating the PayPal resource.</param>
+        /// <returns>Payment</returns>
+        public static Payment Create(APIContext apiContext, Payment payment)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             // Configure and send the request
             var resourcePath = "v1/payments/payment";
-            var resource = PayPalResource.ConfigureAndExecute<Payment>(apiContext, HttpMethod.POST, resourcePath, this.ConvertToJson());
+            var resource = PayPalResource.ConfigureAndExecute<Payment>(apiContext, HttpMethod.POST, resourcePath, payment.ConvertToJson());
             resource.token = SDKUtil.GetTokenFromApprovalUrl(resource.links);
             return resource;
         }
@@ -130,18 +141,28 @@ namespace PayPal.Api
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="patchRequest">PatchRequest</param>
-        /// <returns>object</returns>
-        public object Update(APIContext apiContext, PatchRequest patchRequest)
+        public void Update(APIContext apiContext, PatchRequest patchRequest)
+        {
+            Payment.Update(apiContext, this.id, patchRequest);
+        }
+
+        /// <summary>
+        /// Partially update the Payment resource for the given identifier
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="paymentId">ID of the payment to update.</param>
+        /// <param name="patchRequest">PatchRequest</param>
+        public static void Update(APIContext apiContext, string paymentId, PatchRequest patchRequest)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(paymentId, "paymentId");
             ArgumentValidator.Validate(patchRequest, "patchRequest");
 
             // Configure and send the request
             var pattern = "v1/payments/payment/{0}";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
-            return PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.PATCH, resourcePath, patchRequest.ConvertToJson());
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { paymentId });
+            PayPalResource.ConfigureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, patchRequest.ConvertToJson());
         }
 
         /// <summary>
@@ -152,14 +173,26 @@ namespace PayPal.Api
         /// <returns>Payment</returns>
         public Payment Execute(APIContext apiContext, PaymentExecution paymentExecution)
         {
+            return Payment.Execute(apiContext, this.id, paymentExecution);
+        }
+
+        /// <summary>
+        /// Executes the payment (after approved by the Payer) associated with this resource when the payment method is PayPal.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="paymentId">ID of the payment to execute.</param>
+        /// <param name="paymentExecution">PaymentExecution</param>
+        /// <returns>Payment</returns>
+        public static Payment Execute(APIContext apiContext, string paymentId, PaymentExecution paymentExecution)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(paymentId, "paymentId");
             ArgumentValidator.Validate(paymentExecution, "paymentExecution");
 
             // Configure and send the request
             var pattern = "v1/payments/payment/{0}/execute";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { paymentId });
             return PayPalResource.ConfigureAndExecute<Payment>(apiContext, HttpMethod.POST, resourcePath, paymentExecution.ConvertToJson());
         }
 

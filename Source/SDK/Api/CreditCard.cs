@@ -114,12 +114,23 @@ namespace PayPal.Api
         /// <returns>CreditCard</returns>
         public CreditCard Create(APIContext apiContext)
         {
+            return CreditCard.Create(apiContext, this);
+        }
+
+        /// <summary>
+        /// Creates a new Credit Card Resource (aka Tokenize).
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="creditCard">CreditCard object to be used to create the PayPal resource.</param>
+        /// <returns>CreditCard</returns>
+        public static CreditCard Create(APIContext apiContext, CreditCard creditCard)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             // Configure and send the request
             var resourcePath = "v1/vault/credit-cards";
-            return PayPalResource.ConfigureAndExecute<CreditCard>(apiContext, HttpMethod.POST, resourcePath, this.ConvertToJson());
+            return PayPalResource.ConfigureAndExecute<CreditCard>(apiContext, HttpMethod.POST, resourcePath, creditCard.ConvertToJson());
         }
 
         /// <summary>
@@ -183,6 +194,26 @@ namespace PayPal.Api
             // Configure and send the request
             var pattern = "v1/vault/credit-cards/{0}";
             var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            return PayPalResource.ConfigureAndExecute<CreditCard>(apiContext, HttpMethod.PATCH, resourcePath, patchRequest.ConvertToJson());
+        }
+
+        /// <summary>
+        /// Update information in a previously saved card. Only the modified fields need to be passed in the request.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="creditCardId">ID fo the credit card to update.</param>
+        /// <param name="patchRequest">PatchRequest</param>
+        /// <returns>CreditCard</returns>
+        public static CreditCard Update(APIContext apiContext, string creditCardId, PatchRequest patchRequest)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(creditCardId, "creditCardId");
+            ArgumentValidator.Validate(patchRequest, "patchRequest");
+
+            // Configure and send the request
+            var pattern = "v1/vault/credit-cards/{0}";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { creditCardId });
             return PayPalResource.ConfigureAndExecute<CreditCard>(apiContext, HttpMethod.PATCH, resourcePath, patchRequest.ConvertToJson());
         }
 

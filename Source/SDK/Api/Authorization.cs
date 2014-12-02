@@ -97,14 +97,26 @@ namespace PayPal.Api
         /// <returns>Capture</returns>
         public Capture Capture(APIContext apiContext, Capture capture)
         {
+            return Authorization.Capture(apiContext, this.id, capture);
+        }
+
+        /// <summary>
+        /// Creates (and processes) a new Capture Transaction added as a related resource.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="authorizationId">ID of the authorization to capture.</param>
+        /// <param name="capture">Capture</param>
+        /// <returns>Capture</returns>
+        public static Capture Capture(APIContext apiContext, string authorizationId, Capture capture)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(authorizationId, "authorizationId");
             ArgumentValidator.Validate(capture, "capture");
 
             // Configure and send the request
             var pattern = "v1/payments/authorization/{0}/capture";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { authorizationId });
             return PayPalResource.ConfigureAndExecute<Capture>(apiContext, HttpMethod.POST, resourcePath, capture.ConvertToJson());
         }
 
@@ -115,13 +127,24 @@ namespace PayPal.Api
         /// <returns>Authorization</returns>
         public Authorization Void(APIContext apiContext)
         {
+            return Authorization.Void(apiContext, this.id);
+        }
+
+        /// <summary>
+        /// Voids (cancels) an Authorization.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="authorizationId">ID of the authorization to void.</param>
+        /// <returns>Authorization</returns>
+        public static Authorization Void(APIContext apiContext, string authorizationId)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(authorizationId, "authorizationId");
 
             // Configure and send the request
             var pattern = "v1/payments/authorization/{0}/void";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { authorizationId });
             return PayPalResource.ConfigureAndExecute<Authorization>(apiContext, HttpMethod.POST, resourcePath);
         }
 
@@ -132,14 +155,25 @@ namespace PayPal.Api
         /// <returns>Authorization</returns>
         public Authorization Reauthorize(APIContext apiContext)
         {
+            return Authorization.Reauthorize(apiContext, this);
+        }
+
+        /// <summary>
+        /// Reauthorizes an expired Authorization.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="authorization">The Authorization object containing the details of the authorization that should be reauthorized.</param>
+        /// <returns>Authorization</returns>
+        public static Authorization Reauthorize(APIContext apiContext, Authorization authorization)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(authorization, "authorization");
 
             // Configure and send the request
             var pattern = "v1/payments/authorization/{0}/reauthorize";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
-            return PayPalResource.ConfigureAndExecute<Authorization>(apiContext, HttpMethod.POST, resourcePath, this.ConvertToJson());
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { authorization.id });
+            return PayPalResource.ConfigureAndExecute<Authorization>(apiContext, HttpMethod.POST, resourcePath, authorization.ConvertToJson());
         }
     }
 }

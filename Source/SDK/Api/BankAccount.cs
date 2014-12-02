@@ -162,12 +162,23 @@ namespace PayPal.Api
         /// <returns>BankAccount</returns>
         public BankAccount Create(APIContext apiContext)
         {
+            return BankAccount.Create(apiContext, this);
+        }
+
+        /// <summary>
+        /// Creates a new Bank Account Resource.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="bankAccount">The BankAccount object specifying the details of the PayPal resource to create.</param>
+        /// <returns>BankAccount</returns>
+        public static BankAccount Create(APIContext apiContext, BankAccount bankAccount)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             // Configure and send the request
             var resourcePath = "v1/vault/bank-accounts";
-            return PayPalResource.ConfigureAndExecute<BankAccount>(apiContext, HttpMethod.POST, resourcePath, this.ConvertToJson());
+            return PayPalResource.ConfigureAndExecute<BankAccount>(apiContext, HttpMethod.POST, resourcePath, bankAccount.ConvertToJson());
         }
 
         /// <summary>
@@ -223,14 +234,26 @@ namespace PayPal.Api
         /// <returns>BankAccount</returns>
         public BankAccount Update(APIContext apiContext, PatchRequest patchRequest)
         {
+            return BankAccount.Update(apiContext, this.id, patchRequest);
+        }
+
+        /// <summary>
+        /// Update information in a previously saved bank account. Only the modified fields need to be passed in the request.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="bankAccountId">ID of the bank account to update.</param>
+        /// <param name="patchRequest">PatchRequest</param>
+        /// <returns>BankAccount</returns>
+        public static BankAccount Update(APIContext apiContext, string bankAccountId, PatchRequest patchRequest)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(bankAccountId, "bankAccountId");
             ArgumentValidator.Validate(patchRequest, "patchRequest");
 
             // Configure and send the request
             var pattern = "v1/vault/bank-accounts/{0}";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { bankAccountId });
             return PayPalResource.ConfigureAndExecute<BankAccount>(apiContext, HttpMethod.PATCH, resourcePath, patchRequest.ConvertToJson());
         }
 

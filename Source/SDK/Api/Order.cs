@@ -103,14 +103,26 @@ namespace PayPal.Api
         /// <returns>Capture</returns>
         public Capture Capture(APIContext apiContext, Capture capture)
         {
+            return Order.Capture(apiContext, this.id, capture);
+        }
+
+        /// <summary>
+        /// Creates (and processes) a new Capture Transaction added as a related resource.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="orderId">ID of the order to capture.</param>
+        /// <param name="capture">Capture</param>
+        /// <returns>Capture</returns>
+        public static Capture Capture(APIContext apiContext, string orderId, Capture capture)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(orderId, "orderId");
             ArgumentValidator.Validate(capture, "capture");
 
             // Configure and send the request
             var pattern = "v1/payments/orders/{0}/capture";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { orderId });
             return PayPalResource.ConfigureAndExecute<Capture>(apiContext, HttpMethod.POST, resourcePath, capture.ConvertToJson());
         }
 
@@ -121,13 +133,24 @@ namespace PayPal.Api
         /// <returns>Order</returns>
         public Order Void(APIContext apiContext)
         {
+            return Order.Void(apiContext, this.id);
+        }
+
+        /// <summary>
+        /// Voids (cancels) an Order.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="orderId">ID of the order to void.</param>
+        /// <returns>Order</returns>
+        public static Order Void(APIContext apiContext, string orderId)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(orderId, "orderId");
 
             // Configure and send the request
             var pattern = "v1/payments/orders/{0}/do-void";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { orderId });
             return PayPalResource.ConfigureAndExecute<Order>(apiContext, HttpMethod.POST, resourcePath);
         }
 
@@ -138,14 +161,25 @@ namespace PayPal.Api
         /// <returns>Authorization</returns>
         public Authorization Authorize(APIContext apiContext)
         {
+            return Order.Authorize(apiContext, this);
+        }
+
+        /// <summary>
+        /// Creates an authorization on an order
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="order">Order object to authorize.</param>
+        /// <returns>Authorization</returns>
+        public static Authorization Authorize(APIContext apiContext, Order order)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(order, "order");
 
             // Configure and send the request
             var pattern = "v1/payments/orders/{0}/authorize";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
-            return PayPalResource.ConfigureAndExecute<Authorization>(apiContext, HttpMethod.POST, resourcePath, this.ConvertToJson());
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { order.id });
+            return PayPalResource.ConfigureAndExecute<Authorization>(apiContext, HttpMethod.POST, resourcePath, order.ConvertToJson());
         }
     }
 }

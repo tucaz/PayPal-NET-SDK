@@ -18,9 +18,19 @@ namespace PayPal.Api
         /// <param name="filename">The path to the file where the image will be saved.</param>
         public void Save(string filename)
         {
-            if(!string.IsNullOrEmpty(this.image))
+            Image.Save(filename, this);
+        }
+
+        /// <summary>
+        /// Saves the image data to a file on disk.
+        /// </summary>
+        /// <param name="filename">The path to the file where the image will be saved.</param>
+        /// <param name="image">Image object containing the image data sent from PayPal.</param>
+        public static void Save(string filename, Image image)
+        {
+            if (!string.IsNullOrEmpty(image.image))
             {
-                File.WriteAllBytes(filename, Convert.FromBase64String(this.image));
+                File.WriteAllBytes(filename, Convert.FromBase64String(image.image));
             }
         }
     }
