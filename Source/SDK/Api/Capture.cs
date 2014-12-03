@@ -79,14 +79,26 @@ namespace PayPal.Api
         /// <returns>Refund</returns>
         public Refund Refund(APIContext apiContext, Refund refund)
         {
+            return Capture.Refund(apiContext, this.id, refund);
+        }
+
+        /// <summary>
+        /// Creates (and processes) a new Refund Transaction added as a related resource.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="captureId">ID of the captured payment resource to refund.</param>
+        /// <param name="refund">Refund</param>
+        /// <returns>Refund</returns>
+        public static Refund Refund(APIContext apiContext, string captureId, Refund refund)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(captureId, "captureId");
             ArgumentValidator.Validate(refund, "refund");
 
             // Configure and send the request
             var pattern = "v1/payments/capture/{0}/refund";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { captureId });
             return PayPalResource.ConfigureAndExecute<Refund>(apiContext, HttpMethod.POST, resourcePath, refund.ConvertToJson());
         }
     }

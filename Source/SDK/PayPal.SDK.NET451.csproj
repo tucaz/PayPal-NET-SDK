@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\APIContext.cs" />
+    <Compile Include="Api\BankAccountList.cs" />
     <Compile Include="Api\BaseAddress.cs" />
     <Compile Include="Api\CarrierAccountToken.cs" />
     <Compile Include="Api\CreditCardList.cs" />
@@ -128,7 +129,6 @@
     <Compile Include="Api\PayerInfo.cs" />
     <Compile Include="Api\Payment.cs" />
     <Compile Include="Api\PaymentCard.cs" />
-    <Compile Include="Api\PaymentCardToken.cs" />
     <Compile Include="Api\PaymentDefinition.cs" />
     <Compile Include="Api\PaymentDetail.cs" />
     <Compile Include="Api\PaymentExecution.cs" />

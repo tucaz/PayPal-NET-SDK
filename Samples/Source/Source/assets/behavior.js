@@ -217,6 +217,37 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "CSharp"
         },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\BillingAgreementWithCreditCard.aspx.cs",
+        "projectPath": "BillingAgreementWithCreditCard.aspx.cs",
+        "targetPath": "BillingAgreementWithCreditCard.aspx",
+        "pageTitle": "BillingAgreementWithCreditCard.aspx",
+        "title": "BillingAgreementWithCreditCard.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
         "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\BillingPlanCreate.aspx.cs",
         "projectPath": "BillingPlanCreate.aspx.cs",
         "targetPath": "BillingPlanCreate.aspx",
@@ -231,6 +262,53 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "level": 3,
             "title": "Api Context",
             "slug": "api-context"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\BillingPlanDelete.aspx.cs",
+        "projectPath": "BillingPlanDelete.aspx.cs",
+        "targetPath": "BillingPlanDelete.aspx",
+        "pageTitle": "BillingPlanDelete.aspx",
+        "title": "BillingPlanDelete.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Create a Billing Plan",
+            "slug": "create-a-billing-plan"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Delete the Billing Plan",
+            "slug": "delete-the-billing-plan"
           },
           "depth": 3
         }

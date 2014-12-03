@@ -8,16 +8,17 @@ namespace PayPal.UnitTest
     [TestClass()]
     public class CaptureTest
     {
+        public static readonly string CaptureJson =
+            "{\"amount\":" + AmountTest.AmountJson + "," +
+            "\"create_time\":\"2013-01-15T15:10:05.123Z\"," +
+            "\"id\":\"001\"," +
+            "\"parent_payment\":\"1000\"," +
+            "\"state\":\"Authorized\"," +
+            "\"links\":[" + LinksTest.LinksJson + "]}";
+
         public static Capture GetCapture()
         {
-            Capture cap = new Capture();
-            cap.amount = AmountTest.GetAmount();
-            cap.create_time = "2013-01-15T15:10:05.123Z";
-            cap.state = "Authorized";
-            cap.parent_payment = "1000";
-            cap.links = LinksTest.GetLinksList();
-            cap.id = "001";
-            return cap;
+            return JsonFormatter.ConvertFromJson<Capture>(CaptureJson);
         }
 
         [TestMethod()]

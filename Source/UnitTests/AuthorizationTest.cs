@@ -8,34 +8,29 @@ namespace PayPal.UnitTest
     [TestClass()]
     public class AuthorizationTest
     {
+        public static readonly string AuthorizationJson =
+            "{\"amount\":" + AmountTest.AmountJson + "," +
+            "\"create_time\":\"2013-01-15T15:10:05.123Z\"," +
+            "\"id\":\"007\"," +
+            "\"parent_payment\":\"1000\"," +
+            "\"state\":\"Authorized\"," +
+            "\"links\":[" + LinksTest.LinksJson + "]}";
+
         public static Authorization GetAuthorization()
         {
-            Authorization authorize = new Authorization();
-            authorize.amount = AmountTest.GetAmount();
-            authorize.create_time = "2013-01-15T15:10:05.123Z";
-            authorize.id = "007";
-            authorize.parent_payment = "1000";
-            authorize.state = "Authorized";
-            authorize.links = LinksTest.GetLinksList();
-            return authorize;
+            return JsonFormatter.ConvertFromJson<Authorization>(AuthorizationJson);
         }
 
         [TestMethod()]
         public void AuthorizationObjectTest()
         {
             var authorization = GetAuthorization();
-            var expectedAmount = AmountTest.GetAmount();
-            var actualAmount = authorization.amount;
-            Assert.AreEqual(expectedAmount.currency, actualAmount.currency);
-            Assert.AreEqual(expectedAmount.details.fee, actualAmount.details.fee);
-            Assert.AreEqual(expectedAmount.details.shipping, actualAmount.details.shipping);
-            Assert.AreEqual(expectedAmount.details.subtotal, actualAmount.details.subtotal);
-            Assert.AreEqual(expectedAmount.details.tax, actualAmount.details.tax);
-            Assert.AreEqual(expectedAmount.total, actualAmount.total);
             Assert.AreEqual(authorization.id, "007");
             Assert.AreEqual(authorization.create_time, "2013-01-15T15:10:05.123Z");
             Assert.AreEqual(authorization.parent_payment, "1000");
             Assert.AreEqual(authorization.state, "Authorized");
+            Assert.IsNotNull(authorization.amount);
+            Assert.IsNotNull(authorization.links);
         }
 
         [TestMethod()]
@@ -100,7 +95,7 @@ namespace PayPal.UnitTest
             reauthorizeAmount.currency = "USD";
             reauthorizeAmount.total = "1";
             authorization.amount = reauthorizeAmount;
-            UnitTestUtil.AssertThrownException<PayPal.HttpException>(() => authorization.Reauthorize(UnitTestUtil.GetApiContext()));
+            UnitTestUtil.AssertThrownException<PayPal.PaymentsException>(() => authorization.Reauthorize(UnitTestUtil.GetApiContext()));
         }
     }
 }

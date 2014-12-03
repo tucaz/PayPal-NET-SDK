@@ -120,31 +120,37 @@ namespace PayPal.Api
         public string payer_id { get; set; }
 
         /// <summary>
-        /// A unique identifier of the customer to whom this bank account belongs to. Generated and provided by the facilitator. This is required when creating or using a stored funding instrument in vault.
+        /// A unique identifier of the customer to whom this bank account belongs to.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "external_customer_id")]
         public string external_customer_id { get; set; }
 
         /// <summary>
-        /// A unique identifier of the merchant for which this bank account has been stored for. Generated and provided by the facilitator so it can be used to restrict the usage of the bank account to the specific merchnt.
+        /// A user provided, optional convenvience field that functions as a unique identifier for the merchant on behalf of whom this bank account is being stored for. Note that this has no relation to PayPal merchant id
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "merchant_id")]
         public string merchant_id { get; set; }
 
         /// <summary>
-        /// Time the resource was created.
+        /// A client supplied unique identifier of the bank account resource, to faciliate easy look up of the resource, via GET queries
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "external_account_id")]
+        public string external_account_id { get; set; }
+
+        /// <summary>
+        /// Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the start of a range of results.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
         public string create_time { get; set; }
 
         /// <summary>
-        /// Time the resource was last updated.
+        /// Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the start of a range of results.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
         public string update_time { get; set; }
 
         /// <summary>
-        /// Date/Time until this resource can be used to fund a payment.
+        /// Date/Time as ISO8601 date-time format  until this resource can be used to fund a payment.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "valid_until")]
         public string valid_until { get; set; }
@@ -156,12 +162,23 @@ namespace PayPal.Api
         /// <returns>BankAccount</returns>
         public BankAccount Create(APIContext apiContext)
         {
+            return BankAccount.Create(apiContext, this);
+        }
+
+        /// <summary>
+        /// Creates a new Bank Account Resource.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="bankAccount">The BankAccount object specifying the details of the PayPal resource to create.</param>
+        /// <returns>BankAccount</returns>
+        public static BankAccount Create(APIContext apiContext, BankAccount bankAccount)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             // Configure and send the request
             var resourcePath = "v1/vault/bank-accounts";
-            return PayPalResource.ConfigureAndExecute<BankAccount>(apiContext, HttpMethod.POST, resourcePath, this.ConvertToJson());
+            return PayPalResource.ConfigureAndExecute<BankAccount>(apiContext, HttpMethod.POST, resourcePath, bankAccount.ConvertToJson());
         }
 
         /// <summary>
@@ -217,15 +234,62 @@ namespace PayPal.Api
         /// <returns>BankAccount</returns>
         public BankAccount Update(APIContext apiContext, PatchRequest patchRequest)
         {
+            return BankAccount.Update(apiContext, this.id, patchRequest);
+        }
+
+        /// <summary>
+        /// Update information in a previously saved bank account. Only the modified fields need to be passed in the request.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="bankAccountId">ID of the bank account to update.</param>
+        /// <param name="patchRequest">PatchRequest</param>
+        /// <returns>BankAccount</returns>
+        public static BankAccount Update(APIContext apiContext, string bankAccountId, PatchRequest patchRequest)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(bankAccountId, "bankAccountId");
             ArgumentValidator.Validate(patchRequest, "patchRequest");
 
             // Configure and send the request
             var pattern = "v1/vault/bank-accounts/{0}";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { bankAccountId });
             return PayPalResource.ConfigureAndExecute<BankAccount>(apiContext, HttpMethod.PATCH, resourcePath, patchRequest.ConvertToJson());
+        }
+
+        /// <summary>
+        /// Retrieves a list of bank account resources.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="pageSize">Number of items to be returned in the current page size, by a GET operation. Defaults to a size of 10.</param>
+        /// <param name="page">The page number to be retrieved, for the list of items, by the current GET request. Defaults to a size of 1.</param>
+        /// <param name="startTime">Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the start of a range of results.</param>
+        /// <param name="endTime">Resource creation time as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the end of a range of results.</param>
+        /// <param name="sortOrder">Sort based on order of results. Options include 'asc' for ascending order or 'desc' for descending order. Defaults to 'asc'.</param>
+        /// <param name="sortBy">Sort based on 'create_time' or 'update_time'. Defaults to 'create_time'.</param>
+        /// <param name="merchantId">Identifier the merchants who owns this resource</param>
+        /// <param name="externalCustomerId">Identifier of the external customer resource to obtain the data for.</param>
+        /// <param name="externalAccountId">Identifier of the external bank account resource id to obtain the data for.</param>
+        /// <returns>BankAccountList</returns>
+        public static BankAccountList List(APIContext apiContext, int pageSize = 10, int page = 1, string startTime = "", string endTime = "", string sortOrder = "asc", string sortBy = "create_time", string merchantId = "", string externalCustomerId = "", string externalAccountId = "")
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+
+            var queryParameters = new QueryParameters();
+            queryParameters["page_size"] = pageSize.ToString();
+            queryParameters["page"] = page.ToString();
+            queryParameters["start_time"] = startTime;
+            queryParameters["end_time"] = endTime;
+            queryParameters["sort_order"] = sortOrder;
+            queryParameters["sort_by"] = sortBy;
+            queryParameters["merchant_id"] = merchantId;
+            queryParameters["external_customer_id"] = externalCustomerId;
+            queryParameters["external_account_id"] = externalAccountId;
+
+            // Configure and send the request
+            var resourcePath = "v1/vault/bank-accounts" + queryParameters.ToUrlFormattedString();
+            return PayPalResource.ConfigureAndExecute<BankAccountList>(apiContext, HttpMethod.GET, resourcePath);
         }
     }
 }

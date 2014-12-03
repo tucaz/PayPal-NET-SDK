@@ -63,9 +63,10 @@ namespace PayPal.UnitTest
         [TestMethod()]
         public void AgreementGetTest()
         {
-            var agreement = Agreement.Get(UnitTestUtil.GetApiContext(), "I-ASXCM9U5MJJV");
-            Assert.AreEqual("I-ASXCM9U5MJJV", agreement.id);
-            Assert.AreEqual("Agreement for T-Shirt of the Month Club Plan", agreement.description);
+            var agreementId = "I-RDJKRLEBYWYH";
+            var agreement = Agreement.Get(UnitTestUtil.GetApiContext(), agreementId);
+            Assert.AreEqual(agreementId, agreement.id);
+            Assert.AreEqual("Agreement for T-Shirt of the Month Club", agreement.description);
             Assert.AreEqual("2015-02-19T08:00:00Z", agreement.start_date);
             Assert.IsNotNull(agreement.plan);
         }

@@ -3,11 +3,18 @@ PayPal .NET SDK release notes
 
 ## v1.0.0
 * Integrated PayPal Core SDK
-* Renamed projects and binaries
+* Renamed projects and built assemblies
 * Removed .NET 3.5 support
 * Added .NET 4.5.1 support
+* Built assemblies are now marked with AllowPartiallyTrustedCallers attribute
 * Updated Invoice support
-* Updated samples
+  * Fixed Invoice.Create
+  * Fixed Invoice.Search
+  * Added Invoice.QrCode
+* Updated Credit Card support
+  * Fixed CreditCard.Update
+  * Added CreditCard.List
+* Updated Samples project
 
 ## v0.11.0
 * Added billing plans and agreements support

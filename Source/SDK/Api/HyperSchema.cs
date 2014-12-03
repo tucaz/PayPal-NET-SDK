@@ -4,7 +4,6 @@
 //  More information: https://developer.paypal.com/docs/api/
 //
 //==============================================================================
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace PayPal.Api

@@ -59,7 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BillingAgreementCreateAndExecute.aspx" />
+    <Content Include="BillingAgreementWithCreditCard.aspx" />
     <Content Include="BillingPlanCreate.aspx" />
+    <Content Include="BillingPlanDelete.aspx" />
     <Content Include="BillingPlanGet.aspx" />
     <Content Include="BillingPlanGetList.aspx" />
     <Content Include="BillingPlanUpdate.aspx" />
@@ -132,12 +134,26 @@
     <Compile Include="BillingAgreementCreateAndExecute.aspx.designer.cs">
       <DependentUpon>BillingAgreementCreateAndExecute.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BillingAgreementWithCreditCard.aspx.cs">
+      <DependentUpon>BillingAgreementWithCreditCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BillingAgreementWithCreditCard.aspx.designer.cs">
+      <DependentUpon>BillingAgreementWithCreditCard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BillingPlanCreate.aspx.cs">
       <DependentUpon>BillingPlanCreate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BillingPlanCreate.aspx.designer.cs">
       <DependentUpon>BillingPlanCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BillingPlanDelete.aspx.cs">
+      <DependentUpon>BillingPlanDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BillingPlanDelete.aspx.designer.cs">
+      <DependentUpon>BillingPlanDelete.aspx</DependentUpon>
     </Compile>
     <Compile Include="BillingPlanGet.aspx.cs">
       <DependentUpon>BillingPlanGet.aspx</DependentUpon>

@@ -7,6 +7,11 @@ namespace PayPal.UnitTest
     [TestClass()]
     public class LinksTest
     {
+        public static readonly string LinksJson =
+            "{\"href\":\"http://paypal.com/\"," +
+            "\"method\":\"POST\"," +
+            "\"rel\":\"authorize\"}";
+
         public static List<Links> GetLinksList()
         {
             var links = new List<Links>();
@@ -16,11 +21,7 @@ namespace PayPal.UnitTest
 
         public static Links GetLinks()
         {
-            Links link = new Links();
-            link.href = "http://paypal.com/";
-            link.method = "POST";
-            link.rel = "authorize";
-            return link;
+            return JsonFormatter.ConvertFromJson<Links>(LinksJson);
         }
 
         [TestMethod()]

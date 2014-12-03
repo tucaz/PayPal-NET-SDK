@@ -109,9 +109,21 @@ namespace PayPal.Api
         /// <returns>Refund</returns>
         public Refund Refund(APIContext apiContext, Refund refund)
         {
+            return Sale.Refund(apiContext, this.id, refund);
+        }
+
+        /// <summary>
+        /// Creates (and processes) a new Refund Transaction added as a related resource.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="saleId">ID of the sale to refund.</param>
+        /// <param name="refund">Refund</param>
+        /// <returns>Refund</returns>
+        public static Refund Refund(APIContext apiContext, string saleId, Refund refund)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(saleId, "saleId");
             ArgumentValidator.Validate(refund, "refund");
 
             // Configure and send the request
