@@ -9,7 +9,7 @@ namespace PayPal.UnitTest
     [TestClass]
     public class ChargeModelTest
     {
-        public static readonly string ChargeModelJson = "{\"id\":\"CHM-92S85978TN737850VRWBZEUA\",\"type\":\"TAX\",\"amount\":" + AmountTest.AmountJson + "}";
+        public static readonly string ChargeModelJson = "{\"id\":\"CHM-92S85978TN737850VRWBZEUA\",\"type\":\"TAX\",\"amount\":" + CurrencyTest.CurrencyJson + "}";
 
         public static ChargeModel GetChargeModel()
         {

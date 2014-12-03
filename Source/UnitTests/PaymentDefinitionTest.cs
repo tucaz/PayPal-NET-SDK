@@ -14,7 +14,7 @@ namespace PayPal.UnitTest
 		    "\"type\":\"REGULAR\"," +
 		    "\"frequency\":\"MONTH\"," +
 		    "\"frequency_interval\":\"2\"," +
-		    "\"amount\":" + AmountTest.AmountJson + "," +
+		    "\"amount\":" + CurrencyTest.CurrencyJson + "," +
 		    "\"cycles\":\"12\"," +
 		    "\"charge_models\":[" + ChargeModelTest.ChargeModelJson + "]}";
 
