@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api.Payments;
+using PayPal.Api;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     /// <summary>
     /// Summary description for OrderTest
@@ -48,7 +48,7 @@ namespace RestApiSDKUnitTest
         /// will require approval via the executed payment's approval_url.
         /// </summary>
         /// <returns></returns>
-        private Order GetExecutedPaymentOrder(PayPal.APIContext apiContext)
+        private Order GetExecutedPaymentOrder(PayPal.Api.APIContext apiContext)
         {
             var pay = PaymentTest.CreatePaymentOrder();
             var paymentExecution = PaymentExecutionTest.GetPaymentExecution();
@@ -91,18 +91,6 @@ namespace RestApiSDKUnitTest
             // Void the order and verify it was successfully voided
             var response = order.Void(apiContext);
             Assert.AreEqual("voided", response.state);
-        }
-
-        [Ignore()]
-        public void OrderRefundTest()
-        {
-            var apiContext = UnitTestUtil.GetApiContext();
-            var order = GetExecutedPaymentOrder(apiContext);
-
-            // Refund the order and verify it completed successfully
-            var refund = RefundTest.GetRefund();
-            var response = order.Refund(UnitTestUtil.GetApiContext(), refund);
-            Assert.AreEqual("completed", response.state);
         }
     }
 }

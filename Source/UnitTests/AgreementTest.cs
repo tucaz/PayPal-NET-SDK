@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api.Payments;
-using PayPal;
+using PayPal.Api;
 using System;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     /// <summary>
     /// Summary description for AgreementTest
@@ -64,9 +63,10 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void AgreementGetTest()
         {
-            var agreement = Agreement.Get(UnitTestUtil.GetApiContext(), "I-ASXCM9U5MJJV");
-            Assert.AreEqual("I-ASXCM9U5MJJV", agreement.id);
-            Assert.AreEqual("Agreement for T-Shirt of the Month Club Plan", agreement.description);
+            var agreementId = "I-RDJKRLEBYWYH";
+            var agreement = Agreement.Get(UnitTestUtil.GetApiContext(), agreementId);
+            Assert.AreEqual(agreementId, agreement.id);
+            Assert.AreEqual("Agreement for T-Shirt of the Month Club", agreement.description);
             Assert.AreEqual("2015-02-19T08:00:00Z", agreement.start_date);
             Assert.IsNotNull(agreement.plan);
         }
@@ -108,8 +108,8 @@ namespace RestApiSDKUnitTest
         [TestMethod()]
         public void AgreementSearchTest()
         {
-            DateTime startDate = new DateTime(2014, 10, 1);
-            DateTime endDate = new DateTime(2014, 10, 14);
+            var startDate = "2014-10-01";
+            var endDate = "2014-10-14";
             var transactions = Agreement.ListTransactions(UnitTestUtil.GetApiContext(), "I-9STXMKR58UNN", startDate, endDate);
             Assert.IsNotNull(transactions);
             Assert.IsNotNull(transactions.agreement_transaction_list);

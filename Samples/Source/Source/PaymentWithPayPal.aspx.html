@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="en"><head><title>PaymentWithPayPal.aspx</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="PaymentWithPayPal.aspx"><meta name="groc-project-path" content="PaymentWithPayPal.aspx.cs"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">PaymentWithPayPal.aspx.cs</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="create-payment-using-paypal-sample">Create Payment Using PayPal Sample</h1>
+<p>This sample code demonstrates how you can process a 
+PayPal Account based Payment.
+API used: /v1/payments/payment</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> PayPal.Api;
+<span class="hljs-keyword">using</span> System.Collections.Generic;
+<span class="hljs-keyword">using</span> PayPal.Sample.Utilities;
+
+namespace PayPal.Sample
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">partial</span> <span class="hljs-keyword">class</span> PaymentWithPayPal : BaseSamplePage
+    {
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RunSample</span>()
+        {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="api-context">Api Context</h3>
+<p>Pass in a <code>APIContext</code> object to authenticate 
+the call and to send a unique request id 
+(that ensures idempotency). The SDK generates
+a request id if you do not pass one explicitly. 
+See <a href="/Source/Configuration.html">Configuration.cs</a> to know more about APIContext.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> apiContext = Configuration.GetAPIContext();
+
+            <span class="hljs-keyword">string</span> payerId = Request.Params[<span class="hljs-string">"PayerID"</span>];
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">string</span>.IsNullOrEmpty(payerId))
+            {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="items">Items</h3>
+<p>Items within a transaction.</p></div></div><div class="code"><div class="wrapper">                <span class="hljs-keyword">var</span> itemList = <span class="hljs-keyword">new</span> ItemList() 
+                {
+                    items = <span class="hljs-keyword">new</span> List&lt;Item&gt;() 
+                    {
+                        <span class="hljs-keyword">new</span> Item()
+                        {
+                            name = <span class="hljs-string">"Item Name"</span>,
+                            currency = <span class="hljs-string">"USD"</span>,
+                            price = <span class="hljs-string">"15"</span>,
+                            quantity = <span class="hljs-string">"5"</span>,
+                            sku = <span class="hljs-string">"sku"</span>
+                        }
+                    }
+                };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="payer">Payer</h3>
+<p>A resource representing a Payer that funds a payment
+Payment Method
+as <code>paypal</code></p></div></div><div class="code"><div class="wrapper">                <span class="hljs-keyword">var</span> payer = <span class="hljs-keyword">new</span> Payer() { payment_method = <span class="hljs-string">"paypal"</span> };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="redirect-urls">Redirect URLS</h3>
+<p>These URLs will determine how the user is redirected from PayPal once they have either approved or canceled the payment.</p></div></div><div class="code"><div class="wrapper">                <span class="hljs-keyword">var</span> baseURI = Request.Url.Scheme + <span class="hljs-string">"://"</span> + Request.Url.Authority + <span class="hljs-string">"/PaymentWithPayPal.aspx?"</span>;
+                <span class="hljs-keyword">var</span> guid = Convert.ToString((<span class="hljs-keyword">new</span> Random()).Next(<span class="hljs-number">100000</span>));
+                <span class="hljs-keyword">var</span> redirectUrl = baseURI + <span class="hljs-string">"guid="</span> + guid;
+                <span class="hljs-keyword">var</span> redirUrls = <span class="hljs-keyword">new</span> RedirectUrls()
+                {
+                    cancel_url = redirectUrl + <span class="hljs-string">"&amp;cancel=true"</span>,
+                    return_url = redirectUrl
+                };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="details">Details</h3>
+<p>Let&#39;s you specify details of a payment amount.</p></div></div><div class="code"><div class="wrapper">                <span class="hljs-keyword">var</span> details = <span class="hljs-keyword">new</span> Details()
+                {
+                    tax = <span class="hljs-string">"15"</span>,
+                    shipping = <span class="hljs-string">"10"</span>,
+                    subtotal = <span class="hljs-string">"75"</span>
+                };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="amount">Amount</h3>
+<p>Let&#39;s you specify a payment amount.</p></div></div><div class="code"><div class="wrapper">                <span class="hljs-keyword">var</span> amount = <span class="hljs-keyword">new</span> Amount()
+                {
+                    currency = <span class="hljs-string">"USD"</span>,
+                    total = <span class="hljs-string">"100.00"</span>, <span class="hljs-comment">// Total must be equal to sum of shipping, tax and subtotal.</span>
+                    details = details
+                };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="transaction">Transaction</h3>
+<p>A transaction defines the contract of a
+payment - what is the payment for and who
+is fulfilling it. </p></div></div><div class="code"><div class="wrapper">                <span class="hljs-keyword">var</span> transactionList = <span class="hljs-keyword">new</span> List&lt;Transaction&gt;();</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The Payment creation API requires a list of
+Transaction; add the created <code>Transaction</code>
+to a List</p></div></div><div class="code"><div class="wrapper">                transactionList.Add(<span class="hljs-keyword">new</span> Transaction()
+                {
+                    description = <span class="hljs-string">"Transaction description."</span>,
+                    invoice_number = Common.GetRandomInvoiceNumber(),
+                    amount = amount,
+                    item_list = itemList
+                });</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="payment">Payment</h3>
+<p>A Payment Resource; create one using
+the above types and intent as <code>sale</code> or <code>authorize</code></p></div></div><div class="code"><div class="wrapper">                <span class="hljs-keyword">var</span> payment = <span class="hljs-keyword">new</span> Payment()
+                {
+                    intent = <span class="hljs-string">"sale"</span>,
+                    payer = payer,
+                    transactions = transactionList,
+                    redirect_urls = redirUrls
+                };</div></div></div><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">                // Ignore workflow code segment</span></div><div class="wrapper">                <span class="hljs-comment">// Ignore workflow code segment</span>
+                <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+                <span class="hljs-keyword">this</span>.flow.AddNewRequest(<span class="hljs-string">"Create PayPal payment"</span>, payment);
+                <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Create a payment using a valid APIContext</p></div></div><div class="code"><div class="wrapper">                <span class="hljs-keyword">var</span> createdPayment = payment.Create(apiContext);</div></div></div><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">                // Ignore workflow code segment</span></div><div class="wrapper">                <span class="hljs-comment">// Ignore workflow code segment</span>
+                <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+                <span class="hljs-keyword">this</span>.flow.RecordResponse(createdPayment);
+                <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Using the <code>links</code> provided by the <code>createdPayment</code> object, we can give the user the option to redirect to PayPal to approve the payment.</p></div></div><div class="code"><div class="wrapper">                <span class="hljs-keyword">var</span> links = createdPayment.links.GetEnumerator();
+                <span class="hljs-keyword">while</span> (links.MoveNext())
+                {
+                    <span class="hljs-keyword">var</span> link = links.Current;
+                    <span class="hljs-keyword">if</span> (link.rel.ToLower().Trim().Equals(<span class="hljs-string">"approval_url"</span>))
+                    {
+                        <span class="hljs-keyword">this</span>.flow.RecordRedirectUrl(<span class="hljs-string">"Redirect to PayPal to approve the payment..."</span>, link.href);
+                    }
+                }
+                Session.Add(guid, createdPayment.id);
+                Session.Add(<span class="hljs-string">"flow-"</span> + guid, <span class="hljs-keyword">this</span>.flow);
+            }
+            <span class="hljs-keyword">else</span>
+            {
+                <span class="hljs-keyword">var</span> guid = Request.Params[<span class="hljs-string">"guid"</span>];</div></div></div><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">                // Ignore workflow code segment</span></div><div class="wrapper">                <span class="hljs-comment">// Ignore workflow code segment</span>
+                <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+                <span class="hljs-keyword">this</span>.flow = Session[<span class="hljs-string">"flow-"</span> + guid] <span class="hljs-keyword">as</span> RequestFlow;
+                <span class="hljs-keyword">this</span>.RegisterSampleRequestFlow();
+                <span class="hljs-keyword">this</span>.flow.RecordApproval(<span class="hljs-string">"PayPal payment approved successfully."</span>);
+                <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Using the information from the redirect, setup the payment to execute.</p></div></div><div class="code"><div class="wrapper">                <span class="hljs-keyword">var</span> paymentId = Session[guid] <span class="hljs-keyword">as</span> <span class="hljs-keyword">string</span>;
+                <span class="hljs-keyword">var</span> paymentExecution = <span class="hljs-keyword">new</span> PaymentExecution() { payer_id = payerId };
+                <span class="hljs-keyword">var</span> payment = <span class="hljs-keyword">new</span> Payment() { id = paymentId };</div></div></div><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">                // Ignore workflow code segment</span></div><div class="wrapper">                <span class="hljs-comment">// Ignore workflow code segment</span>
+                <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+                <span class="hljs-keyword">this</span>.flow.AddNewRequest(<span class="hljs-string">"Execute PayPal payment"</span>, payment);
+                <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Execute the payment.</p></div></div><div class="code"><div class="wrapper">                <span class="hljs-keyword">var</span> executedPayment = payment.Execute(apiContext, paymentExecution);</div></div></div><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">                // Ignore workflow code segment</span></div><div class="wrapper">                <span class="hljs-comment">// Ignore workflow code segment</span>
+                <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+                <span class="hljs-keyword">this</span>.flow.RecordResponse(executedPayment);
+                <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>For more information, please visit <a href="https://developer.paypal.com/docs/api/">PayPal Developer REST API Reference</a>.</p></div></div><div class="code"><div class="wrapper">            }
+
+        }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="create-future-payment-using-paypal">Create Future Payment Using PayPal</h1>
+<p>This sample code demonstrates how you can process a future payment made using a PayPal account.</p></div></div><div class="code"><div class="wrapper">        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> Code example for creating a future payment object.</span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;param name="correlationId"&gt;</span><span class="hljs-xmlDocTag">&lt;/param&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;param name="authorizationCode"&gt;</span><span class="hljs-xmlDocTag">&lt;/param&gt;</span></span>
+        <span class="hljs-keyword">private</span> Payment <span class="hljs-title">CreateFuturePayment</span>(<span class="hljs-keyword">string</span> correlationId, <span class="hljs-keyword">string</span> authorizationCode, <span class="hljs-keyword">string</span> redirectUrl)
+        {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="payer">Payer</h3>
+<p>A resource representing a Payer that funds a payment
+Payment Method
+as <code>paypal</code></p></div></div><div class="code"><div class="wrapper">            Payer payer = <span class="hljs-keyword">new</span> Payer()
+            {
+                payment_method = <span class="hljs-string">"paypal"</span>
+            };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="amount">Amount</h3>
+<p>Let&#39;s you specify a payment amount.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> amount = <span class="hljs-keyword">new</span> Amount()
+            {
+                currency = <span class="hljs-string">"USD"</span>,</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Total must be equal to sum of shipping, tax and subtotal.</p></div></div><div class="code"><div class="wrapper">                total = <span class="hljs-string">"100"</span>,</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="details">Details</h3>
+<p>Let&#39;s you specify details of a payment amount.</p></div></div><div class="code"><div class="wrapper">                details = <span class="hljs-keyword">new</span> Details()
+                {
+                    tax = <span class="hljs-string">"15"</span>,
+                    shipping = <span class="hljs-string">"10"</span>,
+                    subtotal = <span class="hljs-string">"75"</span>
+                }
+            };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="redirect-urls">Redirect URLS</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> redirUrls = <span class="hljs-keyword">new</span> RedirectUrls()
+            {
+                cancel_url = redirectUrl,
+                return_url = redirectUrl
+            };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="items">Items</h3>
+<p>Items within a transaction.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> itemList = <span class="hljs-keyword">new</span> ItemList() { items = <span class="hljs-keyword">new</span> List&lt;Item&gt;() };
+            itemList.items.Add(<span class="hljs-keyword">new</span> Item()
+            {
+                name = <span class="hljs-string">"Item Name"</span>,
+                currency = <span class="hljs-string">"USD"</span>,
+                price = <span class="hljs-string">"15"</span>,
+                quantity = <span class="hljs-string">"5"</span>,
+                sku = <span class="hljs-string">"sku"</span>
+            });</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="transaction">Transaction</h3>
+<p>A transaction defines the contract of a
+payment - what is the payment for and who
+is fulfilling it. </p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> transactionList = <span class="hljs-keyword">new</span> List&lt;Transaction&gt;();</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The Payment creation API requires a list of
+Transaction; add the created <code>Transaction</code>
+to a List</p></div></div><div class="code"><div class="wrapper">            transactionList.Add(<span class="hljs-keyword">new</span> Transaction()
+            {
+                description = <span class="hljs-string">"Transaction description."</span>,
+                amount = amount,
+                item_list = itemList
+            });
+
+            <span class="hljs-keyword">var</span> authorizationCodeParameters = <span class="hljs-keyword">new</span> CreateFromAuthorizationCodeParameters();
+		    authorizationCodeParameters.setClientId(Configuration.ClientId);
+		    authorizationCodeParameters.setClientSecret(Configuration.ClientSecret);
+		    authorizationCodeParameters.SetCode(authorizationCode);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="api-context">Api Context</h3>
+<p>Pass in a <code>APIContext</code> object to authenticate 
+the call and to send a unique request id 
+(that ensures idempotency). The SDK generates
+a request id if you do not pass one explicitly. 
+See <a href="/Source/Configuration.html">Configuration.cs</a> to know more about APIContext.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> apiContext = Configuration.GetAPIContext();
+
+
+            <span class="hljs-keyword">var</span> tokenInfo = Tokeninfo.CreateFromAuthorizationCodeForFuturePayments(apiContext, authorizationCodeParameters);
+            <span class="hljs-keyword">var</span> accessToken = <span class="hljs-keyword">string</span>.Format(<span class="hljs-string">"{0} {1}"</span>, tokenInfo.token_type, tokenInfo.access_token);
+
+            <span class="hljs-keyword">var</span> futurePaymentApiContext = Configuration.GetAPIContext(accessToken);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="payment">Payment</h3>
+<p>A FuturePayment Resource</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> futurePayment = <span class="hljs-keyword">new</span> FuturePayment()
+            {
+                intent = <span class="hljs-string">"authorize"</span>,
+                payer = payer,
+                transactions = transactionList,
+                redirect_urls = redirUrls
+            };
+            <span class="hljs-keyword">return</span> futurePayment.Create(futurePaymentApiContext, correlationId);
+        }
+    }
+}</div></div></div></div></body></html>

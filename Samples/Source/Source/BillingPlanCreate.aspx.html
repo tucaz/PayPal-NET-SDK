@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="en"><head><title>BillingPlanCreate.aspx</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="BillingPlanCreate.aspx"><meta name="groc-project-path" content="BillingPlanCreate.aspx.cs"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">BillingPlanCreate.aspx.cs</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">﻿<span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Collections;
+<span class="hljs-keyword">using</span> System.Configuration;
+<span class="hljs-keyword">using</span> System.Data;
+<span class="hljs-keyword">using</span> System.Linq;
+<span class="hljs-keyword">using</span> System.Web;
+<span class="hljs-keyword">using</span> System.Web.Security;
+<span class="hljs-keyword">using</span> System.Web.UI;
+<span class="hljs-keyword">using</span> System.Web.UI.HtmlControls;
+<span class="hljs-keyword">using</span> System.Web.UI.WebControls;
+<span class="hljs-keyword">using</span> System.Web.UI.WebControls.WebParts;
+<span class="hljs-keyword">using</span> System.Xml.Linq;
+<span class="hljs-keyword">using</span> PayPal.Api;
+<span class="hljs-keyword">using</span> System.Collections.Generic;
+<span class="hljs-keyword">using</span> Newtonsoft.Json.Linq;
+<span class="hljs-keyword">using</span> Newtonsoft.Json;
+
+namespace PayPal.Sample
+{
+    <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+    <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> Sample for creating PayPal Billing Plans:</span>
+    <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> https://developer.paypal.com/webapps/developer/docs/integration/direct/create-billing-plan/</span>
+    <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">partial</span> <span class="hljs-keyword">class</span> BillingPlanCreate : BaseSamplePage
+    {
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RunSample</span>()
+        {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="api-context">Api Context</h3>
+<p>Pass in a <code>APIContext</code> object to authenticate 
+the call and to send a unique request id 
+(that ensures idempotency). The SDK generates
+a request id if you do not pass one explicitly. 
+See <a href="/Source/Configuration.html">Configuration.cs</a> to know more about APIContext.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> apiContext = Configuration.GetAPIContext();
+
+            <span class="hljs-keyword">var</span> plan = CreatePlanObject(HttpContext.Current);
+
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-keyword">this</span>.flow.AddNewRequest(<span class="hljs-string">"Create billing plan"</span>, plan);
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span>
+
+            <span class="hljs-keyword">var</span> createdPlan = plan.Create(apiContext);
+
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-keyword">this</span>.flow.RecordResponse(createdPlan);
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span>
+        }
+
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> Helper method for getting a currency amount.</span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;param name="value"&gt;</span>The value for the currency object.<span class="hljs-xmlDocTag">&lt;/param&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;returns&gt;</span><span class="hljs-xmlDocTag">&lt;/returns&gt;</span></span>
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Currency <span class="hljs-title">GetCurrency</span>(<span class="hljs-keyword">string</span> <span class="hljs-keyword">value</span>)
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Currency() { <span class="hljs-keyword">value</span> = <span class="hljs-keyword">value</span>, currency = <span class="hljs-string">"USD"</span> };
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Plan <span class="hljs-title">CreatePlanObject</span>(HttpContext httpContext)
+        {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Both the trial and standard plans will use the same shipping
+charge for this example, so for simplicity we&#39;ll create a
+single object to use with both payment definitions.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> shippingChargeModel = <span class="hljs-keyword">new</span> ChargeModel()
+            {
+                type = <span class="hljs-string">"SHIPPING"</span>,
+                amount = GetCurrency(<span class="hljs-string">"9.99"</span>)
+            };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Define a trial plan that will only charge $9.99 for the first
+month. After that, the standard plan will take over for the
+remaining 11 months of the year.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> trialPlanPaymentDefinition = <span class="hljs-keyword">new</span> PaymentDefinition()
+            {
+                name = <span class="hljs-string">"Trial Plan"</span>,
+                type = <span class="hljs-string">"TRIAL"</span>,
+                frequency = <span class="hljs-string">"MONTH"</span>,
+                frequency_interval = <span class="hljs-string">"1"</span>,
+                amount = GetCurrency(<span class="hljs-string">"9.99"</span>),
+                cycles = <span class="hljs-string">"1"</span>
+            };
+            trialPlanPaymentDefinition.charge_models = <span class="hljs-keyword">new</span> List&lt;ChargeModel&gt;();
+            trialPlanPaymentDefinition.charge_models.Add(<span class="hljs-keyword">new</span> ChargeModel()
+            {
+                type = <span class="hljs-string">"TAX"</span>,
+                amount = GetCurrency(<span class="hljs-string">"1.65"</span>)
+            });
+            trialPlanPaymentDefinition.charge_models.Add(shippingChargeModel);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Define the standard payment plan. It will represent a monthly
+plan for $19.99 USD that charges once month for 11 months.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> regularPlanPaymentDefinition = <span class="hljs-keyword">new</span> PaymentDefinition()
+            {
+                name = <span class="hljs-string">"Standard Plan"</span>,
+                type = <span class="hljs-string">"REGULAR"</span>,
+                frequency = <span class="hljs-string">"MONTH"</span>,
+                frequency_interval = <span class="hljs-string">"1"</span>,
+                amount = GetCurrency(<span class="hljs-string">"19.99"</span>),
+                cycles = <span class="hljs-string">"11"</span>
+            };
+            regularPlanPaymentDefinition.charge_models = <span class="hljs-keyword">new</span> List&lt;ChargeModel&gt;();
+            regularPlanPaymentDefinition.charge_models.Add(<span class="hljs-keyword">new</span> ChargeModel()
+            {
+                type = <span class="hljs-string">"TAX"</span>,
+                amount = GetCurrency(<span class="hljs-string">"2.47"</span>)
+            });
+            regularPlanPaymentDefinition.charge_models.Add(shippingChargeModel);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Define the merchant preferences.
+More Information: <a href="https://developer.paypal.com/webapps/developer/docs/api/#merchantpreferences-object">https://developer.paypal.com/webapps/developer/docs/api/#merchantpreferences-object</a></p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> merchantPreferences = <span class="hljs-keyword">new</span> MerchantPreferences()
+            {
+                setup_fee = GetCurrency(<span class="hljs-string">"1"</span>),
+                return_url = httpContext.Request.Url.ToString(),
+                cancel_url = httpContext.Request.Url.ToString() + <span class="hljs-string">"?cancel"</span>,
+                auto_bill_amount = <span class="hljs-string">"YES"</span>,
+                initial_fail_amount_action = <span class="hljs-string">"CONTINUE"</span>,
+                max_fail_attempts = <span class="hljs-string">"0"</span>
+            };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Define the plan and attach the payment definitions and merchant preferences.
+More Information: <a href="https://developer.paypal.com/webapps/developer/docs/api/#create-a-plan">https://developer.paypal.com/webapps/developer/docs/api/#create-a-plan</a></p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> plan = <span class="hljs-keyword">new</span> Plan()
+            {
+                name = <span class="hljs-string">"T-Shirt of the Month Club Plan"</span>,
+                description = <span class="hljs-string">"Monthly plan for getting the t-shirt of the month."</span>,
+                type = <span class="hljs-string">"fixed"</span>,
+                merchant_preferences = merchantPreferences
+            };
+            plan.payment_definitions = <span class="hljs-keyword">new</span> List&lt;PaymentDefinition&gt;();
+            plan.payment_definitions.Add(trialPlanPaymentDefinition);
+            plan.payment_definitions.Add(regularPlanPaymentDefinition);
+            <span class="hljs-keyword">return</span> plan;
+        }
+    }
+}</div></div></div></div></body></html>

@@ -1,8 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api.Payments;
-using PayPal;
+using PayPal.Api;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     /// <summary>
     /// Summary description for ChargeModelsTest
@@ -10,7 +9,7 @@ namespace RestApiSDKUnitTest
     [TestClass]
     public class ChargeModelTest
     {
-        public static readonly string ChargeModelJson = "{\"id\":\"CHM-92S85978TN737850VRWBZEUA\",\"type\":\"TAX\",\"amount\":" + AmountTest.AmountJson + "}";
+        public static readonly string ChargeModelJson = "{\"id\":\"CHM-92S85978TN737850VRWBZEUA\",\"type\":\"TAX\",\"amount\":" + CurrencyTest.CurrencyJson + "}";
 
         public static ChargeModel GetChargeModel()
         {

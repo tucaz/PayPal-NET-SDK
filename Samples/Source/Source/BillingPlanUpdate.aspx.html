@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en"><head><title>BillingPlanUpdate.aspx</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="BillingPlanUpdate.aspx"><meta name="groc-project-path" content="BillingPlanUpdate.aspx.cs"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">BillingPlanUpdate.aspx.cs</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">﻿<span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> PayPal.Api;
+
+namespace PayPal.Sample
+{
+    <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+    <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> Sample for updating a PayPal Billing Plan</span>
+    <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> More Information: https://developer.paypal.com/webapps/developer/docs/api/#update-a-plan</span>
+    <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">partial</span> <span class="hljs-keyword">class</span> BillingPlanUpdate : BaseSamplePage
+    {
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RunSample</span>()
+        {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="api-context">Api Context</h3>
+<p>Pass in a <code>APIContext</code> object to authenticate 
+the call and to send a unique request id 
+(that ensures idempotency). The SDK generates
+a request id if you do not pass one explicitly. 
+See <a href="/Source/Configuration.html">Configuration.cs</a> to know more about APIContext.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> apiContext = Configuration.GetAPIContext();</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>In order to update the plan, you must define one or more
+patches to be applied to the plan. The patches will be
+applied in the order in which they&#39;re specified.
+The &#39;value&#39; of each Patch object will need to be a Plan object
+that contains the fields that will be modified.
+More Information: <a href="https://developer.paypal.com/webapps/developer/docs/api/#patchrequest-object">https://developer.paypal.com/webapps/developer/docs/api/#patchrequest-object</a></p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> tempPlan = <span class="hljs-keyword">new</span> Plan();
+            tempPlan.description = <span class="hljs-string">"Some updated description ("</span> + Guid.NewGuid().ToString() + <span class="hljs-string">")."</span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>NOTE: Only the &#39;replace&#39; operation is supported when updating
+      billing plans.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> patchRequest = <span class="hljs-keyword">new</span> PatchRequest()
+            {
+                <span class="hljs-keyword">new</span> Patch()
+                {
+                    op = <span class="hljs-string">"replace"</span>,
+                    path = <span class="hljs-string">"/"</span>,
+                    <span class="hljs-keyword">value</span> = tempPlan
+                }
+            };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Get the plan we want to update.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> planId = <span class="hljs-string">"P-23P27073KJ353233VHEXQM4Y"</span>;
+
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-keyword">this</span>.flow.AddNewRequest(<span class="hljs-string">"Retrieve billing plan details"</span>, description: <span class="hljs-string">"ID: "</span> + planId);
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span>
+            
+            <span class="hljs-keyword">var</span> plan = Plan.Get(apiContext, planId);
+
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-keyword">this</span>.flow.RecordResponse(plan);
+            <span class="hljs-keyword">this</span>.flow.AddNewRequest(<span class="hljs-string">"Update billing plan"</span>, patchRequest);
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Update the plan.</p></div></div><div class="code"><div class="wrapper">            plan.Update(apiContext, patchRequest);
+
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-keyword">this</span>.flow.RecordActionSuccess(<span class="hljs-string">"Billing plan updated successfully"</span>);
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>After it&#39;s been updated, get it again to make sure it was updated properly (and so we can see what it looks like afterwards).</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> updatedPlan = Plan.Get(apiContext, planId);
+        }
+    }
+}</div></div></div></div></body></html>

@@ -1,21 +1,53 @@
-# PayPal REST API SDK for .NET
+# PayPal .NET SDK
 
 > **Before using this SDK, please be aware of the [existing issues and currently available or upcoming features](https://github.com/paypal/rest-api-sdk-python/wiki/Existing-Issues-and-Unavailable%5CUpcoming-features) for the PayPal REST APIs (which all PayPal REST API SDKs are based upon).**
 
 ## Contents
 
-* [Prerequisites](https://github.com/paypal/rest-api-sdk-dotnet#prerequisites)
-* [Getting Started](https://github.com/paypal/rest-api-sdk-dotnet#getting-started)
-  * 1. [Download the Dependencies](https://github.com/paypal/rest-api-sdk-dotnet#download-the-dependencies)
-  * 2. [Configure Your Application](https://github.com/paypal/rest-api-sdk-dotnet#configure-your-application)
-  * 3. [Make Your First Call](https://github.com/paypal/rest-api-sdk-dotnet#make-your-first-call)
-* [NuGet](https://github.com/paypal/rest-api-sdk-dotnet#nuget)
-* [License](https://github.com/paypal/rest-api-sdk-dotnet#license)
+* [Upgrade Instructions](#upgrade-instructions)
+* [Prerequisites](#prerequisites)
+* [Getting Started](#getting-started)
+  * 1. [Download the Dependencies](#1-download-the-dependencies)
+  * 2. [Configure Your Application](#2-configure-your-application)
+  * 3. [Make Your First Call](#3-make-your-first-call)
+* [NuGet](#nuget)
+* [License](#license)
+
+## Upgrade Instructions
+
+> **ATTENTION:** If you are upgrading from the previous REST API SDK, you will need to make the following changes to your project.  This was necessary to avoid namespace conflicts with the previous Core SDK that has since been integrated into this library.
+
+### Web.config and App.config changes
+
+The following section in your **web.config** or **app.config** needs to be changed from:
+````xml
+<section name="paypal" type="PayPal.Manager.SDKConfigHandler, PayPalCoreSDK" />
+````
+
+...to:
+````xml
+<section name="paypal" type="PayPal.SDKConfigHandler, PayPal" />
+````
+
+### Namespace changes
+
+| Old Namespace | New Namespace |
+| ------------- | ------------- |
+| `PayPal.Manager` | `PayPal` |
+| `PayPal.Exception` | `PayPal` |
+| `PayPal.OpenIdConnect` | `PayPal.Api` |
+
+### Classes that have switched namespaces
+
+| Class | Old Namespace | New Namespace |
+| ----- | ------------- | ------------- |
+| `APIContext` | `PayPal` | `PayPal.Api` |
+| `BaseConstants` | `PayPal` | `PayPal.Api` |
 
 ## Prerequisites
 
-* Visual Studio 2008 or higher
-* [NuGet](https://github.com/paypal/rest-api-sdk-dotnet#nuget)
+* Visual Studio 2010 or higher
+* [NuGet](#nuget)
 
 ## Getting Started
 
@@ -24,7 +56,7 @@
 To begin using this SDK, first download this SDK from NuGet.
 
 ````
-NuGet Install -Package RestApiSDK
+NuGet Install -Package PayPal
 ````
 
 Optionally, also download [log4net](https://www.nuget.org/packages/log4net/) to give your application enhanced logging capabilities.
@@ -34,8 +66,7 @@ NuGet Install -Package log4net
 ````
 
 Once all the libraries are downloaded, simply add the following libraries to your project references (**Project** > **Add Reference...**):
- * RestApiSDK.dll
- * PayPalCoreSDK.dll
+ * PayPal.dll
  * Newtonsoft.Json.dll
  * log4net.dll
 
@@ -50,7 +81,7 @@ When using the SDK with your application, the SDK will attempt to look for PayPa
   NOTE: This element MUST be the first child under the root element in the *.config file.
   -->
   <configSections>
-    <section name="paypal" type="PayPal.Manager.SDKConfigHandler, PayPalCoreSDK" />
+    <section name="paypal" type="PayPal.SDKConfigHandler, PayPal" />
     <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net"/>
   </configSections>
 
@@ -86,8 +117,14 @@ When using the SDK with your application, the SDK will attempt to look for PayPa
     PayPal.Log.DiagnosticsLogger: Provides more thorough logging of system diagnostic information and tracing code execution
   -->
   <appSettings>
-    <add key="PayPalLogger" value="PayPal.Log.DiagnosticsLogger, PayPal.Log.Log4netLogger"/>
+    <!-- Diagnostics logging is only available in a Full Trust environment. -->
+    <!-- <add key="PayPalLogger" value="PayPal.Log.DiagnosticsLogger, PayPal.Log.Log4netLogger"/> -->
+    <add key="PayPalLogger" value="PayPal.Log.Log4netLogger"/>
   </appSettings>
+  
+  <system.web>
+    <trust level="High" />
+  </system.web>
 </configuration>
 ````
 
@@ -98,7 +135,6 @@ The following are values that can be specified in the `<paypal>` section of the 
 | `mode` | Determines which PayPal endpoint URL will be used with your application. Possible values are `live` or `sandbox`. |
 | `endpoint` | Overrides the default REST endpoint URL as well as `mode`, if set. |
 | `oauth.EndPoint` | Overrides the default endpoint URL used for gettings OAuth tokens. |
-| `IPNEndpoint` | Overrides the default endpoint URL used for validating IPN messages. |
 | `requestRetries` | The number of times HTTP requests should be attempted by the SDK before an error is thrown. Default value is `3`. |
 | `connectionTimeout` | The amount of time (in milliseconds) before an HTTP request should timeout. Default value is `30000`. |
 | `clientId` | Your application's **Client ID** as specified on your PayPal account's [My REST Apps](https://developer.paypal.com/webapps/developer/applications/myapps) page for your specific application. |
@@ -113,8 +149,11 @@ The following are values that can be specified in the `<paypal>` section of the 
 Before you can begin making various calls to PayPal's REST APIs via the SDK, you must first authenticate with PayPal using an **OAuth access token** that can be used with each call.  To do this, you will need to use the `OAuthTokenCredential` class.
 
 ````c#
+using PayPal;
+using PayPal.Api;
+
 // Get a reference to the config
-var config = PayPal.Manager.ConfigManager.Instance.GetProperties();
+var config = ConfigManager.Instance.GetProperties();
 
 // Read the clientId and clientSecret stored in the config
 var clientId = config[BaseConstants.ClientId];
@@ -165,20 +204,17 @@ var payment = Payment.Get(apiContext, paymentId);
 
 For more information on what features are supported by this SDK, refer to the [REST API Reference](https://developer.paypal.com/docs/api/) page on [developer.paypal.com](https://developer.paypal.com/).
 
-To get more code samples for using the SDK with the various PayPal features, refer to the [Samples](https://github.com/paypal/rest-api-sdk-dotnet/tree/master/Samples) project in this repository.
+To get more code samples for using the SDK with the various PayPal features, refer to the [Samples](https://github.com/paypal/PayPal-NET-SDK/tree/master/Samples) project in this repository.
 
 
 ## NuGet 
 
-NuGet is a Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects that use the .NET Framework.  If you develop a library or tool that you want to share with other developers, you create a NuGet package and store the package in a NuGet repository. If you want to use a library or tool that someone else has developed, you retrieve the package from the repository and install it in your Visual Studio project or solution. When you install the package, NuGet copies files to your solution and automatically makes whatever changes are needed, such as adding references and changing your app.config or web.config file. If you decide to remove the library, NuGet removes files and reverses whatever changes it made in your project so that no clutter is left.
+[NuGet](http://www.nuget.org) is a Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects that use the .NET Framework.  If you develop a library or tool that you want to share with other developers, you create a NuGet package and store the package in a NuGet repository. If you want to use a library or tool that someone else has developed, you retrieve the package from the repository and install it in your Visual Studio project or solution. When you install the package, NuGet copies files to your solution and automatically makes whatever changes are needed, such as adding references and changing your app.config or web.config file. If you decide to remove the library, NuGet removes files and reverses whatever changes it made in your project so that no clutter is left.
 
-Here is how you can get NuGet working on your IDE - 
-
-* [Installing NuGet in Visual Studio 2005 & 2008] (https://github.com/paypal/sdk-core-dotnet/wiki/Using-Nuget-in-Visual-Studio-2005-&-2008)
-* [Installing NuGet in Visual Studio 2010 & 2012] (https://github.com/paypal/sdk-core-dotnet/wiki/Using-Nuget-in-Visual-Studio-2010-&-2012)
+To install and configure NuGet with your version of Visual Studio, please refer to the [NuGet Installation Guide](http://docs.nuget.org/docs/start-here/installing-nuget).
 
 ## License
 
-* PayPal, Inc. SDK License - [LICENSE.txt](https://github.com/paypal/rest-api-sdk-dotnet/blob/master/LICENSE.txt)
+* PayPal, Inc. SDK License - [LICENSE.txt](https://github.com/paypal/PayPal-NET-SDK/blob/master/LICENSE.txt)
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/paypal/rest-api-sdk-dotnet/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/paypal/PayPal-NET-SDK/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

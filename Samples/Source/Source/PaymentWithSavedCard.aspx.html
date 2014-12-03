@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en"><head><title>PaymentWithSavedCard.aspx</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="PaymentWithSavedCard.aspx"><meta name="groc-project-path" content="PaymentWithSavedCard.aspx.cs"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">PaymentWithSavedCard.aspx.cs</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="createpayment-using-saved-card-sample">CreatePayment Using Saved Card Sample</h1>
+<p>This sample code demonstrates how you can process a 
+Payment using a previously saved credit card.
+API used: /v1/payments/payment</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">using</span> PayPal.Api;
+<span class="hljs-keyword">using</span> System.Collections.Generic;
+
+namespace PayPal.Sample
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">partial</span> <span class="hljs-keyword">class</span> PaymentWithSavedCard : BaseSamplePage
+    {
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RunSample</span>()
+        {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="api-context">Api Context</h3>
+<p>Pass in a <code>APIContext</code> object to authenticate 
+the call and to send a unique request id 
+(that ensures idempotency). The SDK generates
+a request id if you do not pass one explicitly. 
+See <a href="/Source/Configuration.html">Configuration.cs</a> to know more about APIContext.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> apiContext = Configuration.GetAPIContext();</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Items within a transaction.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> item = <span class="hljs-keyword">new</span> Item()
+            {
+                name = <span class="hljs-string">"Item Name"</span>,
+                currency = <span class="hljs-string">"USD"</span>,
+                price = <span class="hljs-string">"1"</span>,
+                quantity = <span class="hljs-string">"5"</span>,
+                sku = <span class="hljs-string">"sku"</span>
+            };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A resource representing a credit card that can be used to fund a payment.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> credCardToken = <span class="hljs-keyword">new</span> CreditCardToken()
+            {
+                credit_card_id = <span class="hljs-string">"CARD-0F049886A57009534KRVL4LQ"</span>
+            };
+
+            <span class="hljs-keyword">var</span> amnt = <span class="hljs-keyword">new</span> Amount()
+            {
+                currency = <span class="hljs-string">"USD"</span>,
+                total = <span class="hljs-string">"7"</span>,
+                details = <span class="hljs-keyword">new</span> Details()
+                {
+                    shipping = <span class="hljs-string">"1"</span>,
+                    subtotal = <span class="hljs-string">"5"</span>,
+                    tax = <span class="hljs-string">"1"</span>
+                }
+            };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A transaction defines the contract of a
+payment - what is the payment for and who
+is fulfilling it. </p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> tran = <span class="hljs-keyword">new</span> Transaction()
+            {
+                amount = amnt,
+                description = <span class="hljs-string">"This is the payment transaction description."</span>,
+                item_list = <span class="hljs-keyword">new</span> ItemList() { items = <span class="hljs-keyword">new</span> List&lt;Item&gt;() { item } }
+            };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A resource representing a Payer&#39;s funding instrument. For stored credit card payments, set the CreditCardToken field on this object.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> fundInstrument = <span class="hljs-keyword">new</span> FundingInstrument()
+            {
+                credit_card_token = credCardToken
+            };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A Payment Resource; create one using the above types and intent as &#39;sale&#39;</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> pymnt = <span class="hljs-keyword">new</span> Payment()
+            {
+                intent = <span class="hljs-string">"sale"</span>,
+                payer = <span class="hljs-keyword">new</span> Payer()
+                {
+                    funding_instruments = <span class="hljs-keyword">new</span> List&lt;FundingInstrument&gt;() { fundInstrument },
+                    payment_method = <span class="hljs-string">"credit_card"</span>
+                },
+                transactions = <span class="hljs-keyword">new</span> List&lt;Transaction&gt;() { tran }
+            };</div></div></div><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">            // Ignore workflow code segment</span></div><div class="wrapper">            <span class="hljs-comment">// Ignore workflow code segment</span>
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+            <span class="hljs-keyword">this</span>.flow.AddNewRequest(<span class="hljs-string">"Create credit card payment"</span>, pymnt);
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Create a payment using a valid APIContext</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> createdPayment = pymnt.Create(apiContext);</div></div></div><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">            // Ignore workflow code segment</span></div><div class="wrapper">            <span class="hljs-comment">// Ignore workflow code segment</span>
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+            <span class="hljs-keyword">this</span>.flow.RecordResponse(createdPayment);
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>For more information, please visit <a href="https://developer.paypal.com/docs/api/">PayPal Developer REST API Reference</a>.</p></div></div><div class="code"><div class="wrapper">        }
+    }
+}</div></div></div></div></body></html>

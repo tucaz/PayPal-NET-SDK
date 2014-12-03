@@ -3,10 +3,9 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api.Payments;
-using PayPal;
+using PayPal.Api;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     /// <summary>
     /// Summary description for InvoiceTest
@@ -62,6 +61,17 @@ namespace RestApiSDKUnitTest
             var createdInvoice = invoice.Create(UnitTestUtil.GetApiContext());
             Assert.IsNotNull(createdInvoice.id);
             Assert.AreEqual(invoice.note, createdInvoice.note);
+        }
+
+        [TestMethod]
+        public void InvoiceQrCodeTest()
+        {
+            var invoice = GetInvoice();
+            var createdInvoice = invoice.Create(UnitTestUtil.GetApiContext());
+            var qrCode = Invoice.QrCode(UnitTestUtil.GetApiContext(), createdInvoice.id);
+            Assert.IsNotNull(qrCode);
+            Assert.IsTrue(!string.IsNullOrEmpty(qrCode.image));
+            createdInvoice.Delete(UnitTestUtil.GetApiContext());
         }
     }
 }

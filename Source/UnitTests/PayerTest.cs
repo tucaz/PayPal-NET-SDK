@@ -1,10 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using PayPal;
-using PayPal.Api.Payments;
-using PayPal.Manager;
+using PayPal.Api;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     [TestClass()]
     public class PayerTest

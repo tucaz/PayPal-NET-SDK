@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api.Payments;
+using PayPal.Api;
 using PayPal;
 using System;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     /// <summary>
     /// Summary description for PlanTest
@@ -100,6 +100,33 @@ namespace RestApiSDKUnitTest
             Assert.IsNotNull(planList);
             Assert.IsNotNull(planList.plans);
             Assert.IsTrue(planList.plans.Count > 0);
+        }
+
+        [TestMethod]
+        public void PlanDeleteTest()
+        {
+            var plan = GetPlan();
+            var createdPlan = plan.Create(UnitTestUtil.GetApiContext());
+            var planId = createdPlan.id;
+
+            // Create a patch request that will delete the plan
+            var patchRequest = new PatchRequest
+            {
+                new Patch
+                {
+                    op = "replace",
+                    path = "/",
+                    value = new Plan
+                    {
+                        state = "DELETED"
+                    }
+                }
+            };
+
+            createdPlan.Update(UnitTestUtil.GetApiContext(), patchRequest);
+
+            // Attempting to retrieve the plan should result in a PayPalException being thrown.
+            UnitTestUtil.AssertThrownException<PaymentsException>(() => Plan.Get(UnitTestUtil.GetApiContext(), planId));
         }
     }
 }

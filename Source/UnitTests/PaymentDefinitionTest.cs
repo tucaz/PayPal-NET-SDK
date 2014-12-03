@@ -1,8 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api.Payments;
-using PayPal;
+using PayPal.Api;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     /// <summary>
     /// Summary description for PaymentDefinitionTest
@@ -15,7 +14,7 @@ namespace RestApiSDKUnitTest
 		    "\"type\":\"REGULAR\"," +
 		    "\"frequency\":\"MONTH\"," +
 		    "\"frequency_interval\":\"2\"," +
-		    "\"amount\":" + AmountTest.AmountJson + "," +
+		    "\"amount\":" + CurrencyTest.CurrencyJson + "," +
 		    "\"cycles\":\"12\"," +
 		    "\"charge_models\":[" + ChargeModelTest.ChargeModelJson + "]}";
 

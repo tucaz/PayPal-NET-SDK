@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="en"><head><title>BillingPlanGet.aspx</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="BillingPlanGet.aspx"><meta name="groc-project-path" content="BillingPlanGet.aspx.cs"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">BillingPlanGet.aspx.cs</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">﻿<span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Collections;
+<span class="hljs-keyword">using</span> System.Configuration;
+<span class="hljs-keyword">using</span> System.Data;
+<span class="hljs-keyword">using</span> System.Linq;
+<span class="hljs-keyword">using</span> System.Web;
+<span class="hljs-keyword">using</span> System.Web.Security;
+<span class="hljs-keyword">using</span> System.Web.UI;
+<span class="hljs-keyword">using</span> System.Web.UI.HtmlControls;
+<span class="hljs-keyword">using</span> System.Web.UI.WebControls;
+<span class="hljs-keyword">using</span> System.Web.UI.WebControls.WebParts;
+<span class="hljs-keyword">using</span> System.Xml.Linq;
+<span class="hljs-keyword">using</span> PayPal.Api;
+<span class="hljs-keyword">using</span> Newtonsoft.Json.Linq;
+<span class="hljs-keyword">using</span> Newtonsoft.Json;
+<span class="hljs-keyword">using</span> PayPal.Sample.Utilities;
+
+namespace PayPal.Sample
+{
+    <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;summary&gt;</span></span>
+    <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> Sample for retrieving a PayPal Billing Plan</span>
+    <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> More Information: https://developer.paypal.com/webapps/developer/docs/api/#retrieve-a-plan</span>
+    <span class="hljs-comment"><span class="hljs-xmlDocTag">///</span> <span class="hljs-xmlDocTag">&lt;/summary&gt;</span></span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">partial</span> <span class="hljs-keyword">class</span> BillingPlanGet : BaseSamplePage
+    {
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RunSample</span>()
+        {
+            <span class="hljs-keyword">var</span> planId = <span class="hljs-string">"P-5FY40070P6526045UHFWUVEI"</span>;
+
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-keyword">this</span>.flow.AddNewRequest(title: <span class="hljs-string">"Create billing plan"</span>, description: <span class="hljs-string">"ID: "</span> + planId);
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span>
+
+            <span class="hljs-keyword">var</span> plan = Plan.Get(Configuration.GetAPIContext(), planId);
+
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">region</span> Track Workflow</span>
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-keyword">this</span>.flow.RecordResponse(plan);
+            <span class="hljs-comment">//--------------------</span>
+            <span class="hljs-preprocessor">#<span class="hljs-keyword">endregion</span></span>
+        }
+    }
+}</div></div></div></div></body></html>

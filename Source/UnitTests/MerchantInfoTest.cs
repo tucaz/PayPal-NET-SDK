@@ -3,10 +3,9 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api.Payments;
-using PayPal;
+using PayPal.Api;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     /// <summary>
     /// Summary description for MerchantInfoTest
@@ -20,7 +19,7 @@ namespace RestApiSDKUnitTest
             "\"last_name\":\"Doctor\"," +
             "\"business_name\":\"Medical Professionals, LLC\"," +
             "\"phone\":" + PhoneTest.PhoneJson + "," +
-            "\"address\":" + AddressTest.AddressJson + "}";
+            "\"address\":" + InvoiceAddressTest.InvoiceAddressJson + "}";
 
         public static MerchantInfo GetMerchantInfo()
         {

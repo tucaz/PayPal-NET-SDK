@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PayPal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api.Payments;
+using PayPal.Api;
 using System.IO;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     public class UnitTestUtil
     {
@@ -29,9 +28,9 @@ namespace RestApiSDKUnitTest
             return oauth.GetAccessToken();
         }
 
-        public static APIContext GetApiContext()
+        public static PayPal.Api.APIContext GetApiContext()
         {
-            var apiContext = new APIContext(GetAccessToken());
+            var apiContext = new PayPal.Api.APIContext(GetAccessToken());
             apiContext.Config = GetConfig();
             return apiContext;
         }

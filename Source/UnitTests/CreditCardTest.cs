@@ -1,25 +1,25 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal;
-using PayPal.Manager;
-using PayPal.Api.Payments;
+using PayPal.Api;
 
-namespace RestApiSDKUnitTest
+namespace PayPal.UnitTest
 {
     [TestClass()]
     public class CreditCardTest
     {
+        public static readonly string CreditCardJson = "{" +
+            "\"cvv2\": \"962\"," +
+            "\"expire_month\": 01," +
+            "\"expire_year\": 2015," +
+            "\"first_name\": \"John\"," +
+            "\"last_name\": \"Doe\"," +
+            "\"number\": \"4825854086744369\"," +
+            "\"type\": \"visa\"," +
+            "\"billing_address\": " + AddressTest.AddressJson + "}";
+
         public static CreditCard GetCreditCard()
         {
-            CreditCard card = new CreditCard();
-            card.cvv2 = 962;
-            card.expire_month = 01;
-            card.expire_year = 2015;
-            card.first_name = "John";
-            card.last_name = "Doe";
-            card.number = "4825854086744369";
-            card.type = "visa";
-            card.billing_address = AddressTest.GetAddress();
-            return card;
+            return JsonFormatter.ConvertFromJson<CreditCard>(CreditCardJson);
         }
 
         public static CreditCard CreateCreditCard()
@@ -39,7 +39,7 @@ namespace RestApiSDKUnitTest
             Assert.AreEqual(card.last_name, "Doe");
             Assert.AreEqual(card.expire_month, 01);
             Assert.AreEqual(card.expire_year, 2015);
-            Assert.AreEqual(card.cvv2, 962);
+            Assert.AreEqual(card.cvv2, "962");
             Assert.AreEqual(card.id, "002");
             Assert.AreEqual(card.external_customer_id, "008");
             Assert.AreEqual(add.city, card.billing_address.city);
@@ -76,6 +76,15 @@ namespace RestApiSDKUnitTest
             var createdCreditCard = card.Create(UnitTestUtil.GetApiContext());
             var retrievedCreditCard = CreditCard.Get(UnitTestUtil.GetApiContext(), createdCreditCard.id);
             retrievedCreditCard.Delete(UnitTestUtil.GetApiContext());
+        }
+
+        [TestMethod]
+        public void CreditCardListTest()
+        {
+            var creditCardList = CreditCard.List(UnitTestUtil.GetApiContext(), startTime: "2014-11-01T19:27:56Z", endTime: "2014-12-25T19:27:56Z");
+            Assert.IsNotNull(creditCardList);
+            Assert.IsTrue(creditCardList.total_items > 0);
+            Assert.IsTrue(creditCardList.total_pages > 0);
         }
 
         [TestMethod()]

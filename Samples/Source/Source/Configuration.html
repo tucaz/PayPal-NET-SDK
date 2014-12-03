@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en"><head><title>Utilities\Configuration</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="Utilities\Configuration"><meta name="groc-project-path" content="Utilities\Configuration.cs"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">Utilities\Configuration.cs</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">﻿<span class="hljs-keyword">using</span> System.Collections.Generic;
+<span class="hljs-keyword">using</span> PayPal.Api;
+
+namespace PayPal.Sample
+{ 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> Configuration
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span> ClientId;
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span> ClientSecret;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Static constructor for setting the readonly static members.</p></div></div><div class="code"><div class="wrapper">        <span class="hljs-keyword">static</span> Configuration()
+        {
+            <span class="hljs-keyword">var</span> config = GetConfig();
+            ClientId = config[<span class="hljs-string">"clientId"</span>];
+            ClientSecret = config[<span class="hljs-string">"clientSecret"</span>];
+        }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Create the configuration map that contains mode and other optional configuration details.</p></div></div><div class="code"><div class="wrapper">        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Dictionary&lt;<span class="hljs-keyword">string</span>, <span class="hljs-keyword">string</span>&gt; <span class="hljs-title">GetConfig</span>()
+        {
+            <span class="hljs-keyword">return</span> ConfigManager.Instance.GetProperties();
+        }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Create accessToken</p></div></div><div class="code"><div class="wrapper">        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetAccessToken</span>()
+        {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="accesstoken">AccessToken</h3>
+<p>Retrieve the access token from
+OAuthTokenCredential by passing in
+ClientID and ClientSecret
+It is not mandatory to generate Access Token on a per call basis.
+Typically the access token can be generated once and
+reused within the expiry window                </p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">string</span> accessToken = <span class="hljs-keyword">new</span> OAuthTokenCredential(ClientId, ClientSecret, GetConfig()).GetAccessToken();
+            <span class="hljs-keyword">return</span> accessToken;
+        }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Returns APIContext object</p></div></div><div class="code"><div class="wrapper">        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> APIContext <span class="hljs-title">GetAPIContext</span>()
+        {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="api-context">Api Context</h3>
+<p>Pass in a <code>APIContext</code> object to authenticate 
+the call and to send a unique request id 
+(that ensures idempotency). The SDK generates
+a request id if you do not pass one explicitly. </p></div></div><div class="code"><div class="wrapper">            APIContext apiContext = <span class="hljs-keyword">new</span> APIContext(GetAccessToken());
+            apiContext.Config = GetConfig();</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Use this variant if you want to pass in a request id<br>that is meaningful in your application, ideally 
+a order id.
+String requestId = Long.toString(System.nanoTime();
+APIContext apiContext = new APIContext(GetAccessToken(), requestId ));</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">return</span> apiContext;
+        }
+
+    }
+}
+ </div></div></div></div></body></html>
