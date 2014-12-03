@@ -405,6 +405,14 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Invoice</returns>
         </member>
+        <member name="M:PayPal.Api.Invoice.Create(PayPal.Api.APIContext,PayPal.Api.Invoice)">
+            <summary>
+            Creates a new invoice Resource.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="invoice">Invoice object to be used for creating the PayPal resource.</param>
+            <returns>Invoice</returns>
+        </member>
         <member name="M:PayPal.Api.Invoice.Search(PayPal.Api.APIContext,PayPal.Api.Search)">
             <summary>
             Search for invoice resources.
@@ -420,11 +428,27 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="notifyMerchant">Specifies if the invoice send notification is needed for merchant</param>
         </member>
+        <member name="M:PayPal.Api.Invoice.Send(PayPal.Api.APIContext,System.String,System.Boolean)">
+            <summary>
+            Sends a legitimate invoice to the payer.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="invoiceId">ID of the invoice to send.</param>
+            <param name="notifyMerchant">Specifies if the invoice send notification is needed for merchant</param>
+        </member>
         <member name="M:PayPal.Api.Invoice.Remind(PayPal.Api.APIContext,PayPal.Api.Notification)">
             <summary>
             Reminds the payer to pay the invoice.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="notification">Notification</param>
+        </member>
+        <member name="M:PayPal.Api.Invoice.Remind(PayPal.Api.APIContext,System.String,PayPal.Api.Notification)">
+            <summary>
+            Reminds the payer to pay the invoice.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="invoiceId">ID of the invoice the payer will be reminded to pay.</param>
             <param name="notification">Notification</param>
         </member>
         <member name="M:PayPal.Api.Invoice.Cancel(PayPal.Api.APIContext,PayPal.Api.CancelNotification)">
@@ -434,6 +458,14 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="cancelNotification">CancelNotification</param>
         </member>
+        <member name="M:PayPal.Api.Invoice.Cancel(PayPal.Api.APIContext,System.String,PayPal.Api.CancelNotification)">
+            <summary>
+            Cancels an invoice.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="invoiceId">ID of the invoice to cancel.</param>
+            <param name="cancelNotification">CancelNotification</param>
+        </member>
         <member name="M:PayPal.Api.Invoice.RecordPayment(PayPal.Api.APIContext,PayPal.Api.PaymentDetail)">
             <summary>
             Mark the status of the invoice as paid.
@@ -441,11 +473,27 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="paymentDetail">PaymentDetail</param>
         </member>
+        <member name="M:PayPal.Api.Invoice.RecordPayment(PayPal.Api.APIContext,System.String,PayPal.Api.PaymentDetail)">
+            <summary>
+            Mark the status of the invoice as paid.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="invoiceId">ID of the invoice to mark as paid.</param>
+            <param name="paymentDetail">PaymentDetail</param>
+        </member>
         <member name="M:PayPal.Api.Invoice.RecordRefund(PayPal.Api.APIContext,PayPal.Api.RefundDetail)">
             <summary>
             Mark the status of the invoice as refunded.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="refundDetail">RefundDetail</param>
+        </member>
+        <member name="M:PayPal.Api.Invoice.RecordRefund(PayPal.Api.APIContext,System.String,PayPal.Api.RefundDetail)">
+            <summary>
+            Mark the status of the invoice as refunded.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="invoiceId">ID fo the invoice to mark as refunded.</param>
             <param name="refundDetail">RefundDetail</param>
         </member>
         <member name="M:PayPal.Api.Invoice.Get(PayPal.Api.APIContext,System.String)">
@@ -474,6 +522,15 @@
             <param name="notifyMerchant">Specifies if the invoice update notification is needed for merchant</param>
             <returns>Invoice</returns>
         </member>
+        <member name="M:PayPal.Api.Invoice.Update(PayPal.Api.APIContext,PayPal.Api.Invoice,System.Boolean)">
+            <summary>
+            Full update of the invoice resource for the given identifier.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="invoice">Invoice object to update.</param>
+            <param name="notifyMerchant">Specifies if the invoice update notification is needed for merchant</param>
+            <returns>Invoice</returns>
+        </member>
         <member name="M:PayPal.Api.Invoice.Delete(PayPal.Api.APIContext)">
             <summary>
             Delete invoice resource for the given identifier.
@@ -485,7 +542,7 @@
             Delete invoice resource for the given identifier.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="invoiceId">Identifier of the invoice resource to be updated.</param>
+            <param name="invoiceId">ID of the invoice to delete.</param>
         </member>
         <member name="M:PayPal.Api.Invoice.QrCode(PayPal.Api.APIContext,System.String,System.Int32,System.Int32,System.String)">
             <summary>
@@ -1079,6 +1136,15 @@
             <param name="refund">Refund</param>
             <returns>Refund</returns>
         </member>
+        <member name="M:PayPal.Api.Capture.Refund(PayPal.Api.APIContext,System.String,PayPal.Api.Refund)">
+            <summary>
+            Creates (and processes) a new Refund Transaction added as a related resource.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="captureId">ID of the captured payment resource to refund.</param>
+            <param name="refund">Refund</param>
+            <returns>Refund</returns>
+        </member>
         <member name="P:PayPal.Api.Capture.id">
             <summary>
             Identifier of the Capture transaction.
@@ -1333,41 +1399,6 @@
         <member name="P:PayPal.Log.BaseLogger.IsWarnEnabled">
             <summary>
             Virtual wrapper for IsWarnEnabled
-            </summary>
-        </member>
-        <member name="M:PayPal.Api.PaymentCardToken.ConvertToJson">
-            <summary>
-            Converts the object to JSON string
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.PaymentCardToken.payment_card_id">
-            <summary>
-            ID of a previously saved Payment Card resource.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.PaymentCardToken.external_customer_id">
-            <summary>
-            The unique identifier of the payer used when saving this payment card.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.PaymentCardToken.last4">
-            <summary>
-            Last 4 digits of the card number from the saved card.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.PaymentCardToken.type">
-            <summary>
-            Type of the Card.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.PaymentCardToken.expire_month">
-            <summary>
-            card expiry month from the saved card with value 1 - 12
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.PaymentCardToken.expire_year">
-            <summary>
-            4 digit card expiry year from the saved card
             </summary>
         </member>
         <member name="M:PayPal.Api.PayPalSerializableListObject`1.ConvertToJson">
@@ -2141,11 +2172,27 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Agreement</returns>
         </member>
+        <member name="M:PayPal.Api.Agreement.Create(PayPal.Api.APIContext,PayPal.Api.Agreement)">
+            <summary>
+            Create a new billing agreement by passing the details for the agreement, including the name, description, start date, payer, and billing plan in the request JSON.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="agreement">The Agreement object to be used when creating the PayPal resource.</param>
+            <returns>Agreement</returns>
+        </member>
         <member name="M:PayPal.Api.Agreement.Execute(PayPal.Api.APIContext)">
             <summary>
             Execute a billing agreement after buyer approval by passing the payment token to the request URI.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <returns>Agreement</returns>
+        </member>
+        <member name="M:PayPal.Api.Agreement.Execute(PayPal.Api.APIContext,System.String)">
+            <summary>
+            Execute a billing agreement after buyer approval by passing the payment token to the request URI.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="token">Payment token received after buyer approval of the billing agreement.</param>
             <returns>Agreement</returns>
         </member>
         <member name="M:PayPal.Api.Agreement.Get(PayPal.Api.APIContext,System.String)">
@@ -2163,6 +2210,14 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="patchRequest">PatchRequest</param>
         </member>
+        <member name="M:PayPal.Api.Agreement.Update(PayPal.Api.APIContext,System.String,PayPal.Api.PatchRequest)">
+            <summary>
+            Update details of a billing agreement, such as the description, shipping address, and start date, by passing the ID of the agreement to the request URI.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="agreementId">ID of the billing agreement that will be updated.</param>
+            <param name="patchRequest">PatchRequest</param>
+        </member>
         <member name="M:PayPal.Api.Agreement.Suspend(PayPal.Api.APIContext,PayPal.Api.AgreementStateDescriptor)">
             <summary>
             Suspend a particular billing agreement by passing the ID of the agreement to the request URI.
@@ -2170,11 +2225,27 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
         </member>
-        <member name="M:PayPal.Api.Agreement.ReActivate(PayPal.Api.APIContext,PayPal.Api.AgreementStateDescriptor)">
+        <member name="M:PayPal.Api.Agreement.Suspend(PayPal.Api.APIContext,System.String,PayPal.Api.AgreementStateDescriptor)">
             <summary>
-            Reactivate a suspended billing agreement by passing the ID of the agreement to the appropriate URI. In addition, pass an agreement_state_descriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
+            Suspend a particular billing agreement by passing the ID of the agreement to the request URI.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="agreementId">ID of the billing agreement that will be suspended.</param>
+            <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
+        </member>
+        <member name="M:PayPal.Api.Agreement.ReActivate(PayPal.Api.APIContext,PayPal.Api.AgreementStateDescriptor)">
+            <summary>
+            Reactivate a suspended billing agreement by passing the ID of the agreement to the appropriate URI. In addition, pass an AgreementStateDescriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
+        </member>
+        <member name="M:PayPal.Api.Agreement.ReActivate(PayPal.Api.APIContext,System.String,PayPal.Api.AgreementStateDescriptor)">
+            <summary>
+            Reactivate a suspended billing agreement by passing the ID of the agreement to the appropriate URI. In addition, pass an AgreementStateDescriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="agreementId">ID of the billing agreement that will be reactivated.</param>
             <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
         </member>
         <member name="M:PayPal.Api.Agreement.Cancel(PayPal.Api.APIContext,PayPal.Api.AgreementStateDescriptor)">
@@ -2184,18 +2255,42 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
         </member>
+        <member name="M:PayPal.Api.Agreement.Cancel(PayPal.Api.APIContext,System.String,PayPal.Api.AgreementStateDescriptor)">
+            <summary>
+            Cancel a billing agreement by passing the ID of the agreement to the request URI. In addition, pass an AgreementStateDescriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="agreementId">ID of the billing agreement that will be canceled.</param>
+            <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
+        </member>
         <member name="M:PayPal.Api.Agreement.BillBalance(PayPal.Api.APIContext,PayPal.Api.AgreementStateDescriptor)">
             <summary>
-            Bill an outstanding amount for an agreement by passing the ID of the agreement to the request URI. In addition, pass an agreement_state_descriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
+            Bill an outstanding amount for an agreement by passing the ID of the agreement to the request URI. In addition, pass an AgreementStateDescriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
         </member>
-        <member name="M:PayPal.Api.Agreement.SetBalance(PayPal.Api.APIContext,PayPal.Api.Currency)">
+        <member name="M:PayPal.Api.Agreement.BillBalance(PayPal.Api.APIContext,System.String,PayPal.Api.AgreementStateDescriptor)">
             <summary>
-            Set the balance for an agreement by passing the ID of the agreement to the request URI. In addition, pass a common_currency object in the request JSON that specifies the currency type and value of the balance.
+            Bill an outstanding amount for an agreement by passing the ID of the agreement to the request URI. In addition, pass an AgreementStateDescriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="agreementId">ID of the billing agreement to perform the operation against.</param>
+            <param name="agreementStateDescriptor">AgreementStateDescriptor</param>
+        </member>
+        <member name="M:PayPal.Api.Agreement.SetBalance(PayPal.Api.APIContext,PayPal.Api.Currency)">
+            <summary>
+            Set the balance for an agreement by passing the ID of the agreement to the request URI. In addition, pass a Currency object in the request JSON that specifies the currency type and value of the balance.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="currency">Currency</param>
+        </member>
+        <member name="M:PayPal.Api.Agreement.SetBalance(PayPal.Api.APIContext,System.String,PayPal.Api.Currency)">
+            <summary>
+            Set the balance for an agreement by passing the ID of the agreement to the request URI. In addition, pass a Currency object in the request JSON that specifies the currency type and value of the balance.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="agreementId">ID of the billing agreement to perform the operation against.</param>
             <param name="currency">Currency</param>
         </member>
         <member name="M:PayPal.Api.Agreement.ListTransactions(PayPal.Api.APIContext,System.String,System.String,System.String)">
@@ -2273,6 +2368,13 @@
             Saves the image data to a file on disk.
             </summary>
             <param name="filename">The path to the file where the image will be saved.</param>
+        </member>
+        <member name="M:PayPal.Api.Image.Save(System.String,PayPal.Api.Image)">
+            <summary>
+            Saves the image data to a file on disk.
+            </summary>
+            <param name="filename">The path to the file where the image will be saved.</param>
+            <param name="image">Image object containing the image data sent from PayPal.</param>
         </member>
         <member name="P:PayPal.Api.Image.image">
             <summary>
@@ -2489,6 +2591,14 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>BankAccount</returns>
         </member>
+        <member name="M:PayPal.Api.BankAccount.Create(PayPal.Api.APIContext,PayPal.Api.BankAccount)">
+            <summary>
+            Creates a new Bank Account Resource.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="bankAccount">The BankAccount object specifying the details of the PayPal resource to create.</param>
+            <returns>BankAccount</returns>
+        </member>
         <member name="M:PayPal.Api.BankAccount.Get(PayPal.Api.APIContext,System.String)">
             <summary>
             Obtain the Bank Account resource for the given identifier.
@@ -2515,6 +2625,15 @@
             Update information in a previously saved bank account. Only the modified fields need to be passed in the request.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="patchRequest">PatchRequest</param>
+            <returns>BankAccount</returns>
+        </member>
+        <member name="M:PayPal.Api.BankAccount.Update(PayPal.Api.APIContext,System.String,PayPal.Api.PatchRequest)">
+            <summary>
+            Update information in a previously saved bank account. Only the modified fields need to be passed in the request.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="bankAccountId">ID of the bank account to update.</param>
             <param name="patchRequest">PatchRequest</param>
             <returns>BankAccount</returns>
         </member>
@@ -2876,6 +2995,14 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>CreditCard</returns>
         </member>
+        <member name="M:PayPal.Api.CreditCard.Create(PayPal.Api.APIContext,PayPal.Api.CreditCard)">
+            <summary>
+            Creates a new Credit Card Resource (aka Tokenize).
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="creditCard">CreditCard object to be used to create the PayPal resource.</param>
+            <returns>CreditCard</returns>
+        </member>
         <member name="M:PayPal.Api.CreditCard.Get(PayPal.Api.APIContext,System.String)">
             <summary>
             Obtain the Credit Card resource for the given identifier.
@@ -2902,6 +3029,15 @@
             Update information in a previously saved card. Only the modified fields need to be passed in the request.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="patchRequest">PatchRequest</param>
+            <returns>CreditCard</returns>
+        </member>
+        <member name="M:PayPal.Api.CreditCard.Update(PayPal.Api.APIContext,System.String,PayPal.Api.PatchRequest)">
+            <summary>
+            Update information in a previously saved card. Only the modified fields need to be passed in the request.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="creditCardId">ID fo the credit card to update.</param>
             <param name="patchRequest">PatchRequest</param>
             <returns>CreditCard</returns>
         </member>
@@ -3293,6 +3429,15 @@
             <param name="refund">Refund</param>
             <returns>Refund</returns>
         </member>
+        <member name="M:PayPal.Api.Sale.Refund(PayPal.Api.APIContext,System.String,PayPal.Api.Refund)">
+            <summary>
+            Creates (and processes) a new Refund Transaction added as a related resource.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="saleId">ID of the sale to refund.</param>
+            <param name="refund">Refund</param>
+            <returns>Refund</returns>
+        </member>
         <member name="P:PayPal.Api.Sale.id">
             <summary>
             Identifier of the sale transaction.
@@ -3375,6 +3520,14 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Payment</returns>
         </member>
+        <member name="M:PayPal.Api.Payment.Create(PayPal.Api.APIContext,PayPal.Api.Payment)">
+            <summary>
+            Creates (and processes) a new Payment Resource.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="payment">Payment object to be used in creating the PayPal resource.</param>
+            <returns>Payment</returns>
+        </member>
         <member name="M:PayPal.Api.Payment.Get(PayPal.Api.APIContext,System.String)">
             <summary>
             Obtain the Payment resource for the given identifier.
@@ -3389,13 +3542,29 @@
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="patchRequest">PatchRequest</param>
-            <returns>object</returns>
+        </member>
+        <member name="M:PayPal.Api.Payment.Update(PayPal.Api.APIContext,System.String,PayPal.Api.PatchRequest)">
+            <summary>
+            Partially update the Payment resource for the given identifier
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="paymentId">ID of the payment to update.</param>
+            <param name="patchRequest">PatchRequest</param>
         </member>
         <member name="M:PayPal.Api.Payment.Execute(PayPal.Api.APIContext,PayPal.Api.PaymentExecution)">
             <summary>
             Executes the payment (after approved by the Payer) associated with this resource when the payment method is PayPal.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="paymentExecution">PaymentExecution</param>
+            <returns>Payment</returns>
+        </member>
+        <member name="M:PayPal.Api.Payment.Execute(PayPal.Api.APIContext,System.String,PayPal.Api.PaymentExecution)">
+            <summary>
+            Executes the payment (after approved by the Payer) associated with this resource when the payment method is PayPal.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="paymentId">ID of the payment to execute.</param>
             <param name="paymentExecution">PaymentExecution</param>
             <returns>Payment</returns>
         </member>
@@ -3498,6 +3667,15 @@
             <param name="capture">Capture</param>
             <returns>Capture</returns>
         </member>
+        <member name="M:PayPal.Api.Order.Capture(PayPal.Api.APIContext,System.String,PayPal.Api.Capture)">
+            <summary>
+            Creates (and processes) a new Capture Transaction added as a related resource.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="orderId">ID of the order to capture.</param>
+            <param name="capture">Capture</param>
+            <returns>Capture</returns>
+        </member>
         <member name="M:PayPal.Api.Order.Void(PayPal.Api.APIContext)">
             <summary>
             Voids (cancels) an Order.
@@ -3505,11 +3683,27 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Order</returns>
         </member>
+        <member name="M:PayPal.Api.Order.Void(PayPal.Api.APIContext,System.String)">
+            <summary>
+            Voids (cancels) an Order.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="orderId">ID of the order to void.</param>
+            <returns>Order</returns>
+        </member>
         <member name="M:PayPal.Api.Order.Authorize(PayPal.Api.APIContext)">
             <summary>
             Creates an authorization on an order
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <returns>Authorization</returns>
+        </member>
+        <member name="M:PayPal.Api.Order.Authorize(PayPal.Api.APIContext,PayPal.Api.Order)">
+            <summary>
+            Creates an authorization on an order
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="order">Order object to authorize.</param>
             <returns>Authorization</returns>
         </member>
         <member name="P:PayPal.Api.Order.id">
@@ -3696,17 +3890,40 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>CreateProfileResponse</returns>
         </member>
+        <member name="M:PayPal.Api.WebProfile.Create(PayPal.Api.APIContext,PayPal.Api.WebProfile)">
+            <summary>
+            Create a web experience profile by passing the name of the profile and other profile details in the request JSON to the request URI.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="webProfile">WebProfile object to be created as a PayPal resource.</param>
+            <returns>CreateProfileResponse</returns>
+        </member>
         <member name="M:PayPal.Api.WebProfile.Update(PayPal.Api.APIContext)">
             <summary>
             Update a web experience profile by passing the ID of the profile to the request URI. In addition, pass the profile details in the request JSON. If your request does not include values for all profile detail fields, the previously set values for the omitted fields are removed by this operation.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
         </member>
+        <member name="M:PayPal.Api.WebProfile.Update(PayPal.Api.APIContext,PayPal.Api.WebProfile)">
+            <summary>
+            Update a web experience profile by passing the ID of the profile to the request URI. In addition, pass the profile details in the request JSON. If your request does not include values for all profile detail fields, the previously set values for the omitted fields are removed by this operation.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="profile">WebProfile resource to update.</param>
+        </member>
         <member name="M:PayPal.Api.WebProfile.PartialUpdate(PayPal.Api.APIContext,PayPal.Api.PatchRequest)">
             <summary>
             Partially update an existing web experience profile by passing the ID of the profile to the request URI. In addition, pass a patch object in the request JSON that specifies the operation to perform, path of the profile location to update, and a new value if needed to complete the operation.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="patchRequest">PatchRequest</param>
+        </member>
+        <member name="M:PayPal.Api.WebProfile.PartialUpdate(PayPal.Api.APIContext,System.String,PayPal.Api.PatchRequest)">
+            <summary>
+            Partially update an existing web experience profile by passing the ID of the profile to the request URI. In addition, pass a patch object in the request JSON that specifies the operation to perform, path of the profile location to update, and a new value if needed to complete the operation.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="profileId">ID fo the web profile to partially update.</param>
             <param name="patchRequest">PatchRequest</param>
         </member>
         <member name="M:PayPal.Api.WebProfile.Get(PayPal.Api.APIContext,System.String)">
@@ -3792,11 +4009,27 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Plan</returns>
         </member>
+        <member name="M:PayPal.Api.Plan.Create(PayPal.Api.APIContext,PayPal.Api.Plan)">
+            <summary>
+            Create a new billing plan by passing the details for the plan, including the plan name, description, and type, to the request URI.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="plan">The Plan object to be used to create the billing plan resource.</param>
+            <returns>Plan</returns>
+        </member>
         <member name="M:PayPal.Api.Plan.Update(PayPal.Api.APIContext,PayPal.Api.PatchRequest)">
             <summary>
             Replace specific fields within a billing plan by passing the ID of the billing plan to the request URI. In addition, pass a patch object in the request JSON that specifies the operation to perform, field to update, and new value for each update.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="patchRequest">PatchRequest</param>
+        </member>
+        <member name="M:PayPal.Api.Plan.Update(PayPal.Api.APIContext,System.String,PayPal.Api.PatchRequest)">
+            <summary>
+            Replace specific fields within a billing plan by passing the ID of the billing plan to the request URI. In addition, pass a patch object in the request JSON that specifies the operation to perform, field to update, and new value for each update.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="planId">ID of the billing plan to be updated.</param>
             <param name="patchRequest">PatchRequest</param>
         </member>
         <member name="M:PayPal.Api.Plan.List(PayPal.Api.APIContext,System.String,System.String,System.String,System.String)">
@@ -3809,6 +4042,19 @@
             <param name="pageSize">A non-negative, non-zero integer indicating the maximum number of results to return at one time.</param>
             <param name="totalRequired">A boolean indicating total number of items (total_items) and pages (total_pages) are expected to be returned in the response</param>
             <returns>PlanList</returns>
+        </member>
+        <member name="M:PayPal.Api.Plan.Delete(PayPal.Api.APIContext)">
+            <summary>
+            Deletes the specified billing plan.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+        </member>
+        <member name="M:PayPal.Api.Plan.Delete(PayPal.Api.APIContext,System.String)">
+            <summary>
+            Deletes the specified billing plan.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="planId">ID of the billing plan to delete.</param>
         </member>
         <member name="P:PayPal.Api.Plan.id">
             <summary>
@@ -4143,6 +4389,15 @@
             Creates a future payment using the specified API context and correlation ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="correlationId">(Optional) Application correlation ID</param>
+            <returns>A new payment object setup to be used for a future payment.</returns>
+        </member>
+        <member name="M:PayPal.Api.FuturePayment.Create(PayPal.Api.APIContext,PayPal.Api.FuturePayment,System.String)">
+            <summary>
+            Creates a future payment using the specified API context and correlation ID.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="payment">FuturePayment object to be used in creating the PayPal resource.</param>
             <param name="correlationId">(Optional) Application correlation ID</param>
             <returns>A new payment object setup to be used for a future payment.</returns>
         </member>
@@ -4640,6 +4895,15 @@
             <param name="capture">Capture</param>
             <returns>Capture</returns>
         </member>
+        <member name="M:PayPal.Api.Authorization.Capture(PayPal.Api.APIContext,System.String,PayPal.Api.Capture)">
+            <summary>
+            Creates (and processes) a new Capture Transaction added as a related resource.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="authorizationId">ID of the authorization to capture.</param>
+            <param name="capture">Capture</param>
+            <returns>Capture</returns>
+        </member>
         <member name="M:PayPal.Api.Authorization.Void(PayPal.Api.APIContext)">
             <summary>
             Voids (cancels) an Authorization.
@@ -4647,11 +4911,27 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Authorization</returns>
         </member>
+        <member name="M:PayPal.Api.Authorization.Void(PayPal.Api.APIContext,System.String)">
+            <summary>
+            Voids (cancels) an Authorization.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="authorizationId">ID of the authorization to void.</param>
+            <returns>Authorization</returns>
+        </member>
         <member name="M:PayPal.Api.Authorization.Reauthorize(PayPal.Api.APIContext)">
             <summary>
             Reauthorizes an expired Authorization.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <returns>Authorization</returns>
+        </member>
+        <member name="M:PayPal.Api.Authorization.Reauthorize(PayPal.Api.APIContext,PayPal.Api.Authorization)">
+            <summary>
+            Reauthorizes an expired Authorization.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="authorization">The Authorization object containing the details of the authorization that should be reauthorized.</param>
             <returns>Authorization</returns>
         </member>
         <member name="P:PayPal.Api.Authorization.id">

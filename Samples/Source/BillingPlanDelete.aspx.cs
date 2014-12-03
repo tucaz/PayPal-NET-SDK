@@ -81,6 +81,7 @@ namespace PayPal.Sample
             // ### Delete the Billing Plan
             // Deleting the plan is done by applying an update to the plan with its `state` set to `DELETED`.
             // > NOTE: Only the 'replace' operation is supported when updating billing plans.
+            // For demonstration purposes, we'll create the `patchRequest` object here to show you how the plan is being deleted.
             var patchRequest = new PatchRequest
             {
                 new Patch
@@ -95,8 +96,8 @@ namespace PayPal.Sample
             this.flow.AddNewRequest("Delete the billing plan", patchRequest);
             #endregion
 
-            // Delete the plan.
-            createdPlan.Update(apiContext, patchRequest);
+            // To make it easier for developers, this functionality has been built into the `Plan.Delete()` method.
+            createdPlan.Delete(apiContext);
 
             #region Track Workflow
             this.flow.RecordActionSuccess("Billing plan deleted successfully");
