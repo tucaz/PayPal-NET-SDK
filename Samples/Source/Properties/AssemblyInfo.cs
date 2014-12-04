@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PayPal REST API SDK for .NET Sample Project")]
+[assembly: AssemblyTitle("PayPal .NET SDK Sample Project")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("eBay, Inc.")]
+[assembly: AssemblyCompany("PayPal")]
 [assembly: AssemblyProduct("PayPal.Sample")]
-[assembly: AssemblyCopyright("Copyright © eBay, Inc. 2009-2014")]
+[assembly: AssemblyCopyright("Copyright © 2009-2014 PayPal")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.11.0.0")]
-[assembly: AssemblyFileVersion("0.11.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
