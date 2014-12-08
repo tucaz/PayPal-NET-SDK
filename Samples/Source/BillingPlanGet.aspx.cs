@@ -29,7 +29,7 @@ namespace PayPal.Sample
 
             #region Track Workflow
             //--------------------
-            this.flow.AddNewRequest(title: "Create billing plan", description: "ID: " + planId);
+            this.flow.AddNewRequest(title: "Get billing plan", description: "ID: " + planId);
             //--------------------
             #endregion
 

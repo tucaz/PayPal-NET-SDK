@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BillingAgreementCreateAndExecute.aspx" />
+    <Content Include="BillingAgreementGet.aspx" />
     <Content Include="BillingAgreementWithCreditCard.aspx" />
     <Content Include="BillingPlanCreate.aspx" />
     <Content Include="BillingPlanDelete.aspx" />
@@ -100,6 +101,10 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Main.Master" />
+    <Content Include="WebhookCreate.aspx" />
+    <Content Include="WebhookDelete.aspx" />
+    <Content Include="WebhookGetAll.aspx" />
+    <Content Include="WebhookUpdate.aspx" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="PaymentWithPayPalWithDiscount.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -133,6 +138,13 @@
     </Compile>
     <Compile Include="BillingAgreementCreateAndExecute.aspx.designer.cs">
       <DependentUpon>BillingAgreementCreateAndExecute.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BillingAgreementGet.aspx.cs">
+      <DependentUpon>BillingAgreementGet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BillingAgreementGet.aspx.designer.cs">
+      <DependentUpon>BillingAgreementGet.aspx</DependentUpon>
     </Compile>
     <Compile Include="BillingAgreementWithCreditCard.aspx.cs">
       <DependentUpon>BillingAgreementWithCreditCard.aspx</DependentUpon>
@@ -466,6 +478,34 @@
     <Compile Include="Utilities\RequestFlow.cs" />
     <Compile Include="Utilities\SampleCategory.cs" />
     <Compile Include="Utilities\SampleItem.cs" />
+    <Compile Include="WebhookCreate.aspx.cs">
+      <DependentUpon>WebhookCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebhookCreate.aspx.designer.cs">
+      <DependentUpon>WebhookCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebhookDelete.aspx.cs">
+      <DependentUpon>WebhookDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebhookDelete.aspx.designer.cs">
+      <DependentUpon>WebhookDelete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebhookGetAll.aspx.cs">
+      <DependentUpon>WebhookGetAll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebhookGetAll.aspx.designer.cs">
+      <DependentUpon>WebhookGetAll.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebhookUpdate.aspx.cs">
+      <DependentUpon>WebhookUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebhookUpdate.aspx.designer.cs">
+      <DependentUpon>WebhookUpdate.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthorizationCapture.aspx" />
