@@ -138,6 +138,12 @@ namespace PayPal.Api
                 // computing the token
                 // Set the Value inside the accessToken and result
                 var base64ClientId = OAuthTokenCredential.ConvertClientCredentialsToBase64String(this.ClientId, this.ClientSecret);
+
+                logger.DebugFormat("\n" +
+                    "  ClientID:       {0}\n" +
+                    "  ClientSecret:   {1}\n" +
+                    "  Base64ClientId: {2}", this.ClientId, this.ClientSecret, base64ClientId);
+
                 this.accessToken = this.GenerateOAuthToken(base64ClientId);
             }
             return this.accessToken;
@@ -228,6 +234,8 @@ namespace PayPal.Api
             httpRequest.Method = "POST";
             httpRequest.Accept = "*/*";
             httpRequest.ContentType = "application/x-www-form-urlencoded";
+
+            // Set User-Agent HTTP header
             var userAgentMap = UserAgentHeader.GetHeader();
             foreach (KeyValuePair<string, string> entry in userAgentMap)
             {
@@ -237,9 +245,16 @@ namespace PayPal.Api
                 var bytes = Encoding.Convert(Encoding.UTF8,iso8851, Encoding.UTF8.GetBytes(entry.Value));                
                 httpRequest.UserAgent = iso8851.GetString(bytes);
             }
+
+            // Set Custom HTTP headers
             foreach (KeyValuePair<string, string> header in headers)
             {
                 httpRequest.Headers.Add(header.Key, header.Value);
+            }
+
+            foreach (string headerName in httpRequest.Headers)
+            {
+                logger.DebugFormat(headerName + ":" + httpRequest.Headers[headerName]);
             }
 
             HttpConnection httpConnection = new HttpConnection(config);
