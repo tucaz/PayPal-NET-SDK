@@ -108,6 +108,12 @@
     <Compile Include="TransactionTest.cs" />
     <Compile Include="InvoiceAddressTest.cs" />
     <Compile Include="UnitTestUtil.cs" />
+    <Compile Include="WebhookEventListTest.cs" />
+    <Compile Include="WebhookEventTest.cs" />
+    <Compile Include="WebhookEventTypeListTest.cs" />
+    <Compile Include="WebhookEventTypeTest.cs" />
+    <Compile Include="WebhookListTest.cs" />
+    <Compile Include="WebhookTest.cs" />
     <Compile Include="WebProfileTest.cs" />
   </ItemGroup>
   <ItemGroup>
