@@ -68,7 +68,7 @@ namespace PayPal.Api
         /// <summary>
         /// A unique identifier of the payer generated and provided by the facilitator. This is required when creating or using a tokenized funding instrument.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payer_id")]
         public string payer_id { get; set; }
 
         /// <summary>
