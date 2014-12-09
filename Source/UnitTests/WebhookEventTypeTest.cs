@@ -35,7 +35,7 @@ namespace PayPal.UnitTest
             Assert.IsFalse(GetWebhookEventType().ToString().Length == 0);
         }
 
-        [TestMethod]
+        [Ignore]
         public void WebhookEventTypeSubscribedEventsTest()
         {
             var webhookEventTypeList = WebhookEventType.SubscribedEventTypes(UnitTestUtil.GetApiContext(), "45R80540W07069023");

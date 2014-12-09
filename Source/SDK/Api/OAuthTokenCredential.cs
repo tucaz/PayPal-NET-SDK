@@ -78,6 +78,14 @@ namespace PayPal.Api
         /// then a new token will be created when calling <see cref="OAuthTokenCredential.GetAccessToken()"/>.
         /// </summary>
         public int AccessTokenExpirationSafetyGapInSeconds { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
+        public OAuthTokenCredential(Dictionary<string, string> config) : this(string.Empty, string.Empty, config)
+        {
+        }
                
         /// <summary>
         /// Client Id and Secret for the OAuth
@@ -95,9 +103,11 @@ namespace PayPal.Api
         /// <param name="clientSecret"></param>
         public OAuthTokenCredential(string clientId, string clientSecret, Dictionary<string, string> config)
         {
-            this.ClientId = clientId;
-            this.ClientSecret = clientSecret;
-            this.config = config != null ? ConfigManager.GetConfigWithDefaults(config) : ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties()); 
+            this.config = config != null ? ConfigManager.GetConfigWithDefaults(config) : ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
+
+            this.ClientId = string.IsNullOrEmpty(clientId) ? config[BaseConstants.ClientId] : clientId;
+            this.ClientSecret = string.IsNullOrEmpty(clientSecret) ? config[BaseConstants.ClientSecret] : clientSecret;
+
             this.SdkVersion = new SDKVersion();
             this.AccessTokenExpirationSafetyGapInSeconds = 120; // Default is 2 minute safety gap for token expiration.
         }

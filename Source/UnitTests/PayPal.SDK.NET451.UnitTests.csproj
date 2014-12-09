@@ -84,6 +84,7 @@
     <Compile Include="LinkTest.cs" />
     <Compile Include="MerchantInfoTest.cs" />
     <Compile Include="MerchantPreferencesTest.cs" />
+    <Compile Include="OAuthTokenCredentialTest.cs" />
     <Compile Include="OrderTest.cs" />
     <Compile Include="OverrideChargeModelTest.cs" />
     <Compile Include="PayeeTest.cs" />
