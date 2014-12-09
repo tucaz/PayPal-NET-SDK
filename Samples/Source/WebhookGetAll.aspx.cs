@@ -20,18 +20,18 @@ namespace PayPal.Sample
             // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
             var apiContext = Configuration.GetAPIContext();
 
+            // ^ Ignore workflow code segment
             #region Track Workflow
-            //--------------------
             this.flow.AddNewRequest("Get all webhooks");
-            //--------------------
             #endregion
 
+            // ### Retrieve All Webhooks
+            // Call `Webhook.GetAll()` to retrieve a list of all your webhooks.
             var webhookList = Webhook.GetAll(apiContext);
 
+            // ^ Ignore workflow code segment
             #region Track Workflow
-            //--------------------
             this.flow.RecordResponse(webhookList);
-            //--------------------
             #endregion
 
             // For more information, please visit [PayPal Developer REST API Reference](https://developer.paypal.com/docs/api/).
