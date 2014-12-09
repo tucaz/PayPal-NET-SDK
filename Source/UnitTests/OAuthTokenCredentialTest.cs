@@ -37,5 +37,22 @@ namespace PayPal.UnitTest
             Assert.AreEqual("aaa", oauthTokenCredential.ClientId);
             Assert.AreEqual("bbb", oauthTokenCredential.ClientSecret);
         }
+
+        [TestMethod]
+        public void OAuthTokenCredentialCtorEmptyConfigTest()
+        {
+            var config = new Dictionary<string, string>();
+            var oauthTokenCredential = new OAuthTokenCredential(config);
+            Assert.IsTrue(string.IsNullOrEmpty(oauthTokenCredential.ClientId));
+            Assert.IsTrue(string.IsNullOrEmpty(oauthTokenCredential.ClientSecret));
+        }
+
+        [TestMethod]
+        public void OAuthTokenCredentialCtorNullValuesTest()
+        {
+            var oauthTokenCredential = new OAuthTokenCredential(null, null, null);
+            Assert.IsTrue(string.IsNullOrEmpty(oauthTokenCredential.ClientId));
+            Assert.IsTrue(string.IsNullOrEmpty(oauthTokenCredential.ClientSecret));
+        }
     }
 }

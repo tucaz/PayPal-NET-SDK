@@ -105,8 +105,8 @@ namespace PayPal.Api
         {
             this.config = config != null ? ConfigManager.GetConfigWithDefaults(config) : ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
 
-            this.ClientId = string.IsNullOrEmpty(clientId) ? config[BaseConstants.ClientId] : clientId;
-            this.ClientSecret = string.IsNullOrEmpty(clientSecret) ? config[BaseConstants.ClientSecret] : clientSecret;
+            this.ClientId = string.IsNullOrEmpty(clientId) ? (this.config.ContainsKey(BaseConstants.ClientId) ? this.config[BaseConstants.ClientId] : string.Empty) : clientId;
+            this.ClientSecret = string.IsNullOrEmpty(clientSecret) ? (this.config.ContainsKey(BaseConstants.ClientSecret) ? this.config[BaseConstants.ClientSecret] : string.Empty) : clientSecret;
 
             this.SdkVersion = new SDKVersion();
             this.AccessTokenExpirationSafetyGapInSeconds = 120; // Default is 2 minute safety gap for token expiration.
