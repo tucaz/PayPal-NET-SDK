@@ -72,13 +72,23 @@ namespace PayPal.Api
         /// <returns>WebhookEvent</returns>
         public WebhookEvent Resend(APIContext apiContext)
         {
+            return WebhookEvent.Resend(apiContext, this.id);
+        }
+
+        /// <summary>
+        /// Resends the Webhooks event resource identified by event_id.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <returns>WebhookEvent</returns>
+        public static WebhookEvent Resend(APIContext apiContext, string webhookEventId)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(webhookEventId, "webhookEventId");
 
             // Configure and send the request
             var pattern = "v1/notifications/webhooks-events/{0}/resend";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { webhookEventId });
             return PayPalResource.ConfigureAndExecute<WebhookEvent>(apiContext, HttpMethod.POST, resourcePath);
         }
 

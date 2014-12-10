@@ -37,12 +37,22 @@ namespace PayPal.Api
         /// <returns>Webhook</returns>
         public Webhook Create(APIContext apiContext)
         {
+            return Webhook.Create(apiContext, this);
+        }
+
+        /// <summary>
+        /// Creates the Webhook for the application associated with the access token.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <returns>Webhook</returns>
+        public static Webhook Create(APIContext apiContext, Webhook webhook)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             // Configure and send the request
             var resourcePath = "v1/notifications/webhooks";
-            return PayPalResource.ConfigureAndExecute<Webhook>(apiContext, HttpMethod.POST, resourcePath, this.ConvertToJson());
+            return PayPalResource.ConfigureAndExecute<Webhook>(apiContext, HttpMethod.POST, resourcePath, webhook.ConvertToJson());
         }
 
         /// <summary>
@@ -86,14 +96,25 @@ namespace PayPal.Api
         /// <returns>Webhook</returns>
         public Webhook Update(APIContext apiContext, PatchRequest patchRequest)
         {
+            return Webhook.Update(apiContext, this.id, patchRequest);
+        }
+
+        /// <summary>
+        /// Updates the Webhook identified by webhook_id for the application associated with access token.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="patchRequest">PatchRequest</param>
+        /// <returns>Webhook</returns>
+        public static Webhook Update(APIContext apiContext, string webhookId, PatchRequest patchRequest)
+        {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(this.id, "Id");
+            ArgumentValidator.Validate(webhookId, "webhookId");
             ArgumentValidator.Validate(patchRequest, "patchRequest");
 
             // Configure and send the request
             var pattern = "v1/notifications/webhooks/{0}";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.id });
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { webhookId });
             return PayPalResource.ConfigureAndExecute<Webhook>(apiContext, HttpMethod.PATCH, resourcePath, patchRequest.ConvertToJson());
         }
 
