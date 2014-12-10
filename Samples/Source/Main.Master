@@ -24,7 +24,7 @@
                 overflow-y: auto;
                 overflow-wrap: normal;
             }
-            pre.error {
+            pre.error, div.error, p.error {
                 border-color: red;
                 color: red;
                 overflow-y: visible;
@@ -34,10 +34,6 @@
                 padding: 10px 10px 10px 10px;
                 overflow-y: visible;
                 overflow-wrap: break-word;
-            }
-            div.error {
-                border-color: red;
-                color: red;
             }
             div.success {
                 border-color: green;
@@ -55,6 +51,10 @@
                 background-color: #428bca;
                 border-color: #428bca;
             }
+            .row {
+                margin-right: 0px;
+                margin-left: 0px;
+            }
             .footer {
                 position: absolute;
                 width: 100%;
@@ -69,10 +69,7 @@
             .footer a {
                 color: #EEE;
                 text-decoration: none;
-            }
-            li.list-group-item:hover {
-                background-color: #eee;
-            }
+            }            
         </style>
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -115,7 +112,7 @@
         </script>
         <asp:ContentPlaceHolder ID="StyleSection" runat="server" />
     </head>
-    <body>
+    <body data-spy="scroll" data-target="#leftNavigation" data-offset="0" class="scrollspy-example">
         <asp:ContentPlaceHolder ID="ContentSection" runat="server" />
         <footer class="footer">
             <div class="container">
