@@ -714,6 +714,12 @@
             Logs output statements, errors, debug info to a text file    
             </summary>
         </member>
+        <member name="M:PayPal.Api.OAuthTokenCredential.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+        </member>
         <member name="M:PayPal.Api.OAuthTokenCredential.#ctor(System.String,System.String)">
             <summary>
             Client Id and Secret for the OAuth
@@ -865,6 +871,11 @@
         <member name="P:PayPal.Api.UserAgentHeader.DotNetVersion">
             <summary>
             Gets the version of the current .NET environment.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookList.webhooks">
+            <summary>
+            A list of Webhooks
             </summary>
         </member>
         <member name="P:PayPal.Api.Payer.payment_method">
@@ -1732,6 +1743,68 @@
             Override flush
             </summary>
         </member>
+        <member name="M:PayPal.Api.WebhookEvent.Get(PayPal.Api.APIContext,System.String)">
+            <summary>
+            Retrieves the Webhooks event resource identified by event_id. Can be used to retrieve the payload for an event.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="eventId">Identifier of the Webhooks event resource.</param>
+            <returns>WebhookEvent</returns>
+        </member>
+        <member name="M:PayPal.Api.WebhookEvent.Resend(PayPal.Api.APIContext)">
+            <summary>
+            Resends the Webhooks event resource identified by event_id.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <returns>WebhookEvent</returns>
+        </member>
+        <member name="M:PayPal.Api.WebhookEvent.Resend(PayPal.Api.APIContext,System.String)">
+            <summary>
+            Resends the Webhooks event resource identified by event_id.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <returns>WebhookEvent</returns>
+        </member>
+        <member name="M:PayPal.Api.WebhookEvent.List(PayPal.Api.APIContext,System.Int32,System.String,System.String)">
+            <summary>
+            Retrieves the list of Webhooks events resources for the application associated with token. The developers can use it to see list of past webhooks events.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="pageSize">Number of items to be returned by a GET operation</param>
+            <param name="startTime">Resource creation time that indicates the start of a range of results.</param>
+            <param name="endTime">Resource creation time that indicates the end of a range of results.</param>
+            <returns>WebhookEventList</returns>
+        </member>
+        <member name="P:PayPal.Api.WebhookEvent.id">
+            <summary>
+            Identifier of the Webhooks event resource.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookEvent.create_time">
+            <summary>
+            Time the resource was created.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookEvent.resource_type">
+            <summary>
+            Name of the resource contained in resource element.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookEvent.event_type">
+            <summary>
+            Name of the event type that occurred on resource, identified by data_resource element, to trigger the Webhooks event.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookEvent.summary">
+            <summary>
+            A summary description of the event. E.g. A successful payment authorization was created for $$
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookEvent.resource">
+            <summary>
+            This contains the resource that is identified by resource_type element.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Address.phone">
             <summary>
             Phone number in E.123 format.
@@ -2015,6 +2088,21 @@
             developer with additional information about the error.
             </summary>
         </member>
+        <member name="P:PayPal.Api.WebhookEventTypeList.event_types">
+            <summary>
+            A list of Webhooks event-types
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookEventList.events">
+            <summary>
+            A list of Webhooks event resources
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookEventList.count">
+            <summary>
+            Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Presentation.brand_name">
             <summary>
             A label that overrides the business name in the PayPal account on the PayPal pages. Character length and limitations: 127 single-byte alphanumeric characters.
@@ -2153,6 +2241,31 @@
         <member name="P:PayPal.Api.CancelNotification.send_to_payer">
             <summary>
             A flag indicating whether a copy of the email has to be sent to the payer.
+            </summary>
+        </member>
+        <member name="M:PayPal.Api.WebhookEventType.SubscribedEventTypes(PayPal.Api.APIContext,System.String)">
+            <summary>
+            Retrieves the list of events-types subscribed by the given Webhook.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="webhookId">Identifier of the webhook</param>
+            <returns>EventTypeList</returns>
+        </member>
+        <member name="M:PayPal.Api.WebhookEventType.AvailableEventTypes(PayPal.Api.APIContext)">
+            <summary>
+            Retrieves the master list of available Webhooks events-types resources for any webhook to subscribe to.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <returns>EventTypeList</returns>
+        </member>
+        <member name="P:PayPal.Api.WebhookEventType.name">
+            <summary>
+            Unique event-type name.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookEventType.description">
+            <summary>
+            Human readable description of the event-type
             </summary>
         </member>
         <member name="P:PayPal.Api.OverrideChargeModel.charge_id">
@@ -2308,6 +2421,11 @@
             Identifier of the agreement.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Agreement.state">
+            <summary>
+            State of the agreement.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Agreement.name">
             <summary>
             Name of the agreement.
@@ -2321,6 +2439,11 @@
         <member name="P:PayPal.Api.Agreement.start_date">
             <summary>
             Start date of the agreement. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Agreement.agreement_details">
+            <summary>
+            Details of the agreement.
             </summary>
         </member>
         <member name="P:PayPal.Api.Agreement.payer">
@@ -2790,6 +2913,79 @@
             </summary>
             <returns>SDK Version</returns>
         </member>
+        <member name="M:PayPal.Api.Webhook.Create(PayPal.Api.APIContext)">
+            <summary>
+            Creates the Webhook for the application associated with the access token.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <returns>Webhook</returns>
+        </member>
+        <member name="M:PayPal.Api.Webhook.Create(PayPal.Api.APIContext,PayPal.Api.Webhook)">
+            <summary>
+            Creates the Webhook for the application associated with the access token.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <returns>Webhook</returns>
+        </member>
+        <member name="M:PayPal.Api.Webhook.Get(PayPal.Api.APIContext,System.String)">
+            <summary>
+            Retrieves the Webhook identified by webhook_id for the application associated with access token.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="webhookId">Identifier of the webhook</param>
+            <returns>Webhook</returns>
+        </member>
+        <member name="M:PayPal.Api.Webhook.GetAll(PayPal.Api.APIContext)">
+            <summary>
+            Retrieves all Webhooks for the application associated with access token.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <returns>WebhookList</returns>
+        </member>
+        <member name="M:PayPal.Api.Webhook.Update(PayPal.Api.APIContext,PayPal.Api.PatchRequest)">
+            <summary>
+            Updates the Webhook identified by webhook_id for the application associated with access token.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="patchRequest">PatchRequest</param>
+            <returns>Webhook</returns>
+        </member>
+        <member name="M:PayPal.Api.Webhook.Update(PayPal.Api.APIContext,System.String,PayPal.Api.PatchRequest)">
+            <summary>
+            Updates the Webhook identified by webhook_id for the application associated with access token.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="patchRequest">PatchRequest</param>
+            <returns>Webhook</returns>
+        </member>
+        <member name="M:PayPal.Api.Webhook.Delete(PayPal.Api.APIContext)">
+            <summary>
+            Deletes the Webhook identified by webhook_id for the application associated with access token.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+        </member>
+        <member name="M:PayPal.Api.Webhook.Delete(PayPal.Api.APIContext,System.String)">
+            <summary>
+            Deletes the Webhook identified by webhook_id for the application associated with access token.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="webhookId">Identifier of the webhook</param>
+        </member>
+        <member name="P:PayPal.Api.Webhook.id">
+            <summary>
+            Identifier of the webhook resource.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Webhook.url">
+            <summary>
+            Webhook notification endpoint url.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Webhook.event_types">
+            <summary>
+            List of Webhooks event-types.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Terms.id">
             <summary>
             Identifier of the terms. 128 characters max.
@@ -2917,6 +3113,46 @@
         <member name="P:PayPal.Api.ErrorDetails.issue">
             <summary>
             Reason for the error.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.AgreementDetails.outstanding_balance">
+            <summary>
+            The outstanding balance for this agreement.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.AgreementDetails.cycles_remaining">
+            <summary>
+            Number of cycles remaining for this agreement.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.AgreementDetails.cycles_completed">
+            <summary>
+            Number of cycles completed for this agreement.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.AgreementDetails.next_billing_date">
+            <summary>
+            The next billing date for this agreement, represented as 2014-02-19T10:00:00Z format.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.AgreementDetails.last_payment_date">
+            <summary>
+            Last payment date for this agreement, represented as 2014-06-09T09:42:31Z format.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.AgreementDetails.last_payment_amount">
+            <summary>
+            Last payment amount for this agreement.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.AgreementDetails.final_payment_date">
+            <summary>
+            Last payment date for this agreement, represented as 2015-02-19T10:00:00Z format.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.AgreementDetails.failed_payment_count">
+            <summary>
+            Total number of failed payments for this agreement.
             </summary>
         </member>
         <member name="F:PayPal.PayPalResource.logger">
@@ -3100,6 +3336,11 @@
         <member name="P:PayPal.Api.CreditCard.billing_address">
             <summary>
             Billing Address associated with this card.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.CreditCard.payer_id">
+            <summary>
+            A unique identifier of the payer generated and provided by the facilitator. This is required when creating or using a tokenized funding instrument.
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCard.external_customer_id">

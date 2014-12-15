@@ -66,6 +66,12 @@ namespace PayPal.Api
         public Address billing_address { get; set; }
 
         /// <summary>
+        /// A unique identifier of the payer generated and provided by the facilitator. This is required when creating or using a tokenized funding instrument.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payer_id")]
+        public string payer_id { get; set; }
+
+        /// <summary>
         /// A unique identifier of the customer to whom this bank account belongs to. Generated and provided by the facilitator. This is required when creating or using a stored funding instrument in vault.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "external_customer_id")]

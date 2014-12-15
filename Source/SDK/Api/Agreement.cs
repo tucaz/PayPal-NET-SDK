@@ -19,6 +19,12 @@ namespace PayPal.Api
         public string id { get; set; }
 
         /// <summary>
+        /// State of the agreement.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
+        public string state { get; set; }
+
+        /// <summary>
         /// Name of the agreement.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
@@ -35,6 +41,12 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_date")]
         public string start_date { get; set; }
+
+        /// <summary>
+        /// Details of the agreement.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "agreement_details")]
+        public AgreementDetails agreement_details { get; set; }
 
         /// <summary>
         /// Details of the buyer who is enrolling in this agreement. This information is gathered from execution of the approval URL.

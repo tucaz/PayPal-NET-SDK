@@ -1,0 +1,488 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ExternalContent Include="BillingAgreementCreateAndExecute.aspx" />
+    <ExternalContent Include="BillingAgreementGet.aspx" />
+    <ExternalContent Include="BillingAgreementWithCreditCard.aspx" />
+    <ExternalContent Include="BillingPlanCreate.aspx" />
+    <ExternalContent Include="BillingPlanDelete.aspx" />
+    <ExternalContent Include="BillingPlanGet.aspx" />
+    <ExternalContent Include="BillingPlanGetList.aspx" />
+    <ExternalContent Include="BillingPlanUpdate.aspx" />
+    <ExternalContent Include="Content\bootstrap-theme.css" />
+    <ExternalContent Include="Content\bootstrap-theme.min.css" />
+    <ExternalContent Include="Content\bootstrap.css" />
+    <ExternalContent Include="Content\bootstrap.min.css" />
+    <ExternalContent Include="CreditCardList.aspx" />
+    <ExternalContent Include="CreditCardUpdate.aspx" />
+    <ExternalContent Include="DeleteCreditCard.aspx" />
+    <ExternalContent Include="fonts\glyphicons-halflings-regular.svg" />
+    <ExternalContent Include="GetRefund.aspx" />
+    <ExternalContent Include="assets\logo_paypal_106x29.png" />
+    <ExternalContent Include="InvoiceCancel.aspx" />
+    <ExternalContent Include="InvoiceCreate.aspx" />
+    <ExternalContent Include="InvoiceDelete.aspx" />
+    <ExternalContent Include="InvoiceGet.aspx" />
+    <ExternalContent Include="InvoiceGetList.aspx" />
+    <ExternalContent Include="InvoiceGetQrCode.aspx" />
+    <ExternalContent Include="InvoiceRecordPayment.aspx" />
+    <ExternalContent Include="InvoiceRecordRefund.aspx" />
+    <ExternalContent Include="InvoiceSearch.aspx" />
+    <ExternalContent Include="InvoiceSend.aspx" />
+    <ExternalContent Include="InvoiceSendReminder.aspx" />
+    <ExternalContent Include="InvoiceUpdate.aspx" />
+    <ExternalContent Include="OrderSample.aspx" />
+    <ExternalContent Include="PaymentExperienceCreate.aspx" />
+    <ExternalContent Include="PaymentExperienceDelete.aspx" />
+    <ExternalContent Include="PaymentExperienceGet.aspx" />
+    <ExternalContent Include="PaymentExperienceGetList.aspx" />
+    <ExternalContent Include="PaymentExperiencePartialUpdate.aspx" />
+    <ExternalContent Include="PaymentExperienceUpdate.aspx" />
+    <ExternalContent Include="fonts\glyphicons-halflings-regular.woff" />
+    <ExternalContent Include="fonts\glyphicons-halflings-regular.ttf" />
+    <ExternalContent Include="fonts\glyphicons-halflings-regular.eot" />
+    <ExternalContent Include="Content\bootstrap-theme.css.map" />
+    <ExternalContent Include="Content\bootstrap.css.map" />
+    <ExternalContent Include="Main.Master" />
+    <ExternalContent Include="WebhookCreate.aspx" />
+    <ExternalContent Include="WebhookDelete.aspx" />
+    <ExternalContent Include="WebhookEventList.aspx" />
+    <ExternalContent Include="WebhookGetAll.aspx" />
+    <ExternalContent Include="WebhookUpdate.aspx" />
+    <ExternalNone Include="Scripts\jquery-1.9.0.intellisense.js" />
+    <ExternalContent Include="PaymentWithPayPalWithDiscount.aspx" />
+    <ExternalContent Include="Scripts\bootstrap.js" />
+    <ExternalContent Include="Scripts\bootstrap.min.js" />
+    <ExternalContent Include="Scripts\jquery-1.9.0.js" />
+    <ExternalContent Include="Scripts\jquery-1.9.0.min.js" />
+    <ExternalContent Include="Web.config" />
+    <ExternalContent Include="Scripts\jquery-1.9.0.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ExternalCompile Include="AuthorizationCapture.aspx.cs">
+      <DependentUpon>AuthorizationCapture.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="AuthorizationCapture.aspx.designer.cs">
+      <DependentUpon>AuthorizationCapture.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="AuthorizationVoid.aspx.cs">
+      <DependentUpon>AuthorizationVoid.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="AuthorizationVoid.aspx.designer.cs">
+      <DependentUpon>AuthorizationVoid.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="BaseSamplePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingAgreementCreateAndExecute.aspx.cs">
+      <DependentUpon>BillingAgreementCreateAndExecute.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingAgreementCreateAndExecute.aspx.designer.cs">
+      <DependentUpon>BillingAgreementCreateAndExecute.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingAgreementGet.aspx.cs">
+      <DependentUpon>BillingAgreementGet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingAgreementGet.aspx.designer.cs">
+      <DependentUpon>BillingAgreementGet.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingAgreementWithCreditCard.aspx.cs">
+      <DependentUpon>BillingAgreementWithCreditCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingAgreementWithCreditCard.aspx.designer.cs">
+      <DependentUpon>BillingAgreementWithCreditCard.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingPlanCreate.aspx.cs">
+      <DependentUpon>BillingPlanCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingPlanCreate.aspx.designer.cs">
+      <DependentUpon>BillingPlanCreate.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingPlanDelete.aspx.cs">
+      <DependentUpon>BillingPlanDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingPlanDelete.aspx.designer.cs">
+      <DependentUpon>BillingPlanDelete.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingPlanGet.aspx.cs">
+      <DependentUpon>BillingPlanGet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingPlanGet.aspx.designer.cs">
+      <DependentUpon>BillingPlanGet.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingPlanGetList.aspx.cs">
+      <DependentUpon>BillingPlanGetList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingPlanGetList.aspx.designer.cs">
+      <DependentUpon>BillingPlanGetList.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingPlanUpdate.aspx.cs">
+      <DependentUpon>BillingPlanUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingPlanUpdate.aspx.designer.cs">
+      <DependentUpon>BillingPlanUpdate.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="CreditCardList.aspx.cs">
+      <DependentUpon>CreditCardList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="CreditCardList.aspx.designer.cs">
+      <DependentUpon>CreditCardList.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="CreditCardUpdate.aspx.cs">
+      <DependentUpon>CreditCardUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="CreditCardUpdate.aspx.designer.cs">
+      <DependentUpon>CreditCardUpdate.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="DeleteCreditCard.aspx.cs">
+      <DependentUpon>DeleteCreditCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="DeleteCreditCard.aspx.designer.cs">
+      <DependentUpon>DeleteCreditCard.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="GetRefund.aspx.cs">
+      <DependentUpon>GetRefund.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="GetRefund.aspx.designer.cs">
+      <DependentUpon>GetRefund.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceCancel.aspx.cs">
+      <DependentUpon>InvoiceCancel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceCancel.aspx.designer.cs">
+      <DependentUpon>InvoiceCancel.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceCreate.aspx.cs">
+      <DependentUpon>InvoiceCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceCreate.aspx.designer.cs">
+      <DependentUpon>InvoiceCreate.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceDelete.aspx.cs">
+      <DependentUpon>InvoiceDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceDelete.aspx.designer.cs">
+      <DependentUpon>InvoiceDelete.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceGet.aspx.cs">
+      <DependentUpon>InvoiceGet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceGet.aspx.designer.cs">
+      <DependentUpon>InvoiceGet.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceGetList.aspx.cs">
+      <DependentUpon>InvoiceGetList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceGetList.aspx.designer.cs">
+      <DependentUpon>InvoiceGetList.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceGetQrCode.aspx.cs">
+      <DependentUpon>InvoiceGetQrCode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceGetQrCode.aspx.designer.cs">
+      <DependentUpon>InvoiceGetQrCode.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceRecordPayment.aspx.cs">
+      <DependentUpon>InvoiceRecordPayment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceRecordPayment.aspx.designer.cs">
+      <DependentUpon>InvoiceRecordPayment.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceRecordRefund.aspx.cs">
+      <DependentUpon>InvoiceRecordRefund.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceRecordRefund.aspx.designer.cs">
+      <DependentUpon>InvoiceRecordRefund.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceSearch.aspx.cs">
+      <DependentUpon>InvoiceSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceSearch.aspx.designer.cs">
+      <DependentUpon>InvoiceSearch.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceSend.aspx.cs">
+      <DependentUpon>InvoiceSend.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceSend.aspx.designer.cs">
+      <DependentUpon>InvoiceSend.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceSendReminder.aspx.cs">
+      <DependentUpon>InvoiceSendReminder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceSendReminder.aspx.designer.cs">
+      <DependentUpon>InvoiceSendReminder.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceUpdate.aspx.cs">
+      <DependentUpon>InvoiceUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="InvoiceUpdate.aspx.designer.cs">
+      <DependentUpon>InvoiceUpdate.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="Main.Master.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="Main.Master.designer.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="OrderSample.aspx.cs">
+      <DependentUpon>OrderSample.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="OrderSample.aspx.designer.cs">
+      <DependentUpon>OrderSample.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentExperienceCreate.aspx.cs">
+      <DependentUpon>PaymentExperienceCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentExperienceCreate.aspx.designer.cs">
+      <DependentUpon>PaymentExperienceCreate.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentExperienceDelete.aspx.cs">
+      <DependentUpon>PaymentExperienceDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentExperienceDelete.aspx.designer.cs">
+      <DependentUpon>PaymentExperienceDelete.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentExperienceGet.aspx.cs">
+      <DependentUpon>PaymentExperienceGet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentExperienceGet.aspx.designer.cs">
+      <DependentUpon>PaymentExperienceGet.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentExperienceGetList.aspx.cs">
+      <DependentUpon>PaymentExperienceGetList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentExperienceGetList.aspx.designer.cs">
+      <DependentUpon>PaymentExperienceGetList.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentExperiencePartialUpdate.aspx.cs">
+      <DependentUpon>PaymentExperiencePartialUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentExperiencePartialUpdate.aspx.designer.cs">
+      <DependentUpon>PaymentExperiencePartialUpdate.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentExperienceUpdate.aspx.cs">
+      <DependentUpon>PaymentExperienceUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentExperienceUpdate.aspx.designer.cs">
+      <DependentUpon>PaymentExperienceUpdate.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentWithPayPalWithDiscount.aspx.cs">
+      <DependentUpon>PaymentWithPayPalWithDiscount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentWithPayPalWithDiscount.aspx.designer.cs">
+      <DependentUpon>PaymentWithPayPalWithDiscount.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="Reauthorization.aspx.cs">
+      <DependentUpon>Reauthorization.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="Reauthorization.aspx.designer.cs">
+      <DependentUpon>Reauthorization.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="Utilities\Common.cs" />
+    <ExternalCompile Include="Utilities\Configuration.cs" />
+    <ExternalCompile Include="CreateCreditCard.aspx.cs">
+      <DependentUpon>CreateCreditCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="CreateCreditCard.aspx.designer.cs">
+      <DependentUpon>CreateCreditCard.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="GetAuthorization.aspx.cs">
+      <DependentUpon>GetAuthorization.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="GetAuthorization.aspx.designer.cs">
+      <DependentUpon>GetAuthorization.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="GetCapture.aspx.cs">
+      <DependentUpon>GetCapture.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="GetCapture.aspx.designer.cs">
+      <DependentUpon>GetCapture.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="GetPayment.aspx.cs">
+      <DependentUpon>GetPayment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="GetPayment.aspx.designer.cs">
+      <DependentUpon>GetPayment.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="GetPaymentHistory.aspx.cs">
+      <DependentUpon>GetPaymentHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="GetPaymentHistory.aspx.designer.cs">
+      <DependentUpon>GetPaymentHistory.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="GetSale.aspx.cs">
+      <DependentUpon>GetSale.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="GetSale.aspx.designer.cs">
+      <DependentUpon>GetSale.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentWithCreditCard.aspx.cs">
+      <DependentUpon>PaymentWithCreditCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentWithCreditCard.aspx.designer.cs">
+      <DependentUpon>PaymentWithCreditCard.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentWithPayPal.aspx.cs">
+      <DependentUpon>PaymentWithPayPal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentWithPayPal.aspx.designer.cs">
+      <DependentUpon>PaymentWithPayPal.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentWithSavedCard.aspx.cs">
+      <DependentUpon>PaymentWithSavedCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentWithSavedCard.aspx.designer.cs">
+      <DependentUpon>PaymentWithSavedCard.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="Properties\AssemblyInfo.cs" />
+    <ExternalCompile Include="RefundCapture.aspx.cs">
+      <DependentUpon>RefundCapture.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="RefundCapture.aspx.designer.cs">
+      <DependentUpon>RefundCapture.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="Response.aspx.cs">
+      <DependentUpon>Response.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="Response.aspx.designer.cs">
+      <DependentUpon>Response.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="SaleRefund.aspx.cs">
+      <DependentUpon>SaleRefund.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="SaleRefund.aspx.designer.cs">
+      <DependentUpon>SaleRefund.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="GetCreditCard.aspx.cs">
+      <DependentUpon>GetCreditCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="GetCreditCard.aspx.designer.cs">
+      <DependentUpon>GetCreditCard.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="Utilities\RequestFlowItem.cs" />
+    <ExternalCompile Include="Utilities\RequestFlow.cs" />
+    <ExternalCompile Include="Utilities\SampleCategory.cs" />
+    <ExternalCompile Include="Utilities\SampleItem.cs" />
+    <ExternalCompile Include="WebhookCreate.aspx.cs">
+      <DependentUpon>WebhookCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="WebhookCreate.aspx.designer.cs">
+      <DependentUpon>WebhookCreate.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="WebhookDelete.aspx.cs">
+      <DependentUpon>WebhookDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="WebhookDelete.aspx.designer.cs">
+      <DependentUpon>WebhookDelete.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="WebhookEventList.aspx.cs">
+      <DependentUpon>WebhookEventList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="WebhookEventList.aspx.designer.cs">
+      <DependentUpon>WebhookEventList.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="WebhookGetAll.aspx.cs">
+      <DependentUpon>WebhookGetAll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="WebhookGetAll.aspx.designer.cs">
+      <DependentUpon>WebhookGetAll.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="WebhookUpdate.aspx.cs">
+      <DependentUpon>WebhookUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="WebhookUpdate.aspx.designer.cs">
+      <DependentUpon>WebhookUpdate.aspx</DependentUpon>
+    </ExternalCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ExternalContent Include="AuthorizationCapture.aspx" />
+    <ExternalContent Include="AuthorizationVoid.aspx" />
+    <ExternalContent Include="CreateCreditCard.aspx" />
+    <ExternalContent Include="Default.aspx" />
+    <ExternalContent Include="GetAuthorization.aspx" />
+    <ExternalContent Include="GetCapture.aspx" />
+    <ExternalContent Include="GetPayment.aspx" />
+    <ExternalContent Include="GetPaymentHistory.aspx" />
+    <ExternalContent Include="GetSale.aspx" />
+    <ExternalContent Include="Global.asax" />
+    <ExternalContent Include="assets\edt-format-source-button.png" />
+    <ExternalContent Include="assets\play_button.png" />
+    <ExternalContent Include="PaymentWithCreditCard.aspx" />
+    <ExternalContent Include="PaymentWithPayPal.aspx" />
+    <ExternalContent Include="PaymentWithSavedCard.aspx" />
+    <ExternalContent Include="Reauthorization.aspx" />
+    <ExternalContent Include="RefundCapture.aspx" />
+    <ExternalContent Include="Response.aspx" />
+    <ExternalContent Include="SaleRefund.aspx" />
+    <ExternalContent Include="GetCreditCard.aspx" />
+    <ExternalContent Include="assets\behavior.js" />
+    <ExternalContent Include="assets\docs.js" />
+    <ExternalContent Include="assets\sideNavOut.png" />
+    <ExternalContent Include="assets\sideNavOver.png" />
+    <ExternalContent Include="assets\style.css" />
+  </ItemGroup>
+</Project>

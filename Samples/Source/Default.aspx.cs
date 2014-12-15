@@ -19,6 +19,7 @@ namespace PayPal.Sample
                     new SampleCategory
                     {
                         Title = "Payments",
+                        Id = "payments",
                         Items = new List<SampleItem>
                         {
                             new SampleItem { Title = "Make a payment with a PayPal account", ExecutePage = "PaymentWithPayPal.aspx", HasSourcePage = true },
@@ -42,6 +43,7 @@ namespace PayPal.Sample
                     new SampleCategory
                     {
                         Title = "Vault",
+                        Id = "vault",
                         Items = new List<SampleItem>
                         {
                             new SampleItem { Title = "Create and store a credit card", ExecutePage = "CreateCreditCard.aspx", HasSourcePage = true },
@@ -54,6 +56,7 @@ namespace PayPal.Sample
                     new SampleCategory
                     {
                         Title = "Web Experience Profiles for Payments",
+                        Id = "experience",
                         Items = new List<SampleItem>
                         {
                             new SampleItem { Title = "Create a new web experience profile", ExecutePage = "PaymentExperienceCreate.aspx", HasSourcePage = true },
@@ -67,6 +70,7 @@ namespace PayPal.Sample
                     new SampleCategory
                     {
                         Title = "Billing Plans &amp; Agreements",
+                        Id = "billing",
                         Items = new List<SampleItem>
                         {
                             new SampleItem { Title = "Create a billing plan", ExecutePage = "BillingPlanCreate.aspx", HasSourcePage = true },
@@ -75,12 +79,14 @@ namespace PayPal.Sample
                             new SampleItem { Title = "Retrieve the details of a billing plan", ExecutePage = "BillingPlanGet.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Retrieve a list of billing plans", ExecutePage = "BillingPlanGetList.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Setup a billing agreement using a PayPal account", ExecutePage = "BillingAgreementCreateAndExecute.aspx", HasSourcePage = true },
-                            new SampleItem { Title = "Setup a billing agreement using a credit card", ExecutePage = "BillingAgreementWithCreditCard.aspx", HasSourcePage = true }
+                            new SampleItem { Title = "Setup a billing agreement using a credit card", ExecutePage = "BillingAgreementWithCreditCard.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Retrieve the details of a billing agreement", ExecutePage = "BillingAgreementGet.aspx", HasSourcePage = true }
                         }
                     },
                     new SampleCategory
                     {
                         Title = "Invoicing",
+                        Id = "invoicing",
                         Items = new List<SampleItem>
                         {
                             new SampleItem { Title = "Create an invoice", ExecutePage = "InvoiceCreate.aspx", HasSourcePage = true },
@@ -95,6 +101,20 @@ namespace PayPal.Sample
                             new SampleItem { Title = "Retrieve a QR code", ExecutePage = "InvoiceGetQrCode.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Record a payment", ExecutePage = "InvoiceRecordPayment.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Record a refund", ExecutePage = "InvoiceRecordRefund.aspx", HasSourcePage = true }
+                        }
+                    },
+                    new SampleCategory
+                    {
+                        Title = "Webhooks",
+                        Id = "webhooks",
+                        Items = new List<SampleItem>
+                        {
+                            new SampleItem { Title = "Create and retrieve a webhook", ExecutePage = "WebhookCreate.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Retrieve a list of webhooks", ExecutePage = "WebhookGetAll.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Retrieve a list of recent webhook events", ExecutePage = "WebhookEventGetList.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Update a webhook", ExecutePage = "WebhookUpdate.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Delete a webhook", ExecutePage = "WebhookDelete.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Delete all webhooks", ExecutePage = "WebhookDelete.aspx?deleteAll=true", Note = "Use this if you get the error WEBHOOK_NUMBER_LIMIT_EXCEEDED" }
                         }
                     }
                 };

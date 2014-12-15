@@ -217,6 +217,45 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "CSharp"
         },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\BillingAgreementGet.aspx.cs",
+        "projectPath": "BillingAgreementGet.aspx.cs",
+        "targetPath": "BillingAgreementGet.aspx",
+        "pageTitle": "BillingAgreementGet.aspx",
+        "title": "BillingAgreementGet.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Retrieve the Billing Agreement",
+            "slug": "retrieve-the-billing-agreement"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
         "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\BillingAgreementWithCreditCard.aspx.cs",
         "projectPath": "BillingAgreementWithCreditCard.aspx.cs",
         "targetPath": "BillingAgreementWithCreditCard.aspx",
@@ -257,6 +296,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       "depth": 1,
       "outline": [
         {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Create the Billing Plan",
+            "slug": "create-the-billing-plan"
+          },
+          "depth": 3
+        }, {
           "type": "heading",
           "data": {
             "level": 3,
@@ -3207,6 +3254,138 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           ]
         },
         "title": "SaleRefund Sample"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\WebhookCreate.aspx.cs",
+        "projectPath": "WebhookCreate.aspx.cs",
+        "targetPath": "WebhookCreate.aspx",
+        "pageTitle": "WebhookCreate.aspx",
+        "title": "WebhookCreate.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\WebhookDelete.aspx.cs",
+        "projectPath": "WebhookDelete.aspx.cs",
+        "targetPath": "WebhookDelete.aspx",
+        "pageTitle": "WebhookDelete.aspx",
+        "title": "WebhookDelete.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\WebhookGetAll.aspx.cs",
+        "projectPath": "WebhookGetAll.aspx.cs",
+        "targetPath": "WebhookGetAll.aspx",
+        "pageTitle": "WebhookGetAll.aspx",
+        "title": "WebhookGetAll.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Retrieve All Webhooks",
+            "slug": "retrieve-all-webhooks"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\WebhookUpdate.aspx.cs",
+        "projectPath": "WebhookUpdate.aspx.cs",
+        "targetPath": "WebhookUpdate.aspx",
+        "pageTitle": "WebhookUpdate.aspx",
+        "title": "WebhookUpdate.aspx"
       },
       "depth": 1,
       "outline": [

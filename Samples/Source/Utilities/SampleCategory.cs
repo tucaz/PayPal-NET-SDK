@@ -13,6 +13,11 @@ namespace PayPal.Sample.Utilities
         public string Title { get; set; }
 
         /// <summary>
+        /// Gets or sets the anchor ID for the category.
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the hyperlink for the title.
         /// </summary>
         public string Href { get; set; }

@@ -10,12 +10,11 @@ namespace PayPal.UnitTest
 {
     public class UnitTestUtil
     {
-        public static readonly string ClientId = "AUASNhD7YM7dc5Wmc5YE9pEsC0o4eVOyYWO9ezXWBu2XTc63d3Au_s9c-v-U";
-        public static readonly string ClientSecret = "EBq0TRAE-4R9kgCDKzVh09sm1TeNcuY-xJirid7LNtheUh5t5vlOhR0XSHt3";
-
         public static Dictionary<string, string> GetConfig()
         {
             var config = new Dictionary<string, string>();
+            config[BaseConstants.ClientId] = "AUASNhD7YM7dc5Wmc5YE9pEsC0o4eVOyYWO9ezXWBu2XTc63d3Au_s9c-v-U";
+            config[BaseConstants.ClientSecret] = "EBq0TRAE-4R9kgCDKzVh09sm1TeNcuY-xJirid7LNtheUh5t5vlOhR0XSHt3";
             config["endpoint"] = "https://api.sandbox.paypal.com";
             config["connectionTimeout"] = "360000";
             config["requestRetries"] = "1";
@@ -24,7 +23,7 @@ namespace PayPal.UnitTest
 
         private static string GetAccessToken()
         {
-            var oauth = new OAuthTokenCredential(ClientId, ClientSecret, GetConfig());
+            var oauth = new OAuthTokenCredential(GetConfig());
             return oauth.GetAccessToken();
         }
 
