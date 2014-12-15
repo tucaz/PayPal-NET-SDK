@@ -19,6 +19,12 @@ namespace PayPal.Api
         public string id { get; set; }
 
         /// <summary>
+        /// State of the agreement.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
+        public string state { get; set; }
+
+        /// <summary>
         /// Name of the agreement.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
