@@ -30,7 +30,7 @@
         <% var step = "step-" + (i + 1); %>
         <% var heading = "heading-" + (i + 1); %>
         <% var prettyRequest = "<pre class=\"prettyprint\">" + this.FormatPayloadText(this.Flow.Items[i].Request, true) + "</pre>"; %>
-        <% var prettyResponse = "<pre class=\"" + (this.Flow.Items[i].IsErrorResponse ? "error" : "prettyprint") + "\">" + this.FormatPayloadText(this.Flow.Items[i].Response, false) + "</pre>"; %>
+        <% var prettyResponse = "<pre class=\"prettyprint " + (this.Flow.Items[i].IsErrorResponse ? "error" : "") + "\">" + this.FormatPayloadText(this.Flow.Items[i].Response, false) + "</pre>"; %>
         <div class="panel panel-default">
             <div class="panel-heading <% if (this.Flow.Items[i].IsErrorResponse)
                                          { %>error<%}%>" role="tab">
