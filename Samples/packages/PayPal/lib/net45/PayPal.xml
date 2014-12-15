@@ -477,6 +477,12 @@
             Logs output statements, errors, debug info to a text file    
             </summary>
         </member>
+        <member name="M:PayPal.Api.OAuthTokenCredential.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+        </member>
         <member name="M:PayPal.Api.OAuthTokenCredential.#ctor(System.String,System.String)">
             <summary>
             Client Id and Secret for the OAuth
@@ -705,6 +711,11 @@
         <member name="P:PayPal.Api.Agreement.id">
             <summary>
             Identifier of the agreement.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Agreement.state">
+            <summary>
+            State of the agreement.
             </summary>
         </member>
         <member name="P:PayPal.Api.Agreement.name">
@@ -1468,6 +1479,11 @@
         <member name="P:PayPal.Api.CreditCard.billing_address">
             <summary>
             Billing Address associated with this card.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.CreditCard.payer_id">
+            <summary>
+            A unique identifier of the payer generated and provided by the facilitator. This is required when creating or using a tokenized funding instrument.
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCard.external_customer_id">
@@ -3529,6 +3545,13 @@
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Webhook</returns>
         </member>
+        <member name="M:PayPal.Api.Webhook.Create(PayPal.Api.APIContext,PayPal.Api.Webhook)">
+            <summary>
+            Creates the Webhook for the application associated with the access token.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <returns>Webhook</returns>
+        </member>
         <member name="M:PayPal.Api.Webhook.Get(PayPal.Api.APIContext,System.String)">
             <summary>
             Retrieves the Webhook identified by webhook_id for the application associated with access token.
@@ -3545,6 +3568,14 @@
             <returns>WebhookList</returns>
         </member>
         <member name="M:PayPal.Api.Webhook.Update(PayPal.Api.APIContext,PayPal.Api.PatchRequest)">
+            <summary>
+            Updates the Webhook identified by webhook_id for the application associated with access token.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="patchRequest">PatchRequest</param>
+            <returns>Webhook</returns>
+        </member>
+        <member name="M:PayPal.Api.Webhook.Update(PayPal.Api.APIContext,System.String,PayPal.Api.PatchRequest)">
             <summary>
             Updates the Webhook identified by webhook_id for the application associated with access token.
             </summary>
@@ -3589,6 +3620,13 @@
             <returns>WebhookEvent</returns>
         </member>
         <member name="M:PayPal.Api.WebhookEvent.Resend(PayPal.Api.APIContext)">
+            <summary>
+            Resends the Webhooks event resource identified by event_id.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <returns>WebhookEvent</returns>
+        </member>
+        <member name="M:PayPal.Api.WebhookEvent.Resend(PayPal.Api.APIContext,System.String)">
             <summary>
             Resends the Webhooks event resource identified by event_id.
             </summary>

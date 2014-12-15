@@ -104,7 +104,7 @@
             <div class="row">
                 <div class="col-md-3 ">
                     <div class="row-fluid fixed col-md-3" id="leftNavigation" role="navigation">
-                        <ul class="nav nav-pills nav-stacked">
+                        <ul class="nav nav-stacked">
                             <%foreach(PayPal.Sample.Utilities.SampleCategory category in this.Categories) { %>
                             <li><a href="#<%= category.Id %>"><%= category.Title %></a></li>
                             <%} %>
@@ -113,13 +113,13 @@
                 </div>
                 <div class="col-md-9">
                     <%foreach(PayPal.Sample.Utilities.SampleCategory category in this.Categories) { %>
-                    <div class="panel panel-primary">
+                    <div class="panel panel-primary" id="<%= category.Id %>">
                         <div class="panel-heading">
                             <h3 class="panel-title"><%if (!string.IsNullOrEmpty(category.Href)) { %><a href="<%= category.Href %>" target="_blank"><%= category.Title %></a><%} else {%><%= category.Title %><%} %></h3>
                         </div>
 
                         <!-- List group -->
-                        <ul class="list-group" id="<%= category.Id %>">
+                        <ul class="list-group">
                             <%foreach(PayPal.Sample.Utilities.SampleItem item in category.Items) { %>
                             <li class="list-group-item">
                                 <div class="row">

@@ -149,26 +149,21 @@ The following are values that can be specified in the `<paypal>` section of the 
 Before you can begin making various calls to PayPal's REST APIs via the SDK, you must first authenticate with PayPal using an **OAuth access token** that can be used with each call.  To do this, you will need to use the `OAuthTokenCredential` class.
 
 ````c#
-using PayPal;
 using PayPal.Api;
 
 // Get a reference to the config
 var config = ConfigManager.Instance.GetProperties();
 
-// Read the clientId and clientSecret stored in the config
-var clientId = config[BaseConstants.ClientId];
-var clientSecret = config[BaseConstants.ClientSecret];
-
 // Use OAuthTokenCredential to request an access token from PayPal
-var accessToken = new OAuthTokenCredential(clientId, clientSecret, config).GetAccessToken();
+var accessToken = new OAuthTokenCredential(config).GetAccessToken();
 ````		
-**NOTE:** It is not mandatory to generate the `accessToken` with every call using the SDK. Typically, the access token can be generated once and reused until it expires.
+> **NOTE:** It is not mandatory to generate the `accessToken` with every call using the SDK. Typically, the access token can be generated once and reused until it expires.
 
 For more information on the access token and how it is used in calls to PayPal, refer to [How PayPal Uses OAuth 2.0](https://developer.paypal.com/docs/integration/direct/paypal-oauth2/).
 
 **Configure an APIContext Object**
 
-To make it easier for developers to customize how calls are being made to PayPal with the SDK, we offer an `APIContext` object that can be created using the `accessToken` from the code example in the previous step.
+The `APIContext` class makes it easy for developers to customize how calls are being made to PayPal.  Every PayPal resource method available with this SDK uses an `APIContext` object.
 
 ````c#
 var apiContext = new APIContext(accessToken);
@@ -178,7 +173,7 @@ This object can be further setup to include custom configuration settings as wel
 
 ````c#
 // Initialize the apiContext's configuration with the default configuration for this application.
-apiContext.Config = PayPal.Manager.ConfigManager.Instance.GetProperties();
+apiContext.Config = ConfigManager.Instance.GetProperties();
 
 // Define any custom configuration settings for calls that will use this object.
 apiContext.Config["connectionTimeout"] = 1000; // Quick timeout for testing purposes
@@ -191,21 +186,19 @@ if(apiContext.HTTPHeaders == null)
 apiContext.HTTPHeaders["some-header-name"] = "some-value";
 ````
 
-**NOTE:** When using `APIContext.HTTPHeaders`, be aware that some headers will be overwritten depending on the SDK call (e.g. `Authorization`, `Content-Type`, and `User-Agent`).
+> **NOTE:** When using `APIContext.HTTPHeaders`, be aware that some headers will be overwritten depending on the SDK call (e.g. `Authorization`, `Content-Type`, and `User-Agent`).
 
 **Use the APIContext Object to Make SDK Calls**
 
-Now that you have your `APIContext` object setup, it's time to make your first call with the SDK.  The following is a simple example of how to get the details of a PayPal payment using a `paymentId`.
+Now that you have your `APIContext` object setup, it's time to make your first call with the SDK.  The following is a simple example of how to get the details of a specific PayPal payment.
 
 ```c#
-var paymentId = "PAY-0XL713371A312273YKE2GCNI";
-var payment = Payment.Get(apiContext, paymentId);
+var payment = Payment.Get(apiContext, "PAY-0XL713371A312273YKE2GCNI");
 ```
-
-For more information on what features are supported by this SDK, refer to the [REST API Reference](https://developer.paypal.com/docs/api/) page on [developer.paypal.com](https://developer.paypal.com/).
 
 To get more code samples for using the SDK with the various PayPal features, refer to the [Samples](https://github.com/paypal/PayPal-NET-SDK/tree/master/Samples) project in this repository.
 
+For more information on what features are supported by this SDK, refer to the [REST API Reference](https://developer.paypal.com/docs/api/) page on [developer.paypal.com](https://developer.paypal.com/).
 
 ## NuGet 
 
