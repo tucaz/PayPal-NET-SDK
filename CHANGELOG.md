@@ -4,8 +4,9 @@ PayPal .NET SDK release notes
 ## v1.1.0
 * Add Webhooks support
 * Add missing class properties
-  * Agreement.agreement_details
-  * CreditCard.payer_id
+  * `Agreement.agreement_details`
+  * `Agreement.state`
+  * `CreditCard.payer_id`
 * Add OAuthTokenCredential constructor that just takes config
 
 ## v1.0.0
