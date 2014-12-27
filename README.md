@@ -55,14 +55,26 @@ The following section in your **web.config** or **app.config** needs to be chang
 
 To begin using this SDK, first download this SDK from NuGet.
 
+**Windows Command-Line**
 ````
 NuGet Install -Package PayPal
 ````
 
+**NuGet Package Manager Console**
+````
+Install-Package PayPal
+````
+
 Optionally, also download [log4net](https://www.nuget.org/packages/log4net/) to give your application enhanced logging capabilities.
 
+**Windows Command-Line**
 ````
 NuGet Install -Package log4net
+````
+
+**NuGet Package Manager Console**
+````
+Install-Package log4net
 ````
 
 Once all the libraries are downloaded, simply add the following libraries to your project references (**Project** > **Add Reference...**):
