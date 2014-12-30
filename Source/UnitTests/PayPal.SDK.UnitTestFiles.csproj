@@ -36,6 +36,12 @@
     <ExternalCompile Include="PaymentExecutionTest.cs" />
     <ExternalCompile Include="PaymentHistoryTest.cs" />
     <ExternalCompile Include="PaymentTest.cs" />
+    <ExternalCompile Include="PayoutTest.cs" />
+    <ExternalCompile Include="PayoutItemTest.cs" />
+    <ExternalCompile Include="PayoutItemDetailsTest.cs" />
+    <ExternalCompile Include="PayoutBatchTest.cs" />
+    <ExternalCompile Include="PayoutBatchHeaderTest.cs" />
+    <ExternalCompile Include="PayoutSenderBatchHeaderTest.cs" />
     <ExternalCompile Include="PhoneTest.cs" />
     <ExternalCompile Include="PlanListTest.cs" />
     <ExternalCompile Include="PlanTest.cs" />
