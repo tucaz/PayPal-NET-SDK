@@ -75,6 +75,14 @@
     <ExternalCompile Include="Api\PaymentInstruction.cs" />
     <ExternalCompile Include="Api\PaymentOptions.cs" />
     <ExternalCompile Include="Api\PaymentTerm.cs" />
+    <ExternalCompile Include="Api\Payout.cs" />
+    <ExternalCompile Include="Api\PayoutBatchHeader.cs" />
+    <ExternalCompile Include="Api\PayoutBatch.cs" />
+    <ExternalCompile Include="Api\PayoutItem.cs" />
+    <ExternalCompile Include="Api\PayoutItemDetails.cs" />
+    <ExternalCompile Include="Api\PayoutRecipientType.cs" />
+    <ExternalCompile Include="Api\PayoutSenderBatchHeader.cs" />
+    <ExternalCompile Include="Api\PayoutTransactionStatus.cs" />
     <ExternalCompile Include="Api\PayPalResourceObject.cs" />
     <ExternalCompile Include="Api\PayPalSerializableListObject.cs" />
     <ExternalCompile Include="Api\PayPalSerializableObject.cs" />

@@ -72,7 +72,6 @@ namespace PayPal.UnitTest
             var webhookList = Webhook.GetAll(UnitTestUtil.GetApiContext());
             Assert.IsNotNull(webhookList);
             Assert.IsNotNull(webhookList.webhooks);
-            Assert.IsTrue(webhookList.webhooks.Count > 0);
         }
 
         [TestMethod]

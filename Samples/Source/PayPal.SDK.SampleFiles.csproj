@@ -49,6 +49,9 @@
     <ExternalContent Include="WebhookEventList.aspx" />
     <ExternalContent Include="WebhookGetAll.aspx" />
     <ExternalContent Include="WebhookUpdate.aspx" />
+    <ExternalContent Include="PayoutCreate.aspx" />
+    <ExternalContent Include="PayoutGet.aspx" />
+    <ExternalContent Include="PayoutItemGet.aspx" />
     <ExternalNone Include="Scripts\jquery-1.9.0.intellisense.js" />
     <ExternalContent Include="PaymentWithPayPalWithDiscount.aspx" />
     <ExternalContent Include="Scripts\bootstrap.js" />
@@ -456,6 +459,27 @@
     </ExternalCompile>
     <ExternalCompile Include="WebhookUpdate.aspx.designer.cs">
       <DependentUpon>WebhookUpdate.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="PayoutCreate.aspx.cs">
+      <DependentUpon>PayoutCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PayoutCreate.aspx.designer.cs">
+      <DependentUpon>PayoutCreate.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="PayoutGet.aspx.cs">
+      <DependentUpon>PayoutGet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PayoutGet.aspx.designer.cs">
+      <DependentUpon>PayoutGet.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="PayoutItemGet.aspx.cs">
+      <DependentUpon>PayoutItemGet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PayoutItemGet.aspx.designer.cs">
+      <DependentUpon>PayoutItemGet.aspx</DependentUpon>
     </ExternalCompile>
   </ItemGroup>
   <ItemGroup>
