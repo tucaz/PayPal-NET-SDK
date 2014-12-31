@@ -1,6 +1,9 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.2.0
+* Add Payouts support
+
 ## v1.1.0
 * Add Webhooks support
 * Add missing class properties
