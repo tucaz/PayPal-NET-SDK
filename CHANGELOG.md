@@ -1,6 +1,10 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.2.1
+* Fix `Sale.Refund()`
+* Remove empty `Percentage` class
+
 ## v1.2.0
 * Add Payouts support
 
