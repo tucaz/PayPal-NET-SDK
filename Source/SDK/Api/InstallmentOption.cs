@@ -32,6 +32,6 @@ namespace PayPal.Api
         /// Discount percentage applied to the payment, if any
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "discount_percentage")]
-        public Percentage discount_percentage { get; set; }
+        public string discount_percentage { get; set; }
     }
 }
