@@ -1,8 +1,10 @@
 # PayPal .NET SDK
 
-[![Build Status](https://ci.appveyor.com/api/projects/status/d4ry30sb6cc95xay?svg=true)](https://ci.appveyor.com/project/paypal/paypal-net-sdk)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/paypal/paypal-net-sdk?svg=true)](https://ci.appveyor.com/project/paypal/paypal-net-sdk)
 
-> **Before using this SDK, please be aware of the [existing issues and currently available or upcoming features](https://github.com/paypal/rest-api-sdk-python/wiki/Existing-Issues-and-Unavailable%5CUpcoming-features) for the PayPal REST APIs (which all PayPal REST API SDKs are based upon).**
+The PayPal .NET SDK makes it easy to add PayPal support to your .NET web application and is built on [PayPal's REST APIs](https://developer.paypal.com/docs/api/).
+
+> **Before using this SDK, please be aware of the [existing issues and currently available or upcoming features](https://github.com/paypal/rest-api-sdk-python/wiki/Existing-Issues-and-Unavailable%5CUpcoming-features) for the PayPal REST APIs.**
 
 ## Contents
 
