@@ -22,25 +22,11 @@ skip_tags: true
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional.
 platform: Any CPU
- 
-# to add several platforms to build matrix:
-#platform:
-#  - x86
-#  - Any CPU
- 
-# build Configuration, i.e. Debug, Release, etc.
-#configuration: Release
- 
+
 # to add several configurations to build matrix:
 configuration:
   - Debug
   - Release
-
-# scripts to run before build
-before_build:
- 
-# scripts to run after build
-after_build:
 
 environment:
   matrix:
@@ -51,36 +37,12 @@ environment:
 # to run your custom scripts instead of automatic MSBuild
 build_script:
   - cmd: msbuild %solution_name% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
- 
-# to disable automatic builds
-#build: off
- 
+
 #---------------------------------#
 #       tests configuration       #
 #---------------------------------#
- 
-#test:
-#  assemblies:
-#    - assembly1.dll
- 
+
 # to run tests from different categories as separate jobs in parallel
-#test:
-#  categories:
-#    - A            # A category common for all jobs
-#    - [UI]         # 1st job
-#    - [DAL, BL]    # 2nd job
- 
-# scripts to run before tests
-before_test:
-#  - echo script1
-#  - ps: Write-Host "script1"
- 
-# scripts to run after tests
-after_test:
- 
-# to run your custom scripts instead of automatic tests
-#test_script:
-#  - echo This is my custom test script
- 
-# to disable automatic tests 
-#test: off
+test:
+  categories:
+    - Unit
