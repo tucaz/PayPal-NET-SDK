@@ -22,7 +22,7 @@ namespace PayPal.UnitTest
             return refund;
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void RefundObjectTest()
         {
             var refund = GetRefund();
@@ -36,7 +36,7 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(refund.links);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void RefundIdTest()
         {
             var pay = PaymentTest.CreatePaymentAuthorization();
@@ -58,19 +58,19 @@ namespace PayPal.UnitTest
             Assert.AreEqual(responseRefund.id, retrievedRefund.id);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void RefundNullIdTest()
         {
-            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Refund.Get(UnitTestUtil.GetApiContext(), null));
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Refund.Get(new APIContext("token"), null));
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void RefundConvertToJsonTest()
         {
             Assert.IsFalse(GetRefund().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void RefundToStringTest()
         {
             Assert.IsFalse(GetRefund().ToString().Length == 0);

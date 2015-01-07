@@ -24,7 +24,7 @@ namespace PayPal.UnitTest
             return PayPal.Api.JsonFormatter.ConvertFromJson<InvoiceItem>(InvoiceItemJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void InvoiceItemObjectTest()
         {
             var testObject = GetInvoiceItem();
@@ -33,13 +33,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.unit_price);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void InvoiceItemConvertToJsonTest()
         {
             Assert.IsFalse(GetInvoiceItem().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void InvoiceItemToStringTest()
         {
             Assert.IsFalse(GetInvoiceItem().ToString().Length == 0);

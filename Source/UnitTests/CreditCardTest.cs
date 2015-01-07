@@ -27,7 +27,7 @@ namespace PayPal.UnitTest
             return GetCreditCard().Create(UnitTestUtil.GetApiContext());
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CreditCardObjectTest()
         {
             var card = GetCreditCard();
@@ -51,7 +51,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(add.state, card.billing_address.state);
         }
 
-        [TestMethod()]        
+        [TestMethod, TestCategory("Unit")]        
         public void CreditCardConvertToJsonTest()
         {
             var card = GetCreditCard();
@@ -60,7 +60,7 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(credit);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void CreditCardGetTest()
         {
             var card = GetCreditCard();
@@ -69,7 +69,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(createdCreditCard.id, retrievedCreditCard.id);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void CreditCardDeleteTest()
         {
             var card = GetCreditCard();
@@ -78,7 +78,7 @@ namespace PayPal.UnitTest
             retrievedCreditCard.Delete(UnitTestUtil.GetApiContext());
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Functional")]
         public void CreditCardListTest()
         {
             var creditCardList = CreditCard.List(UnitTestUtil.GetApiContext(), startTime: "2014-11-01T19:27:56Z", endTime: "2014-12-25T19:27:56Z");
@@ -87,10 +87,10 @@ namespace PayPal.UnitTest
             Assert.IsTrue(creditCardList.total_pages > 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CreditCardNullIdTest()
         {
-            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => CreditCard.Get(UnitTestUtil.GetApiContext(), null));
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => CreditCard.Get(new APIContext("token"), null));
         }
     }
 }

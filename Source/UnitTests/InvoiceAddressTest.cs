@@ -20,7 +20,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<InvoiceAddress>(InvoiceAddressJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AddressObjectTest()
         {
             var add = GetInvoiceAddress();
@@ -33,13 +33,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(add.phone);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AddressConvertToJsonTest()
         {
             Assert.IsFalse(GetInvoiceAddress().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AddressToStringTest()
         {
             Assert.IsFalse(GetInvoiceAddress().ToString().Length == 0);

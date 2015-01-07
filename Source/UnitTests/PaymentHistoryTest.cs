@@ -19,7 +19,7 @@ namespace PayPal.UnitTest
             return history;
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PaymentHistoryObjectTest()
         {
             var history = GetPaymentHistory();
@@ -28,13 +28,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual(history.payments.Count, 1);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PaymentHistoryConvertToJsonTest()
         {
             Assert.IsFalse(GetPaymentHistory().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PaymentHistoryToStringTest()
         {
             Assert.IsFalse(GetPaymentHistory().ToString().Length == 0);

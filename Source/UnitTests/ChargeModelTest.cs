@@ -16,7 +16,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<ChargeModel>(ChargeModelJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void ChargeModelObjectTest()
         {
             var testObject = GetChargeModel();
@@ -25,13 +25,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.amount);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void ChargeModelConvertToJsonTest()
         {
             Assert.IsFalse(GetChargeModel().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void ChargeModelToStringTest()
         {
             Assert.IsFalse(GetChargeModel().ToString().Length == 0);

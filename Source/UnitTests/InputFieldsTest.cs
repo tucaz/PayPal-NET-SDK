@@ -13,7 +13,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<InputFields>(InputFieldsJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void InputFieldsObjectTest()
         {
             var inputFields = GetInputFields();
@@ -22,13 +22,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual(1, inputFields.address_override);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void InputFieldsConvertToJsonTest()
         {
             Assert.IsFalse(GetInputFields().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void InputFieldsToStringTest()
         {
             Assert.IsFalse(GetInputFields().ToString().Length == 0);

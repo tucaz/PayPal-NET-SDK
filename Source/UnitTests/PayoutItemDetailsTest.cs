@@ -22,7 +22,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<PayoutItemDetails>(PayoutItemDetailsJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutItemDetailsObjectTest()
         {
             var testObject = GetPayoutItemDetails();
@@ -35,19 +35,19 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.links);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutItemDetailsConvertToJsonTest()
         {
             Assert.IsFalse(GetPayoutItemDetails().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutItemDetailsToStringTest()
         {
             Assert.IsFalse(GetPayoutItemDetails().ToString().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void PayoutItemDetailsGetTest()
         {
             var payoutItemId = "G2CFT8SJRB7RN";

@@ -16,7 +16,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Currency>(CurrencyJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CurrencyObjectTest()
         {
             var testObject = GetCurrency();
@@ -24,13 +24,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual("USD", testObject.currency);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CurrencyConvertToJsonTest()
         {
             Assert.IsFalse(GetCurrency().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CurrencyToStringTest()
         {
             Assert.IsFalse(GetCurrency().ToString().Length == 0);

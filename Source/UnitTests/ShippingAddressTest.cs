@@ -21,7 +21,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<ShippingAddress>(ShippingAddressJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void ShippingAddressObjectTest()
         {
             var shipping = GetShippingAddress();
@@ -35,13 +35,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual("5032141716", shipping.phone);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void ShippingAddressConvertToJsonTest()
         {
             Assert.IsFalse(GetShippingAddress().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void ShippingAddressToStringTest()
         {
             Assert.IsFalse(GetShippingAddress().ToString().Length == 0);

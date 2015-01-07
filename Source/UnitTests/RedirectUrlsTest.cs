@@ -14,7 +14,7 @@ namespace PayPal.UnitTest
             return urls;
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void RedirectUrlsObjectTest()
         {
             var urls = GetRedirectUrls();
@@ -22,13 +22,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual(urls.return_url, "http://paypal.com/");
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void RedirectUrlsConvertToJsonTest()
         {
             Assert.IsFalse(GetRedirectUrls().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void RedirectUrlsToStringTest()
         {
             Assert.IsFalse(GetRedirectUrls().ToString().Length == 0);

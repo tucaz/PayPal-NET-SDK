@@ -22,7 +22,7 @@ namespace PayPal.UnitTest
             return bankAccount;
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Unit")]
         public void BankAccountObjectTest()
         {
             var bankAccount = GetBankAccount();
@@ -35,13 +35,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(bankAccount.links);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Unit")]
         public void BankAccountConvertToJsonTest()
         {
             Assert.IsFalse(GetBankAccount().ConvertToJson().Length == 0);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Unit")]
         public void BankAccountToStringTest()
         {
             Assert.IsFalse(GetBankAccount().ToString().Length == 0);

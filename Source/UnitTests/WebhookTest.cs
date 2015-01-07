@@ -19,25 +19,25 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Webhook>(WebhookJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void WebhookObjectTest()
         {
             var testObject = GetWebhook();
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void WebhookConvertToJsonTest()
         {
             Assert.IsFalse(GetWebhook().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void WebhookToStringTest()
         {
             Assert.IsFalse(GetWebhook().ToString().Length == 0);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Functional")]
         public void WebhookCreateTest()
         {
             var webhook = WebhookTest.GetWebhook();
@@ -50,7 +50,7 @@ namespace PayPal.UnitTest
             createdWebhook.Delete(UnitTestUtil.GetApiContext());
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Functional")]
         public void WebhookGetTest()
         {
             var webhook = WebhookTest.GetWebhook();
@@ -66,7 +66,7 @@ namespace PayPal.UnitTest
             createdWebhook.Delete(UnitTestUtil.GetApiContext());
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Functional")]
         public void WebhookGetListTest()
         {
             var webhookList = Webhook.GetAll(UnitTestUtil.GetApiContext());
@@ -74,7 +74,7 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(webhookList.webhooks);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Functional")]
         public void WebhookUpdateTest()
         {
             var webhook = WebhookTest.GetWebhook();
@@ -118,7 +118,7 @@ namespace PayPal.UnitTest
             updatedWebhook.Delete(UnitTestUtil.GetApiContext());
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Functional")]
         public void WebhookDeleteTest()
         {
             var webhook = WebhookTest.GetWebhook();

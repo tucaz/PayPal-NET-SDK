@@ -15,7 +15,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Payout>(PayoutJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutObjectTest()
         {
             var testObject = GetPayout();
@@ -25,19 +25,19 @@ namespace PayPal.UnitTest
             Assert.IsTrue(testObject.items.Count == 1);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutConvertToJsonTest()
         {
             Assert.IsFalse(GetPayout().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutToStringTest()
         {
             Assert.IsFalse(GetPayout().ToString().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void PayoutCreateTest()
         {
             var payout = PayoutTest.GetPayout();
@@ -49,7 +49,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(payoutSenderBatchId, createdPayout.batch_header.sender_batch_header.sender_batch_id);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void PayoutGetTest()
         {
             var payoutBatchId = "8NX77PFLN255E";

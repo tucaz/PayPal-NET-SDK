@@ -15,7 +15,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<PayoutSenderBatchHeader>(PayoutSenderBatchHeaderJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutSenderBatchHeaderObjectTest()
         {
             var testObject = GetPayoutSenderBatchHeader();
@@ -24,13 +24,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual("You have a payment", testObject.email_subject);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutSenderBatchHeaderConvertToJsonTest()
         {
             Assert.IsFalse(GetPayoutSenderBatchHeader().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutSenderBatchHeaderToStringTest()
         {
             Assert.IsFalse(GetPayoutSenderBatchHeader().ToString().Length == 0);

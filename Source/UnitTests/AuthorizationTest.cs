@@ -21,7 +21,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Authorization>(AuthorizationJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AuthorizationObjectTest()
         {
             var authorization = GetAuthorization();
@@ -33,21 +33,21 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(authorization.links);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AuthorizationConvertToJsonTest()
         {
             var authorize = GetAuthorization();
             Assert.IsFalse(authorize.ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AuthorizationToStringTest()
         {
             var authorize = GetAuthorization();
             Assert.IsFalse(authorize.ToString().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void AuthorizationGetTest()
         {
             var pay = PaymentTest.CreatePaymentAuthorization();
@@ -56,7 +56,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(authorizationId, authorize.id);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void AuthorizationCaptureTest()
         {
             var pay = PaymentTest.CreatePaymentAuthorization();
@@ -71,7 +71,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual("completed", response.state);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void AuthorizationVoidTest()
         {
             var pay = PaymentTest.CreatePaymentAuthorization();
@@ -81,13 +81,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual("voided", authorizationResponse.state);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AuthorizationNullIdTest()
         {
-            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(UnitTestUtil.GetApiContext(), null));
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(new APIContext("token"), null));
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Functional")]
         public void AuthroizationReauthorizeTest()
         {
             var authorization = Authorization.Get(UnitTestUtil.GetApiContext(), "7GH53639GA425732B");

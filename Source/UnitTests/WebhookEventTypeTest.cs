@@ -15,7 +15,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<WebhookEventType>(WebhookEventTypeJsonCreated);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void WebhookEventTypeObjectTest()
         {
             var testObject = GetWebhookEventType();
@@ -23,13 +23,13 @@ namespace PayPal.UnitTest
             Assert.IsTrue(string.IsNullOrEmpty(testObject.description));
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void WebhookEventTypeConvertToJsonTest()
         {
             Assert.IsFalse(GetWebhookEventType().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void WebhookEventTypeToStringTest()
         {
             Assert.IsFalse(GetWebhookEventType().ToString().Length == 0);
@@ -44,7 +44,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(2, webhookEventTypeList.event_types.Count);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Unit")]
         public void WebhookEventTypeAvailableEventsTest()
         {
             var webhookEventTypeList = WebhookEventType.AvailableEventTypes(UnitTestUtil.GetApiContext());

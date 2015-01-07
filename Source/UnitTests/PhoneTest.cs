@@ -13,7 +13,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Phone>(PhoneJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PhoneObjectTest()
         {
             var phone = GetPhone();
@@ -21,13 +21,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual("001", phone.country_code);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PhoneConvertToJsonTest()
         {
             Assert.IsFalse(GetPhone().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PhoneToStringTest()
         {
             Assert.IsFalse(GetPhone().ToString().Length == 0);

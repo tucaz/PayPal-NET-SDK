@@ -16,7 +16,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<AgreementStateDescriptor>(AgreementStateDescriptorJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AgreementStateDescriptorObjectTest()
         {
             var testObject = GetAgreementStateDescriptor();
@@ -24,13 +24,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.amount);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AgreementStateDescriptorConvertToJsonTest()
         {
             Assert.IsFalse(GetAgreementStateDescriptor().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AgreementStateDescriptorToStringTest()
         {
             Assert.IsFalse(GetAgreementStateDescriptor().ToString().Length == 0);

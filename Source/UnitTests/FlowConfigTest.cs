@@ -13,7 +13,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<FlowConfig>(FlowConfigJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void FlowConfigObjectTest()
         {
             var flowConfig = GetFlowConfig();
@@ -21,13 +21,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual("http://www.paypal.com", flowConfig.bank_txn_pending_url);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void FlowConfigConvertToJsonTest()
         {
             Assert.IsFalse(GetFlowConfig().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void FlowConfigToStringTest()
         {
             Assert.IsFalse(GetFlowConfig().ToString().Length == 0);

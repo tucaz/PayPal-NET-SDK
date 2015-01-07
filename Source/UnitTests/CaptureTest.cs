@@ -21,7 +21,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Capture>(CaptureJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CaptureObjectTest()
         {
             var cap = GetCapture();
@@ -39,21 +39,21 @@ namespace PayPal.UnitTest
             Assert.AreEqual("Authorized", cap.state);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CaptureConvertToJsonTest()
         {
             var cap = GetCapture();
             Assert.IsFalse(cap.ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CaptureToStringTest()
         {
             var cap = GetCapture();
             Assert.IsFalse(cap.ToString().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void CaptureIdTest()
         {
             var pay = PaymentTest.CreatePaymentAuthorization();
@@ -69,7 +69,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(responseCapture.id, returnCapture.id);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void CaptureRefundTest()
         {
             var pay = PaymentTest.CreatePaymentAuthorization();
@@ -90,10 +90,10 @@ namespace PayPal.UnitTest
             Assert.AreEqual("completed", responseRefund.state);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CaptureNullIdTest()
         {
-            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Capture.Get(UnitTestUtil.GetApiContext(), null));
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Capture.Get(new APIContext("token"), null));
         } 
     }
 }

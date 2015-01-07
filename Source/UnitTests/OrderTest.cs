@@ -16,26 +16,26 @@ namespace PayPal.UnitTest
             return order;
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void OrderObjectTest()
         {
             var order = GetOrder();
             Assert.IsNotNull(order.amount);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void OrderConvertToJsonTest()
         {
             Assert.IsFalse(GetOrder().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void OrderToStringTest()
         {
             Assert.IsFalse(GetOrder().ToString().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void OrderGetTest()
         {
             var orderId = "O-2HT09787H36911800";

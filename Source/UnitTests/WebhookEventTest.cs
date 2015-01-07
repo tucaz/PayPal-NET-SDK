@@ -28,7 +28,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<WebhookEvent>(WebhookEventJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void WebhookEventObjectTest()
         {
             var testObject = GetWebhookEvent();
@@ -42,13 +42,13 @@ namespace PayPal.UnitTest
             Assert.IsTrue(testObject.links.Count == 2);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void WebhookEventConvertToJsonTest()
         {
             Assert.IsFalse(GetWebhookEvent().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void WebhookEventToStringTest()
         {
             Assert.IsFalse(GetWebhookEvent().ToString().Length == 0);

@@ -22,7 +22,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<AgreementTransaction>(AgreementTransactionJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AgreementTransactionObjectTest()
         {
             var testObject = GetAgreementTransaction();
@@ -34,13 +34,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual("GMT", testObject.time_zone);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AgreementTransactionConvertToJsonTest()
         {
             Assert.IsFalse(GetAgreementTransaction().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AgreementTransactionToStringTest()
         {
             Assert.IsFalse(GetAgreementTransaction().ToString().Length == 0);

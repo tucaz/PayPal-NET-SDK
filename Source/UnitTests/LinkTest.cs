@@ -24,7 +24,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Links>(LinksJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void LinksObjectTest()
         {
             var link = GetLinks();
@@ -33,13 +33,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual(link.rel, "authorize");
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void LinksConvertToJsonTest()
         {
             Assert.IsFalse(GetLinks().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void LinksToStringTest()
         {
             Assert.IsFalse(GetLinks().ToString().Length == 0);

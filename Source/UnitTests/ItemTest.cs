@@ -18,7 +18,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Item>(ItemJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void ItemObjectTest()
         {
             var itm = GetItem();
@@ -29,13 +29,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual(itm.sku, "Sku");
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void ItemConvertToJsonTest()
         {
             Assert.IsFalse(GetItem().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void ItemToStringTest()
         {
             Assert.IsFalse(GetItem().ToString().Length == 0);

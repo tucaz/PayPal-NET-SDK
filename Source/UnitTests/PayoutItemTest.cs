@@ -18,7 +18,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<PayoutItem>(PayoutItemJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutItemObjectTest()
         {
             var testObject = GetPayoutItem();
@@ -30,7 +30,7 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.amount);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutItemConvertToJsonTest()
         {
             var json = GetPayoutItem().ConvertToJson();
@@ -38,7 +38,7 @@ namespace PayPal.UnitTest
             Assert.IsTrue(json.Contains("\"recipient_type\":\"EMAIL\""));
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutItemToStringTest()
         {
             Assert.IsFalse(GetPayoutItem().ToString().Length == 0);

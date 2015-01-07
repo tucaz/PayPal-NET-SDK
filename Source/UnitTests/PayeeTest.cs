@@ -15,7 +15,7 @@ namespace PayPal.UnitTest
             return pay;
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayeeObjectTest()
         {
             var pay = GetPayee();
@@ -24,13 +24,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(pay.phone);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayeeConvertToJsonTest()
         {
             Assert.IsFalse(GetPayee().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayeeToStringTest()
         {
             Assert.IsFalse(GetPayee().ToString().Length == 0);

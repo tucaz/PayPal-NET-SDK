@@ -88,14 +88,14 @@ namespace PayPal.UnitTest
             return GetPaymentOrder().Create(UnitTestUtil.GetApiContext());
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void PaymentStateTest()
         {
             var actual = CreatePaymentForSale();
             Assert.AreEqual("approved", actual.state);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PaymentNullAccessToken()
         {
             var payment = GetPaymentForSale();
@@ -103,8 +103,8 @@ namespace PayPal.UnitTest
             UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => payment.Create(new APIContext(accessToken)));
         }
 
-        [TestMethod()]
-        public void PaymentObjectTest()
+        [TestMethod, TestCategory("Functional")]
+        public void PaymentCreateAndGetTest()
         {
             var context = UnitTestUtil.GetApiContext();
             var pay = CreatePaymentForSale();
@@ -112,7 +112,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(pay.id, retrievedPayment.id);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void PaymentListHistoryTest()
         {
             var context = UnitTestUtil.GetApiContext();
@@ -120,7 +120,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(10, paymentHistory.count);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void FuturePaymentTest()
         {
             var context = UnitTestUtil.GetApiContext();

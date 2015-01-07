@@ -23,7 +23,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Agreement>(AgreementJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AgreementObjectTest()
         {
             var testObject = GetAgreement();
@@ -35,19 +35,19 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.shipping_address);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AgreementConvertToJsonTest()
         {
             Assert.IsFalse(GetAgreement().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AgreementToStringTest()
         {
             Assert.IsFalse(GetAgreement().ToString().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void AgreementCreateTest()
         {
             var apiContext = UnitTestUtil.GetApiContext();
@@ -60,7 +60,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(agreement.name, createdAgreement.name);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void AgreementGetTest()
         {
             var agreementId = "I-RDJKRLEBYWYH";
@@ -71,7 +71,7 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(agreement.plan);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void AgreementExecuteTest()
         {
             var agreement = new Agreement() { token = "EC-2CD33889A9699491E" };
@@ -79,7 +79,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual("I-ASXCM9U5MJJV", executedAgreement.id);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void AgreementUpdateTest()
         {
             // Get the agreement to be used for verifying the update functionality
@@ -105,7 +105,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(updatedDescription, updatedAgreement.description);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void AgreementSearchTest()
         {
             var startDate = "2014-10-01";

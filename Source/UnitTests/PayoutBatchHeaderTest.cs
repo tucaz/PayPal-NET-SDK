@@ -16,7 +16,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<PayoutBatchHeader>(PayoutBatchHeaderJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutBatchHeaderObjectTest()
         {
             var testObject = GetPayoutBatchHeader();
@@ -26,13 +26,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.sender_batch_header);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutBatchHeaderConvertToJsonTest()
         {
             Assert.IsFalse(GetPayoutBatchHeader().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayoutBatchHeaderToStringTest()
         {
             Assert.IsFalse(GetPayoutBatchHeader().ToString().Length == 0);

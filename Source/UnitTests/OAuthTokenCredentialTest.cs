@@ -8,7 +8,7 @@ namespace PayPal.UnitTest
     [TestClass]
     public class OAuthTokenCredentialTest
     {
-        [TestMethod]
+        [TestMethod, TestCategory("Unit")]
         public void OAuthTokenCredentialCtorConfigTest()
         {
             var config = new Dictionary<string, string>();
@@ -19,7 +19,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual("yyy", oauthTokenCredential.ClientSecret);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Unit")]
         public void OAuthTokenCredentialCtorClientInfoTest()
         {
             var oauthTokenCredential = new OAuthTokenCredential("aaa", "bbb");
@@ -27,7 +27,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual("bbb", oauthTokenCredential.ClientSecret);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Unit")]
         public void OAuthTokenCredentialCtorClientInfoConfigTest()
         {
             var config = new Dictionary<string, string>();
@@ -38,7 +38,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual("bbb", oauthTokenCredential.ClientSecret);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Unit")]
         public void OAuthTokenCredentialCtorEmptyConfigTest()
         {
             var config = new Dictionary<string, string>();
@@ -47,7 +47,7 @@ namespace PayPal.UnitTest
             Assert.IsTrue(string.IsNullOrEmpty(oauthTokenCredential.ClientSecret));
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Unit")]
         public void OAuthTokenCredentialCtorNullValuesTest()
         {
             var oauthTokenCredential = new OAuthTokenCredential(null, null, null);

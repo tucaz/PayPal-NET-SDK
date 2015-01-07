@@ -13,20 +13,20 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<CreateProfileResponse>(CreateProfileResponseJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CreateProfileResponseObjectTest()
         {
             var response = GetCreateProfileResponse();
             Assert.AreEqual("XP-VKRN-ZPNE-AXGJ-YFZM", response.id);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CreateProfileResponseConvertToJsonTest()
         {
             Assert.IsFalse(GetCreateProfileResponse().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CreateProfileResponseToStringTest()
         {
             Assert.IsFalse(GetCreateProfileResponse().ToString().Length == 0);

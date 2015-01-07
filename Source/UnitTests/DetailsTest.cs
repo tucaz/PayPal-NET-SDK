@@ -17,7 +17,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Details>(DetailsJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void DetailsObjectTest()
         {
             var detail = GetDetails();
@@ -27,13 +27,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual("0", detail.fee);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void DetailsConvertToJsonTest()
         {
             Assert.IsFalse(GetDetails().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void DetailsToStringTest()
         {
             Assert.IsFalse(GetDetails().ToString().Length == 0);

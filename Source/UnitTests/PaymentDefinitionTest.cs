@@ -23,7 +23,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<PaymentDefinition>(PaymentDefinitionJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PaymentDefinitionObjectTest()
         {
             var testObject = GetPaymentDefinition();
@@ -37,13 +37,13 @@ namespace PayPal.UnitTest
             Assert.IsTrue(testObject.charge_models.Count == 1);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PaymentDefinitionConvertToJsonTest()
         {
             Assert.IsFalse(GetPaymentDefinition().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PaymentDefinitionToStringTest()
         {
             Assert.IsFalse(GetPaymentDefinition().ToString().Length == 0);

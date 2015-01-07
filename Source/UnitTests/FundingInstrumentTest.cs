@@ -14,13 +14,13 @@ namespace PayPal.UnitTest
             return instrument;
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void FundingInstrumentConvertToJsonTest()
         {
             Assert.IsFalse(GetFundingInstrument().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void FundingInstrumentToStringTest()
         {
             Assert.IsFalse(GetFundingInstrument().ToString().Length == 0);

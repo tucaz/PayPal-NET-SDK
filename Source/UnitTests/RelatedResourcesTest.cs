@@ -21,7 +21,7 @@ namespace PayPal.UnitTest
             return resources;
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void RelatedResourcesObjectTest() 
         {
             var resources = GetRelatedResources();
@@ -31,13 +31,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual(resources.capture.id, CaptureTest.GetCapture().id);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void RelatedResourcesConvertToJsonTest() 
         {
             Assert.IsFalse(GetRelatedResources().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void RelatedResourcesToStringTest() 
         {
             Assert.IsFalse(GetRelatedResources().ToString().Length == 0);

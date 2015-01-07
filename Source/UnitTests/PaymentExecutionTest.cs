@@ -17,20 +17,20 @@ namespace PayPal.UnitTest
             return execution;
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PaymentExecutionObjectTest()
         {
             var execution = GetPaymentExecution();
             Assert.AreEqual(execution.payer_id, "100");
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PaymentExecutionConvertToJsonTest()
         {
             Assert.IsFalse(GetPaymentExecution().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PaymentExecutionToStringTest()
         {
             Assert.IsFalse(GetPaymentExecution().ToString().Length == 0);

@@ -13,7 +13,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Presentation>(PresentationJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PresentationObjectTest()
         {
             var presentation = GetPresentation();
@@ -22,13 +22,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual("US", presentation.locale_code);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PresentationConvertToJsonTest()
         {
             Assert.IsFalse(GetPresentation().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PresentationToStringTest()
         {
             Assert.IsFalse(GetPresentation().ToString().Length == 0);

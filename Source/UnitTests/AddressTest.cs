@@ -3,7 +3,7 @@ using PayPal.Api;
 
 namespace PayPal.UnitTest
 {
-    [TestClass()]
+    [TestClass]
     public class AddressTest
     {
         public static readonly string AddressJson =
@@ -20,7 +20,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Address>(AddressJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AddressObjectTest()
         {
             var add = GetAddress();
@@ -33,13 +33,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual("5032141716", add.phone);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AddressConvertToJsonTest()
         {
             Assert.IsFalse(GetAddress().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AddressToStringTest()
         {
             Assert.IsFalse(GetAddress().ToString().Length == 0);

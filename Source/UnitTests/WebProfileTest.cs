@@ -18,7 +18,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<WebProfile>(WebProfileJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void WebProfileObjectTest()
         {
             var webProfile = GetWebProfile();
@@ -28,19 +28,19 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(webProfile.flow_config);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void WebProfileConvertToJsonTest()
         {
             Assert.IsFalse(GetWebProfile().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void WebProfileToStringTest()
         {
             Assert.IsFalse(GetWebProfile().ToString().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void WebProfileGetTest()
         {
             var profileId = "XP-5CQ3-3XSL-DDAA-MATK";
@@ -48,7 +48,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(profileId, profile.id);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void WebProfileGetListTest()
         {
             var profiles = WebProfile.GetList(UnitTestUtil.GetApiContext());
@@ -56,7 +56,7 @@ namespace PayPal.UnitTest
             Assert.IsTrue(profiles.Count > 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void WebProfileCreateTest()
         {
             var profile = WebProfileTest.GetWebProfile();
@@ -70,7 +70,7 @@ namespace PayPal.UnitTest
             profile.Delete(UnitTestUtil.GetApiContext());
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void WebProfileUpdateTest()
         {
             // Create a new profile
@@ -95,7 +95,7 @@ namespace PayPal.UnitTest
             profile.Delete(UnitTestUtil.GetApiContext());
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void WebProfilePartialUpdateTest()
         {
             // Create a new profile
@@ -133,7 +133,7 @@ namespace PayPal.UnitTest
             profile.Delete(UnitTestUtil.GetApiContext());
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void WebProfileDeleteTest()
         {
             // Create a new profile

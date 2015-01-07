@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api;
 
@@ -30,7 +27,7 @@ namespace PayPal.UnitTest
             return transactionList;
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void TransactionObjectTest()
         {
             var transaction = GetTransaction();
@@ -42,13 +39,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(transaction.related_resources);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void TransactionConvertToJsonTest()
         {
             Assert.IsFalse(GetTransaction().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void TransactionToStringTest()
         {
             Assert.IsFalse(GetTransaction().ToString().Length == 0);

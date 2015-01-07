@@ -21,7 +21,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Terms>(TermsJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void TermsObjectTest()
         {
             var testObject = GetTerms();
@@ -32,13 +32,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.amount_range);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void TermsConvertToJsonTest()
         {
             Assert.IsFalse(GetTerms().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void TermsToStringTest()
         {
             Assert.IsFalse(GetTerms().ToString().Length == 0);

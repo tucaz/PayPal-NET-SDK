@@ -16,7 +16,7 @@ namespace PayPal.UnitTest
             return cardToken;
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CreditCardTokenObjectTest()
         {
             var token = GetCreditCardToken();
@@ -24,7 +24,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(token.payer_id, "009");
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CreditCardTokenConvertToJsonTest()
         {
             var token = GetCreditCardToken();
@@ -33,7 +33,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void CreditCardTokenToStringTest()
         {
             Assert.IsFalse(GetCreditCardToken().ToString().Length == 0);

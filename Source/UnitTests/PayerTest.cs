@@ -28,7 +28,7 @@ namespace PayPal.UnitTest
             return pay;
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayerObjectTest()
         {
             var pay = GetPayerUsingCreditCard();
@@ -37,13 +37,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(pay.funding_instruments);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayerConvertToJsonTest()
         {
             Assert.IsFalse(GetPayerUsingCreditCard().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayerToStringTest()
         {
             Assert.IsFalse(GetPayerUsingCreditCard().ToString().Length == 0);

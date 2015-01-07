@@ -23,7 +23,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Plan>(PlanJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PlanObjectTest()
         {
             var testObject = GetPlan();
@@ -35,19 +35,19 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.merchant_preferences);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PlanConvertToJsonTest()
         {
             Assert.IsFalse(GetPlan().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PlanToStringTest()
         {
             Assert.IsFalse(GetPlan().ToString().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void PlanCreateTest()
         {
             var plan = GetPlan();
@@ -56,7 +56,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(plan.name, createdPlan.name);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void PlanGetTest()
         {
             var plan = Plan.Get(UnitTestUtil.GetApiContext(), "P-0V2939118D268823YFYLVH4Y");
@@ -66,7 +66,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual("FIXED", plan.type);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void PlanUpdateTest()
         {
             var apiContext = UnitTestUtil.GetApiContext();
@@ -93,7 +93,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(updatedDescription, updatedPlan.description);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void PlanListTest()
         {
             var planList = Plan.List(UnitTestUtil.GetApiContext());
@@ -102,7 +102,7 @@ namespace PayPal.UnitTest
             Assert.IsTrue(planList.plans.Count > 0);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Functional")]
         public void PlanDeleteTest()
         {
             var plan = GetPlan();

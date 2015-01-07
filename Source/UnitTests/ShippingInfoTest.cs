@@ -24,7 +24,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<ShippingInfo>(ShippingInfoJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void ShippingInfoObjectTest()
         {
             var testObject = GetShippingInfo();
@@ -34,13 +34,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.address);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void ShippingInfoConvertToJsonTest()
         {
             Assert.IsFalse(GetShippingInfo().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void ShippingInfoToStringTest()
         {
             Assert.IsFalse(GetShippingInfo().ToString().Length == 0);

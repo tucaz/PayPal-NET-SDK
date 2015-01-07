@@ -22,7 +22,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<MerchantPreferences>(MerchantPreferencesJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void MerchantPreferencesObjectTest()
         {
             var testObject = GetMerchantPreferences();
@@ -34,13 +34,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.setup_fee);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void MerchantPreferencesConvertToJsonTest()
         {
             Assert.IsFalse(GetMerchantPreferences().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void MerchantPreferencesToStringTest()
         {
             Assert.IsFalse(GetMerchantPreferences().ToString().Length == 0);

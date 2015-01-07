@@ -16,7 +16,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<OverrideChargeModel>(OverrideChargeModelJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void OverrideChargeModelObjectTest()
         {
             var testObject = GetOverrideChargeModel();
@@ -24,13 +24,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.amount);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void OverrideChargeModelConvertToJsonTest()
         {
             Assert.IsFalse(GetOverrideChargeModel().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void OverrideChargeModelToStringTest()
         {
             Assert.IsFalse(GetOverrideChargeModel().ToString().Length == 0);

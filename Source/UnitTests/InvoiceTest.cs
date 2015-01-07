@@ -26,7 +26,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Invoice>(InvoiceJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void InvoiceObjectTest()
         {
             var testObject = GetInvoice();
@@ -40,19 +40,19 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.payment_term);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void InvoiceConvertToJsonTest()
         {
             Assert.IsFalse(GetInvoice().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void InvoiceToStringTest()
         {
             Assert.IsFalse(GetInvoice().ToString().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Functional")]
         public void InvoiceCreateTest()
         {
             var invoice = GetInvoice();
@@ -63,7 +63,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(invoice.note, createdInvoice.note);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Functional")]
         public void InvoiceQrCodeTest()
         {
             var invoice = GetInvoice();

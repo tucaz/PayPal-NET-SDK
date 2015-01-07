@@ -16,7 +16,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<AgreementTransactions>(AgreementTransactionsJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AgreementTransactionsObjectTest()
         {
             var testObject = GetAgreementTransactions();
@@ -24,13 +24,13 @@ namespace PayPal.UnitTest
             Assert.IsTrue(testObject.agreement_transaction_list.Count == 1);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AgreementTransactionsConvertToJsonTest()
         {
             Assert.IsFalse(GetAgreementTransactions().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void AgreementTransactionsToStringTest()
         {
             Assert.IsFalse(GetAgreementTransactions().ToString().Length == 0);

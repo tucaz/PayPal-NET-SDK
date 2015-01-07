@@ -21,7 +21,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<Sale>(SaleJson);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Unit")]
         public void SaleObjectTest()
         {
             var sale = GetSale();
@@ -32,25 +32,25 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(sale.links);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Unit")]
         public void SaleNullIdTest()
         {
-            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Sale.Get(UnitTestUtil.GetApiContext(), null));
+            UnitTestUtil.AssertThrownException<System.ArgumentNullException>(() => Sale.Get(new APIContext("token"), null));
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Unit")]
         public void SaleConvertToJsonTest()
         {
             Assert.IsFalse(GetSale().ConvertToJson().Length == 0);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Unit")]
         public void SaleToStringTest()
         {
             Assert.IsFalse(GetSale().ToString().Length == 0);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Functional")]
         public void SaleGetTest()
         {
             var saleId = "4V7971043K262623A";
@@ -59,7 +59,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(saleId, sale.id);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("Functional")]
         public void SaleRefundTest()
         {
             // Create a credit card sale payment

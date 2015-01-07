@@ -16,7 +16,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<PlanList>(PlanListJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PlanListObjectTest()
         {
             var testObject = GetPlanList();
@@ -24,13 +24,13 @@ namespace PayPal.UnitTest
             Assert.IsTrue(testObject.plans.Count == 1);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PlanListConvertToJsonTest()
         {
             Assert.IsFalse(GetPlanList().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PlanListToStringTest()
         {
             Assert.IsFalse(GetPlanList().ToString().Length == 0);

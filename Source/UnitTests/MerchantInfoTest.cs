@@ -26,7 +26,7 @@ namespace PayPal.UnitTest
             return JsonFormatter.ConvertFromJson<MerchantInfo>(MerchantInfoJson);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void MerchantInfoObjectTest()
         {
             var testObject = GetMerchantInfo();
@@ -38,13 +38,13 @@ namespace PayPal.UnitTest
             Assert.IsNotNull(testObject.address);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void MerchantInfoConvertToJsonTest()
         {
             Assert.IsFalse(GetMerchantInfo().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void MerchantInfoToStringTest()
         {
             Assert.IsFalse(GetMerchantInfo().ToString().Length == 0);

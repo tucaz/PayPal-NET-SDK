@@ -23,7 +23,7 @@ namespace PayPal.UnitTest
             return info;
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayerInfoObjectTest()
         {
             var info = GetPayerInfo();
@@ -34,13 +34,13 @@ namespace PayPal.UnitTest
             Assert.AreEqual("5032141716", info.phone);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayerInfoConvertToJsonTest()
         {
             Assert.IsFalse(GetPayerInfo().ConvertToJson().Length == 0);
         }
 
-        [TestMethod()]
+        [TestMethod, TestCategory("Unit")]
         public void PayerInfoToStringTest()
         {
             Assert.IsFalse(GetPayerInfo().ToString().Length == 0);
