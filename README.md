@@ -1,5 +1,7 @@
 # PayPal .NET SDK
 
+[![Build Status](https://ci.appveyor.com/api/projects/status/d4ry30sb6cc95xay?svg=true)](https://ci.appveyor.com/project/paypal/paypal-net-sdk)
+
 > **Before using this SDK, please be aware of the [existing issues and currently available or upcoming features](https://github.com/paypal/rest-api-sdk-python/wiki/Existing-Issues-and-Unavailable%5CUpcoming-features) for the PayPal REST APIs (which all PayPal REST API SDKs are based upon).**
 
 ## Contents
