@@ -3074,7 +3074,55 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "PayoutCreate.aspx.cs",
         "targetPath": "PayoutCreate.aspx",
         "pageTitle": "PayoutCreate.aspx",
-        "title": "PayoutCreate.aspx"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Create Batch Payout",
+            "slug": "create-batch-payout",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Api Context",
+                "slug": "api-context"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "sender_batch_header",
+                    "slug": "sender-batch-header"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "items",
+                    "slug": "items"
+                  },
+                  "depth": 4
+                }
+              ]
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Payout.Create()",
+                "slug": "payoutcreate"
+              },
+              "depth": 3
+            }
+          ]
+        },
+        "title": "Create Batch Payout"
       },
       "depth": 1,
       "outline": [
@@ -3084,6 +3132,33 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "level": 3,
             "title": "Api Context",
             "slug": "api-context"
+          },
+          "depth": 3,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "sender_batch_header",
+                "slug": "sender-batch-header"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "items",
+                "slug": "items"
+              },
+              "depth": 4
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Payout.Create()",
+            "slug": "payoutcreate"
           },
           "depth": 3
         }
@@ -3105,7 +3180,44 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "PayoutGet.aspx.cs",
         "targetPath": "PayoutGet.aspx",
         "pageTitle": "PayoutGet.aspx",
-        "title": "PayoutGet.aspx"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Get Batch Payout Details",
+            "slug": "get-batch-payout-details",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Api Context",
+                "slug": "api-context"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Batch Payout ID",
+                "slug": "batch-payout-id"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Payout.Get()",
+                "slug": "payoutget"
+              },
+              "depth": 3
+            }
+          ]
+        },
+        "title": "Get Batch Payout Details"
       },
       "depth": 1,
       "outline": [
@@ -3115,6 +3227,22 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "level": 3,
             "title": "Api Context",
             "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Batch Payout ID",
+            "slug": "batch-payout-id"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Payout.Get()",
+            "slug": "payoutget"
           },
           "depth": 3
         }
@@ -3136,7 +3264,44 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "PayoutItemGet.aspx.cs",
         "targetPath": "PayoutItemGet.aspx",
         "pageTitle": "PayoutItemGet.aspx",
-        "title": "PayoutItemGet.aspx"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Get Batch Payout Item Details",
+            "slug": "get-batch-payout-item-details",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Api Context",
+                "slug": "api-context"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Batch Payout Item ID",
+                "slug": "batch-payout-item-id"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "PayoutItemDetails.Get()",
+                "slug": "payoutitemdetailsget"
+              },
+              "depth": 3
+            }
+          ]
+        },
+        "title": "Get Batch Payout Item Details"
       },
       "depth": 1,
       "outline": [
@@ -3146,6 +3311,22 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "level": 3,
             "title": "Api Context",
             "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Batch Payout Item ID",
+            "slug": "batch-payout-item-id"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "PayoutItemDetails.Get()",
+            "slug": "payoutitemdetailsget"
           },
           "depth": 3
         }

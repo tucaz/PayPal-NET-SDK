@@ -86,7 +86,6 @@
     <ExternalCompile Include="Api\PayPalResourceObject.cs" />
     <ExternalCompile Include="Api\PayPalSerializableListObject.cs" />
     <ExternalCompile Include="Api\PayPalSerializableObject.cs" />
-    <ExternalCompile Include="Api\Percentage.cs" />
     <ExternalCompile Include="Api\Phone.cs" />
     <ExternalCompile Include="Api\Plan.cs" />
     <ExternalCompile Include="Api\PlanList.cs" />

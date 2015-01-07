@@ -127,7 +127,8 @@ namespace PayPal.Api
             ArgumentValidator.Validate(refund, "refund");
 
             // Configure and send the request
-            var resourcePath = "v1/payments/sale/{0}/refund";
+            var pattern = "v1/payments/sale/{0}/refund";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { saleId });
             return PayPalResource.ConfigureAndExecute<Refund>(apiContext, HttpMethod.POST, resourcePath, refund.ConvertToJson());
         }
     }

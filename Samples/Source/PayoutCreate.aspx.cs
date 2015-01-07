@@ -1,4 +1,7 @@
-﻿using System;
+﻿// # Create Batch Payout
+// This sample code demonstrates how you can create a batch payout.
+// More Information: https://developer.paypal.com/docs/integration/direct/payouts-overview/
+using System;
 using System.Collections.Generic;
 using PayPal.Api;
 
@@ -16,13 +19,22 @@ namespace PayPal.Sample
             // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
             var apiContext = Configuration.GetAPIContext();
 
+            // ### Initialize `Payout` Object
+            // Initialize a new `Payout` object with details of the batch payout to be created.
             var payout = new Payout
             {
+                // #### sender_batch_header
+                // Describes how the payments defined in the `items` array are to be handled.
                 sender_batch_header = new PayoutSenderBatchHeader
                 {
                     sender_batch_id = "batch_" + System.Guid.NewGuid().ToString().Substring(0, 8),
                     email_subject = "You have a payment"
                 },
+                // #### items
+                // The `items` array contains the list of payout items to be included in this payout.
+                // If `syncMode` is set to `true` when calling `Payout.Create()`, then the `items` array must only
+                // contain **one** item.  If `syncMode` is set to `false` when calling `Payout.Create()`, then the `items`
+                // array can contain more than one item.
                 items = new List<PayoutItem>
                 {
                     new PayoutItem
@@ -64,19 +76,25 @@ namespace PayPal.Sample
                 }
             };
 
+            // ^ Ignore workflow code segment
             #region Track Workflow
-            //--------------------
             this.flow.AddNewRequest("Create payout", payout);
-            //--------------------
             #endregion
 
+            // ### Payout.Create()
+            // Creates the batch payout resource.
+            // `syncMode = false` indicates that this call will be performed **asynchronously**,
+            // and will return a `payout_batch_id` that can be used to check the status of the payouts in the batch.
+            // `syncMode = true` indicates that this call will be performed **synchronously** and will return once the payout has been processed.
+            // > **NOTE**: The `items` array can only have **one** item if `syncMode` is set to `true`.
             var createdPayout = payout.Create(apiContext, false);
 
+            // ^ Ignore workflow code segment
             #region Track Workflow
-            //--------------------
             this.flow.RecordResponse(createdPayout);
-            //--------------------
             #endregion
+
+            // For more information, please visit [PayPal Developer REST API Reference](https://developer.paypal.com/docs/api/).
         }
     }
 }
