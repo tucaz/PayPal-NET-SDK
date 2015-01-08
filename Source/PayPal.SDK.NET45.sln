@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 11.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPal.SDK.NET45", "SDK\PayPal.SDK.NET45.csproj", "{CFCC4700-771A-46BA-A189-137034601158}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPal.SDK.NET45.UnitTests", "UnitTests\PayPal.SDK.NET45.UnitTests.csproj", "{0F307BFE-6D0C-4296-9D09-148A4DF275CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPal.SDK.NET45.Tests", "Tests\PayPal.SDK.NET45.Tests.csproj", "{0F307BFE-6D0C-4296-9D09-148A4DF275CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

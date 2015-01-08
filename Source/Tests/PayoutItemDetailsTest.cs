@@ -1,0 +1,60 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PayPal.Api;
+
+namespace PayPal.Testing
+{
+    [TestClass()]
+    public class PayoutItemDetailsTest
+    {
+        public static readonly string PayoutItemDetailsJson = 
+            "{\"payout_item_id\":\"7SB2EHDQ8MWCS\"," +
+            "\"transaction_status\":\"PENDING\"," +
+            "\"payout_item_fee\":" + CurrencyTest.CurrencyJson + "," +
+            "\"payout_batch_id\":\"CFBTNR3EKL8A8\"," +
+            "\"payout_item\":" + PayoutItemTest.PayoutItemJson + "," +
+            "\"links\":[{" +
+                "\"href\":\"https://api.sandbox.paypal.com/v1/payments/payouts-item/7SB2EHDQ8MWCS\"," +
+                "\"rel\":\"item\"," +
+                "\"method\":\"GET\"}]}";
+
+        public static PayoutItemDetails GetPayoutItemDetails()
+        {
+            return JsonFormatter.ConvertFromJson<PayoutItemDetails>(PayoutItemDetailsJson);
+        }
+
+        [TestMethod, TestCategory("Unit")]
+        public void PayoutItemDetailsObjectTest()
+        {
+            var testObject = GetPayoutItemDetails();
+            Assert.IsNotNull(testObject);
+            Assert.AreEqual("7SB2EHDQ8MWCS", testObject.payout_item_id);
+            Assert.AreEqual(PayoutTransactionStatus.PENDING, testObject.transaction_status);
+            Assert.AreEqual("CFBTNR3EKL8A8", testObject.payout_batch_id);
+            Assert.IsNotNull(testObject.payout_item_fee);
+            Assert.IsNotNull(testObject.payout_item);
+            Assert.IsNotNull(testObject.links);
+        }
+
+        [TestMethod, TestCategory("Unit")]
+        public void PayoutItemDetailsConvertToJsonTest()
+        {
+            Assert.IsFalse(GetPayoutItemDetails().ConvertToJson().Length == 0);
+        }
+
+        [TestMethod, TestCategory("Unit")]
+        public void PayoutItemDetailsToStringTest()
+        {
+            Assert.IsFalse(GetPayoutItemDetails().ToString().Length == 0);
+        }
+
+        [TestMethod, TestCategory("Functional")]
+        public void PayoutItemDetailsGetTest()
+        {
+            var payoutItemId = "G2CFT8SJRB7RN";
+            var payoutItemDetails = PayoutItemDetails.Get(TestingUtil.GetApiContext(), payoutItemId);
+            Assert.IsNotNull(payoutItemDetails);
+            Assert.AreEqual(payoutItemId, payoutItemDetails.payout_item_id);
+            Assert.AreEqual("8NX77PFLN255E", payoutItemDetails.payout_batch_id);
+        }
+    }
+}
