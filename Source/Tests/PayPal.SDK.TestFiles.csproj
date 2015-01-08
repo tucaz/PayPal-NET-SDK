@@ -56,7 +56,7 @@
     <ExternalCompile Include="TermsTest.cs" />
     <ExternalCompile Include="TransactionTest.cs" />
     <ExternalCompile Include="InvoiceAddressTest.cs" />
-    <ExternalCompile Include="UnitTestUtil.cs" />
+    <ExternalCompile Include="TestingUtil.cs" />
     <ExternalCompile Include="WebhookEventListTest.cs" />
     <ExternalCompile Include="WebhookEventTest.cs" />
     <ExternalCompile Include="WebhookEventTypeListTest.cs" />
