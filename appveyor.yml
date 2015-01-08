@@ -15,7 +15,7 @@ version: 1.2.1.{build}
 branches:
   # whitelist
   only:
-    - ci-support
+    - master
  
 # Do not build on tags (GitHub only)
 skip_tags: true
