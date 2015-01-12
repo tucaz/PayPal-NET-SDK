@@ -151,6 +151,12 @@ namespace PayPal.Api
         public Metadata metadata { get; set; }
 
         /// <summary>
+        /// Any miscellaneous invoice data. 4000 characters max.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "additional_data")]
+        public string additional_data { get; set; }
+
+        /// <summary>
         /// Creates a new invoice Resource.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>

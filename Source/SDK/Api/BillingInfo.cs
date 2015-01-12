@@ -51,5 +51,17 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "additional_info")]
         public string additional_info { get; set; }
+
+        /// <summary>
+        /// Preferred notification channel of the payer. Email by default.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "notification_channel")]
+        public string notification_channel { get; set; }
+
+        /// <summary>
+        /// Mobile Phone number of the recipient to which SMS will be sent if notification_channel is SMS.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "phone")]
+        public Phone phone { get; set; }
     }
 }
