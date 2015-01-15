@@ -1202,6 +1202,16 @@
             Option to display additional information such as business hours. 40 characters max.
             </summary>
         </member>
+        <member name="P:PayPal.Api.BillingInfo.notification_channel">
+            <summary>
+            Preferred notification channel of the payer. Email by default.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.BillingInfo.phone">
+            <summary>
+            Mobile Phone number of the recipient to which SMS will be sent if notification_channel is SMS.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.CancelNotification.subject">
             <summary>
             Subject of the notification.
@@ -2168,6 +2178,11 @@
             Audit information for the invoice.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Invoice.additional_data">
+            <summary>
+            Any miscellaneous invoice data. 4000 characters max.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.InvoiceItem.name">
             <summary>
             Name of the item. 60 characters max.
@@ -2451,6 +2466,11 @@
         <member name="P:PayPal.Api.Metadata.last_sent_by">
             <summary>
             Email address of the account that last sent the resource.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Metadata.payer_view_url">
+            <summary>
+            URL representing the payer's view of the invoice.
             </summary>
         </member>
         <member name="P:PayPal.Api.NameValuePair.name">
@@ -2872,7 +2892,7 @@
         </member>
         <member name="P:PayPal.Api.PaymentDetail.method">
             <summary>
-            Payment mode or method. This field is mandatory if the value of the type field is OTHER.
+            Payment mode or method. This field is mandatory if the value of the type field is EXTERNAL.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentDetail.note">
@@ -4273,13 +4293,13 @@
         </member>
         <member name="M:PayPal.IdentityException.#ctor(PayPal.HttpException)">
             <summary>
-            Copy constructor that attempts to deserialize the response from the specified <paramref name="PayPal.Exception.HttpException"/>.
+            Copy constructor that attempts to deserialize the response from the specified <paramref name="PayPal.HttpException"/>.
             </summary>
-            <param name="ex">Originating <see cref="!:PayPal.Exception.HttpException"/> object that contains the details of the exception.</param>
+            <param name="ex">Originating <see cref="T:PayPal.HttpException"/> object that contains the details of the exception.</param>
         </member>
         <member name="P:PayPal.IdentityException.Details">
             <summary>
-            Gets a <see cref="!:PayPal.Exception.IdentityError"/> JSON object containing the parsed details of the Identity error.
+            Gets a <see cref="T:PayPal.IdentityError"/> JSON object containing the parsed details of the Identity error.
             </summary>
         </member>
         <member name="P:PayPal.IdentityException.ExceptionMessagePrefix">
@@ -4339,13 +4359,13 @@
         </member>
         <member name="M:PayPal.PaymentsException.#ctor(PayPal.HttpException)">
             <summary>
-            Copy constructor that attempts to deserialize the response from the specified <paramref name="PayPal.Exception.HttpException"/>.
+            Copy constructor that attempts to deserialize the response from the specified <paramref name="PayPal.HttpException"/>.
             </summary>
-            <param name="ex">Originating <see cref="!:PayPal.Exception.HttpException"/> object that contains the details of the exception.</param>
+            <param name="ex">Originating <see cref="T:PayPal.HttpException"/> object that contains the details of the exception.</param>
         </member>
         <member name="P:PayPal.PaymentsException.Details">
             <summary>
-            Gets a <see cref="!:PayPal.Exception.PaymentsError"/> JSON object containing the parsed details of the Payments error.
+            Gets a <see cref="!:PayPal.PaymentsError"/> JSON object containing the parsed details of the Payments error.
             </summary>
         </member>
         <member name="P:PayPal.PaymentsException.ExceptionMessagePrefix">
@@ -4414,6 +4434,34 @@
             Returns the ICredential configured for the API call
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:PayPal.Api.JsonFormatter">
+            <summary>
+            Helper class that handles serializing and deserializing to and from JSON strings, respectively.
+            </summary>
+        </member>
+        <member name="M:PayPal.Api.JsonFormatter.ConvertToJson``1(``0)">
+            <summary>
+            Converts the specified object to a JSON string.
+            </summary>
+            <typeparam name="T">A JSON-serializable object type.</typeparam>
+            <param name="t">The object to be serialized.</param>
+            <returns>A JSON string representing the specified object.</returns>
+        </member>
+        <member name="M:PayPal.Api.JsonFormatter.ConvertFromJson``1(System.String)">
+            <summary>
+            Converts the specified JSON string to the specified object.
+            </summary>
+            <typeparam name="T">The object type to which the JSON string will be deserialized.</typeparam>
+            <param name="value">A JSON string.</param>
+            <returns>An object containing the data from the JSON string.</returns>
+        </member>
+        <member name="M:PayPal.Api.JsonFormatter.ErrorHandler(System.Object,Newtonsoft.Json.Serialization.ErrorEventArgs)">
+            <summary>
+            Error handler for errors encountered while attempting to deserialize a JSON string.
+            </summary>
+            <param name="sender">Object that sent the event</param>
+            <param name="e">Event arguments</param>
         </member>
         <member name="T:PayPal.Log.BaseLogger">
             <summary>
