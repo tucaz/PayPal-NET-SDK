@@ -141,7 +141,7 @@ namespace PayPal.Api
                             using (StreamReader readerStream = new StreamReader(responseWeb.GetResponseStream()))
                             {
                                 string response = readerStream.ReadToEnd().Trim();
-                                logger.Debug("Service response");
+                                logger.Debug("Service response: ");
                                 logger.Debug(response);
                                 return response;
                             }
