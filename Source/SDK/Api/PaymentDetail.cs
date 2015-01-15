@@ -35,7 +35,7 @@ namespace PayPal.Api
         public string date { get; set; }
 
         /// <summary>
-        /// Payment mode or method. This field is mandatory if the value of the type field is OTHER.
+        /// Payment mode or method. This field is mandatory if the value of the type field is EXTERNAL.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "method")]
         public string method { get; set; }

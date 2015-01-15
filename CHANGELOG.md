@@ -1,6 +1,14 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.2.2
+* Add missing class properties for invoicing:
+  * `BillingInfo.notification_channel`
+  * `BillingInfo.phone`
+  * `Invoice.additional_data`
+  * `Metadata.payer_view_url`
+* Log records missing object fields when deserializing JSON strings
+
 ## v1.2.1
 * Fix `Sale.Refund()`
 * Remove empty `Percentage` class

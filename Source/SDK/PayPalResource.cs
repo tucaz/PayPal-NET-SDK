@@ -169,7 +169,7 @@ namespace PayPal
                     }
                     else
                     {
-                        return JsonConvert.DeserializeObject<T>(response);
+                        return JsonFormatter.ConvertFromJson<T>(response);
                     }
                 }
                 else

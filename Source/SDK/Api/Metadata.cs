@@ -63,5 +63,11 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "last_sent_by")]
         public string last_sent_by { get; set; }
+
+        /// <summary>
+        /// URL representing the payer's view of the invoice.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payer_view_url")]
+        public string payer_view_url { get; set; }
     }
 }

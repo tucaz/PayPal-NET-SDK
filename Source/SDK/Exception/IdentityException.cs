@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
+using PayPal.Api;
 
 namespace PayPal
 {
@@ -10,19 +11,19 @@ namespace PayPal
     public class IdentityException : HttpException
     {
         /// <summary>
-        /// Gets a <see cref="PayPal.Exception.IdentityError"/> JSON object containing the parsed details of the Identity error.
+        /// Gets a <see cref="PayPal.IdentityError"/> JSON object containing the parsed details of the Identity error.
         /// </summary>
         public IdentityError Details { get; private set; }
 
         /// <summary>
-        /// Copy constructor that attempts to deserialize the response from the specified <paramref name="PayPal.Exception.HttpException"/>.
+        /// Copy constructor that attempts to deserialize the response from the specified <paramref name="PayPal.HttpException"/>.
         /// </summary>
-        /// <param name="ex">Originating <see cref="PayPal.Exception.HttpException"/> object that contains the details of the exception.</param>
+        /// <param name="ex">Originating <see cref="PayPal.HttpException"/> object that contains the details of the exception.</param>
         public IdentityException(HttpException ex) : base(ex)
         {
             if (!string.IsNullOrEmpty(this.Response))
             {
-                this.Details = JsonConvert.DeserializeObject<IdentityError>(this.Response);
+                this.Details = JsonFormatter.ConvertFromJson<IdentityError>(this.Response);
 
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine();
