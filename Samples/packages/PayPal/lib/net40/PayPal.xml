@@ -351,31 +351,37 @@
         <member name="P:PayPal.Api.FundingInstrument.payment_card">
             <summary>
             Payment Card information.
+            <para>NOTE: This property is currently not supported as a funding instrument option with the PayPal REST API.</para>
             </summary>
         </member>
         <member name="P:PayPal.Api.FundingInstrument.bank_account">
             <summary>
             Bank Account information.
+            <para>NOTE: This property is currently not supported as a funding instrument option with the PayPal REST API.</para>
             </summary>
         </member>
         <member name="P:PayPal.Api.FundingInstrument.bank_account_token">
             <summary>
             Bank Account information.
+            <para>NOTE: This property is currently not supported as a funding instrument option with the PayPal REST API.</para>
             </summary>
         </member>
         <member name="P:PayPal.Api.FundingInstrument.credit">
             <summary>
             Credit funding information.
+            <para>NOTE: This property is currently not supported as a funding instrument option with the PayPal REST API.</para>
             </summary>
         </member>
         <member name="P:PayPal.Api.FundingInstrument.incentive">
             <summary>
             Incentive funding information.
+            <para>NOTE: This property is currently not supported as a funding instrument option with the PayPal REST API.</para>
             </summary>
         </member>
         <member name="P:PayPal.Api.FundingInstrument.carrier_account_token">
             <summary>
             Carrier account token information.
+            <para>NOTE: This property is currently not supported as a funding instrument option with the PayPal REST API.</para>
             </summary>
         </member>
         <member name="P:PayPal.Api.InstallmentOption.term">
@@ -396,6 +402,58 @@
         <member name="P:PayPal.Api.InstallmentOption.discount_percentage">
             <summary>
             Discount percentage applied to the payment, if any
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayoutTransactionStatus.SUCCESS">
+            <summary>
+            The item has been successfully processed.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayoutTransactionStatus.DENIED">
+            <summary>
+            The item has been denied payment.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayoutTransactionStatus.PENDING">
+            <summary>
+            The item is awaiting payment.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayoutTransactionStatus.PROCESSING">
+            <summary>
+            The item is being processed.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayoutTransactionStatus.FAILED">
+            <summary>
+            Processing failed for the item.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayoutTransactionStatus.UNCLAIMED">
+            <summary>
+            The item is unclaimed. If the item is not claimed within 30 days, the funds will be returned to the sender.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayoutTransactionStatus.RETURNED">
+            <summary>
+            The item is returned. The funds are returned if the recipient hasn't claimed them in 30 days.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayoutTransactionStatus.ONHOLD">
+            <summary>
+            The item is on hold.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayoutTransactionStatus.BLOCKED">
+            <summary>
+            The item is blocked.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayoutTransactionStatus.CANCELLED">
+            <summary>
+            It is not possible for the CANCELLED state to occur if the sender is solely using the API to send Payouts.
+            This status is an edge-case if a sender uses both the MassPay web upload and the Payouts API, cancels the
+            web upload, and then uses the API to find the batch/items. In this case, CANCELLED status is possible.
             </summary>
         </member>
         <member name="M:PayPal.Api.Invoice.Create(PayPal.Api.APIContext)">
@@ -1888,6 +1946,22 @@
             Phone extension
             </summary>
         </member>
+        <member name="M:PayPal.Api.PayoutItem.Get(PayPal.Api.APIContext,System.String)">
+            <summary>
+            Obtain the status of a payout item by passing the item ID to the request URI.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="payoutItemId">Payouts generated payout_item_id to obtain status.</param>
+            <returns>PayoutItemDetails</returns>
+        </member>
+        <member name="M:PayPal.Api.PayoutItem.Cancel(PayPal.Api.APIContext,System.String)">
+            <summary>
+            Cancels the unclaimed payment using the items id passed in the request URI.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="payoutItemId">Payouts generated payout_item_id to obtain status.</param>
+            <returns>PayoutItemDetails</returns>
+        </member>
         <member name="P:PayPal.Api.PayoutItem.recipient_type">
             <summary>
             The type of identification for the payment receiver. If this field is provided, the payout items without a `recipient_type` will use the provided value. If this field is not provided, each payout item must include a value for the `recipient_type`. 
@@ -2495,8 +2569,8 @@
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="agreementId">Identifier of the agreement resource for which to list transactions.</param>
-            <param name="startDate">The start date of the range of transactions to list.</param>
-            <param name="endDate">The end date of the range of transactions to list.</param>
+            <param name="startDate">The start date of the range of transactions to list. Date format must be yyyy-MM-dd.</param>
+            <param name="endDate">The end date of the range of transactions to list. Date format must be yyyy-MM-dd.</param>
             <returns>AgreementTransactions</returns>
         </member>
         <member name="P:PayPal.Api.Agreement.id">
@@ -3650,6 +3724,11 @@
             </summary>
         </member>
         <member name="P:PayPal.Api.AgreementTransaction.time_updated">
+            <summary>
+            Time at which this transaction happened.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.AgreementTransaction.time_stamp">
             <summary>
             Time at which this transaction happened.
             </summary>

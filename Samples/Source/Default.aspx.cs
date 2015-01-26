@@ -80,7 +80,8 @@ namespace PayPal.Sample
                             new SampleItem { Title = "Retrieve a list of billing plans", ExecutePage = "BillingPlanGetList.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Setup a billing agreement using a PayPal account", ExecutePage = "BillingAgreementCreateAndExecute.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Setup a billing agreement using a credit card", ExecutePage = "BillingAgreementWithCreditCard.aspx", HasSourcePage = true },
-                            new SampleItem { Title = "Retrieve the details of a billing agreement", ExecutePage = "BillingAgreementGet.aspx", HasSourcePage = true }
+                            new SampleItem { Title = "Retrieve the details of a billing agreement", ExecutePage = "BillingAgreementGet.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Retrieve a list of transactions for a billing agreement", ExecutePage = "BillingAgreementListTransactions.aspx", HasSourcePage = true }
                         }
                     },
                     new SampleCategory
@@ -125,7 +126,8 @@ namespace PayPal.Sample
                         {
                             new SampleItem { Title = "Create a payout", ExecutePage = "PayoutCreate.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Retrieve the details of a payout", ExecutePage = "PayoutGet.aspx", HasSourcePage = true },
-                            new SampleItem { Title = "Retrieve the details of a payout item", ExecutePage = "PayoutItemGet.aspx", HasSourcePage = true }
+                            new SampleItem { Title = "Retrieve the details of a payout item", ExecutePage = "PayoutItemGet.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Cancel a payout item", ExecutePage = "PayoutItemCancel.aspx", HasSourcePage = true }
                         }
                     }
                 };

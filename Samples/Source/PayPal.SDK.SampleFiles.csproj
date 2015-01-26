@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ExternalContent Include="PayoutItemCancel.aspx" />
+    <ExternalContent Include="BillingAgreementListTransactions.aspx" />
     <ExternalContent Include="BillingAgreementCreateAndExecute.aspx" />
     <ExternalContent Include="BillingAgreementGet.aspx" />
     <ExternalContent Include="BillingAgreementWithCreditCard.aspx" />
@@ -62,6 +64,13 @@
     <ExternalContent Include="Scripts\jquery-1.9.0.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ExternalCompile Include="PayoutItemCancel.aspx.cs">
+      <DependentUpon>PayoutItemCancel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PayoutItemCancel.aspx.designer.cs">
+      <DependentUpon>PayoutItemCancel.aspx</DependentUpon>
+    </ExternalCompile>
     <ExternalCompile Include="AuthorizationCapture.aspx.cs">
       <DependentUpon>AuthorizationCapture.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -85,6 +94,13 @@
     </ExternalCompile>
     <ExternalCompile Include="BillingAgreementCreateAndExecute.aspx.designer.cs">
       <DependentUpon>BillingAgreementCreateAndExecute.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingAgreementListTransactions.aspx.cs">
+      <DependentUpon>BillingAgreementListTransactions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="BillingAgreementListTransactions.aspx.designer.cs">
+      <DependentUpon>BillingAgreementListTransactions.aspx</DependentUpon>
     </ExternalCompile>
     <ExternalCompile Include="BillingAgreementGet.aspx.cs">
       <DependentUpon>BillingAgreementGet.aspx</DependentUpon>
