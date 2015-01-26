@@ -59,8 +59,7 @@ namespace PayPal.Sample
                                 last_name = "Shopper",
                                 number = "4877274905927862",
                                 type = "visa"
-                            },
-                            bank_account = new ExtendedBankAccount{}
+                            }
                         }
                     },
                     payment_method = "credit_card"
