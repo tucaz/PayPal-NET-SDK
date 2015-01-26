@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api;
+using System.Collections.Generic;
 
 namespace PayPal.Testing
 {
@@ -56,6 +57,35 @@ namespace PayPal.Testing
             var payout = Payout.Get(TestingUtil.GetApiContext(), payoutBatchId);
             Assert.IsNotNull(payout);
             Assert.AreEqual(payoutBatchId, payout.batch_header.payout_batch_id);
+        }
+
+        [Ignore]
+        public static PayoutBatch CreateSingleSynchronousPayoutBatch()
+        {
+            return Payout.Create(TestingUtil.GetApiContext(), new Payout
+            {
+                sender_batch_header = new PayoutSenderBatchHeader
+                {
+                    sender_batch_id = "batch_" + System.Guid.NewGuid().ToString().Substring(0, 8),
+                    email_subject = "You have a Payout!"
+                },
+                items = new List<PayoutItem>
+                {
+                    new PayoutItem
+                    {
+                        recipient_type = PayoutRecipientType.EMAIL,
+                        amount = new Currency
+                        {
+                            value = "1.0",
+                            currency = "USD"
+                        },
+                        note = "Thanks for the payment!",
+                        sender_item_id = "2014031400023",
+                        receiver = "shirt-supplier-one@gmail.com"
+                    }
+                }
+            },
+            true);
         }
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api;
+using System.Collections.Generic;
 
 namespace PayPal.Testing
 {
@@ -42,6 +43,39 @@ namespace PayPal.Testing
         public void PayoutItemToStringTest()
         {
             Assert.IsFalse(GetPayoutItem().ToString().Length == 0);
+        }
+
+        [TestMethod, TestCategory("Functional")]
+        public void PayoutItemGetTest()
+        {
+            var payoutItemId = "G2CFT8SJRB7RN";
+            var payoutItemDetails = PayoutItem.Get(TestingUtil.GetApiContext(), payoutItemId);
+            Assert.IsNotNull(payoutItemDetails);
+            Assert.AreEqual(payoutItemId, payoutItemDetails.payout_item_id);
+            Assert.AreEqual("8NX77PFLN255E", payoutItemDetails.payout_batch_id);
+        }
+
+        [TestMethod, TestCategory("Functional")]
+        public void PayoutItemDetailsCancelTest()
+        {
+            // Create a single synchronous payout with an invalid email address.
+            // This will cause the status to be marked as 'UNCLAIMED', allowing
+            // us to cancel the payout.
+            var payoutBatch = PayoutTest.CreateSingleSynchronousPayoutBatch();
+
+            Assert.IsNotNull(payoutBatch);
+            Assert.IsNotNull(payoutBatch.items);
+            Assert.IsTrue(payoutBatch.items.Count > 0);
+
+            var payoutItem = payoutBatch.items[0];
+
+            if (payoutItem.transaction_status == PayoutTransactionStatus.UNCLAIMED)
+            {
+                var payoutItemDetails = PayoutItem.Cancel(TestingUtil.GetApiContext(), payoutItem.payout_item_id);
+
+                Assert.IsNotNull(payoutItemDetails);
+                Assert.AreEqual(PayoutTransactionStatus.RETURNED, payoutItemDetails.transaction_status);
+            }
         }
     }
 }

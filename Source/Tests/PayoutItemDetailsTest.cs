@@ -46,15 +46,5 @@ namespace PayPal.Testing
         {
             Assert.IsFalse(GetPayoutItemDetails().ToString().Length == 0);
         }
-
-        [TestMethod, TestCategory("Functional")]
-        public void PayoutItemDetailsGetTest()
-        {
-            var payoutItemId = "G2CFT8SJRB7RN";
-            var payoutItemDetails = PayoutItemDetails.Get(TestingUtil.GetApiContext(), payoutItemId);
-            Assert.IsNotNull(payoutItemDetails);
-            Assert.AreEqual(payoutItemId, payoutItemDetails.payout_item_id);
-            Assert.AreEqual("8NX77PFLN255E", payoutItemDetails.payout_batch_id);
-        }
     }
 }

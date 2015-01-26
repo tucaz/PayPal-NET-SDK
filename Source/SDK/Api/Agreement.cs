@@ -348,14 +348,16 @@ namespace PayPal.Api
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="agreementId">Identifier of the agreement resource for which to list transactions.</param>
-        /// <param name="startDate">The start date of the range of transactions to list.</param>
-        /// <param name="endDate">The end date of the range of transactions to list.</param>
+        /// <param name="startDate">The start date of the range of transactions to list. Date format must be yyyy-MM-dd.</param>
+        /// <param name="endDate">The end date of the range of transactions to list. Date format must be yyyy-MM-dd.</param>
         /// <returns>AgreementTransactions</returns>
-        public static AgreementTransactions ListTransactions(APIContext apiContext, string agreementId, string startDate = "", string endDate = "")
+        public static AgreementTransactions ListTransactions(APIContext apiContext, string agreementId, string startDate, string endDate)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
             ArgumentValidator.Validate(agreementId, "agreementId");
+            ArgumentValidator.Validate(startDate, "startDate");
+            ArgumentValidator.Validate(endDate, "endDate");
 
             var queryParameters = new QueryParameters();
             queryParameters["start_date"] = startDate;

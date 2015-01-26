@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using PayPal.Util;
+using System;
 
 namespace PayPal.Api
 {
@@ -74,16 +75,10 @@ namespace PayPal.Api
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="payoutItemId">Payouts generated payout_item_id to obtain status.</param>
         /// <returns>PayoutItemDetails</returns>
+        [Obsolete("This method has been moved to the PayoutItem class.", false)]
         public static PayoutItemDetails Get(APIContext apiContext, string payoutItemId)
         {
-            // Validate the arguments to be used in the request
-            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
-            ArgumentValidator.Validate(payoutItemId, "payoutItemId");
-
-            // Configure and send the request
-            var pattern = "v1/payments/payouts-item/{0}";
-            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { payoutItemId });
-            return PayPalResource.ConfigureAndExecute<PayoutItemDetails>(apiContext, HttpMethod.GET, resourcePath);
+            return PayoutItem.Get(apiContext, payoutItemId);
         }
     }
 }

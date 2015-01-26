@@ -5,6 +5,7 @@
 //
 //==============================================================================
 using Newtonsoft.Json;
+using System;
 
 namespace PayPal.Api
 {
@@ -61,8 +62,19 @@ namespace PayPal.Api
         /// <summary>
         /// Time at which this transaction happened.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "time_updated")]
-        public string time_updated { get; set; }
+        [JsonIgnore]
+        [Obsolete("This property is obsolete. Use time_stamp instead.", false)]
+        public string time_updated
+        {
+            get { return this.time_stamp; }
+            set { this.time_stamp = value; }
+        }
+
+        /// <summary>
+        /// Time at which this transaction happened.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "time_stamp")]
+        public string time_stamp { get; set; }
 
         /// <summary>
         /// Time zone of time_updated field.

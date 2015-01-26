@@ -30,7 +30,7 @@ namespace PayPal.Sample
 
             // ### PayoutItemDetails.Get()
             // Retrieves the details of the specified batch payout item.
-            var payoutItemDetails = PayoutItemDetails.Get(apiContext, payoutItemId);
+            var payoutItemDetails = PayoutItem.Get(apiContext, payoutItemId);
 
             // ^ Ignore workflow code segment
             #region Track Workflow
