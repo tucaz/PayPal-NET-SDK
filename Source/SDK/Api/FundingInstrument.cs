@@ -5,6 +5,8 @@
 //
 //==============================================================================
 using Newtonsoft.Json;
+using System;
+using System.ComponentModel;
 
 namespace PayPal.Api
 {
@@ -22,40 +24,60 @@ namespace PayPal.Api
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_card_token")]
         public CreditCardToken credit_card_token { get; set; }
 
+        #region Unsupported properties (support not yet available in PayPal REST API)
         /// <summary>
         /// Payment Card information.
+        /// <para>NOTE: This property is currently not supported as a funding instrument option with the PayPal REST API.</para>
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_card")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
         public PaymentCard payment_card { get; set; }
 
         /// <summary>
         /// Bank Account information.
+        /// <para>NOTE: This property is currently not supported as a funding instrument option with the PayPal REST API.</para>
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_account")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
         public ExtendedBankAccount bank_account { get; set; }
 
         /// <summary>
         /// Bank Account information.
+        /// <para>NOTE: This property is currently not supported as a funding instrument option with the PayPal REST API.</para>
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_account_token")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
         public BankToken bank_account_token { get; set; }
 
         /// <summary>
         /// Credit funding information.
+        /// <para>NOTE: This property is currently not supported as a funding instrument option with the PayPal REST API.</para>
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
         public Credit credit { get; set; }
 
         /// <summary>
         /// Incentive funding information.
+        /// <para>NOTE: This property is currently not supported as a funding instrument option with the PayPal REST API.</para>
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "incentive")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
         public Incentive incentive { get; set; }
 
         /// <summary>
         /// Carrier account token information.
+        /// <para>NOTE: This property is currently not supported as a funding instrument option with the PayPal REST API.</para>
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "carrier_account_token")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
         public CarrierAccountToken carrier_account_token { get; set; }
+        #endregion
     }
 }
