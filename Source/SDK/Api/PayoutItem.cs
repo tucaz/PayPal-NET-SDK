@@ -6,6 +6,7 @@
 //==============================================================================
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using PayPal.Util;
 
 namespace PayPal.Api
 {
@@ -41,5 +42,41 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sender_item_id")]
         public string sender_item_id { get; set; }
+
+        /// <summary>
+        /// Obtain the status of a payout item by passing the item ID to the request URI.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="payoutItemId">Payouts generated payout_item_id to obtain status.</param>
+        /// <returns>PayoutItemDetails</returns>
+        public static PayoutItemDetails Get(APIContext apiContext, string payoutItemId)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(payoutItemId, "payoutItemId");
+
+            // Configure and send the request
+            var pattern = "v1/payments/payouts-item/{0}";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { payoutItemId });
+            return PayPalResource.ConfigureAndExecute<PayoutItemDetails>(apiContext, HttpMethod.GET, resourcePath);
+        }
+
+        /// <summary>
+        /// Cancels the unclaimed payment using the items id passed in the request URI.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="payoutItemId">Payouts generated payout_item_id to obtain status.</param>
+        /// <returns>PayoutItemDetails</returns>
+        public static PayoutItemDetails Cancel(APIContext apiContext, string payoutItemId)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(payoutItemId, "payoutItemId");
+
+            // Configure and send the request
+            var pattern = "v1/payments/payouts-item/{0}/cancel";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { payoutItemId });
+            return PayPalResource.ConfigureAndExecute<PayoutItemDetails>(apiContext, HttpMethod.POST, resourcePath);
+        }
     }
 }
