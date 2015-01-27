@@ -46,6 +46,15 @@ namespace PayPal.Sample
                             quantity = "5",
                             sku = "sku"
                         }
+                    },
+                    shipping_address = new ShippingAddress
+                    {
+                        city = "Johnstown",
+                        country_code = "US",
+                        line1 = "52 N Main ST",
+                        postal_code = "43210",
+                        state = "OH",
+                        recipient_name = "Joe Buyer"
                     }
                 },
                 invoice_number = Common.GetRandomInvoiceNumber()
@@ -78,6 +87,10 @@ namespace PayPal.Sample
                             type = "visa"
                         }
                     }
+                },
+                payer_info = new PayerInfo
+                {
+                    email = "test@email.com"
                 }
             };
 
