@@ -44,7 +44,7 @@ namespace PayPal.Testing
             Assert.AreEqual(2, webhookEventTypeList.event_types.Count);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [TestMethod, TestCategory("Functional")]
         public void WebhookEventTypeAvailableEventsTest()
         {
             var webhookEventTypeList = WebhookEventType.AvailableEventTypes(TestingUtil.GetApiContext());
