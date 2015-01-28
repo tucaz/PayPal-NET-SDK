@@ -18,37 +18,26 @@ namespace PayPal.Api
         private const string AccessToken = "access_token";
 
         /// <summary>
-        /// Backing map
+        /// Constructor
         /// </summary>
-        private Dictionary<string, string> mapContainer;
-
         public UserinfoParameters()
         {
-            ContainerMap = new Dictionary<string, string>();
-            ContainerMap.Add(Schema, "openid");
+            this.ContainerMap = new Dictionary<string, string>();
+            this.ContainerMap.Add(UserinfoParameters.Schema, "openid");
         }
 
         /// <summary>
         /// Gets and sets the backing map
         /// </summary>
-        public Dictionary<string, string> ContainerMap
-        {
-            get
-            {
-                return this.mapContainer;
-            }
-            set
-            {
-                this.mapContainer = value;
-            }
-        }
+        public Dictionary<string, string> ContainerMap { get; set; }
+
         /// <summary>
         /// Set the Access Token
         /// </summary>
         /// <param name="accessToken"></param>
         public void SetAccessToken(string accessToken)
         {
-            ContainerMap.Add(AccessToken, HttpUtility.UrlEncode(accessToken));
+            this.ContainerMap[UserinfoParameters.AccessToken] = HttpUtility.UrlEncode(accessToken);
         }
     }
 }

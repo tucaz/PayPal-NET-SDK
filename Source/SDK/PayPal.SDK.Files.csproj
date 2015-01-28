@@ -150,5 +150,7 @@
     <ExternalCompile Include="UserAgentHeader.cs" />
     <ExternalCompile Include="Util\QueryParameters.cs" />
     <ExternalCompile Include="Util\SDKUtil.cs" />
+    <ExternalCompile Include="OpenIdConnect\Address.cs" />
+    <ExternalCompile Include="OpenIdConnect\Userinfo.cs" />
   </ItemGroup>
 </Project>

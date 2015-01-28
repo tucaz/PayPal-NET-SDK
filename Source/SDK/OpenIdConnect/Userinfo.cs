@@ -1,11 +1,3 @@
-/* NuGet Install
- * Visual Studio 2005 or 2008
-    * Install Newtonsoft.Json -OutputDirectory .\packages
-    * Add reference from "net20" for Visual Studio 2005 or "net35" for Visual Studio 2008
- * Visual Studio 2010 or higher
-    * Install-Package Newtonsoft.Json
-    * Reference is auto-added 
-*/
 using Newtonsoft.Json;
 using PayPal.Util;
 
@@ -16,348 +8,116 @@ namespace PayPal.Api.OpenIdConnect
         /// <summary>
         /// Subject - Identifier for the End-User at the Issuer
         /// </summary>
-        private string userId;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "user_id")]
+        public string user_id { get; set; }
 
         /// <summary>
         /// Subject - Identifier for the End-User at the Issuer
         /// </summary>
-        private string subject;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sub")]
+        public string sub { get; set; }
 
         /// <summary>
         /// End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences
         /// </summary>
-        private string fullName;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
+        public string name { get; set; }
 
         /// <summary>
         /// Given name(s) or first name(s) of the End-User
         /// </summary>
-        private string givenName;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "given_name")]
+        public string given_name { get; set; }
 
         /// <summary>
         /// Surname(s) or last name(s) of the End-User
         /// </summary>
-        private string familyName;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "family_name")]
+        public string family_name { get; set; }
 
         /// <summary>
         /// Middle name(s) of the End-User
         /// </summary>
-        private string middleName;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "middle_name")]
+        public string middle_name { get; set; }
 
         /// <summary>
         /// URL of the End-User's profile picture
         /// </summary>
-        private string profilePicture;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "picture")]
+        public string picture { get; set; }
 
         /// <summary>
         /// End-User's preferred e-mail address
         /// </summary>
-        private string emailAddress;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email")]
+        public string email { get; set; }
 
         /// <summary>
         /// True if the End-User's e-mail address has been verified; otherwise false
         /// </summary>
-        private bool emailVerified;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email_verified")]
+        public bool? email_verified { get; set; }
 
         /// <summary>
         /// End-User's gender.
         /// </summary>
-        private string userGender;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gender")]
+        public string gender { get; set; }
 
         /// <summary>
         /// End-User's birthday, represented as an YYYY-MM-DD format. They year MAY be 0000, indicating it is omited. To represent only the year, YYYY format would be used
         /// </summary>
-        private string dateOfBirth;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "birthdate")]
+        public string birthdate { get; set; }
 
         /// <summary>
         /// Time zone database representing the End-User's time zone
         /// </summary>
-        private string zoneInformation;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "zoneinfo")]
+        public string zoneinfo { get; set; }
 
         /// <summary>
         /// End-User's locale.
         /// </summary>
-        private string localeName;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "locale")]
+        public string locale { get; set; }
 
         /// <summary>
         /// End-User's preferred telephone number
         /// </summary>
-        private string phoneNumber;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "phone_number")]
+        public string phone_number { get; set; }
 
         /// <summary>
         /// End-User's preferred address
         /// </summary>
-        private Address userAddress;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "address")]
+        public Address address { get; set; }
+
         /// <summary>
         /// Verified account status
         /// </summary>
-        private bool verifiedAccount;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "verified_account")]
+        public bool? verified_account { get; set; }
 
         /// <summary>
         /// Account type.
         /// </summary>
-        private string accountType;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_type")]
+        public string account_type { get; set; }
 
         /// <summary>
         /// Account holder age range.
         /// </summary>
-        private string ageRange;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "age_range")]
+        public string age_range { get; set; }
 
         /// <summary>
         /// Account payer identifier.
         /// </summary>
-        private string payerId;
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string user_id
-        {
-            get
-            {
-                return userId;
-            }
-            set
-            {
-                userId = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string sub
-        {
-            get
-            {
-                return subject;
-            }
-            set
-            {
-                subject = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string name
-        {
-            get
-            {
-                return fullName;
-            }
-            set
-            {
-                fullName = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string given_name
-        {
-            get
-            {
-                return givenName;
-            }
-            set
-            {
-                givenName = value;
-            }
-        }
-        
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string family_name
-        {
-            get
-            {
-                return familyName;
-            }
-            set
-            {
-                familyName = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string middle_name
-        {
-            get
-            {
-                return middleName;
-            }
-            set
-            {
-                middleName = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string picture
-        {
-            get
-            {
-                return profilePicture;
-            }
-            set
-            {
-                profilePicture = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string email
-        {
-            get
-            {
-                return emailAddress;
-            }
-            set
-            {
-                emailAddress = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool email_verified
-        {
-            get
-            {
-                return emailVerified;
-            }
-            set
-            {
-                emailVerified = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string gender
-        {
-            get
-            {
-                return userGender;
-            }
-            set
-            {
-                userGender = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string birthdate
-        {
-            get
-            {
-                return dateOfBirth;
-            }
-            set
-            {
-                dateOfBirth = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string zoneinfo
-        {
-            get
-            {
-                return zoneInformation;
-            }
-            set
-            {
-                zoneInformation = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string locale
-        {
-            get
-            {
-                return localeName;
-            }
-            set
-            {
-                localeName = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string phone_number
-        {
-            get
-            {
-                return phoneNumber;
-            }
-            set
-            {
-                phoneNumber = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Address address
-        {
-            get
-            {
-                return userAddress;
-            }
-            set
-            {
-                userAddress = value;
-            }
-        }
-        
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool verified_account
-        {
-            get
-            {
-                return verifiedAccount;
-            }
-            set
-            {
-                verifiedAccount = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string account_type
-        {
-            get
-            {
-                return accountType;
-            }
-            set
-            {
-                accountType = value;
-            }
-        }
-        
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string age_range
-        {
-            get
-            {
-                return ageRange;
-            }
-            set
-            {
-                ageRange = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string payer_id
-        {
-            get
-            {
-                return payerId;
-            }
-            set
-            {
-                payerId = value;
-            }
-        }
-
-        /// <summary>
-        /// Explicit default constructor
-        /// </summary>
-        public Userinfo() { }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payer_id")]
+        public string payer_id { get; set; }
 
         /// <summary>
         /// Returns user details
@@ -378,13 +138,12 @@ namespace PayPal.Api.OpenIdConnect
             string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
             object[] parameters = new object[] { userinfoParameters };
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = "";
             if (apiContext == null)
             {
                 apiContext = new APIContext();
             }
             apiContext.MaskRequestId = true;
-            return PayPalResource.ConfigureAndExecute<Userinfo>(apiContext, HttpMethod.GET, resourcePath, payLoad);
+            return PayPalResource.ConfigureAndExecute<Userinfo>(apiContext, HttpMethod.GET, resourcePath);
         }
     }
 }

@@ -1,111 +1,38 @@
-/* NuGet Install
- * Visual Studio 2005 or 2008
-    * Install Newtonsoft.Json -OutputDirectory .\packages
-    * Add reference from "net20" for Visual Studio 2005 or "net35" for Visual Studio 2008
- * Visual Studio 2010 or higher
-    * Install-Package Newtonsoft.Json
-    * Reference is auto-added 
-*/
 using Newtonsoft.Json;
 
 namespace PayPal.Api.OpenIdConnect
 {
-	public class Address
+    public class Address
     {
         /// <summary>
         /// Street address component, which may include house number, and street name
         /// </summary>
-        private string street;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "street_address")]
+        public string street_address { get; set; }
 
         /// <summary>
         /// City or locality component
         /// </summary>
-        private string localityName;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "locality")]
+        public string locality { get; set; }
 
         /// <summary>
         /// State, province, prefecture or region component
         /// </summary>
-        private string regionName;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "region")]
+        public string region { get; set; }
 
         /// <summary>
         /// Zip code or postal code component
         /// </summary>
-        private string post;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "postal_code")]
+        public string postal_code { get; set; }
 
         /// <summary>
         /// Country name component.
         /// </summary>
-        private string countryName;
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string street_address
-        {
-            get
-            {
-                return street;
-            }
-            set
-            {
-                street = value;
-            }
-        }
-        
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string locality
-        {
-            get
-            {
-                return localityName;
-            }
-            set
-            {
-                localityName = value;
-            }
-        }
-   
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string region
-        {
-            get
-            {
-                return regionName;
-            }
-            set
-            {
-                regionName = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string postal_code
-        {
-            get
-            {
-                return post;
-            }
-            set
-            {
-                post = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string country
-        {
-            get
-            {
-                return countryName;
-            }
-            set
-            {
-                countryName = value;
-            }
-        }
-
-        /// <summary>
-        /// Explicit default constructor
-        /// </summary>
-        public Address() { }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "country")]
+        public string country { get; set; }
     }
 }
 

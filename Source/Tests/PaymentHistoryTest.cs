@@ -11,7 +11,7 @@ namespace PayPal.Testing
         public static PaymentHistory GetPaymentHistory()
         {
             List<Payment> paymentList = new List<Payment>();
-            paymentList.Add(PaymentTest.CreatePaymentForSale());
+            paymentList.Add(PaymentTest.GetPaymentForSale());
             PaymentHistory history = new PaymentHistory();
             history.count = 1;
             history.payments = paymentList;
