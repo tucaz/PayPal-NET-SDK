@@ -66,6 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="@(ExternalCompile)" />
+    <Compile Include="OpenIdConnect\Address.cs" />
+    <Compile Include="OpenIdConnect\Userinfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
