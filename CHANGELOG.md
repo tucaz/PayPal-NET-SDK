@@ -1,6 +1,17 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.3.0
+* Add `PayoutItem.Cancel()` support
+* Re-add Identity `Userinfo` support
+* Add helper methods to `PayPalResourceObject` base class for HATEOAS links:
+  * `GetHateoasLink()`
+  * `GetApprovalUrl()`, with optional `setUserActionParameter` parameter for **Pay Now** feature
+  * `GetTokenFromApprovalUrl()` (moved from `SDKUtil`)
+* `Agreement.ListTransactions()` now requires `startDate` and `endDate`
+* Deprecate `time_updated` property for `AgreementTransaction` and replace with `time_stamp`
+* Numerous `FundingInstrument` properties marked as currently not supported and hidden from Intellisense view
+
 ## v1.2.2
 * Add missing class properties for invoicing:
   * `BillingInfo.notification_channel`
