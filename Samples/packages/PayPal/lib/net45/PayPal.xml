@@ -139,6 +139,27 @@
             Represents a PayPal model object that will be returned from PayPal containing common resource data.
             </summary>
         </member>
+        <member name="M:PayPal.Api.PayPalResourceObject.GetHateoasLink(System.String)">
+            <summary>
+            Gets the HATEOAS link that matches the specified relation name.
+            </summary>
+            <param name="relationName">The name of the link relation.</param>
+            <returns>A Links object containing the details of the HATEOAS link; null if not found.</returns>
+        </member>
+        <member name="M:PayPal.Api.PayPalResourceObject.GetApprovalUrl(System.Boolean)">
+            <summary>
+            Gets the approval URL from a list of HATEOAS links.
+            </summary>
+            <param name="setUserActionParameter">If true, appends the 'useraction' URL query parameter.
+            <para>For PayPal payments, this will set the approval button text on the PayPal site to "Pay Now".</para></param>
+            <returns>The approval URL or an empty string if not found.</returns>
+        </member>
+        <member name="M:PayPal.Api.PayPalResourceObject.GetTokenFromApprovalUrl">
+            <summary>
+            Gets the resource token from an approval URL HATEOAS link, if found.
+            </summary>
+            <returns>A string containing the resource token associated with an approval URL.</returns>
+        </member>
         <member name="P:PayPal.Api.PayPalResourceObject.links">
             <summary>
             A list of HATEOAS (Hypermedia as the Engine of Application State) links.
@@ -4202,6 +4223,136 @@
             essentially information passed on to any API service for authentication
             </summary>
         </member>
+        <member name="T:PayPal.Api.BaseConstants.HateoasLinkRelations">
+            <summary>
+            Defines string constants for HATEOAS link relations.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Self">
+            <summary>
+            HATEOAS link relation used to get the details of the current resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.ParentPayment">
+            <summary>
+            HATEOAS link relation used to get the details of the parent payment of a payment resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Update">
+            <summary>
+            HATEOAS link relation used to update the current resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Delete">
+            <summary>
+            HATEOAS link relation used to delete the current resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Patch">
+            <summary>
+            HATEOAS link relation used to patch the current resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.ApprovalUrl">
+            <summary>
+            HATEOAS link relation used to redirect a buyer to PayPal to provide approval for the payment associated with the current resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Execute">
+            <summary>
+            HATEOAS link relation used to execute the payment associated with the current resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Capture">
+            <summary>
+            HATEOAS link relation used to capture the payment associated with the current resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Authorization">
+            <summary>
+            HATEOAS link relation used to provide authorization for the payment associated with the current resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Order">
+            <summary>
+            HATEOAS link relation used to get the order resource associated with the current resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Refund">
+            <summary>
+            HATEOAS link relation used to issue a refund for the current resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Void">
+            <summary>
+            HATEOAS link relation used to void the current resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.ReAuthorize">
+            <summary>
+            HATEOAS link relation used to reauthorize a payment authorization resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.NextPage">
+            <summary>
+            HATEOAS link relation used for searches and provides results for the next set of search results.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.PreviousPage">
+            <summary>
+            HATEOAS link relation used for searches and provides results for the previous set of search results.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Start">
+            <summary>
+            HATEOAS link relation used for searches and provides results for the first set of search results.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Last">
+            <summary>
+            HATEOAS link relation used for searches and provides results for the last set of search results.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Suspend">
+            <summary>
+            HATEOAS link relation used to suspend a billing agreement.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.ReActivate">
+            <summary>
+            HATEOAS link relation used to reactivate a billing agreement.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Cancel">
+            <summary>
+            HATEOAS link relation used to cancel a billing agreement.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Batch">
+            <summary>
+            HATEOAS link relation used to get the payout batch associated with the current payout item resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Item">
+            <summary>
+            HATEOAS link relation used to get a specific payout item resource associated with current payout batch.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Resend">
+            <summary>
+            HATEOAS link relation used to resend a webhook event.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Next">
+            <summary>
+            HATEOAS link relation used for webhook searches and provides results for the next set of search results.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HateoasLinkRelations.Previous">
+            <summary>
+            HATEOAS link relation used for webhook searches and provides results for the previous set of search results.
+            </summary>
+        </member>
         <member name="F:PayPal.PayPalException.logger">
             <summary>
             Logs output statements, errors, debug info to a text file    
@@ -5269,9 +5420,9 @@
             Access Token used in query parameters
             </summary>
         </member>
-        <member name="F:PayPal.Api.UserinfoParameters.mapContainer">
+        <member name="M:PayPal.Api.UserinfoParameters.#ctor">
             <summary>
-            Backing map
+            Constructor
             </summary>
         </member>
         <member name="M:PayPal.Api.UserinfoParameters.SetAccessToken(System.String)">
@@ -5525,10 +5676,143 @@
         </member>
         <member name="M:PayPal.Util.SDKUtil.GetTokenFromApprovalUrl(System.Collections.Generic.List{PayPal.Api.Links})">
             <summary>
-            Gets the resource token from an approval URL, if found.
+            Gets the resource token from an approval URL HATEOAS link, if found.
             </summary>
             <param name="links">The list of HATEOAS links objects to search.</param>
             <returns>A string containing the resource token associated with an approval URL.</returns>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Address.street_address">
+            <summary>
+            Street address component, which may include house number, and street name
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Address.locality">
+            <summary>
+            City or locality component
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Address.region">
+            <summary>
+            State, province, prefecture or region component
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Address.postal_code">
+            <summary>
+            Zip code or postal code component
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Address.country">
+            <summary>
+            Country name component.
+            </summary>
+        </member>
+        <member name="M:PayPal.Api.OpenIdConnect.Userinfo.GetUserinfo(PayPal.Api.UserinfoParameters)">
+            <summary>
+            Returns user details
+            <param name="userinfoParameters">Query parameters used for API call</param>
+            </summary>
+        </member>
+        <member name="M:PayPal.Api.OpenIdConnect.Userinfo.GetUserinfo(PayPal.Api.APIContext,PayPal.Api.UserinfoParameters)">
+            <summary>
+            Returns user details
+            <param name="apiContext">APIContext to be used for the call.</param>
+            <param name="userinfoParameters">Query parameters used for API call</param>
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.user_id">
+            <summary>
+            Subject - Identifier for the End-User at the Issuer
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.sub">
+            <summary>
+            Subject - Identifier for the End-User at the Issuer
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.name">
+            <summary>
+            End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.given_name">
+            <summary>
+            Given name(s) or first name(s) of the End-User
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.family_name">
+            <summary>
+            Surname(s) or last name(s) of the End-User
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.middle_name">
+            <summary>
+            Middle name(s) of the End-User
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.picture">
+            <summary>
+            URL of the End-User's profile picture
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.email">
+            <summary>
+            End-User's preferred e-mail address
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.email_verified">
+            <summary>
+            True if the End-User's e-mail address has been verified; otherwise false
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.gender">
+            <summary>
+            End-User's gender.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.birthdate">
+            <summary>
+            End-User's birthday, represented as an YYYY-MM-DD format. They year MAY be 0000, indicating it is omited. To represent only the year, YYYY format would be used
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.zoneinfo">
+            <summary>
+            Time zone database representing the End-User's time zone
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.locale">
+            <summary>
+            End-User's locale.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.phone_number">
+            <summary>
+            End-User's preferred telephone number
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.address">
+            <summary>
+            End-User's preferred address
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.verified_account">
+            <summary>
+            Verified account status
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.account_type">
+            <summary>
+            Account type.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.age_range">
+            <summary>
+            Account holder age range.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.OpenIdConnect.Userinfo.payer_id">
+            <summary>
+            Account payer identifier.
+            </summary>
         </member>
     </members>
 </doc>

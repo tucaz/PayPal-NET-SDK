@@ -256,6 +256,45 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "CSharp"
         },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\BillingAgreementListTransactions.aspx.cs",
+        "projectPath": "BillingAgreementListTransactions.aspx.cs",
+        "targetPath": "BillingAgreementListTransactions.aspx",
+        "pageTitle": "BillingAgreementListTransactions.aspx",
+        "title": "BillingAgreementListTransactions.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Retrieve the Billing Agreement",
+            "slug": "retrieve-the-billing-agreement"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
         "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\BillingAgreementWithCreditCard.aspx.cs",
         "projectPath": "BillingAgreementWithCreditCard.aspx.cs",
         "targetPath": "BillingAgreementWithCreditCard.aspx",
@@ -3243,6 +3282,128 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "level": 3,
             "title": "Payout.Get()",
             "slug": "payoutget"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\PayoutItemCancel.aspx.cs",
+        "projectPath": "PayoutItemCancel.aspx.cs",
+        "targetPath": "PayoutItemCancel.aspx",
+        "pageTitle": "PayoutItemCancel.aspx",
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Cacnel Payout Item",
+            "slug": "cacnel-payout-item",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Api Context",
+                "slug": "api-context"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "sender_batch_header",
+                    "slug": "sender-batch-header"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "items",
+                    "slug": "items"
+                  },
+                  "depth": 4
+                }
+              ]
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Payout.Create()",
+                "slug": "payoutcreate"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Payout.Cancel()",
+                "slug": "payoutcancel"
+              },
+              "depth": 3
+            }
+          ]
+        },
+        "title": "Cacnel Payout Item"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "sender_batch_header",
+                "slug": "sender-batch-header"
+              },
+              "depth": 4
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "items",
+                "slug": "items"
+              },
+              "depth": 4
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Payout.Create()",
+            "slug": "payoutcreate"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Payout.Cancel()",
+            "slug": "payoutcancel"
           },
           "depth": 3
         }
