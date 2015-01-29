@@ -176,5 +176,136 @@ namespace PayPal.Api
             public const string ErrorCertificate = "Certificate cannot be empty.";
             public const string ErrorPrivateKeyPassword = "Private Key Password cannot be null or empty.";
         }
+
+        /// <summary>
+        /// Defines string constants for HATEOAS link relations.
+        /// </summary>
+        public static class HateoasLinkRelations
+        {
+            /// <summary>
+            /// HATEOAS link relation used to get the details of the current resource.
+            /// </summary>
+            public const string Self = "self";
+
+            /// <summary>
+            /// HATEOAS link relation used to get the details of the parent payment of a payment resource.
+            /// </summary>
+            public const string ParentPayment = "parent_payment";
+
+            /// <summary>
+            /// HATEOAS link relation used to update the current resource.
+            /// </summary>
+            public const string Update = "update";
+
+            /// <summary>
+            /// HATEOAS link relation used to delete the current resource.
+            /// </summary>
+            public const string Delete = "delete";
+
+            /// <summary>
+            /// HATEOAS link relation used to patch the current resource.
+            /// </summary>
+            public const string Patch = "patch";
+
+            /// <summary>
+            /// HATEOAS link relation used to redirect a buyer to PayPal to provide approval for the payment associated with the current resource.
+            /// </summary>
+            public const string ApprovalUrl = "approval_url";
+
+            /// <summary>
+            /// HATEOAS link relation used to execute the payment associated with the current resource.
+            /// </summary>
+            public const string Execute = "execute";
+
+            /// <summary>
+            /// HATEOAS link relation used to capture the payment associated with the current resource.
+            /// </summary>
+            public const string Capture = "capture";
+
+            /// <summary>
+            /// HATEOAS link relation used to provide authorization for the payment associated with the current resource.
+            /// </summary>
+            public const string Authorization = "authorization";
+
+            /// <summary>
+            /// HATEOAS link relation used to get the order resource associated with the current resource.
+            /// </summary>
+            public const string Order = "order";
+
+            /// <summary>
+            /// HATEOAS link relation used to issue a refund for the current resource.
+            /// </summary>
+            public const string Refund = "refund";
+
+            /// <summary>
+            /// HATEOAS link relation used to void the current resource.
+            /// </summary>
+            public const string Void = "void";
+
+            /// <summary>
+            /// HATEOAS link relation used to reauthorize a payment authorization resource.
+            /// </summary>
+            public const string ReAuthorize = "reauthorize";
+
+            /// <summary>
+            /// HATEOAS link relation used for searches and provides results for the next set of search results.
+            /// </summary>
+            public const string NextPage = "next_page";
+
+            /// <summary>
+            /// HATEOAS link relation used for searches and provides results for the previous set of search results.
+            /// </summary>
+            public const string PreviousPage = "previous_page";
+
+            /// <summary>
+            /// HATEOAS link relation used for searches and provides results for the first set of search results.
+            /// </summary>
+            public const string Start = "start";
+
+            /// <summary>
+            /// HATEOAS link relation used for searches and provides results for the last set of search results.
+            /// </summary>
+            public const string Last = "last";
+
+            /// <summary>
+            /// HATEOAS link relation used to suspend a billing agreement.
+            /// </summary>
+            public const string Suspend = "suspend";
+
+            /// <summary>
+            /// HATEOAS link relation used to reactivate a billing agreement.
+            /// </summary>
+            public const string ReActivate = "re_activate";
+
+            /// <summary>
+            /// HATEOAS link relation used to cancel a billing agreement.
+            /// </summary>
+            public const string Cancel = "cancel";
+
+            /// <summary>
+            /// HATEOAS link relation used to get the payout batch associated with the current payout item resource.
+            /// </summary>
+            public const string Batch = "batch";
+
+            /// <summary>
+            /// HATEOAS link relation used to get a specific payout item resource associated with current payout batch.
+            /// </summary>
+            public const string Item = "item";
+
+            /// <summary>
+            /// HATEOAS link relation used to resend a webhook event.
+            /// </summary>
+            public const string Resend = "resend";
+
+            /// <summary>
+            /// HATEOAS link relation used for webhook searches and provides results for the next set of search results.
+            /// </summary>
+            public const string Next = "next";
+
+            /// <summary>
+            /// HATEOAS link relation used for webhook searches and provides results for the previous set of search results.
+            /// </summary>
+            public const string Previous = "previous";
+        }
     }
 }

@@ -301,21 +301,15 @@ namespace PayPal.Util
         }
 
         /// <summary>
-        /// Gets the resource token from an approval URL, if found.
+        /// Gets the resource token from an approval URL HATEOAS link, if found.
         /// </summary>
         /// <param name="links">The list of HATEOAS links objects to search.</param>
         /// <returns>A string containing the resource token associated with an approval URL.</returns>
+        [Obsolete("This static method is deprecated. Call GetTokenFromApprovalUrl directly from any PayPalResourceObject.", false)]
         public static string GetTokenFromApprovalUrl(List<Links> links)
         {
-            foreach (var link in links)
-            {
-                if (link.rel.Equals("approval_url"))
-                {
-                    var url = new Uri(link.href);
-                    return HttpUtility.ParseQueryString(url.Query).Get("token");
-                }
-            }
-            return string.Empty;
+            var resource = new PayPalResourceObject { links = links };
+            return resource.GetTokenFromApprovalUrl();
         }
     }
 }
