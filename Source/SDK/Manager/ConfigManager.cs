@@ -69,10 +69,9 @@ namespace PayPal.Api
 
             NameValueConfigurationCollection settings = configHandler.Settings;
             this.configValues = new Dictionary<string, string>();
-            foreach (var setting in settings)
-            {
-                var set = (System.Configuration.NameValueConfigurationElement) setting;
-                configValues.Add(set.Name, set.Value);
+            foreach (NameValueConfigurationElement setting in settings)
+            {                
+                configValues.Add(setting.Name, setting.Value);
             }
 
             int index = 0;
