@@ -54,22 +54,25 @@ namespace PayPal.Api
                 return singletonInstance;
             }
         }
+
         /// <summary>
         /// Private constructor
         /// </summary>
         private ConfigManager()
         {
-            SDKConfigHandler configHandler = (SDKConfigHandler)ConfigurationManager.GetSection("paypal");
+            SDKConfigHandler configHandler = (SDKConfigHandler) ConfigurationManager.GetSection("paypal");
             if (configHandler == null)
             {
-                throw new ConfigException("Cannot parse *.Config file. Ensure you have configured the 'paypal' section correctly.");
+                throw new ConfigException(
+                    "Cannot parse *.Config file. Ensure you have configured the 'paypal' section correctly.");
             }
-            this.configValues = new Dictionary<string, string>();
 
             NameValueConfigurationCollection settings = configHandler.Settings;
-            foreach (string key in settings.AllKeys)
+            this.configValues = new Dictionary<string, string>();
+            foreach (var setting in settings)
             {
-                this.configValues.Add(settings[key].Name, settings[key].Value);
+                var set = (System.Configuration.NameValueConfigurationElement) setting;
+                configValues.Add(set.Name, set.Value);
             }
 
             int index = 0;
