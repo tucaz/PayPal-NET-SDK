@@ -1,6 +1,9 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.3.1
+* Add code workaround for `InvalidCastException` Mono bug #643379
+
 ## v1.3.0
 * Add `PayoutItem.Cancel()` support
 * Re-add Identity `Userinfo` support
