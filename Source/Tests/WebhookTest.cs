@@ -81,7 +81,7 @@ namespace PayPal.Testing
             webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
             var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
 
-            var newUrl = "https://update.com/paypal_webhooks";
+            var newUrl = "https://update.com/paypal_webhooks/" + Guid.NewGuid().ToString();
             var newEventTypeName = "PAYMENT.SALE.REFUNDED";
 
             var patchRequest = new PatchRequest

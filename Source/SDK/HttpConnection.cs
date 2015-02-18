@@ -113,27 +113,22 @@ namespace PayPal.Api
                     }
                     try
                     {
-                        if (!string.IsNullOrEmpty(payLoad))
+                        switch (httpRequest.Method)
                         {
-                            switch (httpRequest.Method)
-                            {
-                                case "POST":
-                                case "PUT":
-                                case "PATCH":
-                                    using (StreamWriter writerStream = new StreamWriter(httpRequest.GetRequestStream()))
-                                    {
-                                        if (!string.IsNullOrEmpty(payLoad))
-                                        {
-                                            writerStream.Write(payLoad);
-                                            writerStream.Flush();
-                                            writerStream.Close();
-                                            logger.Debug(payLoad);
-                                        }
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
+                            case "POST":
+                            case "PUT":
+                            case "PATCH":
+                                using (StreamWriter writerStream = new StreamWriter(httpRequest.GetRequestStream()))
+                                {
+                                        writerStream.Write(payLoad);
+                                        writerStream.Flush();
+                                        writerStream.Close();
+                                        logger.Debug(payLoad);
+                                }
+                                break;
+
+                            default:
+                                break;
                         }
 
                         using (WebResponse responseWeb = httpRequest.GetResponse())
