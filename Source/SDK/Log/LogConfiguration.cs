@@ -19,7 +19,10 @@ namespace PayPal.Log
         private static char[] splitters = new char[] { ',' };
 
         private static List<string> configurationLoggerList = GetConfigurationLoggerList();
-               
+
+        /// <summary>
+        /// Gets the list of loggers from the config.
+        /// </summary>
         public static List<string> LoggerListInConfiguration
         {
             get

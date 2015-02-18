@@ -439,11 +439,5 @@ namespace PayPal.Log
                     null
                 });
         }
-
-
-        /// <summary>
-        /// Override flush
-        /// </summary>
-        public override void Flush() { }    
     }
 }
