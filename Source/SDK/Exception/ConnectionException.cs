@@ -30,10 +30,8 @@ namespace PayPal
         /// Copy constructor provided by convenience for derived classes.
         /// </summary>
         /// <param name="ex">The original exception to copy information from.</param>
-        protected ConnectionException(ConnectionException ex)
+        protected ConnectionException(ConnectionException ex) : this(ex.Message, ex.Response, ex.WebExceptionStatus)
         {
-            this.Response = ex.Response;
-            this.WebExceptionStatus = ex.WebExceptionStatus;
         }
 
         /// <summary>
