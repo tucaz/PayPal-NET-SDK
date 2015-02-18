@@ -70,10 +70,11 @@ namespace PayPal.Testing
         public void PlanUpdateTest()
         {
             var apiContext = TestingUtil.GetApiContext();
-            var planId = "P-7R813789P6651091RFYXDDLY";
 
             // Get a test plan for updating purposes.
-            var plan = Plan.Get(apiContext, planId);
+            var plan = GetPlan();
+            var createdPlan = plan.Create(TestingUtil.GetApiContext());
+            var planId = createdPlan.id;
 
             // Create the patch request and update the description to a random value.
             var updatedDescription = Guid.NewGuid().ToString();
@@ -85,7 +86,7 @@ namespace PayPal.Testing
             patchRequest.Add(patch);
 
             // Update the plan.
-            plan.Update(apiContext, patchRequest);
+            createdPlan.Update(apiContext, patchRequest);
 
             // Verify the plan was updated successfully.
             var updatedPlan = Plan.Get(apiContext, planId);

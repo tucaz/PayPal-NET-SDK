@@ -75,6 +75,11 @@ namespace PayPal.Api
                 }                
                 httpRequest.Proxy = requestProxy;
             }
+
+            // Don't set the Expect: 100-continue header as it's not supported
+            // well by Akamai and can negatively impact performance.
+            httpRequest.ServicePoint.Expect100Continue = false;
+
             return httpRequest;
         }
     }

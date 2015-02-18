@@ -13,7 +13,7 @@ namespace PayPal.Testing
             "\"payout_batch_id\":\"CFBTNR3EKL8A8\"," +
             "\"payout_item\":" + PayoutItemTest.PayoutItemJson + "," +
             "\"links\":[{" +
-                "\"href\":\"https://api.sandbox.paypal.com/v1/payments/payouts-item/7SB2EHDQ8MWCS\"," +
+                "\"href\":\"https://api-s.sandbox.paypal.com/v1/payments/payouts-item/7SB2EHDQ8MWCS\"," +
                 "\"rel\":\"item\"," +
                 "\"method\":\"GET\"}]}";
 

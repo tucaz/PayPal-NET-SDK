@@ -10,10 +10,10 @@ namespace PayPal.Testing
         public static readonly string CreditCardJson = "{" +
             "\"cvv2\": \"962\"," +
             "\"expire_month\": 01," +
-            "\"expire_year\": 2015," +
+            "\"expire_year\": 2018," +
             "\"first_name\": \"John\"," +
             "\"last_name\": \"Doe\"," +
-            "\"number\": \"4825854086744369\"," +
+            "\"number\": \"4449335840161468\"," +
             "\"type\": \"visa\"," +
             "\"billing_address\": " + AddressTest.AddressJson + "}";
 
@@ -31,24 +31,14 @@ namespace PayPal.Testing
         public void CreditCardObjectTest()
         {
             var card = GetCreditCard();
-            card.id = "002";
-            card.external_customer_id = "008";
-            var add = AddressTest.GetAddress();
-            Assert.AreEqual(card.number, "4825854086744369");
-            Assert.AreEqual(card.first_name, "John");
-            Assert.AreEqual(card.last_name, "Doe");
-            Assert.AreEqual(card.expire_month, 01);
-            Assert.AreEqual(card.expire_year, 2015);
-            Assert.AreEqual(card.cvv2, "962");
-            Assert.AreEqual(card.id, "002");
-            Assert.AreEqual(card.external_customer_id, "008");
-            Assert.AreEqual(add.city, card.billing_address.city);
-            Assert.AreEqual(add.country_code, card.billing_address.country_code);
-            Assert.AreEqual(add.line1, card.billing_address.line1);
-            Assert.AreEqual(add.line2, card.billing_address.line2);
-            Assert.AreEqual(add.phone, card.billing_address.phone);
-            Assert.AreEqual(add.postal_code, card.billing_address.postal_code);
-            Assert.AreEqual(add.state, card.billing_address.state);
+            Assert.AreEqual("4449335840161468", card.number);
+            Assert.AreEqual("John", card.first_name);
+            Assert.AreEqual("Doe", card.last_name);
+            Assert.AreEqual(01, card.expire_month);
+            Assert.AreEqual(2018, card.expire_year);
+            Assert.AreEqual("962", card.cvv2);
+            Assert.AreEqual("visa", card.type);
+            Assert.IsNotNull(card.billing_address);
         }
 
         [TestMethod, TestCategory("Unit")]        
@@ -85,6 +75,44 @@ namespace PayPal.Testing
             Assert.IsNotNull(creditCardList);
             Assert.IsTrue(creditCardList.total_items > 0);
             Assert.IsTrue(creditCardList.total_pages > 0);
+        }
+
+        [TestMethod, TestCategory("Functional")]
+        public void CreditCardUpdateTest()
+        {
+            var creditCard = CreateCreditCard();
+
+            // Create a patch request to update the credit card.
+            var patchRequest = new PatchRequest
+            {
+                new Patch
+                {
+                    op = "replace",
+                    path = "/billing_address",
+                    value = new Address
+                    {
+                        line1 = "111 First Street",
+                        city = "Saratoga",
+                        country_code = "US",
+                        state = "CA",
+                        postal_code = "95070"
+                    }
+                }
+            };
+
+            var apiContext = TestingUtil.GetApiContext();
+            var updatedCreditCard = creditCard.Update(apiContext, patchRequest);
+
+            // Retrieve the credit card details from the vault and verify the
+            // billing address was updated properly.
+            var retrievedCreditCard = CreditCard.Get(apiContext, updatedCreditCard.id);
+            Assert.IsNotNull(retrievedCreditCard);
+            Assert.IsNotNull(retrievedCreditCard.billing_address);
+            Assert.AreEqual("111 First Street", retrievedCreditCard.billing_address.line1);
+            Assert.AreEqual("Saratoga", retrievedCreditCard.billing_address.city);
+            Assert.AreEqual("US", retrievedCreditCard.billing_address.country_code);
+            Assert.AreEqual("CA", retrievedCreditCard.billing_address.state);
+            Assert.AreEqual("95070", retrievedCreditCard.billing_address.postal_code);
         }
 
         [TestMethod, TestCategory("Unit")]

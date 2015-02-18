@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api;
-using System.IO;
 
 namespace PayPal.Testing
 {
@@ -12,13 +9,14 @@ namespace PayPal.Testing
     {
         public static Dictionary<string, string> GetConfig()
         {
-            var config = new Dictionary<string, string>();
-            config[BaseConstants.ClientId] = "AWdYxxA6pvcbjhb51A4BUosqeNv8u6mlFX7CZ_d-D6WakmFVRGeG5X43FJql";
-            config[BaseConstants.ClientSecret] = "EFCQHhChJbtb4bjvQO593E3-shFeIXLh-a0Sxp7luqvqwzlOG10ueTly2EHf";
-            config["endpoint"] = "https://api.sandbox.paypal.com";
-            config["connectionTimeout"] = "360000";
-            config["requestRetries"] = "1";
-            return config;
+            return new Dictionary<string, string>
+            {
+                { BaseConstants.ClientId, "AWdYxxA6pvcbjhb51A4BUosqeNv8u6mlFX7CZ_d-D6WakmFVRGeG5X43FJql" },
+                { BaseConstants.ClientSecret, "EFCQHhChJbtb4bjvQO593E3-shFeIXLh-a0Sxp7luqvqwzlOG10ueTly2EHf" },
+                { BaseConstants.ApplicationModeConfig, BaseConstants.SandboxMode },
+                { "connectionTimeout", "360000" },
+                { "requestRetries", "1" }
+            };
         }
 
         private static string GetAccessToken()

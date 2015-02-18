@@ -67,18 +67,15 @@ namespace PayPal.Api
         // Allowe application mode - sandbox
         public const string SandboxMode = "sandbox";
 
-        // Endpoints for various APIs        
-        public const string MerchantCertificateLiveEndpoint = "https://api.paypal.com/2.0/";        
-        public const string MerchantSignatureLiveEndpoint = "https://api-3t.paypal.com/2.0/";
-        public const string PlatformLiveEndpoint = "https://svcs.paypal.com/";
-        public const string IPNLiveEndpoint = "https://ipnpb.paypal.com/cgi-bin/webscr";
-        public const string RESTSandboxEndpoint = "https://api.sandbox.paypal.com/";
+        /// <summary>
+        /// Sandbox REST API endpoint
+        /// </summary>
+        public const string RESTSandboxEndpoint = "https://api-s.sandbox.paypal.com/";
 
-        public const string MerchantCertificateSandboxEndpoint = "https://api.sandbox.paypal.com/2.0/";
-        public const string MerchantSignatureSandboxEndpoint = "https://api-3t.sandbox.paypal.com/2.0/";
-        public const string PlatformSandboxEndpoint = "https://svcs.sandbox.paypal.com/";
-        public const string IPNSandboxEndpoint = "https://www.sandbox.paypal.com/cgi-bin/webscr";
-        public const string RESTLiveEndpoint = "https://api.paypal.com/";
+        /// <summary>
+        /// Live REST API endpoint
+        /// </summary>
+        public const string RESTLiveEndpoint = "https://api-s.paypal.com/";
 
         // Configuration key for application mode
         public const string ApplicationModeConfig = "mode";
