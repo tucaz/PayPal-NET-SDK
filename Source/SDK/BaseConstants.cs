@@ -70,12 +70,12 @@ namespace PayPal.Api
         /// <summary>
         /// Sandbox REST API endpoint
         /// </summary>
-        public const string RESTSandboxEndpoint = "https://api-s.sandbox.paypal.com/";
+        public const string RESTSandboxEndpoint = "https://api.sandbox.paypal.com/";
 
         /// <summary>
         /// Live REST API endpoint
         /// </summary>
-        public const string RESTLiveEndpoint = "https://api-s.paypal.com/";
+        public const string RESTLiveEndpoint = "https://api.paypal.com/";
 
         // Configuration key for application mode
         public const string ApplicationModeConfig = "mode";

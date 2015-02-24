@@ -15,11 +15,11 @@ namespace PayPal.Testing
 	        "\"summary\":\"A payment authorization was created\"," +
 	        "\"resource\":" + AuthorizationTest.AuthorizationJson + "," +
 	        "\"links\":[{" +
-		        "\"href\":\"https://api-s.sandbox.paypal.com/v1/notfications/webhooks-events/8PT597110X687430LKGECATA\"," +
+		        "\"href\":\"https://api.sandbox.paypal.com/v1/notfications/webhooks-events/8PT597110X687430LKGECATA\"," +
 		        "\"rel\":\"self\"," +
 		        "\"method\":\"GET\"" +
 	        "},{" +
-		        "\"href\":\"https://api-s.sandbox.paypal.com/v1/notfications/webhooks-events/8PT597110X687430LKGECATA/resend\"," +
+		        "\"href\":\"https://api.sandbox.paypal.com/v1/notfications/webhooks-events/8PT597110X687430LKGECATA/resend\"," +
 		        "\"rel\":\"resend\"," +
 		        "\"method\":\"POST\"}]}";
 
