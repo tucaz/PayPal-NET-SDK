@@ -22,5 +22,11 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "shipping_address")]
         public ShippingAddress shipping_address { get; set; }
+
+        /// <summary>
+        /// Shipping method used for this payment like USPSParcel etc.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "shipping_method")]
+        public string shipping_method { get; set; }
     }
 }

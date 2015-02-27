@@ -63,5 +63,17 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "item_list")]
         public ItemList item_list { get; set; }
+
+        /// <summary>
+        /// URL to send payment notifications
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "notify_url")]
+        public string notify_url { get; set; }
+
+        /// <summary>
+        /// Url on merchant site pertaining to this payment.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "order_url")]
+        public string order_url { get; set; }
     }
 }

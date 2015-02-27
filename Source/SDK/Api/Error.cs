@@ -18,6 +18,12 @@ namespace PayPal.Api
         public string name { get; set; }
 
         /// <summary>
+        /// Reference ID of the purchase_unit associated with this error
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "purchase_unit_reference_id")]
+        public string purchase_unit_reference_id { get; set; }
+
+        /// <summary>
         /// PayPal internal identifier used for correlation purposes.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "debug_id")]
@@ -28,6 +34,12 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "message")]
         public string message { get; set; }
+
+        /// <summary>
+        /// PayPal internal error code.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "code")]
+        public string code { get; set; }
 
         /// <summary>
         /// URI for detailed information related to this error for the developer.

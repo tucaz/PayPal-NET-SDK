@@ -18,7 +18,7 @@ namespace PayPal.Api
         public string id { get; set; }
 
         /// <summary>
-        /// Identifier to the purchase unit associated with this object
+        /// Identifier to the purchase unit associated with this object. Obsolete. Use one in cart_base.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "purchase_unit_reference_id")]
         public string purchase_unit_reference_id { get; set; }
@@ -42,7 +42,13 @@ namespace PayPal.Api
         public string state { get; set; }
 
         /// <summary>
-        /// Reason code for the transaction state being Pending.
+        /// Reason code for the transaction state being Pending or Reversed. This field will replace pending_reason field eventually
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reason_code")]
+        public string reason_code { get; set; }
+
+        /// <summary>
+        /// Reason code for the transaction state being Pending. Obsolete. Retained for backward compatability. Use reason_code field above instead. 
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pending_reason")]
         public string pending_reason { get; set; }
@@ -64,6 +70,12 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "parent_payment")]
         public string parent_payment { get; set; }
+
+        /// <summary>
+        /// Fraud Management Filter (FMF) details applied for the payment that could result in accept/deny/pending action.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fmf_details")]
+        public FmfDetails fmf_details { get; set; }
 
         /// <summary>
         /// Time the resource was created in UTC ISO8601 format.

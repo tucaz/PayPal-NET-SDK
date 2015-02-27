@@ -42,6 +42,12 @@ namespace PayPal.Api
         public string parent_payment { get; set; }
 
         /// <summary>
+        /// Transaction fee applicable for this payment.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "transaction_fee")]
+        public Currency transaction_fee { get; set; }
+
+        /// <summary>
         /// Time the resource was created in UTC ISO8601 format.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]

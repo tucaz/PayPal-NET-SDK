@@ -66,6 +66,30 @@ namespace PayPal.Api
         public string category { get; set; }
 
         /// <summary>
+        /// Weight of the item.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "weight")]
+        public Measurement weight { get; set; }
+
+        /// <summary>
+        /// Length of the item.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "length")]
+        public Measurement length { get; set; }
+
+        /// <summary>
+        /// Height of the item.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "height")]
+        public Measurement height { get; set; }
+
+        /// <summary>
+        /// Width of the item.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "width")]
+        public Measurement width { get; set; }
+
+        /// <summary>
         /// Set of optional data used for PayPal risk determination.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "supplementary_data")]

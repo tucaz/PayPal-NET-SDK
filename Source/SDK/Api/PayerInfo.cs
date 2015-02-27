@@ -29,16 +29,34 @@ namespace PayPal.Api
         public string buyer_account_number { get; set; }
 
         /// <summary>
+        /// Salutation of the Payer.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "salutation")]
+        public string salutation { get; set; }
+
+        /// <summary>
         /// First Name of the Payer.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "first_name")]
         public string first_name { get; set; }
 
         /// <summary>
+        /// Middle Name of the Payer.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "middle_name")]
+        public string middle_name { get; set; }
+
+        /// <summary>
         /// Last Name of the Payer.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "last_name")]
         public string last_name { get; set; }
+
+        /// <summary>
+        /// Suffix of the Payer.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "suffix")]
+        public string suffix { get; set; }
 
         /// <summary>
         /// PayPal assigned Payer ID.
@@ -59,7 +77,7 @@ namespace PayPal.Api
         public string phone_type { get; set; }
 
         /// <summary>
-        /// Birth date of the Payer in ISO8601 format.
+        /// Birth date of the Payer in ISO8601 format (yyyy-mm-dd).
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "birth_date")]
         public string birth_date { get; set; }
@@ -75,6 +93,12 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_id_type")]
         public string tax_id_type { get; set; }
+
+        /// <summary>
+        /// 2 letter registered country code of the payer to identify the buyer country
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "country_code")]
+        public string country_code { get; set; }
 
         /// <summary>
         /// Billing address of the Payer.

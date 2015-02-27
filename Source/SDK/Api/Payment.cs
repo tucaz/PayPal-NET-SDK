@@ -31,6 +31,12 @@ namespace PayPal.Api
         public Payer payer { get; set; }
 
         /// <summary>
+        /// .
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payee")]
+        public Payee payee { get; set; }
+
+        /// <summary>
         /// ID of the cart to execute the payment.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cart")]
