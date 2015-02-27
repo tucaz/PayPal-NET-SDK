@@ -1,6 +1,47 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.4.0
+* `BaseLogger` is now public, allowing developers to add custom logger support
+* Fix sample for creating and executing an order
+* Update Payments API support with new classes and properties:
+  * New Classes
+    * `FmfDetails`
+    * `Measurement`
+  * New Properties
+    * `Authorization.reason_code`
+    * `Authorization.pending_reason`
+    * `Authorization.fmf_details`
+    * `BaseAddress.status`
+    * `Capture.transaction_fee`
+    * `CartBase.notify_url`
+    * `CartBase.order_url`
+    * `Error.purchase_unit_reference_id`
+    * `Error.code`
+    * `ErrorDetails.purchase_unit_reference_id`
+    * `Item.weight`
+    * `Item.length`
+    * `Item.height`
+    * `Item.width`
+    * `ItemList.shipping_method`
+    * `Order.reason_code`
+    * `Order.fmf_details`
+    * `Payer.account_type`
+    * `Payer.account_age`
+    * `PayerInfo.salutation`
+    * `PayerInfo.middle_name`
+    * `PayerInfo.suffix`
+    * `PayerInfo.country_code`
+    * `Payment.payee`
+    * `Sale.recipient_fund_status`
+    * `Sale.hold_reason`
+    * `Sale.transaction_fee`
+    * `Sale.receivable_amount`
+    * `Sale.exchange_rate`
+    * `Sale.fmf_details`
+    * `Sale.receipt_id`
+    * `Transaction.purchase_unit_reference_id`
+
 ## v1.3.1
 * Add code workaround for `InvalidCastException` Mono bug #643379
 
