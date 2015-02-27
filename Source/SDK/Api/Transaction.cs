@@ -12,6 +12,12 @@ namespace PayPal.Api
     public class Transaction : CartBase
     {
         /// <summary>
+        /// Identifier to the purchase unit corresponding to this sale transaction.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "purchase_unit_reference_id")]
+        public string purchase_unit_reference_id { get; set; }
+
+        /// <summary>
         /// List of financial transactions (Sale, Authorization, Capture, Refund) related to the payment.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "related_resources")]

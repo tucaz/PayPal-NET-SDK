@@ -21,5 +21,17 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "issue")]
         public string issue { get; set; }
+
+        /// <summary>
+        /// Reference ID of the purchase_unit associated with this error
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "purchase_unit_reference_id")]
+        public string purchase_unit_reference_id { get; set; }
+
+        /// <summary>
+        /// PayPal internal error code.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "code")]
+        public string code { get; set; }
     }
 }

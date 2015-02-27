@@ -51,5 +51,11 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "normalization_status")]
         public string normalization_status { get; set; }
+
+        /// <summary>
+        /// Address status
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "status")]
+        public string status { get; set; }
     }
 }

@@ -120,13 +120,13 @@ namespace PayPal.Api
         public string payer_id { get; set; }
 
         /// <summary>
-        /// A unique identifier of the customer to whom this bank account belongs to.
+        /// A unique identifier of the customer to whom this bank account belongs to. Generated and provided by the facilitator. This is required when creating or using a stored funding instrument in vault.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "external_customer_id")]
         public string external_customer_id { get; set; }
 
         /// <summary>
-        /// A user provided, optional convenvience field that functions as a unique identifier for the merchant on behalf of whom this bank account is being stored for. Note that this has no relation to PayPal merchant id
+        /// A unique identifier of the merchant for which this bank account has been stored for. Generated and provided by the facilitator so it can be used to restrict the usage of the bank account to the specific merchnt.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "merchant_id")]
         public string merchant_id { get; set; }
@@ -138,19 +138,19 @@ namespace PayPal.Api
         public string external_account_id { get; set; }
 
         /// <summary>
-        /// Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the start of a range of results.
+        /// Time the resource was created.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
         public string create_time { get; set; }
 
         /// <summary>
-        /// Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the start of a range of results.
+        /// Time the resource was last updated.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
         public string update_time { get; set; }
 
         /// <summary>
-        /// Date/Time as ISO8601 date-time format  until this resource can be used to fund a payment.
+        /// Date/Time until this resource can be used to fund a payment.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "valid_until")]
         public string valid_until { get; set; }

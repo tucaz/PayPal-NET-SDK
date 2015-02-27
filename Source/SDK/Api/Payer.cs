@@ -24,6 +24,18 @@ namespace PayPal.Api
         public string status { get; set; }
 
         /// <summary>
+        /// Type of account relationship payer has with PayPal.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_type")]
+        public string account_type { get; set; }
+
+        /// <summary>
+        /// Duration since the payer established account relationship with PayPal in days.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_age")]
+        public string account_age { get; set; }
+
+        /// <summary>
         /// List of funding instruments to fund the payment.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "funding_instruments")]

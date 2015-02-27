@@ -66,6 +66,48 @@ namespace PayPal.Api
         public string clearing_time { get; set; }
 
         /// <summary>
+        /// Indicates the credit status of fund to the recipient. It will be returned only when payment status is 'completed' 
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "recipient_fund_status")]
+        public string recipient_fund_status { get; set; }
+
+        /// <summary>
+        /// Reason for holding the funds.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "hold_reason")]
+        public string hold_reason { get; set; }
+
+        /// <summary>
+        /// Transaction fee applicable for this payment.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "transaction_fee")]
+        public Currency transaction_fee { get; set; }
+
+        /// <summary>
+        /// Net amount payee receives for this transaction after deducting transaction fee.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "receivable_amount")]
+        public Currency receivable_amount { get; set; }
+
+        /// <summary>
+        /// Exchange rate applied for this transaction.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "exchange_rate")]
+        public string exchange_rate { get; set; }
+
+        /// <summary>
+        /// Fraud Management Filter (FMF) details applied for the payment that could result in accept/deny/pending action.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fmf_details")]
+        public FmfDetails fmf_details { get; set; }
+
+        /// <summary>
+        /// Receipt id is 16 digit number payment identification number returned for guest users to identify the payment.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "receipt_id")]
+        public string receipt_id { get; set; }
+
+        /// <summary>
         /// ID of the Payment resource that this transaction is based on.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "parent_payment")]

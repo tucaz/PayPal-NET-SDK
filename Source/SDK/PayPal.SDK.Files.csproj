@@ -152,5 +152,7 @@
     <ExternalCompile Include="Util\SDKUtil.cs" />
     <ExternalCompile Include="OpenIdConnect\Address.cs" />
     <ExternalCompile Include="OpenIdConnect\Userinfo.cs" />
+    <ExternalCompile Include="Api\FmfDetails.cs" />
+    <ExternalCompile Include="Api\Measurement.cs" />
   </ItemGroup>
 </Project>

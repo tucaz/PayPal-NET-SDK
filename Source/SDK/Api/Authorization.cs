@@ -6,6 +6,7 @@
 //==============================================================================
 using Newtonsoft.Json;
 using PayPal.Util;
+using System;
 
 namespace PayPal.Api
 {
@@ -36,6 +37,19 @@ namespace PayPal.Api
         public string state { get; set; }
 
         /// <summary>
+        /// Reason code for the transaction state being Pending. This field will replace pending_reason field eventually
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reason_code")]
+        public string reason_code { get; set; }
+
+        /// <summary>
+        /// Reason code for the transaction state being Pending.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pending_reason")]
+        [Obsolete("This property is obsolete. Use reason-code instead.", false)]
+        public string pending_reason { get; set; }
+
+        /// <summary>
         /// Protection Eligibility of the Payer 
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "protection_eligibility")]
@@ -46,6 +60,12 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "protection_eligibility_type")]
         public string protection_eligibility_type { get; set; }
+
+        /// <summary>
+        /// Fraud Management Filter (FMF) details applied for the payment that could result in accept/deny/pending action.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fmf_details")]
+        public FmfDetails fmf_details { get; set; }
 
         /// <summary>
         /// ID of the Payment resource that this transaction is based on.

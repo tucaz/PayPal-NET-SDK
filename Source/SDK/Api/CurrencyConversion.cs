@@ -26,7 +26,7 @@ namespace PayPal.Api
         /// Amount participating in currency conversion, set to 1 as default 
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "from_amount")]
-        public float from_amount { get; set; }
+        public string from_amount { get; set; }
 
         /// <summary>
         /// 3 letter currency code
@@ -38,7 +38,7 @@ namespace PayPal.Api
         /// Amount resulting from currency conversion.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "to_amount")]
-        public float to_amount { get; set; }
+        public string to_amount { get; set; }
 
         /// <summary>
         /// Field indicating conversion type applied.
