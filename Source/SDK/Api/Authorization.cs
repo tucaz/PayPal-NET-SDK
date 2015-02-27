@@ -46,7 +46,7 @@ namespace PayPal.Api
         /// Reason code for the transaction state being Pending.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pending_reason")]
-        [Obsolete("This property is obsolete. Use reason-code instead.")]
+        [Obsolete("This property is obsolete. Use reason-code instead.", false)]
         public string pending_reason { get; set; }
 
         /// <summary>
