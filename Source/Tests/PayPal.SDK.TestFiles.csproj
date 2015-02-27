@@ -64,5 +64,7 @@
     <ExternalCompile Include="WebhookListTest.cs" />
     <ExternalCompile Include="WebhookTest.cs" />
     <ExternalCompile Include="WebProfileTest.cs" />
+    <ExternalCompile Include="FmfDetailsTest.cs" />
+    <ExternalCompile Include="MeasurementTest.cs" />
   </ItemGroup>
 </Project>
