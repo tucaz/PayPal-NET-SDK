@@ -6,6 +6,7 @@
 //==============================================================================
 using Newtonsoft.Json;
 using PayPal.Util;
+using System;
 
 namespace PayPal.Api
 {
@@ -42,9 +43,10 @@ namespace PayPal.Api
         public string reason_code { get; set; }
 
         /// <summary>
-        /// [DEPRECATED] Reason code for the transaction state being Pending.Obsolete. use reason_code field instead.
+        /// Reason code for the transaction state being Pending.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pending_reason")]
+        [Obsolete("This property is obsolete. Use reason-code instead.")]
         public string pending_reason { get; set; }
 
         /// <summary>

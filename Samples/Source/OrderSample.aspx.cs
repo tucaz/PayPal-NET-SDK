@@ -103,15 +103,16 @@ namespace PayPal.Sample
             }
             else
             {
+                var guid = Request.Params["guid"];
                 // ^ Ignore workflow code segment
                 #region Track Workflow
-                this.flow = Session["flow-" + Request.Params["guid"]] as RequestFlow;
+                this.flow = Session["flow-" + guid] as RequestFlow;
                 this.RegisterSampleRequestFlow();
                 this.flow.RecordApproval("Order payment approved successfully.");
                 #endregion
 
                 // Execute the order
-                var paymentId = Request.Params["guid"];
+                var paymentId = Session[guid] as string;
                 var paymentExecution = new PaymentExecution() { payer_id = payerId };
                 var payment = new Payment() { id = paymentId };
 

@@ -979,6 +979,16 @@
             Status of payer's PayPal Account.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Payer.account_type">
+            <summary>
+            Type of account relationship payer has with PayPal.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Payer.account_age">
+            <summary>
+            Duration since the payer established account relationship with PayPal in days.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Payer.funding_instruments">
             <summary>
             List of funding instruments to fund the payment.
@@ -1198,6 +1208,11 @@
             Shipping address.
             </summary>
         </member>
+        <member name="P:PayPal.Api.ItemList.shipping_method">
+            <summary>
+            Shipping method used for this payment like USPSParcel etc.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.CreditCardToken.credit_card_id">
             <summary>
             ID of a previously saved Credit Card resource using /vault/credit-card API.
@@ -1291,6 +1306,11 @@
         <member name="P:PayPal.Api.Capture.parent_payment">
             <summary>
             ID of the Payment resource that this transaction is based on.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Capture.transaction_fee">
+            <summary>
+            Transaction fee applicable for this payment.
             </summary>
         </member>
         <member name="P:PayPal.Api.Capture.create_time">
@@ -1398,6 +1418,11 @@
             Address normalization status
             </summary>
         </member>
+        <member name="P:PayPal.Api.BaseAddress.status">
+            <summary>
+            Address status
+            </summary>
+        </member>
         <member name="P:PayPal.Api.InvoiceAddress.phone">
             <summary>
             Phone number in E.123 format.
@@ -1408,130 +1433,125 @@
             Abstract base for the loggers
             </summary>
         </member>
-        <member name="F:PayPal.Log.BaseLogger.typeGiven">
-            <summary>
-            Type specified
-            </summary>
-        </member>
         <member name="M:PayPal.Log.BaseLogger.#ctor(System.Type)">
             <summary>
-            Abstract base 'BaseLogger' contructor overload
+            Initializes a new instance of this logger and associates it with the specified object type.
             </summary>
-            <param name="typeGiven"></param>
+            <param name="typeGiven">The type to associate with this logger.</param>
         </member>
         <member name="M:PayPal.Log.BaseLogger.Debug(System.String)">
             <summary>
-            Abstract wrapper for Debug
+            Records a debug message to the log.
             </summary>
-            <param name="message"></param>
+            <param name="message">The message to be logged.</param>
         </member>
         <member name="M:PayPal.Log.BaseLogger.Debug(System.String,System.Exception)">
             <summary>
-            Abstract wrapper for Debug
+            Records a debug message, including any exception details, to the log.
             </summary>
-            <param name="message"></param>
-            <param name="exception"></param>
+            <param name="message">The message to be logged.</param>
+            <param name="exception">Exception details to be logged.</param>
         </member>
         <member name="M:PayPal.Log.BaseLogger.DebugFormat(System.String,System.Object[])">
             <summary>
-            Abstract wrapper for DebugFormat
+            Records a formatted debug message to the log.
             </summary>
-            <param name="format"></param>
-            <param name="args"></param>
+            <param name="format">A composite format string to be logged.</param>
+            <param name="args">An array that contains zero or more objects to format.</param>
         </member>
         <member name="M:PayPal.Log.BaseLogger.Error(System.String)">
             <summary>
-            Abstract wrapper for Error
+            Records an error message to the log.
             </summary>
-            <param name="message"></param>
+            <param name="message">The message to be logged.</param>
         </member>
         <member name="M:PayPal.Log.BaseLogger.Error(System.String,System.Exception)">
             <summary>
-            Abstract wrapper for Error
+            Records an error message, including any exception details, to the log.
             </summary>
-            <param name="message"></param>
-            <param name="exception"></param>
+            <param name="message">The message to be logged.</param>
+            <param name="exception">Exception details to be logged.</param>
         </member>
         <member name="M:PayPal.Log.BaseLogger.ErrorFormat(System.String,System.Object[])">
             <summary>
-            Abstract wrapper for ErrorFormat
+            Records a formatted error message to the log.
             </summary>
-            <param name="format"></param>
-            <param name="args"></param>
+            <param name="format">A composite format string to be logged.</param>
+            <param name="args">An array that contains zero or more objects to format.</param>
         </member>
         <member name="M:PayPal.Log.BaseLogger.Info(System.String)">
             <summary>
-            Abstract wrapper for Info
+            Records an informational message to the log.
             </summary>
-            <param name="message"></param>
+            <param name="message">The message to be logged.</param>
         </member>
         <member name="M:PayPal.Log.BaseLogger.Info(System.String,System.Exception)">
             <summary>
-            Abstract wrapper for Info
+            Records an informational message, including any exception details, to the log.
             </summary>
-            <param name="message"></param>
-            <param name="exception"></param>
+            <param name="message">The message to be logged.</param>
+            <param name="exception">Exception details to be logged.</param>
         </member>
         <member name="M:PayPal.Log.BaseLogger.InfoFormat(System.String,System.Object[])">
             <summary>
-            Abstract wrapper for InfoFormat
+            Records a formatted informational message to the log.
             </summary>
-            <param name="format"></param>
-            <param name="args"></param>
+            <param name="format">A composite format string to be logged.</param>
+            <param name="args">An array that contains zero or more objects to format.</param>
         </member>
         <member name="M:PayPal.Log.BaseLogger.Warn(System.String)">
             <summary>
-            Abstract wrapper for Warn
+            Records a warning message to the log.
             </summary>
-            <param name="message"></param>
+            <param name="message">The message to be logged.</param>
         </member>
         <member name="M:PayPal.Log.BaseLogger.Warn(System.String,System.Exception)">
             <summary>
-            Abstract wrapper for Warn
+            Records a warning message, including any exception details, to the log.
             </summary>
-            <param name="message"></param>
-            <param name="exception"></param>
+            <param name="message">The message to be logged.</param>
+            <param name="exception">Exception details to be logged.</param>
         </member>
         <member name="M:PayPal.Log.BaseLogger.WarnFormat(System.String,System.Object[])">
             <summary>
-            Abstract wrapper for WarnFormat
+            Records a formatted warning message to the log.
             </summary>
-            <param name="format"></param>
-            <param name="args"></param>
+            <param name="format">A composite format string to be logged.</param>
+            <param name="args">An array that contains zero or more objects to format.</param>
         </member>
         <member name="M:PayPal.Log.BaseLogger.Flush">
             <summary>
-            Abstract flush for loggers
+            Flushes any resources or streams used by this logger.
             </summary>
         </member>
         <member name="P:PayPal.Log.BaseLogger.GivenType">
             <summary>
-            Gets and sets the given Type
+            Gets the given type associated with this logger.
             </summary>
         </member>
         <member name="P:PayPal.Log.BaseLogger.IsEnabled">
             <summary>
-            Get logger enable flag
+            Get or sets whether this logger is enabled.
             </summary>
         </member>
         <member name="P:PayPal.Log.BaseLogger.IsDebugEnabled">
             <summary>
-            Virtual wrapper for IsDebugEnabled
+            Gets whether or not debug logging is enabled.
             </summary>
         </member>
         <member name="P:PayPal.Log.BaseLogger.IsErrorEnabled">
             <summary>
-            Virtual wrapper for IsErrorEnabled
+            Gets whether or not error logging is enabled.
             </summary>
         </member>
         <member name="P:PayPal.Log.BaseLogger.IsInfoEnabled">
             <summary>
-            Virtual wrapper for IsInfoEnabled
+            Gets whether or not informational logging is enabled.
             </summary>
         </member>
         <member name="P:PayPal.Log.BaseLogger.IsWarnEnabled">
             <summary>
-            Virtual wrapper for IsWarnEnabled
+            Gets whether or not logging for warnings is enabled.
             </summary>
         </member>
         <member name="M:PayPal.Api.PayPalSerializableListObject`1.ConvertToJson">
@@ -1749,11 +1769,6 @@
             </summary>
             <param name="format"></param>
             <param name="args"></param>
-        </member>
-        <member name="M:PayPal.Log.Log4netLogger.Flush">
-            <summary>
-            Override flush
-            </summary>
         </member>
         <member name="P:PayPal.Log.Log4netLogger.IsDebugEnabled">
             <summary>
@@ -2056,6 +2071,26 @@
         <member name="P:PayPal.Api.Item.category">
             <summary>
             Category type of the item.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Item.weight">
+            <summary>
+            Weight of the item.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Item.length">
+            <summary>
+            Length of the item.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Item.height">
+            <summary>
+            Height of the item.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Item.width">
+            <summary>
+            Width of the item.
             </summary>
         </member>
         <member name="P:PayPal.Api.Item.supplementary_data">
@@ -2409,6 +2444,16 @@
         <member name="P:PayPal.Api.CartBase.item_list">
             <summary>
             List of items being paid for.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.CartBase.notify_url">
+            <summary>
+            URL to send payment notifications
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.CartBase.order_url">
+            <summary>
+            Url on merchant site pertaining to this payment.
             </summary>
         </member>
         <member name="P:PayPal.Api.CancelNotification.subject">
@@ -2790,6 +2835,16 @@
             Gets the Singleton instance of the ConfigManager
             </summary>
         </member>
+        <member name="F:PayPal.Api.BaseConstants.RESTSandboxEndpoint">
+            <summary>
+            Sandbox REST API endpoint
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.RESTLiveEndpoint">
+            <summary>
+            Live REST API endpoint
+            </summary>
+        </member>
         <member name="T:PayPal.Api.BaseConstants.HateoasLinkRelations">
             <summary>
             Defines string constants for HATEOAS link relations.
@@ -2975,14 +3030,29 @@
             Account Number representing the Payer
             </summary>
         </member>
+        <member name="P:PayPal.Api.PayerInfo.salutation">
+            <summary>
+            Salutation of the Payer.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.PayerInfo.first_name">
             <summary>
             First Name of the Payer.
             </summary>
         </member>
+        <member name="P:PayPal.Api.PayerInfo.middle_name">
+            <summary>
+            Middle Name of the Payer.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.PayerInfo.last_name">
             <summary>
             Last Name of the Payer.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.PayerInfo.suffix">
+            <summary>
+            Suffix of the Payer.
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.payer_id">
@@ -3002,7 +3072,7 @@
         </member>
         <member name="P:PayPal.Api.PayerInfo.birth_date">
             <summary>
-            Birth date of the Payer in ISO8601 format.
+            Birth date of the Payer in ISO8601 format (yyyy-mm-dd).
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.tax_id">
@@ -3013,6 +3083,11 @@
         <member name="P:PayPal.Api.PayerInfo.tax_id_type">
             <summary>
             Payer's tax ID type.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.PayerInfo.country_code">
+            <summary>
+            2 letter registered country code of the payer to identify the buyer country
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.billing_address">
@@ -3246,12 +3321,12 @@
         </member>
         <member name="P:PayPal.Api.BankAccount.external_customer_id">
             <summary>
-            A unique identifier of the customer to whom this bank account belongs to.
+            A unique identifier of the customer to whom this bank account belongs to. Generated and provided by the facilitator. This is required when creating or using a stored funding instrument in vault.
             </summary>
         </member>
         <member name="P:PayPal.Api.BankAccount.merchant_id">
             <summary>
-            A user provided, optional convenvience field that functions as a unique identifier for the merchant on behalf of whom this bank account is being stored for. Note that this has no relation to PayPal merchant id
+            A unique identifier of the merchant for which this bank account has been stored for. Generated and provided by the facilitator so it can be used to restrict the usage of the bank account to the specific merchnt.
             </summary>
         </member>
         <member name="P:PayPal.Api.BankAccount.external_account_id">
@@ -3261,17 +3336,17 @@
         </member>
         <member name="P:PayPal.Api.BankAccount.create_time">
             <summary>
-            Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the start of a range of results.
+            Time the resource was created.
             </summary>
         </member>
         <member name="P:PayPal.Api.BankAccount.update_time">
             <summary>
-            Resource creation time  as ISO8601 date-time format (ex: 1994-11-05T13:15:30Z) that indicates the start of a range of results.
+            Time the resource was last updated.
             </summary>
         </member>
         <member name="P:PayPal.Api.BankAccount.valid_until">
             <summary>
-            Date/Time as ISO8601 date-time format  until this resource can be used to fund a payment.
+            Date/Time until this resource can be used to fund a payment.
             </summary>
         </member>
         <member name="P:PayPal.Api.ExtendedBankAccount.mandate_reference_number">
@@ -3579,6 +3654,16 @@
         <member name="P:PayPal.Api.ErrorDetails.issue">
             <summary>
             Reason for the error.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ErrorDetails.purchase_unit_reference_id">
+            <summary>
+            Reference ID of the purchase_unit associated with this error
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ErrorDetails.code">
+            <summary>
+            PayPal internal error code.
             </summary>
         </member>
         <member name="P:PayPal.Api.AgreementDetails.outstanding_balance">
@@ -4120,6 +4205,11 @@
             The lifetime in seconds of the access token
             </summary>
         </member>
+        <member name="P:PayPal.Api.Transaction.purchase_unit_reference_id">
+            <summary>
+            Identifier to the purchase unit corresponding to this sale transaction.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Transaction.related_resources">
             <summary>
             List of financial transactions (Sale, Authorization, Capture, Refund) related to the payment.
@@ -4193,6 +4283,41 @@
         <member name="P:PayPal.Api.Sale.clearing_time">
             <summary>
             Expected clearing time for eCheck Transactions
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.recipient_fund_status">
+            <summary>
+            Indicates the credit status of fund to the recipient. It will be returned only when payment status is 'completed' 
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.hold_reason">
+            <summary>
+            Reason for holding the funds.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.transaction_fee">
+            <summary>
+            Transaction fee applicable for this payment.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.receivable_amount">
+            <summary>
+            Net amount payee receives for this transaction after deducting transaction fee.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.exchange_rate">
+            <summary>
+            Exchange rate applied for this transaction.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.fmf_details">
+            <summary>
+            Fraud Management Filter (FMF) details applied for the payment that could result in accept/deny/pending action.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.receipt_id">
+            <summary>
+            Receipt id is 16 digit number payment identification number returned for guest users to identify the payment.
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.parent_payment">
@@ -4313,6 +4438,11 @@
             Source of the funds for this payment represented by a PayPal account or a direct credit card.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Payment.payee">
+            <summary>
+            .
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Payment.cart">
             <summary>
             ID of the cart to execute the payment.
@@ -4425,7 +4555,7 @@
         </member>
         <member name="P:PayPal.Api.Order.purchase_unit_reference_id">
             <summary>
-            Identifier to the purchase unit associated with this object
+            Identifier to the purchase unit associated with this object. Obsolete. Use one in cart_base.
             </summary>
         </member>
         <member name="P:PayPal.Api.Order.amount">
@@ -4443,9 +4573,14 @@
             State of the order transaction.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Order.reason_code">
+            <summary>
+            Reason code for the transaction state being Pending or Reversed. This field will replace pending_reason field eventually
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Order.pending_reason">
             <summary>
-            Reason code for the transaction state being Pending.
+            Reason code for the transaction state being Pending. Obsolete. Retained for backward compatability. Use reason_code field above instead. 
             </summary>
         </member>
         <member name="P:PayPal.Api.Order.protection_eligibility">
@@ -4461,6 +4596,11 @@
         <member name="P:PayPal.Api.Order.parent_payment">
             <summary>
             ID of the Payment resource that this transaction is based on.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Order.fmf_details">
+            <summary>
+            Fraud Management Filter (FMF) details applied for the payment that could result in accept/deny/pending action.
             </summary>
         </member>
         <member name="P:PayPal.Api.Order.create_time">
@@ -4853,6 +4993,16 @@
             Array of agreement_transaction object.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Measurement.value">
+            <summary>
+            Value this measurement represents.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Measurement.unit">
+            <summary>
+            Unit in which the value is represented.
+            </summary>
+        </member>
         <member name="F:PayPal.Api.CreateFromAuthorizationCodeParameters.Code">
             <summary>
             Code used in query parameters
@@ -4904,6 +5054,11 @@
         <member name="F:PayPal.Log.LogConfiguration.PayPalLogKey">
             <summary>
             Key for the loggers to be set in <appSettings><add key="PayPalLogger" value="PayPal.Log.DiagnosticsLogger, PayPal.Log.Log4netLogger"/></appSettings> in configuration file
+            </summary>
+        </member>
+        <member name="P:PayPal.Log.LogConfiguration.LoggerListInConfiguration">
+            <summary>
+            Gets the list of loggers from the config.
             </summary>
         </member>
         <member name="P:PayPal.Api.Tax.id">
@@ -5392,6 +5547,11 @@
             Human readable, unique name of the error.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Error.purchase_unit_reference_id">
+            <summary>
+            Reference ID of the purchase_unit associated with this error
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Error.debug_id">
             <summary>
             PayPal internal identifier used for correlation purposes.
@@ -5402,6 +5562,11 @@
             Message describing the error.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Error.code">
+            <summary>
+            PayPal internal error code.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Error.information_link">
             <summary>
             URI for detailed information related to this error for the developer.
@@ -5410,6 +5575,26 @@
         <member name="P:PayPal.Api.Error.details">
             <summary>
             Additional details of the error
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.FmfDetails.filter_type">
+            <summary>
+            Type of filter.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.FmfDetails.filter_id">
+            <summary>
+            Filter Identifier.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.FmfDetails.name">
+            <summary>
+            Name of the filter
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.FmfDetails.description">
+            <summary>
+            Description of the filter.
             </summary>
         </member>
         <member name="M:PayPal.Api.OpenIdConnect.Userinfo.GetUserinfo(PayPal.Api.UserinfoParameters)">
@@ -5784,6 +5969,16 @@
             State of the authorization transaction.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Authorization.reason_code">
+            <summary>
+            Reason code for the transaction state being Pending. This field will replace pending_reason field eventually
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Authorization.pending_reason">
+            <summary>
+            [DEPRECATED] Reason code for the transaction state being Pending.Obsolete. use reason_code field instead.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Authorization.protection_eligibility">
             <summary>
             Protection Eligibility of the Payer 
@@ -5792,6 +5987,11 @@
         <member name="P:PayPal.Api.Authorization.protection_eligibility_type">
             <summary>
             Protection Eligibility Type of the Payer 
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Authorization.fmf_details">
+            <summary>
+            Fraud Management Filter (FMF) details applied for the payment that could result in accept/deny/pending action.
             </summary>
         </member>
         <member name="P:PayPal.Api.Authorization.parent_payment">
