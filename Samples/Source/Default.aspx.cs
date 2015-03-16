@@ -64,7 +64,8 @@ namespace PayPal.Sample
                             new SampleItem { Title = "List web experience profiles", ExecutePage = "PaymentExperienceGetList.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Update a web experience profile", ExecutePage = "PaymentExperienceUpdate.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Partially update a web experience profile", ExecutePage = "PaymentExperiencePartialUpdate.aspx", HasSourcePage = true },
-                            new SampleItem { Title = "Delete a web experience profile", ExecutePage = "PaymentExperienceDelete.aspx", HasSourcePage = true }
+                            new SampleItem { Title = "Delete a web experience profile", ExecutePage = "PaymentExperienceDelete.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Make a PayPal payment using a web experience profile", ExecutePage = "PaymentWithPayPalWithWebExperienceProfile.aspx", HasSourcePage = true }
                         }
                     },
                     new SampleCategory

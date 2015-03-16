@@ -3057,6 +3057,37 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "CSharp"
         },
+        "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\PaymentWithPayPalWithWebExperienceProfile.aspx.cs",
+        "projectPath": "PaymentWithPayPalWithWebExperienceProfile.aspx.cs",
+        "targetPath": "PaymentWithPayPalWithWebExperienceProfile.aspx",
+        "pageTitle": "PaymentWithPayPalWithWebExperienceProfile.aspx",
+        "title": "PaymentWithPayPalWithWebExperienceProfile.aspx"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Api Context",
+            "slug": "api-context"
+          },
+          "depth": 3
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".cs"],
+          "pygmentsLexer": "csharp",
+          "highlightJS": "cs",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CSharp"
+        },
         "sourcePath": "C:\\GitHub\\paypal\\NET-SDK\\Samples\\Source\\PaymentWithSavedCard.aspx.cs",
         "projectPath": "PaymentWithSavedCard.aspx.cs",
         "targetPath": "PaymentWithSavedCard.aspx",

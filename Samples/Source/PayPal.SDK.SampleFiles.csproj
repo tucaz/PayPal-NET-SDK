@@ -62,8 +62,16 @@
     <ExternalContent Include="Scripts\jquery-1.9.0.min.js" />
     <ExternalContent Include="Web.config" />
     <ExternalContent Include="Scripts\jquery-1.9.0.min.map" />
+    <ExternalContent Include="PaymentWithPayPalWithWebExperienceProfile.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <ExternalCompile Include="PaymentWithPayPalWithWebExperienceProfile.aspx.cs">
+      <DependentUpon>PaymentWithPayPalWithWebExperienceProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="PaymentWithPayPalWithWebExperienceProfile.aspx.designer.cs">
+      <DependentUpon>PaymentWithPayPalWithWebExperienceProfile.aspx</DependentUpon>
+    </ExternalCompile>
     <ExternalCompile Include="PayoutItemCancel.aspx.cs">
       <DependentUpon>PayoutItemCancel.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
