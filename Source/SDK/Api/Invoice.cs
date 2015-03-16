@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using PayPal.Util;
+using System;
 
 namespace PayPal.Api
 {
@@ -135,14 +136,28 @@ namespace PayPal.Api
         /// <summary>
         /// List of payment details for the invoice.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_details")]
-        public List<PaymentDetail> payment_details { get; set; }
+        [JsonIgnore]
+        [Obsolete("This property is obsolete. Use payments instead.", false)]
+        public List<PaymentDetail> payment_details { get { return this.payments; } set { this.payments = value; } }
+
+        /// <summary>
+        /// List of payment details for the invoice.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payments")]
+        public List<PaymentDetail> payments { get; set; }
 
         /// <summary>
         /// List of refund details for the invoice.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refund_details")]
-        public List<RefundDetail> refund_details { get; set; }
+        [JsonIgnore]
+        [Obsolete("This property is obsolete. Use refunds instead.", false)]
+        public List<RefundDetail> refund_details { get { return this.refunds; } set { this.refunds = value; } }
+
+        /// <summary>
+        /// List of refund details for the invoice.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refunds")]
+        public List<RefundDetail> refunds { get; set; }
 
         /// <summary>
         /// Audit information for the invoice.

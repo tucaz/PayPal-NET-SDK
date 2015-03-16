@@ -120,7 +120,7 @@ namespace PayPal.Api
             // Configure and send the request
             var resourcePath = "v1/payments/payment";
             var resource = PayPalResource.ConfigureAndExecute<Payment>(apiContext, HttpMethod.POST, resourcePath, payment.ConvertToJson());
-            resource.token = SDKUtil.GetTokenFromApprovalUrl(resource.links);
+            resource.token = resource.GetTokenFromApprovalUrl();
             return resource;
         }
 
