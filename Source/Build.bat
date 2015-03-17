@@ -1,9 +1,25 @@
 @echo off
-IF exist "C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\" ( call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.com" RestApiSDK.VS.2008.sln /build Debug)
-IF exist "C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\" ( call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.com" RestApiSDK.VS.2008.sln /build Release)
 
-IF exist "C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\" ( call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.com" RestApiSDK.VS.2010.sln /build Debug)
-IF exist "C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\" ( call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.com" RestApiSDK.VS.2010.sln /build Release)
+ECHO PayPal .NET SDK
+ECHO ======================================
 
-IF exist "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\" ( call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv.com" RestApiSDK.VS.2012.sln /build Debug)
-IF exist "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\" ( call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv.com" RestApiSDK.VS.2012.sln /build Release)
+IF "%VS120COMNTOOLS%"=="" GOTO :VS_NOT_FOUND
+
+:: .NET 4.0
+"%VS120COMNTOOLS%\..\IDE\devenv.com" PayPal.SDK.NET40.sln /build Debug
+"%VS120COMNTOOLS%\..\IDE\devenv.com" PayPal.SDK.NET40.sln /build Release
+
+:: .NET 4.5
+"%VS120COMNTOOLS%\..\IDE\devenv.com" PayPal.SDK.NET45.sln /build Debug
+"%VS120COMNTOOLS%\..\IDE\devenv.com" PayPal.SDK.NET45.sln /build Release
+
+:: .NET 4.5.1
+"%VS120COMNTOOLS%\..\IDE\devenv.com" PayPal.SDK.NET451.sln /build Debug
+"%VS120COMNTOOLS%\..\IDE\devenv.com" PayPal.SDK.NET451.sln /build Release
+
+GOTO :END
+
+:VS_NOT_FOUND
+ECHO Visual Studio 2013 was not found.
+
+:END
