@@ -63,12 +63,15 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void AgreementGetTest()
         {
-            var agreementId = "I-RDJKRLEBYWYH";
-            var agreement = Agreement.Get(TestingUtil.GetApiContext(), agreementId);
-            Assert.AreEqual(agreementId, agreement.id);
-            Assert.AreEqual("Agreement for T-Shirt of the Month Club", agreement.description);
-            Assert.AreEqual("2016-02-19T08:00:00Z", agreement.start_date);
-            Assert.IsNotNull(agreement.plan);
+            var apiContext = TestingUtil.GetApiContext();
+            var agreement = new Agreement() { token = "EC-2CD33889A9699491E" };
+            var executedAgreement = agreement.Execute(apiContext);
+            var agreementId = executedAgreement.id;
+            var retrievedAgreement = Agreement.Get(apiContext, agreementId);
+            Assert.AreEqual(agreementId, retrievedAgreement.id);
+            Assert.AreEqual("-6514356286402072739", retrievedAgreement.description);
+            Assert.AreEqual("2015-02-19T08:00:00Z", retrievedAgreement.start_date);
+            Assert.IsNotNull(retrievedAgreement.plan);
         }
 
         [TestMethod, TestCategory("Functional")]

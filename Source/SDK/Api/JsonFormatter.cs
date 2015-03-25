@@ -1,15 +1,38 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using PayPal.Log;
+using System;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// Event arguments for when an error is encountered while deserializing a JSON string.
+    /// </summary>
+    public class JsonFormatterDeserializationErrorEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Gets or sets the error message associated with this event.
+        /// </summary>
+        public string Message { get; set; }
+    }
+
+    /// <summary>
+    /// Event handler delegate for when an error is encountered while deserializing a JSON string.
+    /// </summary>
+    /// <param name="e"></param>
+    public delegate void JsonFormatterDeserializationErrorEventHandler(JsonFormatterDeserializationErrorEventArgs e);
+
     /// <summary>
     /// Helper class that handles serializing and deserializing to and from JSON strings, respectively.
     /// </summary>
     public static class JsonFormatter
     {
         private static Logger logger = Logger.GetLogger(typeof(JsonFormatter));
+
+        /// <summary>
+        /// Event handler for when an error occurs while attempting to deserialize a JSON string.
+        /// </summary>
+        public static event JsonFormatterDeserializationErrorEventHandler DeserializationError;
 
         /// <summary>
         /// Converts the specified object to a JSON string.
@@ -46,6 +69,13 @@ namespace PayPal.Api
         {
             logger.Error("Error while deserializing JSON: " + e.ErrorContext.Error.Message);
             e.ErrorContext.Handled = e.CurrentObject != null;
+
+            // Raise the event if any other object has subscribed to this error.
+            var handler = DeserializationError;
+            if (handler != null)
+            {
+                handler(new JsonFormatterDeserializationErrorEventArgs { Message = e.ErrorContext.Error.Message });
+            }
         }
     }
 }

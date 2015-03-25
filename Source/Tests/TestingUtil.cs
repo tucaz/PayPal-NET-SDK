@@ -7,29 +7,18 @@ namespace PayPal.Testing
 {
     public class TestingUtil
     {
-        public static Dictionary<string, string> GetConfig()
-        {
-            return new Dictionary<string, string>
-            {
-                { BaseConstants.ClientId, "AWdYxxA6pvcbjhb51A4BUosqeNv8u6mlFX7CZ_d-D6WakmFVRGeG5X43FJql" },
-                { BaseConstants.ClientSecret, "EFCQHhChJbtb4bjvQO593E3-shFeIXLh-a0Sxp7luqvqwzlOG10ueTly2EHf" },
-                { BaseConstants.ApplicationModeConfig, BaseConstants.SandboxMode },
-                { "connectionTimeout", "360000" },
-                { "requestRetries", "1" }
-            };
-        }
-
         private static string GetAccessToken()
         {
-            var oauth = new OAuthTokenCredential(GetConfig());
+            var oauth = new OAuthTokenCredential(ConfigManager.Instance.GetProperties());
             return oauth.GetAccessToken();
         }
 
-        public static PayPal.Api.APIContext GetApiContext()
+        public static APIContext GetApiContext()
         {
-            var apiContext = new PayPal.Api.APIContext(GetAccessToken());
-            apiContext.Config = GetConfig();
-            return apiContext;
+            return new APIContext(GetAccessToken())
+            {
+                Config = ConfigManager.Instance.GetProperties()
+            };
         }
 
         /// <summary>
