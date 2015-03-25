@@ -50,9 +50,10 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Unit")]
         public void OAuthTokenCredentialCtorNullValuesTest()
         {
+            // If null values are passed in, OAuthTokenCredential uses the values specified in the config.
             var oauthTokenCredential = new OAuthTokenCredential(null, null, null);
-            Assert.IsTrue(string.IsNullOrEmpty(oauthTokenCredential.ClientId));
-            Assert.IsTrue(string.IsNullOrEmpty(oauthTokenCredential.ClientSecret));
+            Assert.IsTrue(!string.IsNullOrEmpty(oauthTokenCredential.ClientId));
+            Assert.IsTrue(!string.IsNullOrEmpty(oauthTokenCredential.ClientSecret));
         }
     }
 }
