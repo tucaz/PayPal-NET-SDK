@@ -19,6 +19,7 @@ All SDK documentation can be found on the [PayPal .NET SDK Wiki](https://github.
 * [Getting Started](https://github.com/paypal/PayPal-NET-SDK/wiki#getting-started) - Everything you need to begin using this SDK.
 * [Quick Start](https://github.com/paypal/PayPal-NET-SDK/wiki/Quick-Start) - For those looking to hit the ground running!
 * [Samples](https://github.com/paypal/PayPal-NET-SDK/wiki/Samples)
+* [Classic SDK Compatibility](https://github.com/paypal/PayPal-NET-SDK/wiki/Classic-SDK-Compatibility)
 * [FAQ](https://github.com/paypal/PayPal-NET-SDK/wiki/Frequently-Asked-Questions)
 * [Contributing to the SDK](https://github.com/paypal/PayPal-NET-SDK/wiki/Contributing-to-the-SDK)
 
