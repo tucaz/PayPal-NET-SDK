@@ -1,6 +1,12 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.4.1
+* Fix Invoicing API support
+* Add `JsonFormatter` deserialization error event support
+* Improve compatibility with Classic SDKs
+* Minor improvements to samples and tests
+
 ## v1.4.0
 * `BaseLogger` is now public, allowing developers to add custom logger support
 * Fix sample for creating and executing an order
