@@ -60,14 +60,24 @@ namespace PayPal.Api
         /// </summary>
         private ConfigManager()
         {
-            SDKConfigHandler configHandler = (SDKConfigHandler) ConfigurationManager.GetSection("paypal");
-            if (configHandler == null)
+            object paypalConfigSection = null;
+
+            try
+            {
+                paypalConfigSection = ConfigurationManager.GetSection("paypal");
+            }
+            catch (System.Exception ex)
+            {
+                throw new ConfigException("Unable to load 'paypal' section from *.config: " + ex.Message);
+            }
+
+            if (paypalConfigSection == null)
             {
                 throw new ConfigException(
                     "Cannot parse *.Config file. Ensure you have configured the 'paypal' section correctly.");
             }
 
-            NameValueConfigurationCollection settings = configHandler.Settings;
+            NameValueConfigurationCollection settings = (NameValueConfigurationCollection)paypalConfigSection.GetType().GetProperty("Settings").GetValue(paypalConfigSection, null);
             this.configValues = new Dictionary<string, string>();
             foreach (NameValueConfigurationElement setting in settings)
             {                
@@ -75,7 +85,7 @@ namespace PayPal.Api
             }
 
             int index = 0;
-            foreach (ConfigurationElement element in configHandler.Accounts)
+            foreach (ConfigurationElement element in (ConfigurationElementCollection)paypalConfigSection.GetType().GetProperty("Accounts").GetValue(paypalConfigSection, null))
             {
                 Account account = (Account)element;
                 if (!string.IsNullOrEmpty(account.APIUserName))
