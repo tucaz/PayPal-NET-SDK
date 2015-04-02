@@ -25,7 +25,7 @@ namespace PayPal
         }
 
         [ConfigurationProperty("settings", IsRequired = true)]
-        internal NameValueConfigurationCollection Settings
+        public NameValueConfigurationCollection Settings
         {
             get { return (NameValueConfigurationCollection)this["settings"]; }
         }
