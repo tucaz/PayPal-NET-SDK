@@ -9,6 +9,12 @@ using PayPal.Util;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// A REST API credit card resource.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class CreditCard : PayPalResourceObject
     {
         /// <summary>

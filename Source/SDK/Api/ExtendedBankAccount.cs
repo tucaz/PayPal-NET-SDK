@@ -8,6 +8,12 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// A REST API extended bank account resource.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class ExtendedBankAccount : BankAccount
     {
         /// <summary>

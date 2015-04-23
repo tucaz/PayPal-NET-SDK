@@ -10,6 +10,12 @@ using PayPal.Util;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// A REST API billing agreement resource.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class Agreement : PayPalResourceObject
     {
         /// <summary>

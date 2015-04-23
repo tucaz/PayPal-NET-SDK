@@ -9,6 +9,12 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// Request object used to execute a <seealso cref="Payment"/> resource.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class PaymentExecution : PayPalSerializableObject
     {
         /// <summary>

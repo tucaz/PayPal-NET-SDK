@@ -10,6 +10,12 @@ using System;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// A REST API authorization resource used to authorize a payment.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class Authorization : PayPalResourceObject
     {
         /// <summary>

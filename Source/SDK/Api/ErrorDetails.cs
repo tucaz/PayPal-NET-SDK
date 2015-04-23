@@ -8,6 +8,12 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// Additional details related to an <seealso cref="Error"/> resource.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class ErrorDetails : PayPalSerializableObject
     {
         /// <summary>

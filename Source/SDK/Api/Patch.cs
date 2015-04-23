@@ -8,6 +8,12 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// A resource patch object used to update a REST API resource object.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class Patch : PayPalSerializableObject
     {
         /// <summary>

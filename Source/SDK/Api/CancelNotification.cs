@@ -8,6 +8,12 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// Details of an invoice cancel notification.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class CancelNotification : PayPalSerializableObject
     {
         /// <summary>

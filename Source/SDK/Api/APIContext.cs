@@ -3,37 +3,12 @@ using System.Collections.Generic;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// APIContext is used when making HTTP calls to the PayPal REST API.
+    /// </summary>
     public class APIContext
     {
-        /// <summary>
-        /// Access Token
-        /// </summary>
-        private string token;
-
-        /// <summary>
-        /// Request Id
-        /// </summary>
         private string reqId;
-
-        /// <summary>
-        /// Mask Request Id
-        /// </summary>
-        private bool maskReqId;
-
-        /// <summary>
-        /// Dynamic configuration
-        /// </summary>
-        private Dictionary<string, string> dynamicConfig;
-
-        /// <summary>
-        /// HTTP Headers
-        /// </summary>
-        private Dictionary<string, string> httpHeaders;
-
-        /// <summary>
-        /// SDKVersion instance
-        /// </summary>
-        private SDKVersion sVersion;
 
         /// <summary>
         /// Explicit default constructor
@@ -50,7 +25,7 @@ namespace PayPal.Api
             {
                 throw new ArgumentNullException("AccessToken cannot be null");
             }
-            this.token = token;
+            this.AccessToken = token;
         }
 
         /// <summary>
@@ -70,28 +45,12 @@ namespace PayPal.Api
         /// <summary>
         /// Gets the Access Token
         /// </summary>
-        public string AccessToken
-        {
-            get
-            {
-                return token;
-            }
-        }
+        public string AccessToken { get; private set; }
 
         /// <summary>
-        /// Gets and sets the Mask Request Id
+        /// Gets or sets the Mask Request Id
         /// </summary>
-        public bool MaskRequestId
-        {
-            get
-            {
-                return this.maskReqId;
-            }
-            set
-            {
-                this.maskReqId = value;
-            }
-        }
+        public bool MaskRequestId { get; set; }
         
         /// <summary>
         /// Gets the Request Id
@@ -101,7 +60,7 @@ namespace PayPal.Api
             get
             {
                 string returnId = null;
-                if (!MaskRequestId)
+                if (!this.MaskRequestId)
                 {
                     if (string.IsNullOrEmpty(reqId))
                     {
@@ -111,48 +70,25 @@ namespace PayPal.Api
                 }
                 return returnId;
             }
-        }
-
-        /// <summary>
-        /// Gets and sets the Dynamic Configuration
-        /// </summary>
-        public Dictionary<string, string> Config
-        {
-            get
-            {
-                return this.dynamicConfig;
-            }
             set
             {
-                this.dynamicConfig = value;
+                this.reqId = value;
             }
         }
 
         /// <summary>
-        /// Gets and sets HTTP Headers
+        /// Gets or sets the PayPal configuration settings to be used when making API requests.
         /// </summary>
-        public Dictionary<string, string> HTTPHeaders
-        {
-            get
-            {
-                return this.httpHeaders;
-            }
-            set
-            {
-                this.httpHeaders = value;
-            }
-        }
+        public Dictionary<string, string> Config { get; set; }
 
-        public SDKVersion SdkVersion
-        {
-            get
-            {
-                return sVersion;
-            }
-            set
-            {
-                sVersion = value;
-            }
-        }
+        /// <summary>
+        /// Gets or sets the HTTP headers to include when making HTTP requests to the API.
+        /// </summary>
+        public Dictionary<string, string> HTTPHeaders { get; set; }
+
+        /// <summary>
+        /// Gets or sets the SDK version to include in the User-Agent header.
+        /// </summary>
+        public SDKVersion SdkVersion { get; set; }
     }
 }

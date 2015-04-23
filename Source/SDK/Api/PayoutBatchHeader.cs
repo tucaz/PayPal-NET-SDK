@@ -9,6 +9,12 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// A REST API payout batch header resource object, containing detailed information about a <seealso cref="PayoutBatch"/>.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class PayoutBatchHeader : PayPalResourceObject
     {
         /// <summary>

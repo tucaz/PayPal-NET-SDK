@@ -2,6 +2,12 @@
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// A REST API future payment resource.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class FuturePayment : Payment
     {
         /// <summary>

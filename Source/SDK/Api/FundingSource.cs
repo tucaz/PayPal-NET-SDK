@@ -8,10 +8,16 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// A REST API funding source resource.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class FundingSource : PayPalResourceObject
     {
         /// <summary>
-        /// specifies funding mode of the instrument
+        /// Specifies funding mode of the instrument
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "funding_mode")]
         public string funding_mode { get; set; }

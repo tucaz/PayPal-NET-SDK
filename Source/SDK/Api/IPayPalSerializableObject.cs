@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace PayPal.Api
+﻿namespace PayPal.Api
 {
+    /// <summary>
+    /// Defines an interface for a PayPal JSON-serializable object.
+    /// </summary>
     public interface IPayPalSerializableObject
     {
         /// <summary>

@@ -9,6 +9,12 @@ using PayPal.Util;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// Details about a specific webhook event type that a <seealso cref="Webhook"/> can be setup to listen to.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class WebhookEventType : PayPalSerializableObject
     {
         /// <summary>

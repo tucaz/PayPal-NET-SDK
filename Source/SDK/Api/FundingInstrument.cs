@@ -10,6 +10,12 @@ using System.ComponentModel;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// A payer's funding instrument details used in context of payments.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class FundingInstrument : PayPalSerializableObject
     {
         /// <summary>

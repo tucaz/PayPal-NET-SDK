@@ -4,9 +4,7 @@ using System.Text;
 using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PayPal;
 using PayPal.Log;
-using System.Web;
 
 namespace PayPal.Api
 {
@@ -30,7 +28,7 @@ namespace PayPal.Api
         private Dictionary<string, string> config;
 
         /// <summary>
-        /// Cached access token that is generated when calling <see cref="OAuthtokenCredential.GetAccessToken()"/>.
+        /// Cached access token that is generated when calling <see cref="OAuthTokenCredential.GetAccessToken()"/>.
         /// </summary>
         private string accessToken;
 
@@ -56,19 +54,19 @@ namespace PayPal.Api
 
         /// <summary>
         /// Gets the application ID returned by OAuth servers.
-        /// Must first call <see cref="OAuthtokenCredentials.GetAccessToken()"/> to populate this property.
+        /// Must first call <see cref="OAuthTokenCredentials.GetAccessToken()"/> to populate this property.
         /// </summary>
         public string ApplicationId { get; private set; }
 
         /// <summary>
         /// Gets or sets the lifetime of a created access token in seconds.
-        /// Must first call <see cref="OAuthtokenCredentials.GetAccessToken()"/> to populate this property.
+        /// Must first call <see cref="OAuthTokenCredentials.GetAccessToken()"/> to populate this property.
         /// </summary>
         public int AccessTokenExpirationInSeconds { get; set; }
 
         /// <summary>
         /// Gets the last date when access token was generated.
-        /// Must first call <see cref="OAuthtokenCredentials.GetAccessToken()"/> to populate this property.
+        /// Must first call <see cref="OAuthTokenCredentials.GetAccessToken()"/> to populate this property.
         /// </summary>
         public DateTime AccessTokenLastCreationDate { get; private set; }
 
@@ -118,13 +116,13 @@ namespace PayPal.Api
         /// a new one is generated and returned.
         /// </summary>
         /// <returns>The OAuth access token to use for making PayPal requests.</returns>
-        /// <exception cref="PayPal.Exception.MissingCredentialException">Thrown if clientId or clientSecret are null or empty.</exception>
-        /// <exception cref="PayPal.Exception.InvalidCredentialException">Thrown if there is an issue converting the credentials to a formatted authorization string.</exception>
-        /// <exception cref="PayPal.Exception.IdentityException">Thrown if authorization fails as a result of providing invalid credentials.</exception>
-        /// <exception cref="PayPal.Exception.HttpException">Thrown if authorization fails and an HTTP error response is received.</exception>
-        /// <exception cref="PayPal.Exception.ConnectionException">Thrown if there is an issue attempting to connect to PayPal's services.</exception>
-        /// <exception cref="PayPal.Exception.ConfigException">Thrown if there is an error with any informaiton provided by the <see cref="PayPal.Manager.ConfigManager"/>.</exception>
-        /// <exception cref="PayPal.Exception.PayPalException">Thrown for any other general exception. See inner exception for further details.</exception>
+        /// <exception cref="PayPal.MissingCredentialException">Thrown if clientId or clientSecret are null or empty.</exception>
+        /// <exception cref="PayPal.InvalidCredentialException">Thrown if there is an issue converting the credentials to a formatted authorization string.</exception>
+        /// <exception cref="PayPal.IdentityException">Thrown if authorization fails as a result of providing invalid credentials.</exception>
+        /// <exception cref="PayPal.HttpException">Thrown if authorization fails and an HTTP error response is received.</exception>
+        /// <exception cref="PayPal.ConnectionException">Thrown if there is an issue attempting to connect to PayPal's services.</exception>
+        /// <exception cref="PayPal.ConfigException">Thrown if there is an error with any informaiton provided by the <see cref="PayPal.Api.ConfigManager"/>.</exception>
+        /// <exception cref="PayPal.PayPalException">Thrown for any other general exception. See inner exception for further details.</exception>
         public string GetAccessToken()
         {
             // If the cached access token value is valid, then check to see if
@@ -165,9 +163,9 @@ namespace PayPal.Api
         /// <param name="clientId">The client ID to be used in generating the base-64 client identifier.</param>
         /// <param name="clientSecret">The client secret to be used in generating the base-64 client identifier.</param>
         /// <returns>The base-64 encoded client identifier to use in the authorization request.</returns>
-        /// <exception cref="PayPal.Exception.MissingCredentialException">Thrown if clientId or clientSecret are null or empty.</exception>
-        /// <exception cref="PayPal.Exception.InvalidCredentialException">Thrown if there is an issue converting the credentials to a formatted authorization string.</exception>
-        /// <exception cref="PayPal.Exception.PayPalException">Thrown for any other issue encountered. See inner exception for further details.</exception>
+        /// <exception cref="PayPal.MissingCredentialException">Thrown if clientId or clientSecret are null or empty.</exception>
+        /// <exception cref="PayPal.InvalidCredentialException">Thrown if there is an issue converting the credentials to a formatted authorization string.</exception>
+        /// <exception cref="PayPal.PayPalException">Thrown for any other issue encountered. See inner exception for further details.</exception>
         private static string ConvertClientCredentialsToBase64String(string clientId, string clientSecret)
         {
             // Validate the provided credentials. If either value is null or empty, then throw.

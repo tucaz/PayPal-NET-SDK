@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// Details of a list of purchasable items and shipping information included with a payment transaction.
+    /// </summary>
     public class ItemList : PayPalSerializableObject
     {
         /// <summary>

@@ -8,6 +8,12 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// A HATEOAS (Hypermedia as the Engine of Application State) link included with most PayPal REST API resource objects.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class Links : PayPalSerializableObject
     {
         /// <summary>

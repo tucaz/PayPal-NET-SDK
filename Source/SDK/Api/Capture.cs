@@ -9,6 +9,12 @@ using PayPal.Util;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// A REST API capture resource used in context of capturing a payment.
+    /// <para>
+    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// </para>
+    /// </summary>
     public class Capture : PayPalResourceObject
     {
         /// <summary>
