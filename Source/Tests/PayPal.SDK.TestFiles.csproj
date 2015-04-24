@@ -6,6 +6,7 @@
     <ExternalCompile Include="AgreementTest.cs" />
     <ExternalCompile Include="AgreementTransactionsTest.cs" />
     <ExternalCompile Include="AgreementTransactionTest.cs" />
+    <ExternalCompile Include="APIContextTest.cs" />
     <ExternalCompile Include="BankAccountTest.cs" />
     <ExternalCompile Include="ChargeModelTest.cs" />
     <ExternalCompile Include="CreateProfileResponseTest.cs" />

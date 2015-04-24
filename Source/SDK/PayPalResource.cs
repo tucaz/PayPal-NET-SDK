@@ -85,7 +85,7 @@ namespace PayPal
             headersMap = apiContext.HTTPHeaders;
 
             // PayPal Request Id
-            requestId = apiContext.RequestId;
+            requestId = apiContext.MaskRequestId ? null : apiContext.RequestId;
 
             // Create an instance of IAPICallPreHandler
             IAPICallPreHandler apiCallPreHandler = CreateIAPICallPreHandler(config, headersMap, authorizationToken, requestId, payload, apiContext.SdkVersion);

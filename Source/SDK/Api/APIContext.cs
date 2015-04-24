@@ -8,73 +8,58 @@ namespace PayPal.Api
     /// </summary>
     public class APIContext
     {
-        private string reqId;
-
         /// <summary>
-        /// Explicit default constructor
+        /// Initializes a new instance of <seealso cref="APIContext"/> that is used when making HTTP calls to the PayPal REST API.
         /// </summary>
-        public APIContext() { }
-
-        /// <summary>
-        /// Access Token required for the call
-        /// </summary>
-        /// <param name="token"></param>
-        public APIContext(string token)
+        public APIContext()
         {
-            if (string.IsNullOrEmpty(token))
-            {
-                throw new ArgumentNullException("AccessToken cannot be null");
-            }
-            this.AccessToken = token;
+            this.ResetRequestId();
+            this.Config = new Dictionary<string, string>();
+            this.HTTPHeaders = new Dictionary<string, string>();
+            this.SdkVersion = new SDKVersion();
         }
 
         /// <summary>
-        /// Access Token and Request Id required for the call
+        /// Initializes a new instance of <seealso cref="APIContext"/> that is used when making HTTP calls to the PayPal REST API; as well as sets and verifies the state of an <paramref name="accessToken"/>.
         /// </summary>
-        /// <param name="token"></param>
-        /// <param name="requestId"></param>
-        public APIContext(string token, string requestId) : this(token)
+        /// <param name="accessToken">OAuth access token to use when making API requests</param>
+        public APIContext(string accessToken) : this()
+        {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentNullException("accessToken cannot be null");
+            }
+            this.AccessToken = accessToken;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <seealso cref="APIContext"/> that is used when making HTTP calls to the PayPal REST API; as well as sets and verifies the states of an <paramref name="accessToken"/> and <paramref name="requestId"/>.
+        /// </summary>
+        /// <param name="accessToken">OAuth access token to use when making API requests</param>
+        /// <param name="requestId">ID used for ensuring idempotency when making a REST API call</param>
+        public APIContext(string accessToken, string requestId) : this(accessToken)
         {
             if (string.IsNullOrEmpty(requestId))
             {
-                throw new ArgumentNullException("RequestId cannot be null");
+                throw new ArgumentNullException("requestId cannot be null");
             }
-            this.reqId = requestId;
+            this.RequestId = requestId;
         }
 
         /// <summary>
-        /// Gets the Access Token
+        /// Gets or sets the OAuth access token to use when making API requests.
         /// </summary>
-        public string AccessToken { get; private set; }
+        public string AccessToken { get; set; }
 
         /// <summary>
-        /// Gets or sets the Mask Request Id
+        /// Gets or sets whether or not the PayPal-Request-Id header will be set when making API requests, which is used for ensuring idempotency when making API calls.
         /// </summary>
         public bool MaskRequestId { get; set; }
         
         /// <summary>
-        /// Gets the Request Id
+        /// Gets or sets the request ID used for ensuring idempotency when making a REST API call.
         /// </summary>
-        public string RequestId
-        {
-            get
-            {
-                string returnId = null;
-                if (!this.MaskRequestId)
-                {
-                    if (string.IsNullOrEmpty(reqId))
-                    {
-                        reqId = Convert.ToString(Guid.NewGuid());
-                    }
-                    returnId = reqId;
-                }
-                return returnId;
-            }
-            set
-            {
-                this.reqId = value;
-            }
-        }
+        public string RequestId { get; set; }
 
         /// <summary>
         /// Gets or sets the PayPal configuration settings to be used when making API requests.
@@ -90,5 +75,13 @@ namespace PayPal.Api
         /// Gets or sets the SDK version to include in the User-Agent header.
         /// </summary>
         public SDKVersion SdkVersion { get; set; }
+
+        /// <summary>
+        /// Resets the request ID used for ensuring idempotency when making a REST API call.
+        /// </summary>
+        public void ResetRequestId()
+        {
+            this.RequestId = Convert.ToString(Guid.NewGuid());
+        }
     }
 }
