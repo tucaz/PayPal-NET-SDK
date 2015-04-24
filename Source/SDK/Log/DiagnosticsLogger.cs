@@ -12,42 +12,34 @@ namespace PayPal.Log
         volatile int id = 0;
         TraceSource sourceTrace;
 
+        /// <summary>
+        /// Initializes a new instance of the <seealso cref="DiagnosticsLogger"/> class.
+        /// </summary>
+        /// <param name="givenType">The type associated with this logger.</param>
         public DiagnosticsLogger(Type givenType) : base(givenType)
         {
             this.sourceTrace = TraceSourceUtil.GetTraceSource(givenType);
         }
 
-        public override bool IsDebugEnabled
-        {
-            get
-            {
-                return (sourceTrace != null);
-            }
-        }
+        /// <summary>
+        /// Gets whether or not debug logging is enabled.
+        /// </summary>
+        public override bool IsDebugEnabled { get { return (sourceTrace != null); } }
 
-        public override bool IsErrorEnabled
-        {
-            get
-            {
-                return (sourceTrace != null);
-            }
-        }
+        /// <summary>
+        /// Gets whether or not error logging is enabled.
+        /// </summary>
+        public override bool IsErrorEnabled { get { return (sourceTrace != null); } }
 
-        public override bool IsInfoEnabled
-        {
-            get
-            {
-                return (sourceTrace != null);
-            }
-        }
+        /// <summary>
+        /// Gets whether or not informational logging is enabled.
+        /// </summary>
+        public override bool IsInfoEnabled { get { return (sourceTrace != null); } }
 
-        public override bool IsWarnEnabled
-        {
-            get
-            {
-                return (sourceTrace != null);
-            }
-        }
+        /// <summary>
+        /// Gets whether or not logging for warnings is enabled.
+        /// </summary>
+        public override bool IsWarnEnabled { get { return (sourceTrace != null); } }
 
         /// <summary>
         /// Override the wrapper for System.Diagnostics TraceEventType.Verbose

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Management;
 using System.Text;
-using System.Runtime.InteropServices;
 
 namespace PayPal.Api
 {
@@ -28,7 +26,7 @@ namespace PayPal.Api
         /// <returns>A string containing the signature for the UserAgent header.</returns>
         private static string GetUserAgentHeader()
         {
-            var header = new StringBuilder("PayPalSDK/PayPal-NET-SDK " + BaseConstants.SdkVersion + " (");
+            var header = new StringBuilder("PayPalSDK/" + BaseConstants.SdkName + " " + BaseConstants.SdkVersion + " (");
             header.Append(string.Join(";", new string[] 
             {
                 FormatUserAgentParameter("lang", "DOTNET"),

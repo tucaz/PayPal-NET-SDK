@@ -2,47 +2,23 @@ using System.Collections.Generic;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// Parameters for getting an access token using a authorization code.
+    /// </summary>
     public class CreateFromAuthorizationCodeParameters : ClientCredentials
-    {        
-        /// <summary>
-        /// Code used in query parameters
-        /// </summary>
-        private const string Code = "code";
-
-        /// <summary>
-        /// Redirect URI used in query parameters
-        /// </summary>
-        private const string RedirectUri = "redirect_uri";
-
-        /// <summary>
-        /// Grant Type used in query parameters
-        /// </summary>
-        private const string GrantType = "grant_type";
-
+    {
         /// <summary>
         /// Backing map
         /// </summary>
-        private Dictionary<string, string> mapContainer;
+        public Dictionary<string, string> ContainerMap { get; set; }
 
         /// <summary>
-        /// Backing map
+        /// Initializes a new <seealso cref="CreateFromAuthorizationCodeParameters"/> object and sets the grant type to 'authorization_code'.
         /// </summary>
-        public Dictionary<string, string> ContainerMap
-        {
-            get
-            {
-                return this.mapContainer;
-            }
-            set
-            {
-                this.mapContainer = value;
-            }
-        }
-
         public CreateFromAuthorizationCodeParameters()
         {
-            ContainerMap = new Dictionary<string, string>();
-            ContainerMap.Add(GrantType, "authorization_code");
+            this.ContainerMap = new Dictionary<string, string>();
+            this.SetGrantType("authorization_code");
         }        
 
         /// <summary>
@@ -51,7 +27,7 @@ namespace PayPal.Api
         /// <param name="code"></param>
         public void SetCode(string code)
         {
-            ContainerMap.Add(Code, code);
+            ContainerMap["code"] = code;
         }
 
         /// <summary>
@@ -60,7 +36,7 @@ namespace PayPal.Api
         /// <param name="redirectUri"></param>
         public void SetRedirectUri(string redirectUri)
         {
-            ContainerMap.Add(RedirectUri, redirectUri);
+            ContainerMap["redirect_uri"] = redirectUri;
         }
 
         /// <summary>
@@ -69,7 +45,7 @@ namespace PayPal.Api
         /// <param name="grantType"></param>
         public void SetGrantType(string grantType)
         {
-            ContainerMap.Add(GrantType, grantType);
+            ContainerMap["grant_type"] = grantType;
         }
     }
 }

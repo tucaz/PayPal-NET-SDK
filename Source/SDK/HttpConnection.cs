@@ -8,24 +8,23 @@ using PayPal.Log;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// Helper class for sending HTTP requests.
+    /// </summary>
     public class HttpConnection
     {
-        /// <summary>
-        /// Logger
-        /// </summary>
         private static Logger logger = Logger.GetLogger(typeof(HttpConnection));
-
+        private Dictionary<string, string> config;
         private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
                                                 { HttpStatusCode.GatewayTimeout,
                                                   HttpStatusCode.RequestTimeout,
                                                   HttpStatusCode.BadGateway
-                                                });
+                                                }); 
 
         /// <summary>
-        /// Dynamic Configuration
+        /// Initializes a new instance of <seealso cref="HttpConnection"/> using the given config.
         /// </summary>
-        private Dictionary<string, string> config;
-
+        /// <param name="config">The config to use when making HTTP requests.</param>
         public HttpConnection(Dictionary<string, string> config)
         {
             this.config = config;

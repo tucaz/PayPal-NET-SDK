@@ -1,7 +1,8 @@
-using PayPal.Log;
-
 namespace PayPal
 {
+    /// <summary>
+    /// Represents an error that occurred in the PayPal SDK when attempting to load information from the application's config file.
+    /// </summary>
     public class ConfigException : PayPalException
     {
 		/// <summary>

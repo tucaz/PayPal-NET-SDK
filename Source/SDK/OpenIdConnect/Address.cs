@@ -2,6 +2,9 @@ using Newtonsoft.Json;
 
 namespace PayPal.Api.OpenIdConnect
 {
+    /// <summary>
+    /// Address used in context of Log In with PayPal.
+    /// </summary>
     public class Address
     {
         /// <summary>

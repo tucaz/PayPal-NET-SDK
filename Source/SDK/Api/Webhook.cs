@@ -50,6 +50,7 @@ namespace PayPal.Api
         /// Creates the Webhook for the application associated with the access token.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="webhook"><seealso cref="Webhook"/> object to be created.</param>
         /// <returns>Webhook</returns>
         public static Webhook Create(APIContext apiContext, Webhook webhook)
         {
@@ -109,6 +110,7 @@ namespace PayPal.Api
         /// Updates the Webhook identified by webhook_id for the application associated with access token.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="webhookId">ID of the webhook to be updated.</param>
         /// <param name="patchRequest">PatchRequest</param>
         /// <returns>Webhook</returns>
         public static Webhook Update(APIContext apiContext, string webhookId, PatchRequest patchRequest)

@@ -1,5 +1,8 @@
 namespace PayPal
 {
+    /// <summary>
+    /// Represents an error that occurred in the PayPal SDK when application credentials are in an invalid state.
+    /// </summary>
     public class InvalidCredentialException : PayPalException
     {
         /// <summary>

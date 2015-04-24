@@ -2,6 +2,9 @@ using PayPal.Log;
 
 namespace PayPal
 {
+    /// <summary>
+    /// Represents an error that occurred in the PayPal SDK.
+    /// </summary>
     public class PayPalException : System.Exception
     {
         /// <summary>
@@ -10,7 +13,7 @@ namespace PayPal
         private static Logger logger = Logger.GetLogger(typeof(PayPalException));
 
         /// <summary>
-        /// Represents application configuration errors 
+        /// Initializes a new <seealso cref="PayPalException"/> with no exception details set.
         /// </summary>
         public PayPalException() : this(string.Empty) { }
         
@@ -21,7 +24,7 @@ namespace PayPal
         public PayPalException(string message): this(message, null) { }
 
         /// <summary>
-        /// Represents errors that occur during application execution
+        /// Initializes a new <seealso cref="PayPalException"/> and sets the exception message and cause.
         /// </summary>
         /// <param name="message">The message that describes the error</param>
         /// <param name="cause">The exception that is the cause of the current exception</param>

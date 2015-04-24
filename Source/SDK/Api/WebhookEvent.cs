@@ -85,6 +85,7 @@ namespace PayPal.Api
         /// Resends the Webhooks event resource identified by event_id.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="webhookEventId">ID of the webhook event to resend.</param>
         /// <returns>WebhookEvent</returns>
         public static WebhookEvent Resend(APIContext apiContext, string webhookEventId)
         {

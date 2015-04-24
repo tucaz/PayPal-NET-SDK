@@ -17,7 +17,7 @@ namespace PayPal.Api
     public class Patch : PayPalSerializableObject
     {
         /// <summary>
-        /// Patch operation to perform.Value required for add & remove operation can be any JSON value.
+        /// Patch operation to perform. Value required for add &amp; remove operation can be any JSON value.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "op")]
         public string op { get; set; }

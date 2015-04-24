@@ -71,7 +71,7 @@ namespace PayPal
     }
 
     /// <summary>
-    /// Class holds the <Account> element
+    /// Account information
     /// </summary>
     public class Account : ConfigurationElement
     {

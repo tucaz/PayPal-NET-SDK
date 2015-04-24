@@ -2,6 +2,9 @@ using System.Net;
 
 namespace PayPal
 {
+    /// <summary>
+    /// Represents a connection error that occurred in the PayPal SDK when attempting to make an HTTP request to the PayPal REST API.
+    /// </summary>
     public class ConnectionException : PayPalException
     {
         /// <summary>

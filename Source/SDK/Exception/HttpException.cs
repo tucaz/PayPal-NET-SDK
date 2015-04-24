@@ -4,7 +4,7 @@ using System;
 namespace PayPal
 {
     /// <summary>
-    /// Represents an error occurred when attempting to send an HTTP request.
+    /// Represents an error that occurred in the PayPal SDK after sending an HTTP request to the PayPal REST API.
     /// </summary>
     public class HttpException : ConnectionException
     {
@@ -18,7 +18,8 @@ namespace PayPal
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
         /// <param name="response">The response from server.</param>
-        /// <param name="status">HTTP status code returned from the server.</param>
+        /// <param name="statusCode">HTTP status code</param>
+        /// <param name="webExceptionStatus">HTTP status code returned from the server.</param>
         public HttpException(string message, string response, HttpStatusCode statusCode, WebExceptionStatus webExceptionStatus) : base(message, response, webExceptionStatus)
         {
             this.StatusCode = statusCode;

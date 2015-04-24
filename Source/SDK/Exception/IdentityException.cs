@@ -1,12 +1,13 @@
 ﻿using System.Text;
-using Newtonsoft.Json;
 using PayPal.Api;
 
 namespace PayPal
 {
     /// <summary>
     /// Represents Identity API errors related to logging into PayPal securely using PayPal login credentials.
+    /// <para>
     /// More Information: https://developer.paypal.com/webapps/developer/docs/api/#identity
+    /// </para>
     /// </summary>
     public class IdentityException : HttpException
     {
@@ -16,7 +17,7 @@ namespace PayPal
         public IdentityError Details { get; private set; }
 
         /// <summary>
-        /// Copy constructor that attempts to deserialize the response from the specified <paramref name="PayPal.HttpException"/>.
+        /// Copy constructor that attempts to deserialize the response from the specified <seealso name="HttpException"/>.
         /// </summary>
         /// <param name="ex">Originating <see cref="PayPal.HttpException"/> object that contains the details of the exception.</param>
         public IdentityException(HttpException ex) : base(ex)

@@ -4,12 +4,19 @@ using System.Text;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// REST application client credentials.
+    /// </summary>
     public abstract class ClientCredentials
     {
-        // Client ID 
+        /// <summary>
+        /// Client ID 
+        /// </summary>
         public string clientId;
 
-        // Client Secret
+        /// <summary>
+        /// Client Secret
+        /// </summary>
         public string clientSecret;
 
         /// <summary>

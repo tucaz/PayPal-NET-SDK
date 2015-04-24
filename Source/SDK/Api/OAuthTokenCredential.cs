@@ -54,19 +54,19 @@ namespace PayPal.Api
 
         /// <summary>
         /// Gets the application ID returned by OAuth servers.
-        /// Must first call <see cref="OAuthTokenCredentials.GetAccessToken()"/> to populate this property.
+        /// Must first call <see cref="OAuthTokenCredential.GetAccessToken()"/> to populate this property.
         /// </summary>
         public string ApplicationId { get; private set; }
 
         /// <summary>
         /// Gets or sets the lifetime of a created access token in seconds.
-        /// Must first call <see cref="OAuthTokenCredentials.GetAccessToken()"/> to populate this property.
+        /// Must first call <see cref="OAuthTokenCredential.GetAccessToken()"/> to populate this property.
         /// </summary>
         public int AccessTokenExpirationInSeconds { get; set; }
 
         /// <summary>
         /// Gets the last date when access token was generated.
-        /// Must first call <see cref="OAuthTokenCredentials.GetAccessToken()"/> to populate this property.
+        /// Must first call <see cref="OAuthTokenCredential.GetAccessToken()"/> to populate this property.
         /// </summary>
         public DateTime AccessTokenLastCreationDate { get; private set; }
 
@@ -99,6 +99,7 @@ namespace PayPal.Api
         /// </summary>
         /// <param name="clientId"></param>
         /// <param name="clientSecret"></param>
+        /// <param name="config"></param>
         public OAuthTokenCredential(string clientId, string clientSecret, Dictionary<string, string> config)
         {
             this.config = config != null ? ConfigManager.GetConfigWithDefaults(config) : ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());

@@ -27,7 +27,6 @@ namespace PayPal
         /// <summary>
         /// Configures and executes REST call: Supports JSON
         /// </summary>
-        /// <typeparam name="T">Generic Type parameter for response object</typeparam>
         /// <param name="apiContext">APIContext object</param>
         /// <param name="httpMethod">HttpMethod type</param>
         /// <param name="resource">URI path of the resource</param>

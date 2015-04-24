@@ -3,6 +3,9 @@ using PayPal.Util;
 
 namespace PayPal.Api.OpenIdConnect
 {
+    /// <summary>
+    /// User information in context of Log In with PayPal.
+    /// </summary>
     public class Userinfo
     {
         /// <summary>

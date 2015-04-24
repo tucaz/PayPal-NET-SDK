@@ -1,5 +1,8 @@
 namespace PayPal
 {
+    /// <summary>
+    /// Represents an error that occurred when requesting an OAuth token.
+    /// </summary>
     public class OAuthException : PayPalException
     {
         /// <summary>

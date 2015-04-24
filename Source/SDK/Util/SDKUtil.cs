@@ -8,9 +8,11 @@ using PayPal.Api;
 
 namespace PayPal.Util
 {
+    /// <summary>
+    /// Helper methods for this SDK.
+    /// </summary>
     public class SDKUtil
     {
-        //TODO: To be renamed as 'FormatUriPath' as per .NET Naming Conventions
         /// <summary>
         /// Formats the URI path for REST calls.
         /// </summary>
@@ -51,7 +53,6 @@ namespace PayPal.Util
             return formatString;
         }
 
-        //TODO: To be renamed as 'FormatUriPath' as per .NET Naming Conventions
         /// <summary>
         /// Formats the URI path for REST calls. Replaces any occurrences of the form
         /// {name} in pattern with the corresponding value of key name in the passed
@@ -65,7 +66,6 @@ namespace PayPal.Util
             return FormatURIPath(pattern, pathParameters, null);
         }
 
-        //TODO: To be renamed as 'FormatUriPath' as per .NET Naming Conventions
         /// <summary>
         /// Formats the URI path for REST calls. Replaces any occurrences of the form
         /// {name} in pattern with the corresponding value of key name in the passed
@@ -121,6 +121,11 @@ namespace PayPal.Util
             return formattedURIPath;
         }
 
+        /// <summary>
+        /// Removes null entries from a given query string.
+        /// </summary>
+        /// <param name="formatString">A query string.</param>
+        /// <returns>A query string with null entries removed.</returns>
         private static string RemoveNullsFromQueryString(string formatString)
         {
             if (formatString != null && formatString.Length != 0)
@@ -204,7 +209,7 @@ namespace PayPal.Util
         }
 
         /// <summary>
-        /// Escapes invalid XML characters using & escapes
+        /// Escapes invalid XML characters using &amp; escapes
         /// </summary>
         /// <param name="textContent">Text content to escape</param>
         /// <returns>Escaped XML string</returns>
@@ -227,7 +232,7 @@ namespace PayPal.Util
         }
 
         /// <summary>
-        /// Escapes invalid XML characters using & escapes
+        /// Escapes invalid XML characters using &amp; escapes
         /// </summary>
         /// <param name="intContent">Integer content to escape</param>
         /// <returns>Escaped XML string</returns>
@@ -243,7 +248,7 @@ namespace PayPal.Util
         }
 
         /// <summary>
-        /// Escapes invalid XML characters using & escapes
+        /// Escapes invalid XML characters using &amp; escapes
         /// </summary>
         /// <param name="boolContent">Boolean content to escape</param>
         /// <returns>Escaped XML string</returns>
@@ -259,7 +264,7 @@ namespace PayPal.Util
         }
 
         /// <summary>
-        /// Escapes invalid XML characters using & escapes
+        /// Escapes invalid XML characters using &amp; escapes
         /// </summary>
         /// <param name="floatContent">Float content to escape</param>
         /// <returns>Escaped XML string</returns>
@@ -275,7 +280,7 @@ namespace PayPal.Util
         }
 
         /// <summary>
-        /// Escapes invalid XML characters using & escapes
+        /// Escapes invalid XML characters using &amp; escapes
         /// </summary>
         /// <param name="doubleContent">Double content to escape</param>
         /// <returns>Escaped XML string</returns>
@@ -293,7 +298,7 @@ namespace PayPal.Util
         /// <summary>
         /// Gets the version number of the parent assembly for the specified object type.
         /// </summary>
-        /// <typeparam name="T">The object type to use in determining which assembly version should be returned.</typeparam>
+        /// <param name="type">The object type to use in determining which assembly version should be returned.</param>
         /// <returns>A 3-digit version of the parent assembly.</returns>
         public static string GetAssemblyVersionForType(Type type)
         {

@@ -3,68 +3,109 @@ using PayPal.Util;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// Constants that are used by the PayPal SDK.
+    /// </summary>
     public static class BaseConstants
     {
-        // Request Method in HTTP Connection
+        /// <summary>
+        /// Request Method in HTTP Connection
+        /// </summary>
         public const string RequestMethod = "POST";
 
-        // Log file
+        /// <summary>
+        /// Log file
+        /// </summary>
         public const string PayPalLogFile = "PAYPALLOGFILE";
 
-        //TODO: To be renamed as 'EncodingFormat' as per .NET Naming Conventions
-        // Encoding Format
+        /// <summary>
+        /// Encoding Format
+        /// </summary>
         public static readonly Encoding ENCODING_FORMAT = Encoding.UTF8;
         
-        // Account Prefix
+        /// <summary>
+        /// Account Prefix
+        /// </summary>
         public const string AccountPrefix = "acct";
 
-        // Sandbox Default Email Address
+        /// <summary>
+        /// Sandbox Default Email Address
+        /// </summary>
         public const string PayPalSandboxEmailAddressDefault = "pp.devtools@gmail.com";
         
-        // SOAP Format
+        /// <summary>
+        /// SOAP Format
+        /// </summary>
         public const string SOAP = "SOAP";
         
-        // NVP Format
+        /// <summary>
+        /// NVP Format
+        /// </summary>
         public const string NVP = "NV";
         
-        // HTTP Header Constants
-        // PayPal Security UserId Header
+        /// <summary>
+        /// PayPal Security UserId Header
+        /// </summary>
         public const string PayPalSecurityUserIdHeader = "X-PAYPAL-SECURITY-USERID";
 
-        // PayPal Security Password Header
+        /// <summary>
+        /// PayPal Security Password Header
+        /// </summary>
         public const string PayPalSecurityPasswordHeader = "X-PAYPAL-SECURITY-PASSWORD";
 
-        // PayPal Security Signature Header
+        /// <summary>
+        /// PayPal Security Signature Header
+        /// </summary>
         public const string PayPalSecuritySignatureHeader = "X-PAYPAL-SECURITY-SIGNATURE";
 
-        // PayPal Platform Authorization Header
+        /// <summary>
+        /// PayPal Platform Authorization Header
+        /// </summary>
         public const string PayPalAuthorizationPlatformHeader = "X-PAYPAL-AUTHORIZATION";
 
-        // PayPal Merchant Authorization Header
+        /// <summary>
+        /// PayPal Merchant Authorization Header
+        /// </summary>
         public const string PayPalAuthorizationMerchantHeader = "X-PP-AUTHORIZATION";
 
-        // PayPal Application Id Header
+        /// <summary>
+        /// PayPal Application Id Header
+        /// </summary>
         public const string PayPalApplicationIdHeader = "X-PAYPAL-APPLICATION-ID";
 
-        // PayPal Request Data Header
+        /// <summary>
+        /// PayPal Request Data Header
+        /// </summary>
         public const string PayPalRequestDataFormatHeader = "X-PAYPAL-REQUEST-DATA-FORMAT";
 
-        // PayPal Request Data Header
+        /// <summary>
+        /// PayPal Request Data Header
+        /// </summary>
         public const string PayPalResponseDataFormatHeader = "X-PAYPAL-RESPONSE-DATA-FORMAT";
 
-        // PayPal Request Source Header
+        /// <summary>
+        /// PayPal Request Source Header
+        /// </summary>
         public const string PayPalRequestSourceHeader = "X-PAYPAL-REQUEST-SOURCE";
         
-        // PayPal Sandbox Email Address Header
+        /// <summary>
+        /// PayPal Sandbox Email Address Header
+        /// </summary>
         public const string PayPalSandboxDeviceIPAddress = "X-PAYPAL-DEVICE-IPADDRESS";
 
-        // PayPal Sandbox Email Address Header
+        /// <summary>
+        /// PayPal Sandbox Email Address Header
+        /// </summary>
         public const string PayPalSandboxEmailAddressHeader = "X-PAYPAL-SANDBOX-EMAIL-ADDRESS";
 
-        // Allowed application mode - Live
+        /// <summary>
+        /// Allowed application mode - live
+        /// </summary>
         public const string LiveMode = "live";
 
-        // Allowe application mode - sandbox
+        /// <summary>
+        /// Allowed application mode - sandbox
+        /// </summary>
         public const string SandboxMode = "sandbox";
 
         /// <summary>
@@ -77,102 +118,90 @@ namespace PayPal.Api
         /// </summary>
         public const string RESTLiveEndpoint = "https://api.paypal.com/";
 
-        // Configuration key for application mode
+        /// <summary>
+        /// Configuration key for application mode
+        /// </summary>
         public const string ApplicationModeConfig = "mode";
 
-        // Configuration key for End point
+        /// <summary>
+        /// Configuration key for End point
+        /// </summary>
         public const string EndpointConfig = "endpoint";
 
-        // Configuration key for IPN endpoint 
-        public const string IPNEndpointConfig = "IPNEndpoint";
-
-        // Configuration key for IPAddress
+        /// <summary>
+        /// Configuration key for IPAddress
+        /// </summary>
         public const string ClientIPAddressConfig = "IPAddress";
-       
-        // Configuration key for Email Address
-        public const string PayPalSandboxEmailAddressConfig = "sandboxEmailAddress";
 
-        // Configuration key for HTTP Proxy Address
+        /// <summary>
+        /// Configuration key for HTTP Proxy Address
+        /// </summary>
         public const string HttpProxyAddressConfig = "proxyAddress";
 
-        // Configuration key for HTTP Proxy Credential
+        /// <summary>
+        /// Configuration key for HTTP Proxy Credential
+        /// </summary>
         public const string HttpProxyCredentialConfig = "proxyCredentials";
 
-        // Configuration key for HTTP Connection Timeout
+        /// <summary>
+        /// Configuration key for HTTP Connection Timeout
+        /// </summary>
         public const string HttpConnectionTimeoutConfig = "connectionTimeout";
 
-        // Configuration key for HTTP Connection Retry
+        /// <summary>
+        /// Configuration key for HTTP Connection Retry
+        /// </summary>
         public const string HttpConnectionRetryConfig = "requestRetries";
 
-        // Configuration key suffix for Credential Username
-        public const string CredentialUserNameConfig = "apiUsername";
-
-        // Configuration key suffix for Credential Password
-        public const string CredentialPasswordConfig = "apiPassword";
-
-        // Configuration key suffix for Credential Application Id
-        public const string CredentialApplicationIdConfig = "applicationId";
-
-        // Configuration key suffix for Credential Subject
-        public const string CredentialSubjectConfig = "Subject";
-
-        // Configuration key suffix for Credential Signature
-        public const string CredentialSignatureConfig = "apiSignature";
-
-        // Configuration key suffix for Credential Certificate Path
-        public const string CredentialCertPathConfig = "apiCertificate";
-
-        // Configuration key suffix for Credential Certificate Key
-        public const string CredentialCertKeyConfig = "privateKeyPassword";
-
-        // Configuration key suffix for Client Id
+        /// <summary>
+        /// Configuration key suffix for Client Id
+        /// </summary>
         public const string ClientId = "clientId";
 
-        // Configuration key suffix for Client Secret
+        /// <summary>
+        /// Configuration key suffix for Client Secret
+        /// </summary>
         public const string ClientSecret = "clientSecret";
 
-        // OpenId Redirect URI config key
-        public const string OpenIdRedirectUri = "openid.RedirectUri";
-
-        // OpenId Redirect URI default value
-        public const string OpenIdRedirectUriConstant = "https://www.paypal.com/webapps/auth/protocol/openidconnect";
-
-        // OAuth endpoint config key
+        /// <summary>
+        /// OAuth endpoint config key
+        /// </summary>
         public const string OAuthEndpoint = "oauth.EndPoint";
 
-        // User Agent HTTP Header
+        /// <summary>
+        /// User Agent HTTP Header
+        /// </summary>
         public const string UserAgentHeader = "User-Agent";
 
-        // Content Type HTTP Header
+        /// <summary>
+        /// Content Type HTTP Header
+        /// </summary>
         public const string ContentTypeHeader = "Content-Type";
 
-        // Application - Json Content Type
+        /// <summary>
+        /// Application - Json Content Type
+        /// </summary>
         public const string ContentTypeHeaderJson = "application/json";
 
-        // Application - Xml Content Type
-        public const string ContentTypeXML = "text/xml";
-
-        // Authorization HTTP Header
+        /// <summary>
+        /// Authorization HTTP Header
+        /// </summary>
         public const string AuthorizationHeader = "Authorization";
 
-        // PayPal Request Id HTTP Header
+        /// <summary>
+        /// PayPal Request Id HTTP Header
+        /// </summary>
         public const string PayPalRequestIdHeader = "PayPal-Request-Id";
 
-        // DotNet SdkVersion for paypal-core
+        /// <summary>
+        /// The version of this SDK.
+        /// </summary>
         public static string SdkVersion { get { return SDKUtil.GetAssemblyVersionForType(typeof(BaseConstants)); } }
-        
-        public static class ErrorMessages
-        {
-            public const string ProfileNull = "APIProfile cannot be null.";
-            public const string PayloadNull = "Payload cannot be null or empty.";
-            public const string ErrorEndpoint = "Endpoint cannot be empty.";
-            public const string ErrorUserName = "API Username cannot be empty";
-            public const string ErrorPassword = "API Password cannot be empty.";
-            public const string ErrorSignature = "API Signature cannot be empty.";
-            public const string ErrorAppId = "Application Id cannot be empty.";
-            public const string ErrorCertificate = "Certificate cannot be empty.";
-            public const string ErrorPrivateKeyPassword = "Private Key Password cannot be null or empty.";
-        }
+
+        /// <summary>
+        /// The name of this SDK.
+        /// </summary>
+        public const string SdkName = "PayPal-NET-SDK";
 
         /// <summary>
         /// Defines string constants for HATEOAS link relations.
