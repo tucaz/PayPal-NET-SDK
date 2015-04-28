@@ -56,38 +56,54 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void CaptureIdTest()
         {
-            var pay = PaymentTest.CreatePaymentAuthorization();
-            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            var authorization = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
-            var cap = new Capture();
-            var amt = new Amount();
-            amt.total = "1";
-            amt.currency = "USD";
-            cap.amount = amt;
-            var responseCapture = authorization.Capture(TestingUtil.GetApiContext(), cap);
-            var returnCapture = Capture.Get(TestingUtil.GetApiContext(), responseCapture.id);
-            Assert.AreEqual(responseCapture.id, returnCapture.id);
+            try
+            {
+                var pay = PaymentTest.CreatePaymentAuthorization();
+                var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+                var authorization = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
+                var cap = new Capture();
+                var amt = new Amount();
+                amt.total = "1";
+                amt.currency = "USD";
+                cap.amount = amt;
+                var responseCapture = authorization.Capture(TestingUtil.GetApiContext(), cap);
+                var returnCapture = Capture.Get(TestingUtil.GetApiContext(), responseCapture.id);
+                Assert.AreEqual(responseCapture.id, returnCapture.id);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void CaptureRefundTest()
         {
-            var pay = PaymentTest.CreatePaymentAuthorization();
-            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            var authorization = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
-            var cap = new Capture();
-            var amnt = new Amount();
-            amnt.total = "1";
-            amnt.currency = "USD";
-            cap.amount = amnt;
-            var response = authorization.Capture(TestingUtil.GetApiContext(), cap);
-            var fund = new Refund();
-            var refundAmount = new Amount();
-            refundAmount.total = "1";
-            refundAmount.currency = "USD";
-            fund.amount = refundAmount;
-            var responseRefund = response.Refund(TestingUtil.GetApiContext(), fund);
-            Assert.AreEqual("completed", responseRefund.state);
+            try
+            {
+                var pay = PaymentTest.CreatePaymentAuthorization();
+                var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+                var authorization = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
+                var cap = new Capture();
+                var amnt = new Amount();
+                amnt.total = "1";
+                amnt.currency = "USD";
+                cap.amount = amnt;
+                var response = authorization.Capture(TestingUtil.GetApiContext(), cap);
+                var fund = new Refund();
+                var refundAmount = new Amount();
+                refundAmount.total = "1";
+                refundAmount.currency = "USD";
+                fund.amount = refundAmount;
+                var responseRefund = response.Refund(TestingUtil.GetApiContext(), fund);
+                Assert.AreEqual("completed", responseRefund.state);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Unit")]

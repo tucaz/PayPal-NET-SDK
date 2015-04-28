@@ -41,22 +41,38 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void PayoutCreateTest()
         {
-            var payout = PayoutTest.GetPayout();
-            var payoutSenderBatchId = "batch_" + System.Guid.NewGuid().ToString().Substring(0, 8);
-            payout.sender_batch_header.sender_batch_id = payoutSenderBatchId;
-            var createdPayout = payout.Create(TestingUtil.GetApiContext(), false);
-            Assert.IsNotNull(createdPayout);
-            Assert.IsTrue(!string.IsNullOrEmpty(createdPayout.batch_header.payout_batch_id));
-            Assert.AreEqual(payoutSenderBatchId, createdPayout.batch_header.sender_batch_header.sender_batch_id);
+            try
+            {
+                var payout = PayoutTest.GetPayout();
+                var payoutSenderBatchId = "batch_" + System.Guid.NewGuid().ToString().Substring(0, 8);
+                payout.sender_batch_header.sender_batch_id = payoutSenderBatchId;
+                var createdPayout = payout.Create(TestingUtil.GetApiContext(), false);
+                Assert.IsNotNull(createdPayout);
+                Assert.IsTrue(!string.IsNullOrEmpty(createdPayout.batch_header.payout_batch_id));
+                Assert.AreEqual(payoutSenderBatchId, createdPayout.batch_header.sender_batch_header.sender_batch_id);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void PayoutGetTest()
         {
-            var payoutBatchId = "8NX77PFLN255E";
-            var payout = Payout.Get(TestingUtil.GetApiContext(), payoutBatchId);
-            Assert.IsNotNull(payout);
-            Assert.AreEqual(payoutBatchId, payout.batch_header.payout_batch_id);
+            try
+            {
+                var payoutBatchId = "8NX77PFLN255E";
+                var payout = Payout.Get(TestingUtil.GetApiContext(), payoutBatchId);
+                Assert.IsNotNull(payout);
+                Assert.AreEqual(payoutBatchId, payout.batch_header.payout_batch_id);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [Ignore]

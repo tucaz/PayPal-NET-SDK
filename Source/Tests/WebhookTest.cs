@@ -40,92 +40,132 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void WebhookCreateTest()
         {
-            var webhook = WebhookTest.GetWebhook();
-            webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
-            var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
-            Assert.IsNotNull(createdWebhook);
-            Assert.IsTrue(!string.IsNullOrEmpty(createdWebhook.id));
+            try
+            {
+                var webhook = WebhookTest.GetWebhook();
+                webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
+                var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
+                Assert.IsNotNull(createdWebhook);
+                Assert.IsTrue(!string.IsNullOrEmpty(createdWebhook.id));
 
-            // Cleanup
-            createdWebhook.Delete(TestingUtil.GetApiContext());
+                // Cleanup
+                createdWebhook.Delete(TestingUtil.GetApiContext());
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void WebhookGetTest()
         {
-            var webhook = WebhookTest.GetWebhook();
-            webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
-            var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
+            try
+            {
+                var webhook = WebhookTest.GetWebhook();
+                webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
+                var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
 
-            var webhookId = createdWebhook.id;
-            var retrievedWebhook = Webhook.Get(TestingUtil.GetApiContext(), webhookId);
-            Assert.IsNotNull(retrievedWebhook);
-            Assert.AreEqual(webhookId, retrievedWebhook.id);
+                var webhookId = createdWebhook.id;
+                var retrievedWebhook = Webhook.Get(TestingUtil.GetApiContext(), webhookId);
+                Assert.IsNotNull(retrievedWebhook);
+                Assert.AreEqual(webhookId, retrievedWebhook.id);
 
-            // Cleanup
-            createdWebhook.Delete(TestingUtil.GetApiContext());
+                // Cleanup
+                createdWebhook.Delete(TestingUtil.GetApiContext());
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void WebhookGetListTest()
         {
-            var webhookList = Webhook.GetAll(TestingUtil.GetApiContext());
-            Assert.IsNotNull(webhookList);
-            Assert.IsNotNull(webhookList.webhooks);
+            try
+            {
+                var webhookList = Webhook.GetAll(TestingUtil.GetApiContext());
+                Assert.IsNotNull(webhookList);
+                Assert.IsNotNull(webhookList.webhooks);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void WebhookUpdateTest()
         {
-            var webhook = WebhookTest.GetWebhook();
-            webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
-            var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
-
-            var newUrl = "https://update.com/paypal_webhooks/" + Guid.NewGuid().ToString();
-            var newEventTypeName = "PAYMENT.SALE.REFUNDED";
-
-            var patchRequest = new PatchRequest
+            try
             {
-                new Patch
+                var webhook = WebhookTest.GetWebhook();
+                webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
+                var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
+
+                var newUrl = "https://update.com/paypal_webhooks/" + Guid.NewGuid().ToString();
+                var newEventTypeName = "PAYMENT.SALE.REFUNDED";
+
+                var patchRequest = new PatchRequest
                 {
-                    op = "replace",
-                    path = "/url",
-                    value = newUrl
-                },
-                new Patch
-                {
-                    op = "replace",
-                    path = "/event_types",
-                    value = new List<WebhookEventType>
+                    new Patch
                     {
-                        new WebhookEventType
+                        op = "replace",
+                        path = "/url",
+                        value = newUrl
+                    },
+                    new Patch
+                    {
+                        op = "replace",
+                        path = "/event_types",
+                        value = new List<WebhookEventType>
                         {
-                            name = newEventTypeName
+                            new WebhookEventType
+                            {
+                                name = newEventTypeName
+                            }
                         }
                     }
-                }
-            };
+                };
 
-            var updatedWebhook = createdWebhook.Update(TestingUtil.GetApiContext(), patchRequest);
-            Assert.IsNotNull(updatedWebhook);
-            Assert.AreEqual(createdWebhook.id, updatedWebhook.id);
-            Assert.AreEqual(newUrl, updatedWebhook.url);
-            Assert.IsNotNull(updatedWebhook.event_types);
-            Assert.AreEqual(1, updatedWebhook.event_types.Count);
-            Assert.AreEqual(newEventTypeName, updatedWebhook.event_types[0].name);
+                var updatedWebhook = createdWebhook.Update(TestingUtil.GetApiContext(), patchRequest);
+                Assert.IsNotNull(updatedWebhook);
+                Assert.AreEqual(createdWebhook.id, updatedWebhook.id);
+                Assert.AreEqual(newUrl, updatedWebhook.url);
+                Assert.IsNotNull(updatedWebhook.event_types);
+                Assert.AreEqual(1, updatedWebhook.event_types.Count);
+                Assert.AreEqual(newEventTypeName, updatedWebhook.event_types[0].name);
 
-            // Cleanup
-            updatedWebhook.Delete(TestingUtil.GetApiContext());
+                // Cleanup
+                updatedWebhook.Delete(TestingUtil.GetApiContext());
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void WebhookDeleteTest()
         {
-            var webhook = WebhookTest.GetWebhook();
-            webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
-            var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
-            createdWebhook.Delete(TestingUtil.GetApiContext());
-            TestingUtil.AssertThrownException<HttpException>(() => Webhook.Get(TestingUtil.GetApiContext(), createdWebhook.id));
+            try
+            {
+                var webhook = WebhookTest.GetWebhook();
+                webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
+                var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
+                createdWebhook.Delete(TestingUtil.GetApiContext());
+                TestingUtil.AssertThrownException<HttpException>(() => Webhook.Get(TestingUtil.GetApiContext(), createdWebhook.id));
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
     }
 }

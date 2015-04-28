@@ -59,97 +59,129 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void WebProfileCreateTest()
         {
-            var profile = WebProfileTest.GetWebProfile();
-            profile.name = Guid.NewGuid().ToString();
-            var response = profile.Create(TestingUtil.GetApiContext());
-            Assert.IsNotNull(response);
-            Assert.IsNotNull(response.id);
+            try
+            {
+                var profile = WebProfileTest.GetWebProfile();
+                profile.name = Guid.NewGuid().ToString();
+                var response = profile.Create(TestingUtil.GetApiContext());
+                Assert.IsNotNull(response);
+                Assert.IsNotNull(response.id);
 
-            // Delete the profile
-            profile = WebProfile.Get(TestingUtil.GetApiContext(), response.id);
-            profile.Delete(TestingUtil.GetApiContext());
+                // Delete the profile
+                profile = WebProfile.Get(TestingUtil.GetApiContext(), response.id);
+                profile.Delete(TestingUtil.GetApiContext());
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void WebProfileUpdateTest()
         {
-            // Create a new profile
-            var profileName = Guid.NewGuid().ToString();
-            var profile = WebProfileTest.GetWebProfile();
-            profile.name = profileName;
-            var createdProfile = profile.Create(TestingUtil.GetApiContext());
-            
-            // Get the profile object for the new profile
-            profile = WebProfile.Get(TestingUtil.GetApiContext(), createdProfile.id);
+            try
+            {
+                // Create a new profile
+                var profileName = Guid.NewGuid().ToString();
+                var profile = WebProfileTest.GetWebProfile();
+                profile.name = profileName;
+                var createdProfile = profile.Create(TestingUtil.GetApiContext());
 
-            // Update the profile
-            var newName = "New " + profileName;
-            profile.name = newName;
-            profile.Update(TestingUtil.GetApiContext());
+                // Get the profile object for the new profile
+                profile = WebProfile.Get(TestingUtil.GetApiContext(), createdProfile.id);
 
-            // Get the profile again and verify it was successfully updated.
-            var retrievedProfile = WebProfile.Get(TestingUtil.GetApiContext(), profile.id);
-            Assert.AreEqual(newName, retrievedProfile.name);
+                // Update the profile
+                var newName = "New " + profileName;
+                profile.name = newName;
+                profile.Update(TestingUtil.GetApiContext());
 
-            // Delete the profile
-            profile.Delete(TestingUtil.GetApiContext());
+                // Get the profile again and verify it was successfully updated.
+                var retrievedProfile = WebProfile.Get(TestingUtil.GetApiContext(), profile.id);
+                Assert.AreEqual(newName, retrievedProfile.name);
+
+                // Delete the profile
+                profile.Delete(TestingUtil.GetApiContext());
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void WebProfilePartialUpdateTest()
         {
-            // Create a new profile
-            var profileName = Guid.NewGuid().ToString();
-            var profile = WebProfileTest.GetWebProfile();
-            profile.name = profileName;
-            var createdProfile = profile.Create(TestingUtil.GetApiContext());
+            try
+            {
+                // Create a new profile
+                var profileName = Guid.NewGuid().ToString();
+                var profile = WebProfileTest.GetWebProfile();
+                profile.name = profileName;
+                var createdProfile = profile.Create(TestingUtil.GetApiContext());
 
-            // Get the profile object for the new profile
-            profile = WebProfile.Get(TestingUtil.GetApiContext(), createdProfile.id);
+                // Get the profile object for the new profile
+                profile = WebProfile.Get(TestingUtil.GetApiContext(), createdProfile.id);
 
-            // Partially update the profile
-            var newName = "New " + profileName;
-            var patch1 = new Patch();
-            patch1.op = "add";
-            patch1.path = "/presentation/brand_name";
-            patch1.value = newName;
+                // Partially update the profile
+                var newName = "New " + profileName;
+                var patch1 = new Patch();
+                patch1.op = "add";
+                patch1.path = "/presentation/brand_name";
+                patch1.value = newName;
 
-            var patch2 = new Patch();
-            patch2.op = "remove";
-            patch2.path = "/flow_config/landing_page_type";
+                var patch2 = new Patch();
+                patch2.op = "remove";
+                patch2.path = "/flow_config/landing_page_type";
 
-            var patchRequest = new PatchRequest();
-            patchRequest.Add(patch1);
-            patchRequest.Add(patch2);
+                var patchRequest = new PatchRequest();
+                patchRequest.Add(patch1);
+                patchRequest.Add(patch2);
 
-            profile.PartialUpdate(TestingUtil.GetApiContext(), patchRequest);
+                profile.PartialUpdate(TestingUtil.GetApiContext(), patchRequest);
 
-            // Get the profile again and verify it was successfully updated via the patch commands.
-            var retrievedProfile = WebProfile.Get(TestingUtil.GetApiContext(), profile.id);
-            Assert.AreEqual(newName, retrievedProfile.presentation.brand_name);
-            Assert.IsTrue(string.IsNullOrEmpty(retrievedProfile.flow_config.landing_page_type));
+                // Get the profile again and verify it was successfully updated via the patch commands.
+                var retrievedProfile = WebProfile.Get(TestingUtil.GetApiContext(), profile.id);
+                Assert.AreEqual(newName, retrievedProfile.presentation.brand_name);
+                Assert.IsTrue(string.IsNullOrEmpty(retrievedProfile.flow_config.landing_page_type));
 
-            // Delete the profile
-            profile.Delete(TestingUtil.GetApiContext());
+                // Delete the profile
+                profile.Delete(TestingUtil.GetApiContext());
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void WebProfileDeleteTest()
         {
-            // Create a new profile
-            var profileName = Guid.NewGuid().ToString();
-            var profile = WebProfileTest.GetWebProfile();
-            profile.name = profileName;
-            var createdProfile = profile.Create(TestingUtil.GetApiContext());
+            try
+            {
+                // Create a new profile
+                var profileName = Guid.NewGuid().ToString();
+                var profile = WebProfileTest.GetWebProfile();
+                profile.name = profileName;
+                var createdProfile = profile.Create(TestingUtil.GetApiContext());
 
-            // Get the profile object for the new profile
-            profile = WebProfile.Get(TestingUtil.GetApiContext(), createdProfile.id);
+                // Get the profile object for the new profile
+                profile = WebProfile.Get(TestingUtil.GetApiContext(), createdProfile.id);
 
-            // Delete the profile
-            profile.Delete(TestingUtil.GetApiContext());
+                // Delete the profile
+                profile.Delete(TestingUtil.GetApiContext());
 
-            // Attempt to get the profile. This should result in an exception.
-            TestingUtil.AssertThrownException<PayPal.HttpException>(() => { WebProfile.Get(TestingUtil.GetApiContext(), profile.id); });
+                // Attempt to get the profile. This should result in an exception.
+                TestingUtil.AssertThrownException<PayPal.HttpException>(() => { WebProfile.Get(TestingUtil.GetApiContext(), profile.id); });
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
     }
 }

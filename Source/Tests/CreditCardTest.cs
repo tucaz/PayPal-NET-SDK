@@ -62,28 +62,46 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void CreditCardDeleteTest()
         {
-            var card = GetCreditCard();
-            var createdCreditCard = card.Create(TestingUtil.GetApiContext());
-            var retrievedCreditCard = CreditCard.Get(TestingUtil.GetApiContext(), createdCreditCard.id);
-            retrievedCreditCard.Delete(TestingUtil.GetApiContext());
+            try
+            {
+                var card = GetCreditCard();
+                var createdCreditCard = card.Create(TestingUtil.GetApiContext());
+                var retrievedCreditCard = CreditCard.Get(TestingUtil.GetApiContext(), createdCreditCard.id);
+                retrievedCreditCard.Delete(TestingUtil.GetApiContext());
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void CreditCardListTest()
         {
-            var creditCardList = CreditCard.List(TestingUtil.GetApiContext(), startTime: "2014-11-01T19:27:56Z", endTime: "2014-12-25T19:27:56Z");
-            Assert.IsNotNull(creditCardList);
-            Assert.IsTrue(creditCardList.total_items > 0);
-            Assert.IsTrue(creditCardList.total_pages > 0);
+            try
+            {
+                var creditCardList = CreditCard.List(TestingUtil.GetApiContext(), startTime: "2014-11-01T19:27:56Z", endTime: "2014-12-25T19:27:56Z");
+                Assert.IsNotNull(creditCardList);
+                Assert.IsTrue(creditCardList.total_items > 0);
+                Assert.IsTrue(creditCardList.total_pages > 0);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void CreditCardUpdateTest()
         {
-            var creditCard = CreateCreditCard();
+            try
+            {
+                var creditCard = CreateCreditCard();
 
-            // Create a patch request to update the credit card.
-            var patchRequest = new PatchRequest
+                // Create a patch request to update the credit card.
+                var patchRequest = new PatchRequest
             {
                 new Patch
                 {
@@ -100,19 +118,25 @@ namespace PayPal.Testing
                 }
             };
 
-            var apiContext = TestingUtil.GetApiContext();
-            var updatedCreditCard = creditCard.Update(apiContext, patchRequest);
+                var apiContext = TestingUtil.GetApiContext();
+                var updatedCreditCard = creditCard.Update(apiContext, patchRequest);
 
-            // Retrieve the credit card details from the vault and verify the
-            // billing address was updated properly.
-            var retrievedCreditCard = CreditCard.Get(apiContext, updatedCreditCard.id);
-            Assert.IsNotNull(retrievedCreditCard);
-            Assert.IsNotNull(retrievedCreditCard.billing_address);
-            Assert.AreEqual("111 First Street", retrievedCreditCard.billing_address.line1);
-            Assert.AreEqual("Saratoga", retrievedCreditCard.billing_address.city);
-            Assert.AreEqual("US", retrievedCreditCard.billing_address.country_code);
-            Assert.AreEqual("CA", retrievedCreditCard.billing_address.state);
-            Assert.AreEqual("95070", retrievedCreditCard.billing_address.postal_code);
+                // Retrieve the credit card details from the vault and verify the
+                // billing address was updated properly.
+                var retrievedCreditCard = CreditCard.Get(apiContext, updatedCreditCard.id);
+                Assert.IsNotNull(retrievedCreditCard);
+                Assert.IsNotNull(retrievedCreditCard.billing_address);
+                Assert.AreEqual("111 First Street", retrievedCreditCard.billing_address.line1);
+                Assert.AreEqual("Saratoga", retrievedCreditCard.billing_address.city);
+                Assert.AreEqual("US", retrievedCreditCard.billing_address.country_code);
+                Assert.AreEqual("CA", retrievedCreditCard.billing_address.state);
+                Assert.AreEqual("95070", retrievedCreditCard.billing_address.postal_code);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Unit")]

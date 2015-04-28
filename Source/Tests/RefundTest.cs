@@ -39,23 +39,31 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void RefundIdTest()
         {
-            var pay = PaymentTest.CreatePaymentAuthorization();
-            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            var authorization = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
-            var cap = new Capture();
-            var amt = new Amount();
-            amt.total = "1";
-            amt.currency = "USD";
-            cap.amount = amt;
-            var response = authorization.Capture(TestingUtil.GetApiContext(), cap);
-            var fund = new Refund();
-            var refundAmount = new Amount();
-            refundAmount.total = "1";
-            refundAmount.currency = "USD";
-            fund.amount = refundAmount;
-            var responseRefund = response.Refund(TestingUtil.GetApiContext(), fund);
-            var retrievedRefund = Refund.Get(TestingUtil.GetApiContext(), responseRefund.id);
-            Assert.AreEqual(responseRefund.id, retrievedRefund.id);
+            try
+            {
+                var pay = PaymentTest.CreatePaymentAuthorization();
+                var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+                var authorization = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
+                var cap = new Capture();
+                var amt = new Amount();
+                amt.total = "1";
+                amt.currency = "USD";
+                cap.amount = amt;
+                var response = authorization.Capture(TestingUtil.GetApiContext(), cap);
+                var fund = new Refund();
+                var refundAmount = new Amount();
+                refundAmount.total = "1";
+                refundAmount.currency = "USD";
+                fund.amount = refundAmount;
+                var responseRefund = response.Refund(TestingUtil.GetApiContext(), fund);
+                var retrievedRefund = Refund.Get(TestingUtil.GetApiContext(), responseRefund.id);
+                Assert.AreEqual(responseRefund.id, retrievedRefund.id);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Unit")]

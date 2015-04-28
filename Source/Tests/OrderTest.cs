@@ -38,9 +38,17 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void OrderGetTest()
         {
-            var orderId = "O-2HT09787H36911800";
-            var order = Order.Get(TestingUtil.GetApiContext(), orderId);
-            Assert.AreEqual(orderId, order.id);
+            try
+            {
+                var orderId = "O-2HT09787H36911800";
+                var order = Order.Get(TestingUtil.GetApiContext(), orderId);
+                Assert.AreEqual(orderId, order.id);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         /// <summary>

@@ -53,33 +53,49 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void SaleGetTest()
         {
-            var saleId = "4V7971043K262623A";
-            var sale = Sale.Get(TestingUtil.GetApiContext(), saleId);
-            Assert.IsNotNull(sale);
-            Assert.AreEqual(saleId, sale.id);
+            try
+            {
+                var saleId = "4V7971043K262623A";
+                var sale = Sale.Get(TestingUtil.GetApiContext(), saleId);
+                Assert.IsNotNull(sale);
+                Assert.AreEqual(saleId, sale.id);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void SaleRefundTest()
         {
-            // Create a credit card sale payment
-            var payment = PaymentTest.CreatePaymentForSale();
-            
-            // Get the sale resource
-            var sale = payment.transactions[0].related_resources[0].sale;
-
-            var refund = new Refund
+            try
             {
-                amount = new Amount
-                {
-                    currency = "USD",
-                    total = "0.01"
-                }
-            };
+                // Create a credit card sale payment
+                var payment = PaymentTest.CreatePaymentForSale();
 
-            var response = sale.Refund(TestingUtil.GetApiContext(), refund);
-            Assert.IsNotNull(response);
-            Assert.AreEqual("completed", response.state);
+                // Get the sale resource
+                var sale = payment.transactions[0].related_resources[0].sale;
+
+                var refund = new Refund
+                {
+                    amount = new Amount
+                    {
+                        currency = "USD",
+                        total = "0.01"
+                    }
+                };
+
+                var response = sale.Refund(TestingUtil.GetApiContext(), refund);
+                Assert.IsNotNull(response);
+                Assert.AreEqual("completed", response.state);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
     }
 }

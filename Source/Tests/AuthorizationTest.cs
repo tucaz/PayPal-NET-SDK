@@ -50,35 +50,59 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void AuthorizationGetTest()
         {
-            var pay = PaymentTest.CreatePaymentAuthorization();
-            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            var authorize = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
-            Assert.AreEqual(authorizationId, authorize.id);
+            try
+            {
+                var pay = PaymentTest.CreatePaymentAuthorization();
+                var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+                var authorize = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
+                Assert.AreEqual(authorizationId, authorize.id);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void AuthorizationCaptureTest()
         {
-            var pay = PaymentTest.CreatePaymentAuthorization();
-            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            var authorize = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
-            var cap = new Capture();
-            var amt = new Amount();
-            amt.total = "1";
-            amt.currency = "USD";
-            cap.amount = amt;
-            var response = authorize.Capture(TestingUtil.GetApiContext(), cap);
-            Assert.AreEqual("completed", response.state);
+            try
+            {
+                var pay = PaymentTest.CreatePaymentAuthorization();
+                var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+                var authorize = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
+                var cap = new Capture();
+                var amt = new Amount();
+                amt.total = "1";
+                amt.currency = "USD";
+                cap.amount = amt;
+                var response = authorize.Capture(TestingUtil.GetApiContext(), cap);
+                Assert.AreEqual("completed", response.state);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void AuthorizationVoidTest()
         {
-            var pay = PaymentTest.CreatePaymentAuthorization();
-            var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-            var authorize = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
-            var authorizationResponse = authorize.Void(TestingUtil.GetApiContext());
-            Assert.AreEqual("voided", authorizationResponse.state);
+            try
+            {
+                var pay = PaymentTest.CreatePaymentAuthorization();
+                var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+                var authorize = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
+                var authorizationResponse = authorize.Void(TestingUtil.GetApiContext());
+                Assert.AreEqual("voided", authorizationResponse.state);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Unit")]
@@ -90,12 +114,20 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void AuthroizationReauthorizeTest()
         {
-            var authorization = Authorization.Get(TestingUtil.GetApiContext(), "7GH53639GA425732B");
-            var reauthorizeAmount = new Amount();
-            reauthorizeAmount.currency = "USD";
-            reauthorizeAmount.total = "1";
-            authorization.amount = reauthorizeAmount;
-            TestingUtil.AssertThrownException<PayPal.PaymentsException>(() => authorization.Reauthorize(TestingUtil.GetApiContext()));
+            try
+            {
+                var authorization = Authorization.Get(TestingUtil.GetApiContext(), "7GH53639GA425732B");
+                var reauthorizeAmount = new Amount();
+                reauthorizeAmount.currency = "USD";
+                reauthorizeAmount.total = "1";
+                authorization.amount = reauthorizeAmount;
+                TestingUtil.AssertThrownException<PayPal.PaymentsException>(() => authorization.Reauthorize(TestingUtil.GetApiContext()));
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
     }
 }

@@ -43,5 +43,15 @@ namespace PayPal.Testing
             }
             Assert.Fail("Expected " + typeof(T) + " to be thrown, but no exception was thrown.");
         }
+
+        /// <summary>
+        /// Helper method for functional tests where we want to record more details.
+        /// </summary>
+        /// <param name="ex">The exception containing the information to be recorded.</param>
+        public static void WriteConnectionExceptionDetails(ConnectionException ex)
+        {
+            System.Diagnostics.Trace.WriteLine("[WebExceptionStatus]: " + ex.WebExceptionStatus);
+            System.Diagnostics.Trace.WriteLine("[Response]: " + ex.Response);
+        }
     }
 }

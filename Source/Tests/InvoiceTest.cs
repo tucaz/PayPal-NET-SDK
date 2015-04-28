@@ -55,23 +55,39 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void InvoiceCreateTest()
         {
-            var invoice = GetInvoice();
-            invoice.merchant_info.address.phone = null;
-            invoice.shipping_info.address.phone = null;
-            var createdInvoice = invoice.Create(TestingUtil.GetApiContext());
-            Assert.IsNotNull(createdInvoice.id);
-            Assert.AreEqual(invoice.note, createdInvoice.note);
+            try
+            {
+                var invoice = GetInvoice();
+                invoice.merchant_info.address.phone = null;
+                invoice.shipping_info.address.phone = null;
+                var createdInvoice = invoice.Create(TestingUtil.GetApiContext());
+                Assert.IsNotNull(createdInvoice.id);
+                Assert.AreEqual(invoice.note, createdInvoice.note);
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
         public void InvoiceQrCodeTest()
         {
-            var invoice = GetInvoice();
-            var createdInvoice = invoice.Create(TestingUtil.GetApiContext());
-            var qrCode = Invoice.QrCode(TestingUtil.GetApiContext(), createdInvoice.id);
-            Assert.IsNotNull(qrCode);
-            Assert.IsTrue(!string.IsNullOrEmpty(qrCode.image));
-            createdInvoice.Delete(TestingUtil.GetApiContext());
+            try
+            {
+                var invoice = GetInvoice();
+                var createdInvoice = invoice.Create(TestingUtil.GetApiContext());
+                var qrCode = Invoice.QrCode(TestingUtil.GetApiContext(), createdInvoice.id);
+                Assert.IsNotNull(qrCode);
+                Assert.IsTrue(!string.IsNullOrEmpty(qrCode.image));
+                createdInvoice.Delete(TestingUtil.GetApiContext());
+            }
+            catch (ConnectionException ex)
+            {
+                TestingUtil.WriteConnectionExceptionDetails(ex);
+                throw;
+            }
         }
     }
 }
