@@ -25,7 +25,6 @@ platform: Any CPU
 
 # to add several configurations to build matrix:
 configuration:
-  - Debug
   - Release
 
 environment:
