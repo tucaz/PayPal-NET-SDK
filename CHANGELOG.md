@@ -1,6 +1,10 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.4.2
+* Fix Issue #89: Add `ResetRequestId()` method to `APIContext` class, which can be called to reset the request ID used for ensuring idempotency when making REST API calls.
+* Improve XML documentation
+
 ## v1.4.1
 * Fix Invoicing API support
 * Add `JsonFormatter` deserialization error event support
