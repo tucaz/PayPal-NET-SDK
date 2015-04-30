@@ -140,6 +140,7 @@
     <ExternalCompile Include="Manager\ConfigManager.cs" />
     <ExternalCompile Include="Manager\ConnectionManager.cs" />
     <ExternalCompile Include="Manager\SDKConfigHandler.cs" />
+    <ExternalCompile Include="Manager\CertificateManager.cs" />
     <ExternalCompile Include="OpenIdConnect\ClientCredentials.cs" />
     <ExternalCompile Include="OpenIdConnect\CreateFromAuthorizationCodeParameters.cs" />
     <ExternalCompile Include="OpenIdConnect\CreateFromRefreshTokenParameters.cs" />
@@ -150,6 +151,7 @@
     <ExternalCompile Include="UserAgentHeader.cs" />
     <ExternalCompile Include="Util\QueryParameters.cs" />
     <ExternalCompile Include="Util\SDKUtil.cs" />
+    <ExternalCompile Include="Util\Crc32.cs" />
     <ExternalCompile Include="OpenIdConnect\Address.cs" />
     <ExternalCompile Include="OpenIdConnect\Userinfo.cs" />
     <ExternalCompile Include="Api\FmfDetails.cs" />
