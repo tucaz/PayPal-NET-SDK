@@ -18,22 +18,29 @@ namespace PayPal
         public WebExceptionStatus WebExceptionStatus { get; private set; }
 
         /// <summary>
+        /// Gets the <see cref="System.Net.HttpWebRequest"/> sent by the SDK.
+        /// </summary>
+        public HttpWebRequest Request { get; private set; }
+
+        /// <summary>
         /// Represents errors that occur during application execution
         /// </summary>
         /// <param name="message">The message that describes the error</param>
         /// <param name="response">The response from server</param>
         /// <param name="status">The <see cref="System.Net.WebExceptionStatus"/> that triggered this exception.</param>
-        public ConnectionException(string message, string response, WebExceptionStatus status) : base(message)
+        /// <param name="request">HTTP request sent by this SDK.</param>
+        public ConnectionException(string message, string response, WebExceptionStatus status, HttpWebRequest request) : base(message)
         {
             this.Response = response;
             this.WebExceptionStatus = status;
+            this.Request = request;
         }
 
         /// <summary>
         /// Copy constructor provided by convenience for derived classes.
         /// </summary>
         /// <param name="ex">The original exception to copy information from.</param>
-        protected ConnectionException(ConnectionException ex) : this(ex.Message, ex.Response, ex.WebExceptionStatus)
+        protected ConnectionException(ConnectionException ex) : this(ex.Message, ex.Response, ex.WebExceptionStatus, ex.Request)
         {
         }
 

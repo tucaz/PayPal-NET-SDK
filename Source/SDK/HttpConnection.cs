@@ -161,27 +161,27 @@ namespace PayPal.Api
                         // 5xx error).
                         if (ex.Status == WebExceptionStatus.ProtocolError)
                         {
-                            var statusCode = ((HttpWebResponse)ex.Response).StatusCode;
+                            var httpWebResponse = (HttpWebResponse)ex.Response;
 
                             // If the HTTP status code is flagged as one where we
                             // should continue retrying, then ignore the exception
                             // and continue with the retry attempt.
-                            if (retryCodes.Contains(statusCode))
+                            if (retryCodes.Contains(httpWebResponse.StatusCode))
                             {
                                 continue;
                             }
 
-                            throw new HttpException(ex.Message, response, statusCode, ex.Status);
+                            throw new HttpException(ex.Message, response, httpWebResponse.StatusCode, ex.Status, httpWebResponse.Headers, httpRequest);
                         }
                         else if (ex.Status == WebExceptionStatus.Timeout)
                         {
                             // For connection timeout errors, include the connection timeout value that was used.
                             var message = string.Format("{0} (HTTP request timeout was set to {1}ms)", ex.Message, httpRequest.Timeout);
-                            throw new ConnectionException(message, response, ex.Status);
+                            throw new ConnectionException(message, response, ex.Status, httpRequest);
                         }
 
                         // Non-protocol errors indicate something happened with the underlying connection to the server.
-                        throw new ConnectionException("Invalid HTTP response " + ex.Message, response, ex.Status);
+                        throw new ConnectionException("Invalid HTTP response " + ex.Message, response, ex.Status, httpRequest);
                     }
                 } while (retries++ < retriesConfigured);
             }

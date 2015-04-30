@@ -14,15 +14,23 @@ namespace PayPal
         public HttpStatusCode StatusCode { get; private set; }
 
         /// <summary>
+        /// Gets the <see cref="System.Net.WebHeaderCollection"/> included with the HTTP response.
+        /// </summary>
+        public WebHeaderCollection Headers { get; private set; }
+
+        /// <summary>
         /// Represents an error occurred when attempting to send an HTTP request.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
         /// <param name="response">The response from server.</param>
         /// <param name="statusCode">HTTP status code</param>
         /// <param name="webExceptionStatus">HTTP status code returned from the server.</param>
-        public HttpException(string message, string response, HttpStatusCode statusCode, WebExceptionStatus webExceptionStatus) : base(message, response, webExceptionStatus)
+        /// <param name="headers">HTTP headers included with the server response.</param>
+        /// <param name="request">HTTP request sent by this SDK.</param>
+        public HttpException(string message, string response, HttpStatusCode statusCode, WebExceptionStatus webExceptionStatus, WebHeaderCollection headers, HttpWebRequest request) : base(message, response, webExceptionStatus, request)
         {
             this.StatusCode = statusCode;
+            this.Headers = headers;
         }
 
         /// <summary>
@@ -32,6 +40,7 @@ namespace PayPal
         protected HttpException(HttpException ex) : base(ex)
         {
             this.StatusCode = ex.StatusCode;
+            this.Headers = ex.Headers;
         }
 
         /// <summary>

@@ -51,6 +51,14 @@ namespace PayPal.Testing
         public static void WriteConnectionExceptionDetails(ConnectionException ex)
         {
             System.Diagnostics.Trace.WriteLine("[WebExceptionStatus]: " + ex.WebExceptionStatus);
+            System.Diagnostics.Trace.WriteLine("[Request URL]: " + ex.Request.RequestUri.AbsoluteUri);
+            System.Diagnostics.Trace.WriteLine("[Request Headers]: " + string.Join(" ; ", ex.Request.Headers));
+
+            // Check if the exception is an HttpException. If so, log the response headers.
+            if(ex is HttpException)
+            {
+                System.Diagnostics.Trace.WriteLine("[Response Headers]: " + string.Join(" ; ", ((HttpException)ex).Headers));
+            }
             System.Diagnostics.Trace.WriteLine("[Response]: " + ex.Response);
         }
     }
