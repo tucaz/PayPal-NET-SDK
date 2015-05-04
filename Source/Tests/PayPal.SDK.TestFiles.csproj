@@ -67,5 +67,6 @@
     <ExternalCompile Include="WebProfileTest.cs" />
     <ExternalCompile Include="FmfDetailsTest.cs" />
     <ExternalCompile Include="MeasurementTest.cs" />
+    <ExternalCompile Include="PreHandlerTest.cs" />
   </ItemGroup>
 </Project>

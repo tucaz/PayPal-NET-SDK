@@ -156,6 +156,8 @@ namespace PayPal.Api
         protected string GetProcessedEndPoint()
         {
             string endpoint = null;
+
+            // Try and load the endpoint from the config.
             if (config.ContainsKey(BaseConstants.EndpointConfig))
             {
                 endpoint = config[BaseConstants.EndpointConfig];
@@ -172,10 +174,18 @@ namespace PayPal.Api
                         break;
                 }
             }
+
+            // If no endpoint is defined, then default to sandbox.
+            if(string.IsNullOrEmpty(endpoint))
+            {
+                endpoint = BaseConstants.RESTSandboxEndpoint;
+            }
+
             if (!endpoint.EndsWith("/"))
             {
                 endpoint += "/";
             }
+
             return endpoint;
         }
 
