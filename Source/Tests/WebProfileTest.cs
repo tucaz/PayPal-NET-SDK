@@ -43,13 +43,25 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void WebProfileGetListTest()
         {
-            var profiles = WebProfile.GetList(TestingUtil.GetApiContext());
+            // Create a new profile
+            var apiContext = TestingUtil.GetApiContext();
+            var profileName = Guid.NewGuid().ToString();
+            var profile = WebProfileTest.GetWebProfile();
+            profile.name = profileName;
+            var createdProfile = profile.Create(apiContext);
+
+            // Get the list of profiles
+            var profiles = WebProfile.GetList(apiContext);
             Assert.IsNotNull(profiles);
             Assert.IsTrue(profiles.Count > 0);
+
+            // Delete the profile
+            profile.id = createdProfile.id;
+            profile.Delete(apiContext);
         }
 
         [TestMethod, TestCategory("Functional")]
-        public void WebProfileCreateTest()
+        public void WebProfileCreateAndGetTest()
         {
             try
             {
