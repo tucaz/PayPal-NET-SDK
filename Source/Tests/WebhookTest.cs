@@ -38,42 +38,26 @@ namespace PayPal.Testing
         }
 
         [TestMethod, TestCategory("Functional")]
-        public void WebhookCreateTest()
+        public void WebhookCreateAndGetTest()
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
                 var webhook = WebhookTest.GetWebhook();
-                webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
-                var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
+                var url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
+                webhook.url = url;
+                var createdWebhook = webhook.Create(apiContext);
                 Assert.IsNotNull(createdWebhook);
                 Assert.IsTrue(!string.IsNullOrEmpty(createdWebhook.id));
 
-                // Cleanup
-                createdWebhook.Delete(TestingUtil.GetApiContext());
-            }
-            catch (ConnectionException ex)
-            {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
-            }
-        }
-
-        [TestMethod, TestCategory("Functional")]
-        public void WebhookGetTest()
-        {
-            try
-            {
-                var webhook = WebhookTest.GetWebhook();
-                webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
-                var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
-
                 var webhookId = createdWebhook.id;
-                var retrievedWebhook = Webhook.Get(TestingUtil.GetApiContext(), webhookId);
+                var retrievedWebhook = Webhook.Get(apiContext, webhookId);
                 Assert.IsNotNull(retrievedWebhook);
                 Assert.AreEqual(webhookId, retrievedWebhook.id);
+                Assert.AreEqual(url, retrievedWebhook.url);
 
                 // Cleanup
-                createdWebhook.Delete(TestingUtil.GetApiContext());
+                retrievedWebhook.Delete(apiContext);
             }
             catch (ConnectionException ex)
             {

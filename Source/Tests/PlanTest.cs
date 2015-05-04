@@ -48,32 +48,22 @@ namespace PayPal.Testing
         }
 
         [TestMethod, TestCategory("Functional")]
-        public void PlanCreateTest()
+        public void PlanCreateAndGetTest()
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
                 var plan = GetPlan();
-                var createdPlan = plan.Create(TestingUtil.GetApiContext());
+                var createdPlan = plan.Create(apiContext);
                 Assert.IsTrue(!string.IsNullOrEmpty(createdPlan.id));
                 Assert.AreEqual(plan.name, createdPlan.name);
-            }
-            catch (ConnectionException ex)
-            {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
-            }
-        }
 
-        [TestMethod, TestCategory("Functional")]
-        public void PlanGetTest()
-        {
-            try
-            {
-                var plan = Plan.Get(TestingUtil.GetApiContext(), "P-0V2939118D268823YFYLVH4Y");
-                Assert.IsNotNull(plan);
-                Assert.AreEqual("T-Shirt of the Month Club Plan", plan.name);
-                Assert.AreEqual("Template creation.", plan.description);
-                Assert.AreEqual("FIXED", plan.type);
+                var retrievedPlan = Plan.Get(apiContext, createdPlan.id);
+                Assert.IsNotNull(retrievedPlan);
+                Assert.AreEqual(createdPlan.id, retrievedPlan.id);
+                Assert.AreEqual("T-Shirt of the Month Club Plan", retrievedPlan.name);
+                Assert.AreEqual("Template creation.", retrievedPlan.description);
+                Assert.AreEqual("FIXED", retrievedPlan.type);
             }
             catch (ConnectionException ex)
             {

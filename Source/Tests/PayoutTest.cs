@@ -39,34 +39,23 @@ namespace PayPal.Testing
         }
 
         [TestMethod, TestCategory("Functional")]
-        public void PayoutCreateTest()
+        public void PayoutCreateAndGetTest()
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
                 var payout = PayoutTest.GetPayout();
                 var payoutSenderBatchId = "batch_" + System.Guid.NewGuid().ToString().Substring(0, 8);
                 payout.sender_batch_header.sender_batch_id = payoutSenderBatchId;
-                var createdPayout = payout.Create(TestingUtil.GetApiContext(), false);
+                var createdPayout = payout.Create(apiContext, false);
                 Assert.IsNotNull(createdPayout);
                 Assert.IsTrue(!string.IsNullOrEmpty(createdPayout.batch_header.payout_batch_id));
                 Assert.AreEqual(payoutSenderBatchId, createdPayout.batch_header.sender_batch_header.sender_batch_id);
-            }
-            catch (ConnectionException ex)
-            {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
-            }
-        }
 
-        [TestMethod, TestCategory("Functional")]
-        public void PayoutGetTest()
-        {
-            try
-            {
-                var payoutBatchId = "8NX77PFLN255E";
-                var payout = Payout.Get(TestingUtil.GetApiContext(), payoutBatchId);
+                var payoutBatchId = createdPayout.batch_header.payout_batch_id;
+                var retrievedPayout = Payout.Get(apiContext, payoutBatchId);
                 Assert.IsNotNull(payout);
-                Assert.AreEqual(payoutBatchId, payout.batch_header.payout_batch_id);
+                Assert.AreEqual(payoutBatchId, retrievedPayout.batch_header.payout_batch_id);
             }
             catch (ConnectionException ex)
             {

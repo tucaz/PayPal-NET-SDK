@@ -76,7 +76,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Ignore]
         public void CreditCardListTest()
         {
             try

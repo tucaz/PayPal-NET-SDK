@@ -45,7 +45,7 @@ namespace PayPal.Testing
             Assert.IsFalse(GetPayoutItem().ToString().Length == 0);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Ignore]
         public void PayoutItemGetTest()
         {
             try

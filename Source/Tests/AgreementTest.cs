@@ -86,7 +86,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Ignore]
         public void AgreementGetTest()
         {
             try
@@ -108,7 +108,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Ignore]
         public void AgreementExecuteTest()
         {
             try
@@ -124,7 +124,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Ignore]
         public void AgreementUpdateTest()
         {
             try

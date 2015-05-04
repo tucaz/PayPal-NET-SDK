@@ -41,14 +41,6 @@ namespace PayPal.Testing
         }
 
         [TestMethod, TestCategory("Functional")]
-        public void WebProfileGetTest()
-        {
-            var profileId = "XP-5CQ3-3XSL-DDAA-MATK";
-            var profile = WebProfile.Get(TestingUtil.GetApiContext(), profileId);
-            Assert.AreEqual(profileId, profile.id);
-        }
-
-        [TestMethod, TestCategory("Functional")]
         public void WebProfileGetListTest()
         {
             var profiles = WebProfile.GetList(TestingUtil.GetApiContext());
@@ -61,15 +53,21 @@ namespace PayPal.Testing
         {
             try
             {
+                // Create the profile
+                var apiContext = TestingUtil.GetApiContext();
                 var profile = WebProfileTest.GetWebProfile();
                 profile.name = Guid.NewGuid().ToString();
-                var response = profile.Create(TestingUtil.GetApiContext());
+                var response = profile.Create(apiContext);
                 Assert.IsNotNull(response);
                 Assert.IsNotNull(response.id);
 
+                // Get the profile
+                var profileId = response.id;
+                var retrievedProfile = WebProfile.Get(apiContext, profileId);
+                Assert.AreEqual(profileId, retrievedProfile.id);
+
                 // Delete the profile
-                profile = WebProfile.Get(TestingUtil.GetApiContext(), response.id);
-                profile.Delete(TestingUtil.GetApiContext());
+                retrievedProfile.Delete(apiContext);
             }
             catch (ConnectionException ex)
             {

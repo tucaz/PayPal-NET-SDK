@@ -52,7 +52,7 @@ namespace PayPal.Testing
             Assert.IsFalse(GetInvoice().ToString().Length == 0);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Ignore]
         public void InvoiceCreateTest()
         {
             try
@@ -71,7 +71,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Ignore]
         public void InvoiceQrCodeTest()
         {
             try

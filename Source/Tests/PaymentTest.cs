@@ -139,7 +139,7 @@ namespace PayPal.Testing
             {
                 var context = TestingUtil.GetApiContext();
                 var paymentHistory = Payment.List(context, count: 10);
-                Assert.AreEqual(10, paymentHistory.count);
+                Assert.IsTrue(paymentHistory.count > 0 && paymentHistory.count <= 10);
             }
             catch (ConnectionException ex)
             {
