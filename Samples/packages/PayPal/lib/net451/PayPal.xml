@@ -4,9 +4,22 @@
         <name>PayPal</name>
     </assembly>
     <members>
+        <member name="T:PayPal.Api.AgreementDetails">
+            <summary>
+            The details of a billing agreement.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="T:PayPal.Api.PayPalSerializableObject">
             <summary>
             Represents a PayPal model object that can be serialized to and from a JSON string.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.IPayPalSerializableObject">
+            <summary>
+            Defines an interface for a PayPal JSON-serializable object.
             </summary>
         </member>
         <member name="M:PayPal.Api.IPayPalSerializableObject.ConvertToJson">
@@ -61,77 +74,70 @@
             Total number of failed payments for this agreement.
             </summary>
         </member>
-        <member name="F:PayPal.Api.APIContext.token">
+        <member name="T:PayPal.Api.APIContext">
             <summary>
-            Access Token
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.APIContext.reqId">
-            <summary>
-            Request Id
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.APIContext.maskReqId">
-            <summary>
-            Mask Request Id
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.APIContext.dynamicConfig">
-            <summary>
-            Dynamic configuration
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.APIContext.httpHeaders">
-            <summary>
-            HTTP Headers
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.APIContext.sVersion">
-            <summary>
-            SDKVersion instance
+            APIContext is used when making HTTP calls to the PayPal REST API.
             </summary>
         </member>
         <member name="M:PayPal.Api.APIContext.#ctor">
             <summary>
-            Explicit default constructor
+            Initializes a new instance of <seealso cref="T:PayPal.Api.APIContext"/> that is used when making HTTP calls to the PayPal REST API.
             </summary>
         </member>
         <member name="M:PayPal.Api.APIContext.#ctor(System.String)">
             <summary>
-            Access Token required for the call
+            Initializes a new instance of <seealso cref="T:PayPal.Api.APIContext"/> that is used when making HTTP calls to the PayPal REST API; as well as sets and verifies the state of an <paramref name="accessToken"/>.
             </summary>
-            <param name="token"></param>
+            <param name="accessToken">OAuth access token to use when making API requests</param>
         </member>
         <member name="M:PayPal.Api.APIContext.#ctor(System.String,System.String)">
             <summary>
-            Access Token and Request Id required for the call
+            Initializes a new instance of <seealso cref="T:PayPal.Api.APIContext"/> that is used when making HTTP calls to the PayPal REST API; as well as sets and verifies the states of an <paramref name="accessToken"/> and <paramref name="requestId"/>.
             </summary>
-            <param name="token"></param>
-            <param name="requestId"></param>
+            <param name="accessToken">OAuth access token to use when making API requests</param>
+            <param name="requestId">ID used for ensuring idempotency when making a REST API call</param>
+        </member>
+        <member name="M:PayPal.Api.APIContext.ResetRequestId">
+            <summary>
+            Resets the request ID used for ensuring idempotency when making a REST API call.
+            </summary>
         </member>
         <member name="P:PayPal.Api.APIContext.AccessToken">
             <summary>
-            Gets the Access Token
+            Gets or sets the OAuth access token to use when making API requests.
             </summary>
         </member>
         <member name="P:PayPal.Api.APIContext.MaskRequestId">
             <summary>
-            Gets and sets the Mask Request Id
+            Gets or sets whether or not the PayPal-Request-Id header will be set when making API requests, which is used for ensuring idempotency when making API calls.
             </summary>
         </member>
         <member name="P:PayPal.Api.APIContext.RequestId">
             <summary>
-            Gets the Request Id
+            Gets or sets the request ID used for ensuring idempotency when making a REST API call.
             </summary>
         </member>
         <member name="P:PayPal.Api.APIContext.Config">
             <summary>
-            Gets and sets the Dynamic Configuration
+            Gets or sets the PayPal configuration settings to be used when making API requests.
             </summary>
         </member>
         <member name="P:PayPal.Api.APIContext.HTTPHeaders">
             <summary>
-            Gets and sets HTTP Headers
+            Gets or sets the HTTP headers to include when making HTTP requests to the API.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.APIContext.SdkVersion">
+            <summary>
+            Gets or sets the SDK version to include in the User-Agent header.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.BankAccountList">
+            <summary>
+            A list of bank accounts returned from a search operation.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="T:PayPal.Api.PayPalResourceObject">
@@ -181,6 +187,14 @@
             Total number of pages that exist, for the total number of items, with the given page size.
             </summary>
         </member>
+        <member name="T:PayPal.Api.BaseAddress">
+            <summary>
+            Common address information used in context of various REST APIs.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.BaseAddress.line1">
             <summary>
             Line 1 of the Address (eg. number, street, etc).
@@ -221,6 +235,14 @@
             Address status
             </summary>
         </member>
+        <member name="T:PayPal.Api.CarrierAccountToken">
+            <summary>
+            Carrier account identifiers.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.CarrierAccountToken.carrier_account_id">
             <summary>
             ID of a previously saved carrier account resource.
@@ -229,6 +251,14 @@
         <member name="P:PayPal.Api.CarrierAccountToken.external_customer_id">
             <summary>
             The unique identifier of the payer used when saving this carrier account instrument.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.CreditCardList">
+            <summary>
+            A list of credit card resources returned from a search operation.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCardList.items">
@@ -244,6 +274,14 @@
         <member name="P:PayPal.Api.CreditCardList.total_pages">
             <summary>
             Total number of pages that exist, for the total number of items, with the given page size.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.CurrencyConversion">
+            <summary>
+            Details of a currency conversion.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.CurrencyConversion.conversion_date">
@@ -286,6 +324,14 @@
             Base URL to web applications endpoint
             </summary>
         </member>
+        <member name="T:PayPal.Api.FundingDetail">
+            <summary>
+            Details concerning a payer's funding source.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.FundingDetail.clearing_time">
             <summary>
             Expected clearing time
@@ -294,6 +340,14 @@
         <member name="P:PayPal.Api.FundingDetail.payment_hold_date">
             <summary>
             Hold-off duration of the payment
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.FundingOption">
+            <summary>
+            A REST API payer funding option resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.FundingOption.id">
@@ -321,9 +375,17 @@
             Installment options available for a funding option.
             </summary>
         </member>
+        <member name="T:PayPal.Api.FundingSource">
+            <summary>
+            A REST API funding source resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.FundingSource.funding_mode">
             <summary>
-            specifies funding mode of the instrument
+            Specifies funding mode of the instrument
             </summary>
         </member>
         <member name="P:PayPal.Api.FundingSource.funding_instrument_type">
@@ -361,6 +423,14 @@
             
             </summary>
         </member>
+        <member name="T:PayPal.Api.Image">
+            <summary>
+            A QR code image for an invoice.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="M:PayPal.Api.Image.Save(System.String)">
             <summary>
             Saves the image data to a file on disk.
@@ -377,6 +447,14 @@
         <member name="P:PayPal.Api.Image.image">
             <summary>
             A base-64 encoded string representing a PNG image.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Incentive">
+            <summary>
+            Details of a funding incentive.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.Incentive.id">
@@ -424,6 +502,14 @@
             URI to the associated terms
             </summary>
         </member>
+        <member name="T:PayPal.Api.InstallmentInfo">
+            <summary>
+            Installment information for a funding option.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.InstallmentInfo.installment_id">
             <summary>
             Installment id.
@@ -444,6 +530,14 @@
             List of available installment options and the cost associated with each one.
             </summary>
         </member>
+        <member name="T:PayPal.Api.InstallmentOption">
+            <summary>
+            An installment option and associated cost.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.InstallmentOption.term">
             <summary>
             Number of installments
@@ -462,6 +556,14 @@
         <member name="P:PayPal.Api.InstallmentOption.discount_percentage">
             <summary>
             Discount percentage applied to the payment, if any
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.InvoiceAddress">
+            <summary>
+            Shipping and merchant address for an invoice.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.InvoiceAddress.phone">
@@ -490,7 +592,7 @@
         </member>
         <member name="F:PayPal.Api.OAuthTokenCredential.accessToken">
             <summary>
-            Cached access token that is generated when calling <see cref="!:OAuthtokenCredential.GetAccessToken()"/>.
+            Cached access token that is generated when calling <see cref="M:PayPal.Api.OAuthTokenCredential.GetAccessToken"/>.
             </summary>
         </member>
         <member name="F:PayPal.Api.OAuthTokenCredential.SdkVersion">
@@ -522,6 +624,7 @@
             </summary>
             <param name="clientId"></param>
             <param name="clientSecret"></param>
+            <param name="config"></param>
         </member>
         <member name="M:PayPal.Api.OAuthTokenCredential.GetAccessToken">
             <summary>
@@ -530,13 +633,13 @@
             a new one is generated and returned.
             </summary>
             <returns>The OAuth access token to use for making PayPal requests.</returns>
-            <exception cref="!:PayPal.Exception.MissingCredentialException">Thrown if clientId or clientSecret are null or empty.</exception>
-            <exception cref="!:PayPal.Exception.InvalidCredentialException">Thrown if there is an issue converting the credentials to a formatted authorization string.</exception>
-            <exception cref="!:PayPal.Exception.IdentityException">Thrown if authorization fails as a result of providing invalid credentials.</exception>
-            <exception cref="!:PayPal.Exception.HttpException">Thrown if authorization fails and an HTTP error response is received.</exception>
-            <exception cref="!:PayPal.Exception.ConnectionException">Thrown if there is an issue attempting to connect to PayPal's services.</exception>
-            <exception cref="!:PayPal.Exception.ConfigException">Thrown if there is an error with any informaiton provided by the <see cref="!:PayPal.Manager.ConfigManager"/>.</exception>
-            <exception cref="!:PayPal.Exception.PayPalException">Thrown for any other general exception. See inner exception for further details.</exception>
+            <exception cref="T:PayPal.MissingCredentialException">Thrown if clientId or clientSecret are null or empty.</exception>
+            <exception cref="T:PayPal.InvalidCredentialException">Thrown if there is an issue converting the credentials to a formatted authorization string.</exception>
+            <exception cref="T:PayPal.IdentityException">Thrown if authorization fails as a result of providing invalid credentials.</exception>
+            <exception cref="T:PayPal.HttpException">Thrown if authorization fails and an HTTP error response is received.</exception>
+            <exception cref="T:PayPal.ConnectionException">Thrown if there is an issue attempting to connect to PayPal's services.</exception>
+            <exception cref="T:PayPal.ConfigException">Thrown if there is an error with any informaiton provided by the <see cref="T:PayPal.Api.ConfigManager"/>.</exception>
+            <exception cref="T:PayPal.PayPalException">Thrown for any other general exception. See inner exception for further details.</exception>
         </member>
         <member name="M:PayPal.Api.OAuthTokenCredential.ConvertClientCredentialsToBase64String(System.String,System.String)">
             <summary>
@@ -545,9 +648,9 @@
             <param name="clientId">The client ID to be used in generating the base-64 client identifier.</param>
             <param name="clientSecret">The client secret to be used in generating the base-64 client identifier.</param>
             <returns>The base-64 encoded client identifier to use in the authorization request.</returns>
-            <exception cref="!:PayPal.Exception.MissingCredentialException">Thrown if clientId or clientSecret are null or empty.</exception>
-            <exception cref="!:PayPal.Exception.InvalidCredentialException">Thrown if there is an issue converting the credentials to a formatted authorization string.</exception>
-            <exception cref="!:PayPal.Exception.PayPalException">Thrown for any other issue encountered. See inner exception for further details.</exception>
+            <exception cref="T:PayPal.MissingCredentialException">Thrown if clientId or clientSecret are null or empty.</exception>
+            <exception cref="T:PayPal.InvalidCredentialException">Thrown if there is an issue converting the credentials to a formatted authorization string.</exception>
+            <exception cref="T:PayPal.PayPalException">Thrown for any other issue encountered. See inner exception for further details.</exception>
         </member>
         <member name="M:PayPal.Api.OAuthTokenCredential.GenerateOAuthToken(System.String)">
             <summary>
@@ -569,19 +672,19 @@
         <member name="P:PayPal.Api.OAuthTokenCredential.ApplicationId">
             <summary>
             Gets the application ID returned by OAuth servers.
-            Must first call <see cref="!:OAuthtokenCredentials.GetAccessToken()"/> to populate this property.
+            Must first call <see cref="M:PayPal.Api.OAuthTokenCredential.GetAccessToken"/> to populate this property.
             </summary>
         </member>
         <member name="P:PayPal.Api.OAuthTokenCredential.AccessTokenExpirationInSeconds">
             <summary>
             Gets or sets the lifetime of a created access token in seconds.
-            Must first call <see cref="!:OAuthtokenCredentials.GetAccessToken()"/> to populate this property.
+            Must first call <see cref="M:PayPal.Api.OAuthTokenCredential.GetAccessToken"/> to populate this property.
             </summary>
         </member>
         <member name="P:PayPal.Api.OAuthTokenCredential.AccessTokenLastCreationDate">
             <summary>
             Gets the last date when access token was generated.
-            Must first call <see cref="!:OAuthtokenCredentials.GetAccessToken()"/> to populate this property.
+            Must first call <see cref="M:PayPal.Api.OAuthTokenCredential.GetAccessToken"/> to populate this property.
             </summary>
         </member>
         <member name="P:PayPal.Api.OAuthTokenCredential.AccessTokenExpirationSafetyGapInSeconds">
@@ -591,9 +694,25 @@
             then a new token will be created when calling <see cref="M:PayPal.Api.OAuthTokenCredential.GetAccessToken"/>.
             </summary>
         </member>
+        <member name="T:PayPal.Api.Address">
+            <summary>
+            Used for billing and shipping addresses.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Address.phone">
             <summary>
             Phone number in E.123 format.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Agreement">
+            <summary>
+            A REST API billing agreement resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.Agreement.Create(PayPal.Api.APIContext)">
@@ -804,6 +923,14 @@
             Get or sets the token found in the approval_url link returned from a call to create this resource.
             </summary>
         </member>
+        <member name="T:PayPal.Api.AgreementStateDescriptor">
+            <summary>
+            The state of the associated billing agreement.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.AgreementStateDescriptor.note">
             <summary>
             Reason for changing the state of the agreement.
@@ -812,6 +939,14 @@
         <member name="P:PayPal.Api.AgreementStateDescriptor.amount">
             <summary>
             The amount and currency of the agreement. 
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.AgreementTransaction">
+            <summary>
+            Details of a transaction associated with a billing agreement.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.AgreementTransaction.transaction_id">
@@ -869,9 +1004,25 @@
             Time zone of time_updated field.
             </summary>
         </member>
+        <member name="T:PayPal.Api.AgreementTransactions">
+            <summary>
+            A list of transactions associated with a billing agreement.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.AgreementTransactions.agreement_transaction_list">
             <summary>
             Array of agreement_transaction object.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Amount">
+            <summary>
+            Defines a total currency amount and associated details.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.Amount.currency">
@@ -887,6 +1038,14 @@
         <member name="P:PayPal.Api.Amount.details">
             <summary>
             Additional details of the payment amount.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Authorization">
+            <summary>
+            A REST API authorization resource used to authorize a payment.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.Authorization.Get(PayPal.Api.APIContext,System.String)">
@@ -971,7 +1130,7 @@
         </member>
         <member name="P:PayPal.Api.Authorization.pending_reason">
             <summary>
-            [DEPRECATED] Reason code for the transaction state being Pending.Obsolete. use reason_code field instead.
+            Reason code for the transaction state being Pending.
             </summary>
         </member>
         <member name="P:PayPal.Api.Authorization.protection_eligibility">
@@ -1007,6 +1166,14 @@
         <member name="P:PayPal.Api.Authorization.update_time">
             <summary>
             Time the resource was last updated in UTC ISO8601 format.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.BankAccount">
+            <summary>
+            A REST API bank account resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.BankAccount.Create(PayPal.Api.APIContext)">
@@ -1198,6 +1365,14 @@
             Date/Time until this resource can be used to fund a payment.
             </summary>
         </member>
+        <member name="T:PayPal.Api.BankToken">
+            <summary>
+            Contains bank account identifiers.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.BankToken.bank_id">
             <summary>
             ID of a previously saved Bank resource using /vault/bank API.
@@ -1211,6 +1386,14 @@
         <member name="P:PayPal.Api.BankToken.mandate_reference_number">
             <summary>
             Identifier of the direct debit mandate to validate. Currently supported only for EU bank accounts(SEPA).
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.BillingInfo">
+            <summary>
+            Invoice billing information.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.BillingInfo.email">
@@ -1258,6 +1441,14 @@
             Mobile Phone number of the recipient to which SMS will be sent if notification_channel is SMS.
             </summary>
         </member>
+        <member name="T:PayPal.Api.CancelNotification">
+            <summary>
+            Details of an invoice cancel notification.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.CancelNotification.subject">
             <summary>
             Subject of the notification.
@@ -1276,6 +1467,14 @@
         <member name="P:PayPal.Api.CancelNotification.send_to_payer">
             <summary>
             A flag indicating whether a copy of the email has to be sent to the payer.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Capture">
+            <summary>
+            A REST API capture resource used in context of capturing a payment.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.Capture.Get(PayPal.Api.APIContext,System.String)">
@@ -1343,6 +1542,14 @@
             Time the resource was last updated in UTC ISO8601 format.
             </summary>
         </member>
+        <member name="T:PayPal.Api.CartBase">
+            <summary>
+            Common payment transaction details.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.CartBase.amount">
             <summary>
             Amount being collected.
@@ -1398,6 +1605,14 @@
             Url on merchant site pertaining to this payment.
             </summary>
         </member>
+        <member name="T:PayPal.Api.ChargeModel">
+            <summary>
+            Defines a charge model to be used in context of a billing plan.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.ChargeModel.id">
             <summary>
             Identifier of the charge model. 128 characters max.
@@ -1413,6 +1628,14 @@
             Specific amount for this charge model.
             </summary>
         </member>
+        <member name="T:PayPal.Api.Cost">
+            <summary>
+            Cost details for an invoice.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Cost.percent">
             <summary>
             Cost in percent. Range of 0 to 100.
@@ -1423,9 +1646,25 @@
             Cost in amount. Range of 0 to 999999.99.
             </summary>
         </member>
+        <member name="T:PayPal.Api.CreateProfileResponse">
+            <summary>
+            Response object when creating a web experience profile.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.CreateProfileResponse.id">
             <summary>
             ID of the payment web experience profile.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Credit">
+            <summary>
+            Details of a credit funding resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.Credit.id">
@@ -1436,6 +1675,14 @@
         <member name="P:PayPal.Api.Credit.type">
             <summary>
             specifies type of credit
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.CreditCard">
+            <summary>
+            A REST API credit card resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.CreditCard.Create(PayPal.Api.APIContext)">
@@ -1592,6 +1839,14 @@
             Date/Time until this resource can be used fund a payment.
             </summary>
         </member>
+        <member name="T:PayPal.Api.CreditCardToken">
+            <summary>
+            Details of a stored credit card.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.CreditCardToken.credit_card_id">
             <summary>
             ID of a previously saved Credit Card resource using /vault/credit-card API.
@@ -1622,6 +1877,14 @@
             4 digit card expiry year from the saved card
             </summary>
         </member>
+        <member name="T:PayPal.Api.Currency">
+            <summary>
+            Describes a monetary value amount and associated currency type.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Currency.currency">
             <summary>
             3 letter currency code as defined by ISO 4217.
@@ -1632,6 +1895,14 @@
             amount up to N digit after the decimals separator as defined in ISO 4217 for the appropriate currency code.
             </summary>
         </member>
+        <member name="T:PayPal.Api.CustomAmount">
+            <summary>
+            Details of a custom amount to be shown in an invoice.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.CustomAmount.label">
             <summary>
             Custom amount label. 25 characters max.
@@ -1640,6 +1911,14 @@
         <member name="P:PayPal.Api.CustomAmount.amount">
             <summary>
             Custom amount value. Range of 0 to 999999.99.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Details">
+            <summary>
+            Defines extra details for an <see cref="T:PayPal.Api.Amount"/> object.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.Details.subtotal">
@@ -1682,6 +1961,14 @@
             Fee charged by PayPal. In case of a refund, this is the fee amount refunded to the original receipient of the payment.
             </summary>
         </member>
+        <member name="T:PayPal.Api.Error">
+            <summary>
+            Details of an error that occurred when making a call to the REST API.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Error.name">
             <summary>
             Human readable, unique name of the error.
@@ -1717,6 +2004,14 @@
             Additional details of the error
             </summary>
         </member>
+        <member name="T:PayPal.Api.ErrorDetails">
+            <summary>
+            Additional details related to an <seealso cref="T:PayPal.Api.Error"/> resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.ErrorDetails.field">
             <summary>
             Name of the field that caused the error.
@@ -1737,9 +2032,25 @@
             PayPal internal error code.
             </summary>
         </member>
+        <member name="T:PayPal.Api.ExtendedBankAccount">
+            <summary>
+            A REST API extended bank account resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.ExtendedBankAccount.mandate_reference_number">
             <summary>
             Identifier of the direct debit mandate to validate. Currently supported only for EU bank accounts(SEPA).
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.FlowConfig">
+            <summary>
+            A flow configuration to be used in context of a web experience profile.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.FlowConfig.landing_page_type">
@@ -1750,6 +2061,14 @@
         <member name="P:PayPal.Api.FlowConfig.bank_txn_pending_url">
             <summary>
             The URL on the merchant site for transferring to after a bank transfer payment. Use this field only if you are using giropay or bank transfer payment methods in Germany.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.FundingInstrument">
+            <summary>
+            A payer's funding instrument details used in context of payments.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.FundingInstrument.credit_card">
@@ -1796,6 +2115,22 @@
             <summary>
             Carrier account token information.
             <para>NOTE: This property is currently not supported as a funding instrument option with the PayPal REST API.</para>
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.FuturePayment">
+            <summary>
+            A REST API future payment resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Payment">
+            <summary>
+            A REST API payment resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.Payment.Create(PayPal.Api.APIContext)">
@@ -1958,6 +2293,14 @@
             <param name="correlationId">(Optional) Application correlation ID</param>
             <returns>A new payment object setup to be used for a future payment.</returns>
         </member>
+        <member name="T:PayPal.Api.HyperSchema">
+            <summary>
+            A REST API hyper schema resource that provides schema information for a HATEOAS link.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.HyperSchema.fragmentResolution">
             <summary>
             
@@ -1983,6 +2326,14 @@
             
             </summary>
         </member>
+        <member name="T:PayPal.Api.InputFields">
+            <summary>
+            Input field settings for a web experience profile.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.InputFields.allow_note">
             <summary>
             Enables the buyer to enter a note to the merchant on the PayPal page during checkout.
@@ -1996,6 +2347,14 @@
         <member name="P:PayPal.Api.InputFields.address_override">
             <summary>
             Determines if the PayPal pages should display the shipping address supplied in this call, rather than the shipping address on file with PayPal for this buyer. Displaying the address on file does not allow the buyer to edit the address. Allowed values: `0` or `1`. When set to `0`, the PayPal pages should display the address on file. When set to `1`, the PayPal pages should display the addresses supplied in this call instead of the address from the buyer's PayPal account.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Invoice">
+            <summary>
+            A REST API invoice resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.Invoice.Create(PayPal.Api.APIContext)">
@@ -2260,7 +2619,17 @@
             List of payment details for the invoice.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Invoice.payments">
+            <summary>
+            List of payment details for the invoice.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Invoice.refund_details">
+            <summary>
+            List of refund details for the invoice.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Invoice.refunds">
             <summary>
             List of refund details for the invoice.
             </summary>
@@ -2273,6 +2642,14 @@
         <member name="P:PayPal.Api.Invoice.additional_data">
             <summary>
             Any miscellaneous invoice data. 4000 characters max.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.InvoiceItem">
+            <summary>
+            Description of an item listed in an invoice.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.InvoiceItem.name">
@@ -2310,6 +2687,14 @@
             Item discount in percent or amount.
             </summary>
         </member>
+        <member name="T:PayPal.Api.InvoiceSearchResponse">
+            <summary>
+            Response object from an invoice search operation.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.InvoiceSearchResponse.total_count">
             <summary>
             Total number of invoices.
@@ -2318,6 +2703,14 @@
         <member name="P:PayPal.Api.InvoiceSearchResponse.invoices">
             <summary>
             List of invoices belonging to a merchant.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Item">
+            <summary>
+            Details of a purchasable item included with a payment transaction.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.Item.quantity">
@@ -2395,6 +2788,11 @@
             Set of optional data used for PayPal post-transaction notifications.
             </summary>
         </member>
+        <member name="T:PayPal.Api.ItemList">
+            <summary>
+            Details of a list of purchasable items and shipping information included with a payment transaction.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.ItemList.items">
             <summary>
             List of items.
@@ -2408,6 +2806,14 @@
         <member name="P:PayPal.Api.ItemList.shipping_method">
             <summary>
             Shipping method used for this payment like USPSParcel etc.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Links">
+            <summary>
+            A HATEOAS (Hypermedia as the Engine of Application State) link included with most PayPal REST API resource objects.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.Links.href">
@@ -2438,6 +2844,14 @@
         <member name="P:PayPal.Api.Links.schema">
             <summary>
             
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.MerchantInfo">
+            <summary>
+            Merchant information for an invoice.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.MerchantInfo.email">
@@ -2490,6 +2904,14 @@
             Option to display additional information such as business hours. 40 characters max.
             </summary>
         </member>
+        <member name="T:PayPal.Api.MerchantPreferences">
+            <summary>
+            Merchant preferences for a billing agreement.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.MerchantPreferences.id">
             <summary>
             Identifier of the merchant_preferences. 128 characters max.
@@ -2538,6 +2960,14 @@
         <member name="P:PayPal.Api.MerchantPreferences.char_set">
             <summary>
             char_set for this plan.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Metadata">
+            <summary>
+            Details about the state of an invoice.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.Metadata.created_date">
@@ -2590,6 +3020,14 @@
             URL representing the payer's view of the invoice.
             </summary>
         </member>
+        <member name="T:PayPal.Api.NameValuePair">
+            <summary>
+            Details about an <seealso cref="T:PayPal.Api.Item"/>.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.NameValuePair.name">
             <summary>
             Key for the name value pair.  The value name types should be correlated 
@@ -2598,6 +3036,14 @@
         <member name="P:PayPal.Api.NameValuePair.value">
             <summary>
             Value for the name value pair.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Notification">
+            <summary>
+            Details for an invoice notification.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.Notification.subject">
@@ -2613,6 +3059,14 @@
         <member name="P:PayPal.Api.Notification.send_to_merchant">
             <summary>
             A flag indicating whether a copy of the email has to be sent to the merchant.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Order">
+            <summary>
+            A REST API order resource used when making payment orders.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.Order.Get(PayPal.Api.APIContext,System.String)">
@@ -2735,6 +3189,14 @@
             Time the resource was last updated in UTC ISO8601 format.
             </summary>
         </member>
+        <member name="T:PayPal.Api.OverrideChargeModel">
+            <summary>
+            Override for a charge model when creating a billing agreement.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.OverrideChargeModel.charge_id">
             <summary>
             ID of charge model.
@@ -2745,7 +3207,19 @@
             Updated Amount to be associated with this charge model.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:PayPal.Api.Patch.op" -->
+        <member name="T:PayPal.Api.Patch">
+            <summary>
+            A resource patch object used to update a REST API resource object.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Patch.op">
+            <summary>
+            Patch operation to perform. Value required for add &amp; remove operation can be any JSON value.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Patch.path">
             <summary>
             string containing a JSON-Pointer value that references a location within the target document (the target location) where the operation is performed.
@@ -2761,15 +3235,36 @@
             A string containing a JSON Pointer value that references the location in the target document to move the value from.
             </summary>
         </member>
+        <member name="T:PayPal.Api.PatchRequest">
+            <summary>
+            Request object used for updating REST API resource objects.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.PayPalSerializableListObject`1">
+            <summary>
+            Represents a PayPal model object that can be serialized to and from JSON as an array.
+            </summary>
+        </member>
         <member name="M:PayPal.Api.PayPalSerializableListObject`1.ConvertToJson">
             <summary>
             Converts this object to a JSON string.
             </summary>
             <returns>A JSON-formatted string.</returns>
         </member>
+        <member name="T:PayPal.Api.Payee">
+            <summary>
+            Information about a merchant account receiving funds related to a payment transaction.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Payee.email">
             <summary>
-            Email Address associated with the Payee's PayPal Account. If the provided email address is not associated with any PayPal Account, the payee can only receiver PayPal Wallet Payments. Direct Credit Card Payments will be denied due to card compliance requirements.
+            Email Address associated with the Payee's PayPal Account. If the provided email address is not associated with any PayPal Account, the payee can only receive PayPal Wallet Payments. Direct Credit Card Payments will be denied due to card compliance requirements.
             </summary>
         </member>
         <member name="P:PayPal.Api.Payee.merchant_id">
@@ -2780,6 +3275,14 @@
         <member name="P:PayPal.Api.Payee.phone">
             <summary>
             Information related to the Payer. In case of PayPal Wallet payment, this information will be filled in by PayPal after the user approves the payment using their PayPal Wallet. 
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Payer">
+            <summary>
+            Information about a PayPal account making a payment.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.Payer.payment_method">
@@ -2825,6 +3328,14 @@
         <member name="P:PayPal.Api.Payer.payer_info">
             <summary>
             Information related to the Payer. 
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.PayerInfo">
+            <summary>
+            More information about a <seealso cref="T:PayPal.Api.Payer"/>.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.email">
@@ -2912,6 +3423,14 @@
             Obsolete. Use shipping address present in purchase unit.
             </summary>
         </member>
+        <member name="T:PayPal.Api.PaymentCard">
+            <summary>
+            A REST API payment card resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.PaymentCard.id">
             <summary>
             ID of the credit card being saved for later use.
@@ -2987,6 +3506,14 @@
             Date/Time until this resource can be used fund a payment.
             </summary>
         </member>
+        <member name="T:PayPal.Api.PaymentDefinition">
+            <summary>
+            Defines the payment terms of a billing plan.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.PaymentDefinition.id">
             <summary>
             Identifier of the payment_definition. 128 characters max.
@@ -3027,6 +3554,14 @@
             Array of charge_models for this payment definition.
             </summary>
         </member>
+        <member name="T:PayPal.Api.PaymentDetail">
+            <summary>
+            Details of a payment made for an invoice.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.PaymentDetail.type">
             <summary>
             PayPal payment detail indicating whether payment was made in an invoicing flow via PayPal or externally. In the case of the mark-as-paid API, payment type is EXTERNAL and this is what is now supported. The PAYPAL value is provided for backward compatibility.
@@ -3057,6 +3592,14 @@
             Optional note associated with the payment.
             </summary>
         </member>
+        <member name="T:PayPal.Api.PaymentExecution">
+            <summary>
+            Request object used to execute a <seealso cref="T:PayPal.Api.Payment"/> resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.PaymentExecution.payer_id">
             <summary>
             PayPal assigned Payer ID returned in the approval return url.
@@ -3065,6 +3608,14 @@
         <member name="P:PayPal.Api.PaymentExecution.transactions">
             <summary>
             Transaction information to be used at the time of execute payment. Only amount and shipping_address can be updated in execute payment
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.PaymentHistory">
+            <summary>
+            Response object from a payment search operation.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentHistory.payments">
@@ -3080,6 +3631,14 @@
         <member name="P:PayPal.Api.PaymentHistory.next_id">
             <summary>
             Identifier of the next element to get the next range of results.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.PaymentInstruction">
+            <summary>
+            A REST API payment instruction resource object.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.PaymentInstruction.Get(PayPal.Api.APIContext,System.String)">
@@ -3120,9 +3679,25 @@
             Additional text regarding payment handling
             </summary>
         </member>
+        <member name="T:PayPal.Api.PaymentOptions">
+            <summary>
+            Payment options for a transaction's purchase unit.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.PaymentOptions.allowed_payment_method">
             <summary>
             Payment method requested for this purchase unit
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.PaymentTerm">
+            <summary>
+            Terms of an invoice payment.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentTerm.term_type">
@@ -3133,6 +3708,14 @@
         <member name="P:PayPal.Api.PaymentTerm.due_date">
             <summary>
             Date on which invoice payment is due. It must be always a future date. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Payout">
+            <summary>
+            A REST API payout resource object.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.Payout.Create(PayPal.Api.APIContext,System.Boolean)">
@@ -3168,6 +3751,14 @@
         <member name="P:PayPal.Api.Payout.items">
             <summary>
             An array of payout items (that is, a set of individual payouts).
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.PayoutBatchHeader">
+            <summary>
+            A REST API payout batch header resource object, containing detailed information about a <seealso cref="T:PayPal.Api.PayoutBatch"/>.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.PayoutBatchHeader.payout_batch_id">
@@ -3210,6 +3801,14 @@
             An array of batch errors, if any.
             </summary>
         </member>
+        <member name="T:PayPal.Api.PayoutBatch">
+            <summary>
+            A REST API payout batch resource object.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.PayoutBatch.batch_header">
             <summary>
             A batch header that includes the generated batch status.
@@ -3218,6 +3817,14 @@
         <member name="P:PayPal.Api.PayoutBatch.items">
             <summary>
             Array of the items in a batch payout.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.PayoutItem">
+            <summary>
+            An individual payout item.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.PayoutItem.Get(PayPal.Api.APIContext,System.String)">
@@ -3259,6 +3866,14 @@
         <member name="P:PayPal.Api.PayoutItem.sender_item_id">
             <summary>
             A sender-specific ID number, used in an accounting system for tracking purposes. 30 characters max.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.PayoutItemDetails">
+            <summary>
+            Details about an individual payout item.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.PayoutItemDetails.Get(PayPal.Api.APIContext,System.String)">
@@ -3314,6 +3929,22 @@
             Error information associated with this item, if any.
             </summary>
         </member>
+        <member name="T:PayPal.Api.PayoutRecipientType">
+            <summary>
+            Type of identification for the payment receiver.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.PayoutSenderBatchHeader">
+            <summary>
+            Details of a batch header that is sent when a payout item is completed.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.PayoutSenderBatchHeader.sender_batch_id">
             <summary>
             Sender-created ID for tracking the batch payout in an accounting system. 30 characters max.
@@ -3327,6 +3958,14 @@
         <member name="P:PayPal.Api.PayoutSenderBatchHeader.recipient_type">
             <summary>
             The type of ID for a payment receiver. If this field is provided, the payout items without a `recipient_type` will use the provided value. If this field is not provided, each payout item must include a value for the `recipient_type`. 
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.PayoutTransactionStatus">
+            <summary>
+            Status of a payout transaction.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="F:PayPal.Api.PayoutTransactionStatus.SUCCESS">
@@ -3381,6 +4020,14 @@
             web upload, and then uses the API to find the batch/items. In this case, CANCELLED status is possible.
             </summary>
         </member>
+        <member name="T:PayPal.Api.Phone">
+            <summary>
+            Details of a phone number.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Phone.country_code">
             <summary>
             Country code (from in E.164 format)
@@ -3394,6 +4041,14 @@
         <member name="P:PayPal.Api.Phone.extension">
             <summary>
             Phone extension
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Plan">
+            <summary>
+            A REST API billing plan resource.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.Plan.Get(PayPal.Api.APIContext,System.String)">
@@ -3508,6 +4163,14 @@
             Specific preferences such as: set up fee, max fail attempts, autobill amount, and others that are configured for this billing plan.
             </summary>
         </member>
+        <member name="T:PayPal.Api.PlanList">
+            <summary>
+            A list of billing plans returned from a search operation.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.PlanList.plans">
             <summary>
             Array of billing plans.
@@ -3523,6 +4186,14 @@
             Total number of pages.
             </summary>
         </member>
+        <member name="T:PayPal.Api.Presentation">
+            <summary>
+            Presentation details for a web experience profile.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Presentation.brand_name">
             <summary>
             A label that overrides the business name in the PayPal account on the PayPal pages. Character length and limitations: 127 single-byte alphanumeric characters.
@@ -3536,6 +4207,14 @@
         <member name="P:PayPal.Api.Presentation.locale_code">
             <summary>
             Locale of pages displayed by PayPal payment experience. Allowed values: `AU`, `AT`, `BE`, `BR`, `CA`, `CH`, `CN`, `DE`, `ES`, `GB`, `FR`, `IT`, `NL`, `PL`, `PT`, `RU`, `US`. The following 5-character codes are also allowed for languages in specific countries: `da_DK`, `he_IL`, `id_ID`, `ja_JP`, `no_NO`, `pt_BR`, `ru_RU`, `sv_SE`, `th_TH`, `tr_TR`, `zh_CN`, `zh_HK`, `zh_TW`.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.RecipientBankingInstruction">
+            <summary>
+            Details of a recipient bank.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.RecipientBankingInstruction.bank_name">
@@ -3568,6 +4247,14 @@
             BIC identifier of the financial institution
             </summary>
         </member>
+        <member name="T:PayPal.Api.RedirectUrls">
+            <summary>
+            Redirect URLs for where a payer will be sent after approving or canceling a payment.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.RedirectUrls.return_url">
             <summary>
             Url where the payer would be redirected to after approving the payment.
@@ -3576,6 +4263,14 @@
         <member name="P:PayPal.Api.RedirectUrls.cancel_url">
             <summary>
             Url where the payer would be redirected to after canceling the payment.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Refund">
+            <summary>
+            A REST API refund transaction resource object.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.Refund.Get(PayPal.Api.APIContext,System.String)">
@@ -3636,6 +4331,14 @@
             Time the resource was last updated in UTC ISO8601 format.
             </summary>
         </member>
+        <member name="T:PayPal.Api.RefundDetail">
+            <summary>
+            Details of a refunded invoice.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.RefundDetail.type">
             <summary>
             PayPal refund type indicating whether refund was done in invoicing flow via PayPal or externally. In the case of the mark-as-refunded API, refund type is EXTERNAL and this is what is now supported. The PAYPAL value is provided for backward compatibility.
@@ -3649,6 +4352,14 @@
         <member name="P:PayPal.Api.RefundDetail.note">
             <summary>
             Optional note associated with the refund.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.RelatedResources">
+            <summary>
+            Transaction resources related to a parent payment.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.RelatedResources.sale">
@@ -3674,6 +4385,14 @@
         <member name="P:PayPal.Api.RelatedResources.refund">
             <summary>
             Refund transaction
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Sale">
+            <summary>
+            A REST API sale transaction resource object.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.Sale.Get(PayPal.Api.APIContext,System.String)">
@@ -3796,6 +4515,14 @@
             Time the resource was last updated in UTC ISO8601 format.
             </summary>
         </member>
+        <member name="T:PayPal.Api.Search">
+            <summary>
+            Invoice search criteria.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Search.email">
             <summary>
             Initial letters of the email address.
@@ -3891,6 +4618,14 @@
             A flag indicating whether total count is required in the response.
             </summary>
         </member>
+        <member name="T:PayPal.Api.ShippingAddress">
+            <summary>
+            Details of a shipping address.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.ShippingAddress.id">
             <summary>
             Address ID assigned in PayPal system.
@@ -3911,6 +4646,14 @@
             Shipping Address marked as preferred by Payer.
             </summary>
         </member>
+        <member name="T:PayPal.Api.ShippingCost">
+            <summary>
+            Shipping cost for an invoice.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.ShippingCost.amount">
             <summary>
             Shipping cost in amount. Range of 0 to 999999.99.
@@ -3919,6 +4662,14 @@
         <member name="P:PayPal.Api.ShippingCost.tax">
             <summary>
             Tax percentage on shipping amount.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.ShippingInfo">
+            <summary>
+            Shipping information for an invoice.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.ShippingInfo.first_name">
@@ -3941,6 +4692,14 @@
             Address of the invoice recipient.
             </summary>
         </member>
+        <member name="T:PayPal.Api.Tax">
+            <summary>
+            Tax details for an invoice.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Tax.id">
             <summary>
             Identifier of the resource.
@@ -3959,6 +4718,14 @@
         <member name="P:PayPal.Api.Tax.amount">
             <summary>
             Tax in the form of money. Cannot be specified in a request.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Terms">
+            <summary>
+            Payment terms for a billing plan.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.Terms.id">
@@ -3991,6 +4758,14 @@
             Buyer's ability to edit the amount in this term.
             </summary>
         </member>
+        <member name="T:PayPal.Api.Transaction">
+            <summary>
+            Details about a specific payment transaction.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Transaction.purchase_unit_reference_id">
             <summary>
             Identifier to the purchase unit corresponding to this sale transaction.
@@ -3999,6 +4774,14 @@
         <member name="P:PayPal.Api.Transaction.related_resources">
             <summary>
             List of financial transactions (Sale, Authorization, Capture, Refund) related to the payment.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Webhook">
+            <summary>
+            A REST API webhook resource object.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.Webhook.Create(PayPal.Api.APIContext)">
@@ -4013,6 +4796,7 @@
             Creates the Webhook for the application associated with the access token.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="webhook"><seealso cref="T:PayPal.Api.Webhook"/> object to be created.</param>
             <returns>Webhook</returns>
         </member>
         <member name="M:PayPal.Api.Webhook.Get(PayPal.Api.APIContext,System.String)">
@@ -4043,6 +4827,7 @@
             Updates the Webhook identified by webhook_id for the application associated with access token.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="webhookId">ID of the webhook to be updated.</param>
             <param name="patchRequest">PatchRequest</param>
             <returns>Webhook</returns>
         </member>
@@ -4074,6 +4859,14 @@
             List of Webhooks event-types.
             </summary>
         </member>
+        <member name="T:PayPal.Api.WebhookEvent">
+            <summary>
+            A REST API webhook event resource object.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="M:PayPal.Api.WebhookEvent.Get(PayPal.Api.APIContext,System.String)">
             <summary>
             Retrieves the Webhooks event resource identified by event_id. Can be used to retrieve the payload for an event.
@@ -4094,6 +4887,7 @@
             Resends the Webhooks event resource identified by event_id.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="webhookEventId">ID of the webhook event to resend.</param>
             <returns>WebhookEvent</returns>
         </member>
         <member name="M:PayPal.Api.WebhookEvent.List(PayPal.Api.APIContext,System.Int32,System.String,System.String)">
@@ -4136,6 +4930,14 @@
             This contains the resource that is identified by resource_type element.
             </summary>
         </member>
+        <member name="T:PayPal.Api.WebhookEventList">
+            <summary>
+            A list of webhook event resources returned from a search operation.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.WebhookEventList.events">
             <summary>
             A list of Webhooks event resources
@@ -4144,6 +4946,14 @@
         <member name="P:PayPal.Api.WebhookEventList.count">
             <summary>
             Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.WebhookEventType">
+            <summary>
+            Details about a specific webhook event type that a <seealso cref="T:PayPal.Api.Webhook"/> can be setup to listen to.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.WebhookEventType.SubscribedEventTypes(PayPal.Api.APIContext,System.String)">
@@ -4171,14 +4981,38 @@
             Human readable description of the event-type
             </summary>
         </member>
+        <member name="T:PayPal.Api.WebhookEventTypeList">
+            <summary>
+            A list of webhook event types returned from a search operation.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.WebhookEventTypeList.event_types">
             <summary>
             A list of Webhooks event-types
             </summary>
         </member>
+        <member name="T:PayPal.Api.WebhookList">
+            <summary>
+            A list of webhook resource objects returned from a search operation.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.WebhookList.webhooks">
             <summary>
             A list of Webhooks
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.WebProfile">
+            <summary>
+            A REST API web experience profile resource object.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.Api.WebProfile.Create(PayPal.Api.APIContext)">
@@ -4277,6 +5111,14 @@
             Parameters for style and presentation.
             </summary>
         </member>
+        <member name="T:PayPal.Api.WebProfileList">
+            <summary>
+            A list of web experience profiles resource objects returned from a search operation.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="M:PayPal.Api.Tokeninfo.#ctor">
             <summary>
             Explicit default constructor
@@ -4355,6 +5197,11 @@
             The lifetime in seconds of the access token
             </summary>
         </member>
+        <member name="T:PayPal.Api.SDKVersion">
+            <summary>
+            Class for inspecting the ID and version of this SDK.
+            </summary>
+        </member>
         <member name="M:PayPal.Api.SDKVersion.GetSDKId">
             <summary>
             SDK ID used in User-Agent HTTP header
@@ -4388,6 +5235,106 @@
             essentially information passed on to any API service for authentication
             </summary>
         </member>
+        <member name="T:PayPal.Api.BaseConstants">
+            <summary>
+            Constants that are used by the PayPal SDK.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.RequestMethod">
+            <summary>
+            Request Method in HTTP Connection
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalLogFile">
+            <summary>
+            Log file
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.AccountPrefix">
+            <summary>
+            Account Prefix
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalSandboxEmailAddressDefault">
+            <summary>
+            Sandbox Default Email Address
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.SOAP">
+            <summary>
+            SOAP Format
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.NVP">
+            <summary>
+            NVP Format
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalSecurityUserIdHeader">
+            <summary>
+            PayPal Security UserId Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalSecurityPasswordHeader">
+            <summary>
+            PayPal Security Password Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalSecuritySignatureHeader">
+            <summary>
+            PayPal Security Signature Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalAuthorizationPlatformHeader">
+            <summary>
+            PayPal Platform Authorization Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalAuthorizationMerchantHeader">
+            <summary>
+            PayPal Merchant Authorization Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalApplicationIdHeader">
+            <summary>
+            PayPal Application Id Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalRequestDataFormatHeader">
+            <summary>
+            PayPal Request Data Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalResponseDataFormatHeader">
+            <summary>
+            PayPal Request Data Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalRequestSourceHeader">
+            <summary>
+            PayPal Request Source Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalSandboxDeviceIPAddress">
+            <summary>
+            PayPal Sandbox Email Address Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalSandboxEmailAddressHeader">
+            <summary>
+            PayPal Sandbox Email Address Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.LiveMode">
+            <summary>
+            Allowed application mode - live
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.SandboxMode">
+            <summary>
+            Allowed application mode - sandbox
+            </summary>
+        </member>
         <member name="F:PayPal.Api.BaseConstants.RESTSandboxEndpoint">
             <summary>
             Sandbox REST API endpoint
@@ -4396,6 +5343,96 @@
         <member name="F:PayPal.Api.BaseConstants.RESTLiveEndpoint">
             <summary>
             Live REST API endpoint
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.ApplicationModeConfig">
+            <summary>
+            Configuration key for application mode
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.EndpointConfig">
+            <summary>
+            Configuration key for End point
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.ClientIPAddressConfig">
+            <summary>
+            Configuration key for IPAddress
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HttpProxyAddressConfig">
+            <summary>
+            Configuration key for HTTP Proxy Address
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HttpProxyCredentialConfig">
+            <summary>
+            Configuration key for HTTP Proxy Credential
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HttpConnectionTimeoutConfig">
+            <summary>
+            Configuration key for HTTP Connection Timeout
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.HttpConnectionRetryConfig">
+            <summary>
+            Configuration key for HTTP Connection Retry
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.ClientId">
+            <summary>
+            Configuration key suffix for Client Id
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.ClientSecret">
+            <summary>
+            Configuration key suffix for Client Secret
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.OAuthEndpoint">
+            <summary>
+            OAuth endpoint config key
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.UserAgentHeader">
+            <summary>
+            User Agent HTTP Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.ContentTypeHeader">
+            <summary>
+            Content Type HTTP Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.ContentTypeHeaderJson">
+            <summary>
+            Application - Json Content Type
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.AuthorizationHeader">
+            <summary>
+            Authorization HTTP Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.PayPalRequestIdHeader">
+            <summary>
+            PayPal Request Id HTTP Header
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.SdkName">
+            <summary>
+            The name of this SDK.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.ENCODING_FORMAT">
+            <summary>
+            Encoding Format
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.BaseConstants.SdkVersion">
+            <summary>
+            The version of this SDK.
             </summary>
         </member>
         <member name="T:PayPal.Api.BaseConstants.HateoasLinkRelations">
@@ -4528,6 +5565,16 @@
             HATEOAS link relation used for webhook searches and provides results for the previous set of search results.
             </summary>
         </member>
+        <member name="T:PayPal.ConfigException">
+            <summary>
+            Represents an error that occurred in the PayPal SDK when attempting to load information from the application's config file.
+            </summary>
+        </member>
+        <member name="T:PayPal.PayPalException">
+            <summary>
+            Represents an error that occurred in the PayPal SDK.
+            </summary>
+        </member>
         <member name="F:PayPal.PayPalException.logger">
             <summary>
             Logs output statements, errors, debug info to a text file    
@@ -4535,7 +5582,7 @@
         </member>
         <member name="M:PayPal.PayPalException.#ctor">
             <summary>
-            Represents application configuration errors 
+            Initializes a new <seealso cref="T:PayPal.PayPalException"/> with no exception details set.
             </summary>
         </member>
         <member name="M:PayPal.PayPalException.#ctor(System.String)">
@@ -4546,7 +5593,7 @@
         </member>
         <member name="M:PayPal.PayPalException.#ctor(System.String,System.Exception)">
             <summary>
-            Represents errors that occur during application execution
+            Initializes a new <seealso cref="T:PayPal.PayPalException"/> and sets the exception message and cause.
             </summary>
             <param name="message">The message that describes the error</param>
             <param name="cause">The exception that is the cause of the current exception</param>
@@ -4596,6 +5643,11 @@
             Gets the prefix to use when logging the exception information.
             </summary>
         </member>
+        <member name="T:PayPal.ConnectionException">
+            <summary>
+            Represents a connection error that occurred in the PayPal SDK when attempting to make an HTTP request to the PayPal REST API.
+            </summary>
+        </member>
         <member name="M:PayPal.ConnectionException.#ctor(System.String,System.String,System.Net.WebExceptionStatus)">
             <summary>
             Represents errors that occur during application execution
@@ -4627,7 +5679,7 @@
         </member>
         <member name="T:PayPal.HttpException">
             <summary>
-            Represents an error occurred when attempting to send an HTTP request.
+            Represents an error that occurred in the PayPal SDK after sending an HTTP request to the PayPal REST API.
             </summary>
         </member>
         <member name="M:PayPal.HttpException.#ctor(System.String,System.String,System.Net.HttpStatusCode,System.Net.WebExceptionStatus)">
@@ -4636,7 +5688,8 @@
             </summary>
             <param name="message">The message that describes the error.</param>
             <param name="response">The response from server.</param>
-            <param name="status">HTTP status code returned from the server.</param>
+            <param name="statusCode">HTTP status code</param>
+            <param name="webExceptionStatus">HTTP status code returned from the server.</param>
         </member>
         <member name="M:PayPal.HttpException.#ctor(PayPal.HttpException)">
             <summary>
@@ -4693,12 +5746,14 @@
         <member name="T:PayPal.IdentityException">
             <summary>
             Represents Identity API errors related to logging into PayPal securely using PayPal login credentials.
+            <para>
             More Information: https://developer.paypal.com/webapps/developer/docs/api/#identity
+            </para>
             </summary>
         </member>
         <member name="M:PayPal.IdentityException.#ctor(PayPal.HttpException)">
             <summary>
-            Copy constructor that attempts to deserialize the response from the specified <paramref name="PayPal.HttpException"/>.
+            Copy constructor that attempts to deserialize the response from the specified <seealso name="HttpException"/>.
             </summary>
             <param name="ex">Originating <see cref="T:PayPal.HttpException"/> object that contains the details of the exception.</param>
         </member>
@@ -4712,6 +5767,11 @@
             Gets the prefix to use when logging the exception information.
             </summary>
         </member>
+        <member name="T:PayPal.InvalidCredentialException">
+            <summary>
+            Represents an error that occurred in the PayPal SDK when application credentials are in an invalid state.
+            </summary>
+        </member>
         <member name="M:PayPal.InvalidCredentialException.#ctor(System.String)">
             <summary>
             Represents errors where certain credential information is invalid.
@@ -4723,6 +5783,11 @@
             Gets the prefix to use when logging the exception information.
             </summary>
         </member>
+        <member name="T:PayPal.MissingCredentialException">
+            <summary>
+            Represents an error that occurred in the PayPal SDK when application credentials are required.
+            </summary>
+        </member>
         <member name="M:PayPal.MissingCredentialException.#ctor(System.String)">
             <summary>
             Represents errors where certain credential information is required but missing.
@@ -4732,6 +5797,11 @@
         <member name="P:PayPal.MissingCredentialException.ExceptionMessagePrefix">
             <summary>
             Gets the prefix to use when logging the exception information.
+            </summary>
+        </member>
+        <member name="T:PayPal.OAuthException">
+            <summary>
+            Represents an error that occurred when requesting an OAuth token.
             </summary>
         </member>
         <member name="M:PayPal.OAuthException.#ctor(System.String)">
@@ -4762,15 +5832,20 @@
             Gets the prefix to use when logging the exception information.
             </summary>
         </member>
+        <member name="T:PayPal.PaymentsException">
+            <summary>
+            Represents an error that occurred when making a call to PayPal's REST API.
+            </summary>
+        </member>
         <member name="M:PayPal.PaymentsException.#ctor(PayPal.HttpException)">
             <summary>
-            Copy constructor that attempts to deserialize the response from the specified <paramref name="PayPal.HttpException"/>.
+            Copy constructor that attempts to deserialize the response from the specified <seealso name="HttpException"/>.
             </summary>
             <param name="ex">Originating <see cref="T:PayPal.HttpException"/> object that contains the details of the exception.</param>
         </member>
         <member name="P:PayPal.PaymentsException.Details">
             <summary>
-            Gets a <see cref="!:PayPal.PaymentsError"/> JSON object containing the parsed details of the Payments error.
+            Gets a <see cref="T:PayPal.Api.Error"/> JSON object containing the parsed details of the Payments error.
             </summary>
         </member>
         <member name="P:PayPal.PaymentsException.ExceptionMessagePrefix">
@@ -4778,15 +5853,16 @@
             Gets the prefix to use when logging the exception information.
             </summary>
         </member>
-        <member name="F:PayPal.Api.HttpConnection.logger">
+        <member name="T:PayPal.Api.HttpConnection">
             <summary>
-            Logger
+            Helper class for sending HTTP requests.
             </summary>
         </member>
-        <member name="F:PayPal.Api.HttpConnection.config">
+        <member name="M:PayPal.Api.HttpConnection.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>
-            Dynamic Configuration
+            Initializes a new instance of <seealso cref="T:PayPal.Api.HttpConnection"/> using the given config.
             </summary>
+            <param name="config">The config to use when making HTTP requests.</param>
         </member>
         <member name="M:PayPal.Api.HttpConnection.CopyRequest(System.Net.HttpWebRequest,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
             <summary>
@@ -4812,6 +5888,41 @@
             <param name="payLoad"></param>
             <param name="httpRequest"></param>
             <returns>A string containing the response from the remote host.</returns>
+        </member>
+        <member name="T:PayPal.HttpMethod">
+            <summary>
+            List of supported HTTP methods when making HTTP requests to the PayPal REST API.
+            </summary>
+        </member>
+        <member name="F:PayPal.HttpMethod.GET">
+            <summary>
+            GET HTTP request. This is typically used in API operations to retrieve a static resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.HttpMethod.HEAD">
+            <summary>
+            HEAD HTTP request. This is typically used to retrieve only the header information for a static resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.HttpMethod.POST">
+            <summary>
+            POST HTTP request. This is typically used in API operations that require data in the request body to complete.
+            </summary>
+        </member>
+        <member name="F:PayPal.HttpMethod.PUT">
+            <summary>
+            PUT HTTP request. This is used in some API operations that update a given resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.HttpMethod.DELETE">
+            <summary>
+            DELETE HTTP request. This is typcially used in API oeprations that delete a given resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.HttpMethod.PATCH">
+            <summary>
+            PATCH HTTP request. This is typcially used in API operations that update a given resource.
+            </summary>
         </member>
         <member name="M:PayPal.IAPICallPreHandler.GetHeaderMap">
             <summary>
@@ -4840,6 +5951,22 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:PayPal.Api.JsonFormatterDeserializationErrorEventArgs">
+            <summary>
+            Event arguments for when an error is encountered while deserializing a JSON string.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.JsonFormatterDeserializationErrorEventArgs.Message">
+            <summary>
+            Gets or sets the error message associated with this event.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.JsonFormatterDeserializationErrorEventHandler">
+            <summary>
+            Event handler delegate for when an error is encountered while deserializing a JSON string.
+            </summary>
+            <param name="e"></param>
+        </member>
         <member name="T:PayPal.Api.JsonFormatter">
             <summary>
             Helper class that handles serializing and deserializing to and from JSON strings, respectively.
@@ -4867,6 +5994,11 @@
             </summary>
             <param name="sender">Object that sent the event</param>
             <param name="e">Event arguments</param>
+        </member>
+        <member name="E:PayPal.Api.JsonFormatter.DeserializationError">
+            <summary>
+            Event handler for when an error occurs while attempting to deserialize a JSON string.
+            </summary>
         </member>
         <member name="T:PayPal.Log.BaseLogger">
             <summary>
@@ -4999,6 +6131,12 @@
             System.Diagnostics wrapper
             </summary>
         </member>
+        <member name="M:PayPal.Log.DiagnosticsLogger.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <seealso cref="T:PayPal.Log.DiagnosticsLogger"/> class.
+            </summary>
+            <param name="givenType">The type associated with this logger.</param>
+        </member>
         <member name="M:PayPal.Log.DiagnosticsLogger.Debug(System.String)">
             <summary>
             Override the wrapper for System.Diagnostics TraceEventType.Verbose
@@ -5082,6 +6220,26 @@
         <member name="M:PayPal.Log.DiagnosticsLogger.Flush">
             <summary>
             Override flush
+            </summary>
+        </member>
+        <member name="P:PayPal.Log.DiagnosticsLogger.IsDebugEnabled">
+            <summary>
+            Gets whether or not debug logging is enabled.
+            </summary>
+        </member>
+        <member name="P:PayPal.Log.DiagnosticsLogger.IsErrorEnabled">
+            <summary>
+            Gets whether or not error logging is enabled.
+            </summary>
+        </member>
+        <member name="P:PayPal.Log.DiagnosticsLogger.IsInfoEnabled">
+            <summary>
+            Gets whether or not informational logging is enabled.
+            </summary>
+        </member>
+        <member name="P:PayPal.Log.DiagnosticsLogger.IsWarnEnabled">
+            <summary>
+            Gets whether or not logging for warnings is enabled.
             </summary>
         </member>
         <member name="T:PayPal.Log.Log4netLogger">
@@ -5429,7 +6587,11 @@
             Accounts Collection
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:PayPal.Account" -->
+        <member name="T:PayPal.Account">
+            <summary>
+            Account information
+            </summary>
+        </member>
         <member name="P:PayPal.Account.APIUserName">
             <summary>
             API Username
@@ -5470,6 +6632,21 @@
             Certificate Subject
             </summary>
         </member>
+        <member name="T:PayPal.Api.ClientCredentials">
+            <summary>
+            REST application client credentials.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.ClientCredentials.clientId">
+            <summary>
+            Client ID 
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.ClientCredentials.clientSecret">
+            <summary>
+            Client Secret
+            </summary>
+        </member>
         <member name="M:PayPal.Api.ClientCredentials.setClientId(System.String)">
             <summary>
             Set the Client ID
@@ -5494,24 +6671,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="F:PayPal.Api.CreateFromAuthorizationCodeParameters.Code">
+        <member name="T:PayPal.Api.CreateFromAuthorizationCodeParameters">
             <summary>
-            Code used in query parameters
+            Parameters for getting an access token using a authorization code.
             </summary>
         </member>
-        <member name="F:PayPal.Api.CreateFromAuthorizationCodeParameters.RedirectUri">
+        <member name="M:PayPal.Api.CreateFromAuthorizationCodeParameters.#ctor">
             <summary>
-            Redirect URI used in query parameters
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.CreateFromAuthorizationCodeParameters.GrantType">
-            <summary>
-            Grant Type used in query parameters
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.CreateFromAuthorizationCodeParameters.mapContainer">
-            <summary>
-            Backing map
+            Initializes a new <seealso cref="T:PayPal.Api.CreateFromAuthorizationCodeParameters"/> object and sets the grant type to 'authorization_code'.
             </summary>
         </member>
         <member name="M:PayPal.Api.CreateFromAuthorizationCodeParameters.SetCode(System.String)">
@@ -5537,24 +6704,14 @@
             Backing map
             </summary>
         </member>
-        <member name="F:PayPal.Api.CreateFromRefreshTokenParameters.Scope">
+        <member name="T:PayPal.Api.CreateFromRefreshTokenParameters">
             <summary>
-            Scope used in query parameters
+            Parameters for getting an access token using a refresh token.
             </summary>
         </member>
-        <member name="F:PayPal.Api.CreateFromRefreshTokenParameters.GrantType">
+        <member name="M:PayPal.Api.CreateFromRefreshTokenParameters.#ctor">
             <summary>
-            Grant Type used in query parameters
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.CreateFromRefreshTokenParameters.RefreshToken">
-            <summary>
-            Refresh Token used in query parameters
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.CreateFromRefreshTokenParameters.mapContainer">
-            <summary>
-            Backing map
+            Initializes a new <seealso cref="T:PayPal.Api.CreateFromRefreshTokenParameters"/> object and sets the grant type to 'refresh_token'.
             </summary>
         </member>
         <member name="M:PayPal.Api.CreateFromRefreshTokenParameters.SetScope(System.String)">
@@ -5615,15 +6772,14 @@
             <summary>
             Configures and executes REST call: Supports JSON
             </summary>
-            <typeparam name="T">Generic Type parameter for response object</typeparam>
             <param name="apiContext">APIContext object</param>
             <param name="httpMethod">HttpMethod type</param>
             <param name="resource">URI path of the resource</param>
             <param name="payload">JSON request payload</param>
             <returns>Response object or null otherwise for void API calls</returns>
-            <exception cref="!:PayPal.Exception.HttpException">Thrown if there was an error sending the request.</exception>
-            <exception cref="!:PayPal.Exception.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
-            <exception cref="!:PayPal.Exception.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
+            <exception cref="T:PayPal.HttpException">Thrown if there was an error sending the request.</exception>
+            <exception cref="T:PayPal.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
+            <exception cref="T:PayPal.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
         </member>
         <member name="M:PayPal.PayPalResource.ConfigureAndExecute``1(PayPal.Api.APIContext,PayPal.HttpMethod,System.String,System.String)">
             <summary>
@@ -5635,9 +6791,9 @@
             <param name="resource">URI path of the resource</param>
             <param name="payload">JSON request payload</param>
             <returns>Response object or null otherwise for void API calls</returns>
-            <exception cref="!:PayPal.Exception.HttpException">Thrown if there was an error sending the request.</exception>
-            <exception cref="!:PayPal.Exception.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
-            <exception cref="!:PayPal.Exception.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
+            <exception cref="T:PayPal.HttpException">Thrown if there was an error sending the request.</exception>
+            <exception cref="T:PayPal.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
+            <exception cref="T:PayPal.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
         </member>
         <member name="M:PayPal.PayPalResource.ConfigureAndExecute``1(System.Collections.Generic.Dictionary{System.String,System.String},PayPal.IAPICallPreHandler,PayPal.HttpMethod,System.String)">
             <summary>
@@ -5649,9 +6805,9 @@
             <param name="httpMethod">HttpMethod type</param>
             <param name="resourcePath">URI path of the resource</param>
             <returns>Response object or null otherwise for void API calls</returns>
-            <exception cref="!:PayPal.Exception.HttpException">Thrown if there was an error sending the request.</exception>
-            <exception cref="!:PayPal.Exception.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
-            <exception cref="!:PayPal.Exception.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
+            <exception cref="T:PayPal.HttpException">Thrown if there was an error sending the request.</exception>
+            <exception cref="T:PayPal.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
+            <exception cref="T:PayPal.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
         </member>
         <member name="M:PayPal.PayPalResource.RequiresRetry(System.Net.WebException)">
             <summary>
@@ -5792,6 +6948,11 @@
             </summary>
             <returns>A URL-formatted string containing the query parameters</returns>
         </member>
+        <member name="T:PayPal.Util.SDKUtil">
+            <summary>
+            Helper methods for this SDK.
+            </summary>
+        </member>
         <member name="M:PayPal.Util.SDKUtil.FormatURIPath(System.String,System.Object[])">
             <summary>
             Formats the URI path for REST calls.
@@ -5821,6 +6982,13 @@
             <param name="queryParameters">Dictionary for Query parameters</param>
             <returns>Processed URI path</returns>
         </member>
+        <member name="M:PayPal.Util.SDKUtil.RemoveNullsFromQueryString(System.String)">
+            <summary>
+            Removes null entries from a given query string.
+            </summary>
+            <param name="formatString">A query string.</param>
+            <returns>A query string with null entries removed.</returns>
+        </member>
         <member name="M:PayPal.Util.SDKUtil.SplitParameters(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>
             Split the URI and form a Object array using the query string and values
@@ -5832,16 +7000,46 @@
             <param name="parameters"></param>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:PayPal.Util.SDKUtil.EscapeInvalidXmlCharsRegex(System.String)" -->
-        <!-- Badly formed XML comment ignored for member "M:PayPal.Util.SDKUtil.EscapeInvalidXmlCharsRegex(System.Nullable{System.Int32})" -->
-        <!-- Badly formed XML comment ignored for member "M:PayPal.Util.SDKUtil.EscapeInvalidXmlCharsRegex(System.Nullable{System.Boolean})" -->
-        <!-- Badly formed XML comment ignored for member "M:PayPal.Util.SDKUtil.EscapeInvalidXmlCharsRegex(System.Nullable{System.Single})" -->
-        <!-- Badly formed XML comment ignored for member "M:PayPal.Util.SDKUtil.EscapeInvalidXmlCharsRegex(System.Nullable{System.Double})" -->
+        <member name="M:PayPal.Util.SDKUtil.EscapeInvalidXmlCharsRegex(System.String)">
+            <summary>
+            Escapes invalid XML characters using &amp; escapes
+            </summary>
+            <param name="textContent">Text content to escape</param>
+            <returns>Escaped XML string</returns>
+        </member>
+        <member name="M:PayPal.Util.SDKUtil.EscapeInvalidXmlCharsRegex(System.Nullable{System.Int32})">
+            <summary>
+            Escapes invalid XML characters using &amp; escapes
+            </summary>
+            <param name="intContent">Integer content to escape</param>
+            <returns>Escaped XML string</returns>
+        </member>
+        <member name="M:PayPal.Util.SDKUtil.EscapeInvalidXmlCharsRegex(System.Nullable{System.Boolean})">
+            <summary>
+            Escapes invalid XML characters using &amp; escapes
+            </summary>
+            <param name="boolContent">Boolean content to escape</param>
+            <returns>Escaped XML string</returns>
+        </member>
+        <member name="M:PayPal.Util.SDKUtil.EscapeInvalidXmlCharsRegex(System.Nullable{System.Single})">
+            <summary>
+            Escapes invalid XML characters using &amp; escapes
+            </summary>
+            <param name="floatContent">Float content to escape</param>
+            <returns>Escaped XML string</returns>
+        </member>
+        <member name="M:PayPal.Util.SDKUtil.EscapeInvalidXmlCharsRegex(System.Nullable{System.Double})">
+            <summary>
+            Escapes invalid XML characters using &amp; escapes
+            </summary>
+            <param name="doubleContent">Double content to escape</param>
+            <returns>Escaped XML string</returns>
+        </member>
         <member name="M:PayPal.Util.SDKUtil.GetAssemblyVersionForType(System.Type)">
             <summary>
             Gets the version number of the parent assembly for the specified object type.
             </summary>
-            <typeparam name="T">The object type to use in determining which assembly version should be returned.</typeparam>
+            <param name="type">The object type to use in determining which assembly version should be returned.</param>
             <returns>A 3-digit version of the parent assembly.</returns>
         </member>
         <member name="M:PayPal.Util.SDKUtil.GetTokenFromApprovalUrl(System.Collections.Generic.List{PayPal.Api.Links})">
@@ -5850,6 +7048,11 @@
             </summary>
             <param name="links">The list of HATEOAS links objects to search.</param>
             <returns>A string containing the resource token associated with an approval URL.</returns>
+        </member>
+        <member name="T:PayPal.Api.OpenIdConnect.Address">
+            <summary>
+            Address used in context of Log In with PayPal.
+            </summary>
         </member>
         <member name="P:PayPal.Api.OpenIdConnect.Address.street_address">
             <summary>
@@ -5874,6 +7077,11 @@
         <member name="P:PayPal.Api.OpenIdConnect.Address.country">
             <summary>
             Country name component.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.OpenIdConnect.Userinfo">
+            <summary>
+            User information in context of Log In with PayPal.
             </summary>
         </member>
         <member name="M:PayPal.Api.OpenIdConnect.Userinfo.GetUserinfo(PayPal.Api.UserinfoParameters)">
@@ -5984,6 +7192,14 @@
             Account payer identifier.
             </summary>
         </member>
+        <member name="T:PayPal.Api.FmfDetails">
+            <summary>
+            Fraud management filter information.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
         <member name="P:PayPal.Api.FmfDetails.filter_type">
             <summary>
             Type of filter.
@@ -6002,6 +7218,14 @@
         <member name="P:PayPal.Api.FmfDetails.description">
             <summary>
             Description of the filter.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Measurement">
+            <summary>
+            Measurement details for an <seealso cref="T:PayPal.Api.Item"/>.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
             </summary>
         </member>
         <member name="P:PayPal.Api.Measurement.value">
