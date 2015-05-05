@@ -6,6 +6,9 @@ using PayPal.Api;
 
 namespace PayPal.Util
 {
+    /// <summary>
+    /// Helper class that validates arguments.
+    /// </summary>
     public class ArgumentValidator
     {
         /// <summary>

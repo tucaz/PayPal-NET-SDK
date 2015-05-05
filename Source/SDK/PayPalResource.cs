@@ -10,6 +10,9 @@ using System.IO;
 
 namespace PayPal
 {
+    /// <summary>
+    /// Abstract class that handles configuring an HTTP request prior to making an API call.
+    /// </summary>
     public abstract class PayPalResource
     {
         /// <summary>

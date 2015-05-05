@@ -60,31 +60,11 @@ namespace PayPal.Api
             this.headersMap = (headersMap == null) ? new Dictionary<string, string>() : headersMap;
         }
 
-        public Dictionary<string, string> GetHeaderMap()
-        {
-            return GetProcessedHeadersMap();
-        }
-
-        public string GetPayload()
-        {
-            return GetProcessedPayload();
-        }
-
-        public string GetEndpoint()
-        {
-            return GetProcessedEndPoint();
-        }
-
-        public PayPal.Authentication.ICredential GetCredential()
-        {
-            return null;
-        }
-
         /// <summary>
-        /// Overrided this method to return HTTP headers
+        /// Gets the header map to be used when making an HTTP call to the REST API.
         /// </summary>
-        /// <returns>HTTP headers as Dictionary</returns>
-        protected Dictionary<string, string> GetProcessedHeadersMap()
+        /// <returns>A header map to be used when making an HTTP call to the REST API.</returns>
+        public Dictionary<string, string> GetHeaderMap()
         {
             Dictionary<string, string> headers = new Dictionary<string, string>();
 
@@ -135,25 +115,19 @@ namespace PayPal.Api
         }
 
         /// <summary>
-        /// Override this method to post process the payload.
-        /// The payload is returned unaltered as a default
-        /// behaviour
+        /// Gets the payload to be used when making an HTTP call to the REST API.
         /// </summary>
-        /// <returns>Payload string</returns>
-        protected string GetProcessedPayload()
+        /// <returns>The payload to be used when making an HTTP call to the REST API.</returns>
+        public string GetPayload()
         {
-            /*
-		     * Since the REST API of PayPal depends on json, which is
-		     * well formed, no additional processing is required.
-		     */
-            return Payload;
+            return this.Payload;
         }
 
         /// <summary>
-        /// Override this method to return default behavior for endpoint fetching
+        /// Gets the endpoint to be used when making an HTTP call to the REST API.
         /// </summary>
-        /// <returns>Endpoint as a string</returns>
-        protected string GetProcessedEndPoint()
+        /// <returns>The endpoint to be used when making an HTTP call to the REST API.</returns>
+        public string GetEndpoint()
         {
             string endpoint = null;
 
@@ -176,7 +150,7 @@ namespace PayPal.Api
             }
 
             // If no endpoint is defined, then default to sandbox.
-            if(string.IsNullOrEmpty(endpoint))
+            if (string.IsNullOrEmpty(endpoint))
             {
                 endpoint = BaseConstants.RESTSandboxEndpoint;
             }
@@ -187,6 +161,16 @@ namespace PayPal.Api
             }
 
             return endpoint;
+        }
+
+        /// <summary>
+        /// NOTE: The REST API does not require credentials to be used when making HTTP calls.
+        /// This will be removed in a future release.
+        /// </summary>
+        /// <returns></returns>
+        public PayPal.Authentication.ICredential GetCredential()
+        {
+            return null;
         }
 
         /// <summary>

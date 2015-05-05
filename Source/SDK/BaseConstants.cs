@@ -9,96 +9,6 @@ namespace PayPal.Api
     public static class BaseConstants
     {
         /// <summary>
-        /// Request Method in HTTP Connection
-        /// </summary>
-        public const string RequestMethod = "POST";
-
-        /// <summary>
-        /// Log file
-        /// </summary>
-        public const string PayPalLogFile = "PAYPALLOGFILE";
-
-        /// <summary>
-        /// Encoding Format
-        /// </summary>
-        public static readonly Encoding ENCODING_FORMAT = Encoding.UTF8;
-        
-        /// <summary>
-        /// Account Prefix
-        /// </summary>
-        public const string AccountPrefix = "acct";
-
-        /// <summary>
-        /// Sandbox Default Email Address
-        /// </summary>
-        public const string PayPalSandboxEmailAddressDefault = "pp.devtools@gmail.com";
-        
-        /// <summary>
-        /// SOAP Format
-        /// </summary>
-        public const string SOAP = "SOAP";
-        
-        /// <summary>
-        /// NVP Format
-        /// </summary>
-        public const string NVP = "NV";
-        
-        /// <summary>
-        /// PayPal Security UserId Header
-        /// </summary>
-        public const string PayPalSecurityUserIdHeader = "X-PAYPAL-SECURITY-USERID";
-
-        /// <summary>
-        /// PayPal Security Password Header
-        /// </summary>
-        public const string PayPalSecurityPasswordHeader = "X-PAYPAL-SECURITY-PASSWORD";
-
-        /// <summary>
-        /// PayPal Security Signature Header
-        /// </summary>
-        public const string PayPalSecuritySignatureHeader = "X-PAYPAL-SECURITY-SIGNATURE";
-
-        /// <summary>
-        /// PayPal Platform Authorization Header
-        /// </summary>
-        public const string PayPalAuthorizationPlatformHeader = "X-PAYPAL-AUTHORIZATION";
-
-        /// <summary>
-        /// PayPal Merchant Authorization Header
-        /// </summary>
-        public const string PayPalAuthorizationMerchantHeader = "X-PP-AUTHORIZATION";
-
-        /// <summary>
-        /// PayPal Application Id Header
-        /// </summary>
-        public const string PayPalApplicationIdHeader = "X-PAYPAL-APPLICATION-ID";
-
-        /// <summary>
-        /// PayPal Request Data Header
-        /// </summary>
-        public const string PayPalRequestDataFormatHeader = "X-PAYPAL-REQUEST-DATA-FORMAT";
-
-        /// <summary>
-        /// PayPal Request Data Header
-        /// </summary>
-        public const string PayPalResponseDataFormatHeader = "X-PAYPAL-RESPONSE-DATA-FORMAT";
-
-        /// <summary>
-        /// PayPal Request Source Header
-        /// </summary>
-        public const string PayPalRequestSourceHeader = "X-PAYPAL-REQUEST-SOURCE";
-        
-        /// <summary>
-        /// PayPal Sandbox Email Address Header
-        /// </summary>
-        public const string PayPalSandboxDeviceIPAddress = "X-PAYPAL-DEVICE-IPADDRESS";
-
-        /// <summary>
-        /// PayPal Sandbox Email Address Header
-        /// </summary>
-        public const string PayPalSandboxEmailAddressHeader = "X-PAYPAL-SANDBOX-EMAIL-ADDRESS";
-
-        /// <summary>
         /// Allowed application mode - live
         /// </summary>
         public const string LiveMode = "live";
@@ -127,11 +37,6 @@ namespace PayPal.Api
         /// Configuration key for End point
         /// </summary>
         public const string EndpointConfig = "endpoint";
-
-        /// <summary>
-        /// Configuration key for IPAddress
-        /// </summary>
-        public const string ClientIPAddressConfig = "IPAddress";
 
         /// <summary>
         /// Configuration key for HTTP Proxy Address

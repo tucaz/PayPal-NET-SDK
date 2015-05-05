@@ -16,8 +16,19 @@ namespace PayPal.Api
     /// </summary>
     public enum PayoutRecipientType
     {
+        /// <summary>
+        /// Email recipient for a payout.
+        /// </summary>
         EMAIL,
+
+        /// <summary>
+        /// Phone number recipient for a payout.
+        /// </summary>
         PHONE,
+
+        /// <summary>
+        /// PayPal recipient for a payout.
+        /// </summary>
         PAYPAL_ID
     }
 }

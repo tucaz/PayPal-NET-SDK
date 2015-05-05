@@ -25,7 +25,6 @@ namespace PayPal.Api
             // Default connection timeout in milliseconds
             defaultConfig[BaseConstants.HttpConnectionTimeoutConfig] = "30000";
             defaultConfig[BaseConstants.HttpConnectionRetryConfig] = "3";
-            defaultConfig[BaseConstants.ClientIPAddressConfig] = "127.0.0.1";
         }
 
         /// <summary>
@@ -149,6 +148,11 @@ namespace PayPal.Api
             return ret;
         }
 
+        /// <summary>
+        /// Gets the default configuration value for the specified key.
+        /// </summary>
+        /// <param name="configKey">The key to lookup in the default configuration.</param>
+        /// <returns>A string containing the default configuration value for the specified key. If the key is not found, returns null.</returns>
         public static string GetDefault(string configKey)
         {
             if (ConfigManager.defaultConfig.ContainsKey(configKey))

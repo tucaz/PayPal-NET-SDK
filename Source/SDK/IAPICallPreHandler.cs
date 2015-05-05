@@ -3,6 +3,10 @@ using PayPal.Authentication;
 
 namespace PayPal
 {
+    /// <summary>
+    /// Interface for API calls.
+    /// NOTE: This will be deprecated in a future release of this SDK.
+    /// </summary>
     public interface IAPICallPreHandler
     {
         /// <summary>

@@ -24,12 +24,20 @@ namespace PayPal
             get { return (AccountCollection)this[accountsElement]; }
         }
 
+        /// <summary>
+        /// PayPal application settings.
+        /// </summary>
         [ConfigurationProperty("settings", IsRequired = true)]
         public NameValueConfigurationCollection Settings
         {
             get { return (NameValueConfigurationCollection)this["settings"]; }
         }
 
+        /// <summary>
+        /// Gets the setting with the specified name. If the setting is not found, returns null.
+        /// </summary>
+        /// <param name="name">The name of the setting to lookup.</param>
+        /// <returns>The value associated with the setting name. If the name is not found, returns null.</returns>
         public string Setting(string name)
         {
             NameValueConfigurationElement config = Settings[name];
@@ -37,33 +45,66 @@ namespace PayPal
         }
     }    
 
+    /// <summary>
+    /// Account colleciton details. This is included for compatibility with the older Classic SDKs.
+    /// </summary>
     [ConfigurationCollection(typeof(Account), AddItemName = "account", CollectionType = ConfigurationElementCollectionType.BasicMap)]
     public class AccountCollection : ConfigurationElementCollection
     {
+        /// <summary>
+        /// Creates a new <see cref="PayPal.Account"/>.
+        /// </summary>
+        /// <returns>A new <see cref="PayPal.Account"/>.</returns>
         protected override ConfigurationElement CreateNewElement()
         {
             return new Account();
         }
+
+        /// <summary>
+        /// Gets the API username for the specified <seealso cref="ConfigurationElement"/>.
+        /// </summary>
+        /// <param name="element">The element to be used.</param>
+        /// <returns>The API user name.</returns>
         protected override object GetElementKey(ConfigurationElement element)
         {
             return ((Account)element).APIUserName;
         }
 
+        /// <summary>
+        /// Gets the <see cref="PayPal.Account"/> at the specified index.
+        /// </summary>
+        /// <param name="index">Index of the <see cref="PayPal.Account"/>.</param>
+        /// <returns>The <see cref="PayPal.Account"/> at the specified index.</returns>
         public Account Account(int index)
         {
             return (Account)BaseGet(index);
         }
 
+        /// <summary>
+        /// Gets the <see cref="PayPal.Account"/> for the specified value.
+        /// </summary>
+        /// <param name="value">The value of the <see cref="PayPal.Account"/>.</param>
+        /// <returns>The <see cref="PayPal.Account"/> for the specified value.</returns>
         public Account Account(string value)
         {
             return (Account)BaseGet(value);
         }
 
+        /// <summary>
+        /// Index operator that looks up an <see cref="PayPal.Account"/> for the specified name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public new  Account this[string name]
         {
             get { return (Account)BaseGet(name); }
         }
 
+        /// <summary>
+        /// Index operator that looks up an <see cref="PayPal.Account"/> at the specified index.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public Account this[int index]
         {
             get { return (Account)BaseGet(index); }
@@ -99,6 +140,9 @@ namespace PayPal
         private static readonly ConfigurationProperty certifySubject =
            new ConfigurationProperty("certificateSubject", typeof(string), string.Empty);
 
+        /// <summary>
+        /// Default constructor that initializes all the properties for the account.
+        /// </summary>
         public Account()
         {
             base.Properties.Add(apiUserName);

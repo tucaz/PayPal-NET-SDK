@@ -4,6 +4,9 @@ using System.Web;
 
 namespace PayPal.Util
 {
+    /// <summary>
+    /// Helper class that can be converted into a URL query string.
+    /// </summary>
     public class QueryParameters : Dictionary<string, string>
     {
         /// <summary>

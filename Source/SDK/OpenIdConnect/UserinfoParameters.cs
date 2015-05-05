@@ -5,6 +5,9 @@ using System.Web;
 
 namespace PayPal.Api
 {
+    /// <summary>
+    /// Class for storing user information for OpenIdConnect API calls.
+    /// </summary>
     public class UserinfoParameters
     {
         /// <summary>
