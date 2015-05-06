@@ -29,7 +29,7 @@ configuration:
 
 environment:
   access_token:
-    secure: UZOb6mFfY1k9aKT6tW2165TUOI8YcAO/9FuPeTfcyQu2y/1Km1F6KIDHTZqG/32O
+    secure: G3or41wXmLO6g2rx2iTF+YYRcc879hVxCp+vkgYFNkUd+ldcjcJf2yGcNz/cKwXp
   matrix:
     - solution_name: Source\PayPal.SDK.NET40.sln
     - solution_name: Source\PayPal.SDK.NET45.sln
