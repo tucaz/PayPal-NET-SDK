@@ -7,7 +7,7 @@ namespace PayPal.Util
     /// <summary>
     /// Helper class that can be converted into a URL query string.
     /// </summary>
-    public class QueryParameters : Dictionary<string, string>
+    internal class QueryParameters : Dictionary<string, string>
     {
         /// <summary>
         /// Converts the dictionary of query parameters to a URL-formatted string. Empty values are ommitted from the parameter list.

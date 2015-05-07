@@ -114,7 +114,6 @@
     <ExternalCompile Include="OpenIdConnect\Tokeninfo.cs" />
     <ExternalCompile Include="SDKVersion.cs" />
     <ExternalCompile Include="Util\ArgumentValidator.cs" />
-    <ExternalCompile Include="Authentication\ICredential.cs" />
     <ExternalCompile Include="BaseConstants.cs" />
     <ExternalCompile Include="Exception\ConfigException.cs" />
     <ExternalCompile Include="Exception\ConnectionException.cs" />
@@ -128,7 +127,6 @@
     <ExternalCompile Include="Exception\PayPalException.cs" />
     <ExternalCompile Include="HttpConnection.cs" />
     <ExternalCompile Include="HttpMethod.cs" />
-    <ExternalCompile Include="IAPICallPreHandler.cs" />
     <ExternalCompile Include="Api\JsonFormatter.cs" />
     <ExternalCompile Include="Log\BaseLogger.cs" />
     <ExternalCompile Include="Log\DiagnosticsLogger.cs" />
@@ -146,7 +144,6 @@
     <ExternalCompile Include="OpenIdConnect\UserinfoParameters.cs" />
     <ExternalCompile Include="PayPalResource.cs" />
     <ExternalCompile Include="Properties\AssemblyInfo.cs" />
-    <ExternalCompile Include="RESTAPICallPreHandler.cs" />
     <ExternalCompile Include="UserAgentHeader.cs" />
     <ExternalCompile Include="Util\QueryParameters.cs" />
     <ExternalCompile Include="Util\SDKUtil.cs" />

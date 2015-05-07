@@ -11,7 +11,7 @@ namespace PayPal.Api
     /// <summary>
     /// Helper class for sending HTTP requests.
     /// </summary>
-    public class HttpConnection
+    internal class HttpConnection
     {
         private static Logger logger = Logger.GetLogger(typeof(HttpConnection));
         private Dictionary<string, string> config;
@@ -172,6 +172,12 @@ namespace PayPal.Api
                             }
 
                             throw new HttpException(ex.Message, response, httpWebResponse.StatusCode, ex.Status, httpWebResponse.Headers, httpRequest);
+                        }
+                        else if(ex.Status == WebExceptionStatus.ReceiveFailure)
+                        {
+                            // For receive failures, the connection to the server may have been interrupted.
+                            logger.Debug("ReceiveFailure: A complete response was not received from the server.");
+                            continue;
                         }
                         else if (ex.Status == WebExceptionStatus.Timeout)
                         {

@@ -11,7 +11,7 @@ namespace PayPal.Util
     /// <summary>
     /// Helper methods for this SDK.
     /// </summary>
-    public class SDKUtil
+    internal class SDKUtil
     {
         /// <summary>
         /// Formats the URI path for REST calls.

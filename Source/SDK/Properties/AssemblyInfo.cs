@@ -40,3 +40,6 @@ using System.Security;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.4.2.0")]
 [assembly: AssemblyFileVersion("1.4.2.0")]
+
+// Allow the unit test project to access internal classes.
+[assembly: InternalsVisibleTo("PayPal.Tests")]

@@ -3,7 +3,7 @@ namespace PayPal
     /// <summary>
     /// List of supported HTTP methods when making HTTP requests to the PayPal REST API.
     /// </summary>
-    public enum HttpMethod
+    internal enum HttpMethod
     {
         /// <summary>
         /// GET HTTP request. This is typically used in API operations to retrieve a static resource.

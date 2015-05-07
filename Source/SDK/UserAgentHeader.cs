@@ -7,7 +7,7 @@ namespace PayPal.Api
     /// <summary>
     /// PayPal User-Agent Header implementation class
     /// </summary>
-    public class UserAgentHeader
+    internal class UserAgentHeader
     {
         /// <summary>
         /// Returns a PayPal specific User-Agent HTTP Header
