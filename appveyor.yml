@@ -3,20 +3,20 @@
 #   - Indent each level of configuration with 2 spaces. Do not use tabs!
 #   - All section names are case-sensitive.
 #   - Section names should be unique on each level.
- 
+
 #---------------------------------#
 #      general configuration      #
 #---------------------------------#
- 
+
 # version format
 version: 1.4.2.{build}
- 
+
 # branches to build
 branches:
   # whitelist
   only:
     - master
- 
+
 # Do not build on tags (GitHub only)
 skip_tags: true
 
@@ -28,6 +28,8 @@ configuration:
   - Release
 
 environment:
+  access_token:
+    secure: uGirc90Q29xu1EgCmOOKl6btdWuUkFqSbE51Bgh/a/WLQF+CujKM0XPETILzmdMR
   matrix:
     - solution_name: Source\PayPal.SDK.NET40.sln
     - solution_name: Source\PayPal.SDK.NET45.sln
@@ -37,6 +39,27 @@ environment:
 build_script:
   - cmd: msbuild %solution_name% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
+# on successful build
+on_success:
+  - git config --global user.email "travis@travis-ci.org"
+  - git config --global user.name "Travis"
+  - git config --global credential.helper store
+  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - mkdir ..\gh-pages
+  - mkdir ..\gh-pages\Samples
+  - xcopy /E Samples\Source\Source ..\gh-pages\Samples
+  - xcopy /E Docs ..\gh-pages\
+
+  # Add branch
+  - cd ../gh-pages
+  - git init
+  - git remote add origin https://github.com/paypal/PayPal-Net-SDK.git
+  - git checkout -B gh-pages
+
+ # Push generated files
+  - git add .
+  - git commit -m "Docs updated by Travis"
+  - git push origin gh-pages -fq
 #---------------------------------#
 #       tests configuration       #
 #---------------------------------#
