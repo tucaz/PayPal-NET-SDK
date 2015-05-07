@@ -9,8 +9,8 @@
     <ProjectGuid>{0F307BFE-6D0C-4296-9D09-148A4DF275CF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PayPal.UnitTest</RootNamespace>
-    <AssemblyName>PayPal.UnitTests</AssemblyName>
+    <RootNamespace>PayPal.Testing</RootNamespace>
+    <AssemblyName>PayPal.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
