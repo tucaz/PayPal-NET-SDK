@@ -83,5 +83,14 @@ namespace PayPal.Api
         {
             this.RequestId = Convert.ToString(Guid.NewGuid());
         }
+
+        /// <summary>
+        /// Gets the stored configuration and merges it with the application's default config.
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, string> GetConfigWithDefaults()
+        {
+            return ConfigManager.GetConfigWithDefaults(this.Config == null ? ConfigManager.Instance.GetProperties() : this.Config);
+        }
     }
 }
