@@ -6,7 +6,7 @@ namespace PayPal.Api.OpenIdConnect
     /// <summary>
     /// User information in context of Log In with PayPal.
     /// </summary>
-    public class Userinfo
+    public class Userinfo : PayPalResource
     {
         /// <summary>
         /// Subject - Identifier for the End-User at the Issuer

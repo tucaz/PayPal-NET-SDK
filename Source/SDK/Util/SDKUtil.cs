@@ -313,7 +313,7 @@ namespace PayPal.Util
         [Obsolete("This static method is deprecated. Call GetTokenFromApprovalUrl directly from any PayPalResourceObject.", false)]
         public static string GetTokenFromApprovalUrl(List<Links> links)
         {
-            var resource = new PayPalResourceObject { links = links };
+            var resource = new PayPalRelationalObject { links = links };
             return resource.GetTokenFromApprovalUrl();
         }
     }

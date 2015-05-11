@@ -60,10 +60,9 @@ namespace PayPal.Testing
                 Assert.IsNotNull(sale);
                 Assert.AreEqual(saleId, sale.id);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -91,10 +90,9 @@ namespace PayPal.Testing
                 Assert.IsNotNull(response);
                 Assert.AreEqual("completed", response.state);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
     }

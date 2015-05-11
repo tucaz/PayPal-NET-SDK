@@ -65,10 +65,9 @@ namespace PayPal.Testing
                 Assert.AreEqual("Template creation.", retrievedPlan.description);
                 Assert.AreEqual("FIXED", retrievedPlan.type);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -101,10 +100,9 @@ namespace PayPal.Testing
                 Assert.AreEqual(planId, updatedPlan.id);
                 Assert.AreEqual(updatedDescription, updatedPlan.description);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -118,10 +116,9 @@ namespace PayPal.Testing
                 Assert.IsNotNull(planList.plans);
                 Assert.IsTrue(planList.plans.Count > 0);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -153,10 +150,9 @@ namespace PayPal.Testing
                 // Attempting to retrieve the plan should result in a PayPalException being thrown.
                 TestingUtil.AssertThrownException<PaymentsException>(() => Plan.Get(TestingUtil.GetApiContext(), planId));
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
     }

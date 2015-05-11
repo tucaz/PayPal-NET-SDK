@@ -16,7 +16,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class Agreement : PayPalResourceObject
+    public class Agreement : PayPalRelationalObject
     {
         /// <summary>
         /// Identifier of the agreement.

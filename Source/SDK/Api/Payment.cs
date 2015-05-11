@@ -16,7 +16,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class Payment : PayPalResourceObject
+    public class Payment : PayPalRelationalObject
     {
         /// <summary>
         /// Identifier of the payment resource created.

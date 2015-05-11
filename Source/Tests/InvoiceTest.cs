@@ -64,10 +64,9 @@ namespace PayPal.Testing
                 Assert.IsNotNull(createdInvoice.id);
                 Assert.AreEqual(invoice.note, createdInvoice.note);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -83,10 +82,9 @@ namespace PayPal.Testing
                 Assert.IsTrue(!string.IsNullOrEmpty(qrCode.image));
                 createdInvoice.Delete(TestingUtil.GetApiContext());
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
     }

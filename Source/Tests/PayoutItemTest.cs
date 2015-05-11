@@ -56,10 +56,9 @@ namespace PayPal.Testing
                 Assert.AreEqual(payoutItemId, payoutItemDetails.payout_item_id);
                 Assert.AreEqual("8NX77PFLN255E", payoutItemDetails.payout_batch_id);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -87,10 +86,9 @@ namespace PayPal.Testing
                     Assert.AreEqual(PayoutTransactionStatus.RETURNED, payoutItemDetails.transaction_status);
                 }
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
     }

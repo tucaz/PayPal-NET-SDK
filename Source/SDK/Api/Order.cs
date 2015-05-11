@@ -15,7 +15,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class Order : PayPalResourceObject
+    public class Order : PayPalRelationalObject
     {
         /// <summary>
         /// Identifier of the order transaction.

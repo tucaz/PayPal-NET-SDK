@@ -14,7 +14,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class PaymentCard : PayPalResourceObject
+    public class PaymentCard : PayPalRelationalObject
     {
         /// <summary>
         /// ID of the credit card being saved for later use.

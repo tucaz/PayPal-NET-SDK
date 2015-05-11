@@ -70,10 +70,9 @@ namespace PayPal.Testing
                 var returnCapture = Capture.Get(TestingUtil.GetApiContext(), responseCapture.id);
                 Assert.AreEqual(responseCapture.id, returnCapture.id);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -99,10 +98,9 @@ namespace PayPal.Testing
                 var responseRefund = response.Refund(TestingUtil.GetApiContext(), fund);
                 Assert.AreEqual("completed", responseRefund.state);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 

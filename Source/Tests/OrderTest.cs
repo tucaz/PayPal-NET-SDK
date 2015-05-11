@@ -44,10 +44,9 @@ namespace PayPal.Testing
                 var order = Order.Get(TestingUtil.GetApiContext(), orderId);
                 Assert.AreEqual(orderId, order.id);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 

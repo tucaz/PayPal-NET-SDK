@@ -18,7 +18,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class PayoutItemDetails : PayPalResourceObject
+    public class PayoutItemDetails : PayPalRelationalObject
     {
         /// <summary>
         /// An ID for an individual payout. Provided by PayPal, such as in the case of getting the status of a batch request. 30 characters max.

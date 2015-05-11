@@ -57,10 +57,9 @@ namespace PayPal.Testing
                 var authorize = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
                 Assert.AreEqual(authorizationId, authorize.id);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -80,10 +79,9 @@ namespace PayPal.Testing
                 var response = authorize.Capture(TestingUtil.GetApiContext(), cap);
                 Assert.AreEqual("completed", response.state);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -98,10 +96,9 @@ namespace PayPal.Testing
                 var authorizationResponse = authorize.Void(TestingUtil.GetApiContext());
                 Assert.AreEqual("voided", authorizationResponse.state);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -111,7 +108,7 @@ namespace PayPal.Testing
             TestingUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(new APIContext("token"), null));
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Ignore]
         public void AuthroizationReauthorizeTest()
         {
             try
@@ -123,10 +120,9 @@ namespace PayPal.Testing
                 authorization.amount = reauthorizeAmount;
                 TestingUtil.AssertThrownException<PayPal.PaymentsException>(() => authorization.Reauthorize(TestingUtil.GetApiContext()));
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
     }

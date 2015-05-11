@@ -16,7 +16,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class PayoutItem : PayPalSerializableObject
+    public class PayoutItem : PayPalResource
     {
         /// <summary>
         /// The type of identification for the payment receiver. If this field is provided, the payout items without a `recipient_type` will use the provided value. If this field is not provided, each payout item must include a value for the `recipient_type`. 

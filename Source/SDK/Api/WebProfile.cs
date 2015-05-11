@@ -15,7 +15,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class WebProfile : PayPalSerializableObject
+    public class WebProfile : PayPalResource
     {
         /// <summary>
         /// Unique ID of the web experience profile.

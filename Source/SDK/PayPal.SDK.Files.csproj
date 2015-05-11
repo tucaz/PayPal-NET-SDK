@@ -83,7 +83,8 @@
     <ExternalCompile Include="Api\PayoutRecipientType.cs" />
     <ExternalCompile Include="Api\PayoutSenderBatchHeader.cs" />
     <ExternalCompile Include="Api\PayoutTransactionStatus.cs" />
-    <ExternalCompile Include="Api\PayPalResourceObject.cs" />
+    <ExternalCompile Include="Api\PayPalResource.cs" />
+    <ExternalCompile Include="Api\PayPalRelationalObject.cs" />
     <ExternalCompile Include="Api\PayPalSerializableListObject.cs" />
     <ExternalCompile Include="Api\PayPalSerializableObject.cs" />
     <ExternalCompile Include="Api\Phone.cs" />
@@ -126,7 +127,6 @@
     <ExternalCompile Include="Exception\PaymentsException.cs" />
     <ExternalCompile Include="Exception\PayPalException.cs" />
     <ExternalCompile Include="HttpConnection.cs" />
-    <ExternalCompile Include="HttpMethod.cs" />
     <ExternalCompile Include="Api\JsonFormatter.cs" />
     <ExternalCompile Include="Log\BaseLogger.cs" />
     <ExternalCompile Include="Log\DiagnosticsLogger.cs" />
@@ -142,7 +142,6 @@
     <ExternalCompile Include="OpenIdConnect\CreateFromAuthorizationCodeParameters.cs" />
     <ExternalCompile Include="OpenIdConnect\CreateFromRefreshTokenParameters.cs" />
     <ExternalCompile Include="OpenIdConnect\UserinfoParameters.cs" />
-    <ExternalCompile Include="PayPalResource.cs" />
     <ExternalCompile Include="Properties\AssemblyInfo.cs" />
     <ExternalCompile Include="UserAgentHeader.cs" />
     <ExternalCompile Include="Util\QueryParameters.cs" />

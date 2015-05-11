@@ -14,7 +14,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class CurrencyConversion : PayPalResourceObject
+    public class CurrencyConversion : PayPalRelationalObject
     {
         /// <summary>
         /// Date of validity for the conversion rate.

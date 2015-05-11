@@ -16,7 +16,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class Plan : PayPalResourceObject
+    public class Plan : PayPalRelationalObject
     {
         /// <summary>
         /// Identifier of the billing plan. 128 characters max.

@@ -15,7 +15,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class Refund : PayPalResourceObject
+    public class Refund : PayPalRelationalObject
     {
         /// <summary>
         /// Identifier of the refund transaction in UTC ISO8601 format.

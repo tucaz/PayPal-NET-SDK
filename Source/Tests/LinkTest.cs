@@ -63,7 +63,7 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Unit")]
         public void LinksApprovalUrlTest()
         {
-            var resource = new PayPalResourceObject { links = GetLinksList() };
+            var resource = new PayPalRelationalObject { links = GetLinksList() };
             var approvalUrl = resource.GetApprovalUrl();
             Assert.AreEqual("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-0JP008296V451950C", approvalUrl);
         }
@@ -71,7 +71,7 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Unit")]
         public void LinksNoApprovalUrlTest()
         {
-            var resource = new PayPalResourceObject
+            var resource = new PayPalRelationalObject
             {
                 links = new List<Links>
                 {
@@ -85,7 +85,7 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Unit")]
         public void LinksApprovalUrlPayNowTest()
         {
-            var resource = new PayPalResourceObject { links = GetLinksList() };
+            var resource = new PayPalRelationalObject { links = GetLinksList() };
             var approvalUrl = resource.GetApprovalUrl(true);
             Assert.AreEqual("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-0JP008296V451950C&useraction=commit", approvalUrl);
         }
@@ -93,7 +93,7 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Unit")]
         public void LinksNoApprovalUrlPayNowTest()
         {
-            var resource = new PayPalResourceObject
+            var resource = new PayPalRelationalObject
             {
                 links = new List<Links>
                 {
@@ -107,7 +107,7 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Unit")]
         public void LinksApprovalUrlTokenTest()
         {
-            var resource = new PayPalResourceObject { links = GetLinksList() };
+            var resource = new PayPalRelationalObject { links = GetLinksList() };
             var token = resource.GetTokenFromApprovalUrl();
             Assert.AreEqual("EC-0JP008296V451950C", token);
         }
@@ -115,7 +115,7 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Unit")]
         public void LinksNoApprovalUrlEmptyTokenTest()
         {
-            var resource = new PayPalResourceObject
+            var resource = new PayPalRelationalObject
             {
                 links = new List<Links>
                 {

@@ -43,21 +43,28 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void WebProfileGetListTest()
         {
-            // Create a new profile
-            var apiContext = TestingUtil.GetApiContext();
-            var profileName = Guid.NewGuid().ToString();
-            var profile = WebProfileTest.GetWebProfile();
-            profile.name = profileName;
-            var createdProfile = profile.Create(apiContext);
+            try
+            {
+                // Create a new profile
+                var apiContext = TestingUtil.GetApiContext();
+                var profileName = Guid.NewGuid().ToString();
+                var profile = WebProfileTest.GetWebProfile();
+                profile.name = profileName;
+                var createdProfile = profile.Create(apiContext);
 
-            // Get the list of profiles
-            var profiles = WebProfile.GetList(apiContext);
-            Assert.IsNotNull(profiles);
-            Assert.IsTrue(profiles.Count > 0);
+                // Get the list of profiles
+                var profiles = WebProfile.GetList(apiContext);
+                Assert.IsNotNull(profiles);
+                Assert.IsTrue(profiles.Count > 0);
 
-            // Delete the profile
-            profile.id = createdProfile.id;
-            profile.Delete(apiContext);
+                // Delete the profile
+                profile.id = createdProfile.id;
+                profile.Delete(apiContext);
+            }
+            finally
+            {
+                TestingUtil.RecordConnectionDetails();
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
@@ -81,10 +88,9 @@ namespace PayPal.Testing
                 // Delete the profile
                 retrievedProfile.Delete(apiContext);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -114,10 +120,9 @@ namespace PayPal.Testing
                 // Delete the profile
                 profile.Delete(TestingUtil.GetApiContext());
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -160,10 +165,9 @@ namespace PayPal.Testing
                 // Delete the profile
                 profile.Delete(TestingUtil.GetApiContext());
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -183,14 +187,11 @@ namespace PayPal.Testing
 
                 // Delete the profile
                 profile.Delete(TestingUtil.GetApiContext());
-
-                // Attempt to get the profile. This should result in an exception.
-                TestingUtil.AssertThrownException<PayPal.HttpException>(() => { WebProfile.Get(TestingUtil.GetApiContext(), profile.id); });
+                Assert.AreEqual(204, (int)PayPalResource.LastResponseDetails.Value.StatusCode);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
     }

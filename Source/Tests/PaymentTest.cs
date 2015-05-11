@@ -108,10 +108,9 @@ namespace PayPal.Testing
                 var actual = CreatePaymentForSale();
                 Assert.AreEqual("approved", actual.state);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -125,10 +124,9 @@ namespace PayPal.Testing
                 var retrievedPayment = Payment.Get(context, pay.id);
                 Assert.AreEqual(pay.id, retrievedPayment.id);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -141,10 +139,9 @@ namespace PayPal.Testing
                 var paymentHistory = Payment.List(context, count: 10);
                 Assert.IsTrue(paymentHistory.count > 0 && paymentHistory.count <= 10);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -158,10 +155,9 @@ namespace PayPal.Testing
                 var retrievedPayment = FuturePayment.Get(context, futurePayment.id);
                 Assert.AreEqual(futurePayment.id, retrievedPayment.id);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -193,10 +189,9 @@ namespace PayPal.Testing
                 Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.ApprovalUrl));
                 Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Execute));
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -228,10 +223,9 @@ namespace PayPal.Testing
                 Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.ApprovalUrl));
                 Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Execute));
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -261,10 +255,9 @@ namespace PayPal.Testing
                 Assert.AreEqual(1, createdPayment.links.Count);
                 Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Self));
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
         #endregion

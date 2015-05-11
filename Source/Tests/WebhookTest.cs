@@ -59,10 +59,9 @@ namespace PayPal.Testing
                 // Cleanup
                 retrievedWebhook.Delete(apiContext);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -75,10 +74,9 @@ namespace PayPal.Testing
                 Assert.IsNotNull(webhookList);
                 Assert.IsNotNull(webhookList.webhooks);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -127,10 +125,9 @@ namespace PayPal.Testing
                 // Cleanup
                 updatedWebhook.Delete(TestingUtil.GetApiContext());
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -143,12 +140,11 @@ namespace PayPal.Testing
                 webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
                 var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
                 createdWebhook.Delete(TestingUtil.GetApiContext());
-                TestingUtil.AssertThrownException<HttpException>(() => Webhook.Get(TestingUtil.GetApiContext(), createdWebhook.id));
+                Assert.AreEqual(204, (int)PayPalResource.LastResponseDetails.Value.StatusCode);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
     }

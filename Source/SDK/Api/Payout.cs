@@ -16,7 +16,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class Payout : PayPalResourceObject
+    public class Payout : PayPalRelationalObject
     {
         /// <summary>
         /// The original batch header as provided by the payment sender.

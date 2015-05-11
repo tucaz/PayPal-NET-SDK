@@ -79,10 +79,9 @@ namespace PayPal.Testing
                 Assert.IsNotNull(createdAgreement.token);
                 Assert.AreEqual(agreement.name, createdAgreement.name);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -101,10 +100,9 @@ namespace PayPal.Testing
                 Assert.AreEqual("2015-02-19T08:00:00Z", retrievedAgreement.start_date);
                 Assert.IsNotNull(retrievedAgreement.plan);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -117,10 +115,9 @@ namespace PayPal.Testing
                 var executedAgreement = agreement.Execute(TestingUtil.GetApiContext());
                 Assert.AreEqual("I-ASXCM9U5MJJV", executedAgreement.id);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -151,10 +148,9 @@ namespace PayPal.Testing
                 Assert.AreEqual(agreementId, updatedAgreement.id);
                 Assert.AreEqual(updatedDescription, updatedAgreement.description);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -169,10 +165,9 @@ namespace PayPal.Testing
                 Assert.IsNotNull(transactions);
                 Assert.IsNotNull(transactions.agreement_transaction_list);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 

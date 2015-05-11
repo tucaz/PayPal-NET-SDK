@@ -57,10 +57,9 @@ namespace PayPal.Testing
                 Assert.IsNotNull(payout);
                 Assert.AreEqual(payoutBatchId, retrievedPayout.batch_header.payout_batch_id);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 

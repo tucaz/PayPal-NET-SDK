@@ -10,7 +10,7 @@ namespace PayPal.Api
     /// <summary>
     /// Represents a PayPal model object that will be returned from PayPal containing common resource data.
     /// </summary>
-    public class PayPalResourceObject : PayPalSerializableObject
+    public class PayPalRelationalObject : PayPalResource
     {
         /// <summary>
         /// A list of HATEOAS (Hypermedia as the Engine of Application State) links.

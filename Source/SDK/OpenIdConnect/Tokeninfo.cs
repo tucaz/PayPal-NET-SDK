@@ -9,7 +9,7 @@ namespace PayPal.Api
     /// <summary>
     /// Class that stores OpenIdConnect access token information.
     /// </summary>
-    public class Tokeninfo
+    public class Tokeninfo : PayPalResource
     {
         /// <summary>
         /// OPTIONAL, if identical to the scope requested by the client otherwise, REQUIRED

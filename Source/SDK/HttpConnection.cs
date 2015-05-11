@@ -9,6 +9,80 @@ using PayPal.Log;
 namespace PayPal.Api
 {
     /// <summary>
+    /// Stores details related to an HTTP request.
+    /// </summary>
+    public class RequestDetails
+    {
+        /// <summary>
+        /// Gets or sets the URL for the request.
+        /// </summary>
+        public string Url { get; set; }
+
+        /// <summary>
+        /// Gets or sets the headers used in the request.
+        /// </summary>
+        public WebHeaderCollection Headers { get; set; }
+
+        /// <summary>
+        /// Gets or sets the request body.
+        /// </summary>
+        public string Body { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of retry attempts for sending an HTTP request.
+        /// </summary>
+        public int RetryAttempts { get; set; }
+
+        /// <summary>
+        /// Resets the state of this object and clears its properties.
+        /// </summary>
+        public void Reset()
+        {
+            this.Url = string.Empty;
+            this.Headers = null;
+            this.Body = string.Empty;
+            this.RetryAttempts = 0;
+        }
+    }
+
+    /// <summary>
+    /// Stores details related to an HTTP response.
+    /// </summary>
+    public class ResponseDetails
+    {
+        /// <summary>
+        /// Gets or sets the headers used in the response.
+        /// </summary>
+        public WebHeaderCollection Headers { get; set; }
+
+        /// <summary>
+        /// Gets or sets the response body.
+        /// </summary>
+        public string Body { get; set; }
+
+        /// <summary>
+        /// Gets or sets the response HTTP status code.
+        /// </summary>
+        public HttpStatusCode? StatusCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets an exception related to the response.
+        /// </summary>
+        public ConnectionException Exception { get; set; }
+
+        /// <summary>
+        /// Resets the state of this object and clears its properties.
+        /// </summary>
+        public void Reset()
+        {
+            this.Headers = null;
+            this.Body = string.Empty;
+            this.StatusCode = null;
+            this.Exception = null;
+        }
+    }
+
+    /// <summary>
     /// Helper class for sending HTTP requests.
     /// </summary>
     internal class HttpConnection
@@ -19,7 +93,17 @@ namespace PayPal.Api
                                                 { HttpStatusCode.GatewayTimeout,
                                                   HttpStatusCode.RequestTimeout,
                                                   HttpStatusCode.BadGateway
-                                                }); 
+                                                });
+
+        /// <summary>
+        /// Gets the HTTP request details.
+        /// </summary>
+        public RequestDetails RequestDetails { get; private set; }
+
+        /// <summary>
+        /// Gets the HTTP response details.
+        /// </summary>
+        public ResponseDetails ResponseDetails { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of <seealso cref="HttpConnection"/> using the given config.
@@ -28,6 +112,8 @@ namespace PayPal.Api
         public HttpConnection(Dictionary<string, string> config)
         {
             this.config = config;
+            this.RequestDetails = new RequestDetails();
+            this.ResponseDetails = new ResponseDetails();
         }
 
         /// <summary>
@@ -101,6 +187,16 @@ namespace PayPal.Api
             int retriesConfigured = config.ContainsKey(BaseConstants.HttpConnectionRetryConfig) ?
                    Convert.ToInt32(config[BaseConstants.HttpConnectionRetryConfig]) : 0;
             int retries = 0;
+
+            // Reset the request & response details
+            this.RequestDetails.Reset();
+            this.ResponseDetails.Reset();
+
+            // Store the request details
+            this.RequestDetails.Body = payLoad;
+            this.RequestDetails.Headers = httpRequest.Headers;
+            this.RequestDetails.Url = httpRequest.RequestUri.AbsoluteUri;
+
             try
             {
                 do
@@ -109,6 +205,7 @@ namespace PayPal.Api
                     {
                         logger.Info("Retrying....");
                         httpRequest = CopyRequest(httpRequest, config, httpRequest.RequestUri.ToString());
+                        this.RequestDetails.RetryAttempts++;
                     }
                     try
                     {
@@ -132,12 +229,22 @@ namespace PayPal.Api
 
                         using (WebResponse responseWeb = httpRequest.GetResponse())
                         {
+                            // Store the response information
+                            this.ResponseDetails.Headers = responseWeb.Headers;
+                            if(responseWeb is HttpWebResponse)
+                            {
+                                this.ResponseDetails.StatusCode = ((HttpWebResponse)responseWeb).StatusCode;
+                            }
+
                             using (StreamReader readerStream = new StreamReader(responseWeb.GetResponseStream()))
                             {
-                                string response = readerStream.ReadToEnd().Trim();
+                                this.ResponseDetails.Body = readerStream.ReadToEnd().Trim();
+
+                                // Log the service response
                                 logger.Debug("Service response: ");
-                                logger.Debug(response);
-                                return response;
+                                logger.Debug(this.ResponseDetails.Body);
+
+                                return this.ResponseDetails.Body;
                             }
                         }
                     }
@@ -156,6 +263,8 @@ namespace PayPal.Api
                         }
                         logger.Error(ex.Message);
 
+                        ConnectionException rethrowEx = null;
+
                         // Protocol errors indicate the remote host received the
                         // request, but responded with an error (usually a 4xx or
                         // 5xx error).
@@ -171,7 +280,7 @@ namespace PayPal.Api
                                 continue;
                             }
 
-                            throw new HttpException(ex.Message, response, httpWebResponse.StatusCode, ex.Status, httpWebResponse.Headers, httpRequest);
+                            rethrowEx = new HttpException(ex.Message, response, httpWebResponse.StatusCode, ex.Status, httpWebResponse.Headers, httpRequest);
                         }
                         else if(ex.Status == WebExceptionStatus.ReceiveFailure)
                         {
@@ -183,11 +292,23 @@ namespace PayPal.Api
                         {
                             // For connection timeout errors, include the connection timeout value that was used.
                             var message = string.Format("{0} (HTTP request timeout was set to {1}ms)", ex.Message, httpRequest.Timeout);
-                            throw new ConnectionException(message, response, ex.Status, httpRequest);
+                            rethrowEx = new ConnectionException(message, response, ex.Status, httpRequest);
+                        }
+                        else
+                        {
+                            // Non-protocol errors indicate something happened with the underlying connection to the server.
+                            rethrowEx = new ConnectionException("Invalid HTTP response: " + ex.Message, response, ex.Status, httpRequest);
                         }
 
-                        // Non-protocol errors indicate something happened with the underlying connection to the server.
-                        throw new ConnectionException("Invalid HTTP response " + ex.Message, response, ex.Status, httpRequest);
+                        if(ex.Response != null && ex.Response is HttpWebResponse)
+                        {
+                            var httpWebResponse = ex.Response as HttpWebResponse;
+                            this.ResponseDetails.StatusCode = httpWebResponse.StatusCode;
+                            this.ResponseDetails.Headers = httpWebResponse.Headers;
+                        }
+
+                        this.ResponseDetails.Exception = rethrowEx;
+                        throw rethrowEx;
                     }
                 } while (retries++ < retriesConfigured);
             }

@@ -48,18 +48,35 @@ namespace PayPal.Testing
         /// Helper method for functional tests where we want to record more details.
         /// </summary>
         /// <param name="ex">The exception containing the information to be recorded.</param>
-        public static void WriteConnectionExceptionDetails(ConnectionException ex)
+        public static void RecordConnectionDetails()
         {
-            System.Diagnostics.Trace.WriteLine("[WebExceptionStatus]: " + ex.WebExceptionStatus);
-            System.Diagnostics.Trace.WriteLine("[Request URL]: " + ex.Request.RequestUri.AbsoluteUri);
-            System.Diagnostics.Trace.WriteLine("[Request Headers]: " + string.Join(" ; ", ex.Request.Headers));
-
-            // Check if the exception is an HttpException. If so, log the response headers.
-            if(ex is HttpException)
+            // Record the request details.
+            var request = PayPalResource.LastRequestDetails.Value;
+            if (request != null)
             {
-                System.Diagnostics.Trace.WriteLine("[Response Headers]: " + string.Join(" ; ", ((HttpException)ex).Headers));
+                System.Diagnostics.Trace.WriteLine("[Request URL]: " + request.Url);
+                System.Diagnostics.Trace.WriteLine("[Request Headers]: " + request.Headers.ToString().Trim());
+                System.Diagnostics.Trace.WriteLine("[Request Body]: " + request.Body);
+                System.Diagnostics.Trace.WriteLine("");
             }
-            System.Diagnostics.Trace.WriteLine("[Response]: " + ex.Response);
+
+            // Record the response details, starting with any exception-related information (if provided).
+            var response = PayPalResource.LastResponseDetails.Value;
+            if (response != null)
+            {
+                if (response.Exception != null)
+                {
+                    System.Diagnostics.Trace.WriteLine("[WebExceptionStatus]: " + response.Exception.WebExceptionStatus);
+                }
+
+                if (response.StatusCode.HasValue)
+                {
+                    System.Diagnostics.Trace.WriteLine("[Response Status]: " + (int)response.StatusCode);
+                }
+
+                System.Diagnostics.Trace.WriteLine("[Response Headers]: " + response.Headers.ToString().Trim());
+                System.Diagnostics.Trace.WriteLine("[Response]: " + response.Body);
+            }
         }
     }
 }

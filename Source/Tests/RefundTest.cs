@@ -59,10 +59,9 @@ namespace PayPal.Testing
                 var retrievedRefund = Refund.Get(TestingUtil.GetApiContext(), responseRefund.id);
                 Assert.AreEqual(responseRefund.id, retrievedRefund.id);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 

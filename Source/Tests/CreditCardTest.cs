@@ -53,10 +53,17 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void CreditCardGetTest()
         {
-            var card = GetCreditCard();
-            var createdCreditCard = card.Create(TestingUtil.GetApiContext());
-            var retrievedCreditCard = CreditCard.Get(TestingUtil.GetApiContext(), createdCreditCard.id);
-            Assert.AreEqual(createdCreditCard.id, retrievedCreditCard.id);
+            try
+            {
+                var card = GetCreditCard();
+                var createdCreditCard = card.Create(TestingUtil.GetApiContext());
+                var retrievedCreditCard = CreditCard.Get(TestingUtil.GetApiContext(), createdCreditCard.id);
+                Assert.AreEqual(createdCreditCard.id, retrievedCreditCard.id);
+            }
+            finally
+            {
+                TestingUtil.RecordConnectionDetails();
+            }
         }
 
         [TestMethod, TestCategory("Functional")]
@@ -69,10 +76,9 @@ namespace PayPal.Testing
                 var retrievedCreditCard = CreditCard.Get(TestingUtil.GetApiContext(), createdCreditCard.id);
                 retrievedCreditCard.Delete(TestingUtil.GetApiContext());
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -86,10 +92,9 @@ namespace PayPal.Testing
                 Assert.IsTrue(creditCardList.total_items > 0);
                 Assert.IsTrue(creditCardList.total_pages > 0);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
@@ -102,21 +107,21 @@ namespace PayPal.Testing
 
                 // Create a patch request to update the credit card.
                 var patchRequest = new PatchRequest
-            {
-                new Patch
                 {
-                    op = "replace",
-                    path = "/billing_address",
-                    value = new Address
+                    new Patch
                     {
-                        line1 = "111 First Street",
-                        city = "Saratoga",
-                        country_code = "US",
-                        state = "CA",
-                        postal_code = "95070"
+                        op = "replace",
+                        path = "/billing_address",
+                        value = new Address
+                        {
+                            line1 = "111 First Street",
+                            city = "Saratoga",
+                            country_code = "US",
+                            state = "CA",
+                            postal_code = "95070"
+                        }
                     }
-                }
-            };
+                };
 
                 var apiContext = TestingUtil.GetApiContext();
                 var updatedCreditCard = creditCard.Update(apiContext, patchRequest);
@@ -132,10 +137,9 @@ namespace PayPal.Testing
                 Assert.AreEqual("CA", retrievedCreditCard.billing_address.state);
                 Assert.AreEqual("95070", retrievedCreditCard.billing_address.postal_code);
             }
-            catch (ConnectionException ex)
+            finally
             {
-                TestingUtil.WriteConnectionExceptionDetails(ex);
-                throw;
+                TestingUtil.RecordConnectionDetails();
             }
         }
 
