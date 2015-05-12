@@ -6,6 +6,8 @@
 //==============================================================================
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System;
+using System.ComponentModel;
 
 namespace PayPal.Api
 {
@@ -66,36 +68,6 @@ namespace PayPal.Api
         public string url { get; set; }
 
         /// <summary>
-        /// Category type of the item.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "category")]
-        public string category { get; set; }
-
-        /// <summary>
-        /// Weight of the item.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "weight")]
-        public Measurement weight { get; set; }
-
-        /// <summary>
-        /// Length of the item.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "length")]
-        public Measurement length { get; set; }
-
-        /// <summary>
-        /// Height of the item.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "height")]
-        public Measurement height { get; set; }
-
-        /// <summary>
-        /// Width of the item.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "width")]
-        public Measurement width { get; set; }
-
-        /// <summary>
         /// Set of optional data used for PayPal risk determination.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "supplementary_data")]
@@ -106,5 +78,52 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "postback_data")]
         public List<NameValuePair> postback_data { get; set; }
+
+        #region Unsupported Properties
+        /// <summary>
+        /// Category type of the item.
+        /// </summary>
+        [JsonIgnore]
+        [Obsolete("This field is not availalbe publicly in the PayPal REST API. It will be removed in a future release.", false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
+        public string category { get; set; }
+
+        /// <summary>
+        /// Weight of the item.
+        /// </summary>
+        [JsonIgnore]
+        [Obsolete("This field is not availalbe publicly in the PayPal REST API. It will be removed in a future release.", false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
+        public Measurement weight { get; set; }
+
+        /// <summary>
+        /// Length of the item.
+        /// </summary>
+        [JsonIgnore]
+        [Obsolete("This field is not availalbe publicly in the PayPal REST API. It will be removed in a future release.", false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
+        public Measurement length { get; set; }
+
+        /// <summary>
+        /// Height of the item.
+        /// </summary>
+        [JsonIgnore]
+        [Obsolete("This field is not availalbe publicly in the PayPal REST API. It will be removed in a future release.", false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
+        public Measurement height { get; set; }
+
+        /// <summary>
+        /// Width of the item.
+        /// </summary>
+        [JsonIgnore]
+        [Obsolete("This field is not availalbe publicly in the PayPal REST API. It will be removed in a future release.", false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
+        public Measurement width { get; set; }
+        #endregion
     }
 }
