@@ -75,6 +75,7 @@ namespace PayPal.Api
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "errors")]
         public Error error { get; set; }
 
+        #region Obsolete Methods
         /// <summary>
         /// Obtain the status of a payout item by passing the item ID to the request URI.
         /// </summary>
@@ -86,5 +87,6 @@ namespace PayPal.Api
         {
             return PayoutItem.Get(apiContext, payoutItemId);
         }
+        #endregion
     }
 }

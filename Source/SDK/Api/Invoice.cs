@@ -142,22 +142,8 @@ namespace PayPal.Api
         /// <summary>
         /// List of payment details for the invoice.
         /// </summary>
-        [JsonIgnore]
-        [Obsolete("This property is obsolete. Use payments instead.", false)]
-        public List<PaymentDetail> payment_details { get { return this.payments; } set { this.payments = value; } }
-
-        /// <summary>
-        /// List of payment details for the invoice.
-        /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payments")]
         public List<PaymentDetail> payments { get; set; }
-
-        /// <summary>
-        /// List of refund details for the invoice.
-        /// </summary>
-        [JsonIgnore]
-        [Obsolete("This property is obsolete. Use refunds instead.", false)]
-        public List<RefundDetail> refund_details { get { return this.refunds; } set { this.refunds = value; } }
 
         /// <summary>
         /// List of refund details for the invoice.
@@ -176,6 +162,22 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "additional_data")]
         public string additional_data { get; set; }
+
+        #region Obsolete Properties
+        /// <summary>
+        /// List of payment details for the invoice.
+        /// </summary>
+        [JsonIgnore]
+        [Obsolete("This property is obsolete. Use payments instead.", false)]
+        public List<PaymentDetail> payment_details { get { return this.payments; } set { this.payments = value; } }
+
+        /// <summary>
+        /// List of refund details for the invoice.
+        /// </summary>
+        [JsonIgnore]
+        [Obsolete("This property is obsolete. Use refunds instead.", false)]
+        public List<RefundDetail> refund_details { get { return this.refunds; } set { this.refunds = value; } }
+        #endregion
 
         /// <summary>
         /// Creates a new invoice Resource.

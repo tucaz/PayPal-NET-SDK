@@ -305,16 +305,18 @@ namespace PayPal.Util
             return type.Assembly.GetName().Version.ToString(3);
         }
 
+        #region Obsolete Methods
         /// <summary>
         /// Gets the resource token from an approval URL HATEOAS link, if found.
         /// </summary>
         /// <param name="links">The list of HATEOAS links objects to search.</param>
         /// <returns>A string containing the resource token associated with an approval URL.</returns>
-        [Obsolete("This static method is deprecated. Call GetTokenFromApprovalUrl directly from any PayPalResourceObject.", false)]
+        [Obsolete("This static method is deprecated. Call GetTokenFromApprovalUrl directly from any PayPalRelationalObject.", false)]
         public static string GetTokenFromApprovalUrl(List<Links> links)
         {
             var resource = new PayPalRelationalObject { links = links };
             return resource.GetTokenFromApprovalUrl();
         }
+        #endregion
     }
 }

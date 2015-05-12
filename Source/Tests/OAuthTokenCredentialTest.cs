@@ -8,6 +8,7 @@ namespace PayPal.Testing
     [TestClass]
     public class OAuthTokenCredentialTest
     {
+        #region Unit Tests
         [TestMethod, TestCategory("Unit")]
         public void OAuthTokenCredentialCtorConfigTest()
         {
@@ -73,7 +74,9 @@ namespace PayPal.Testing
             var oauthTokenCredential = new OAuthTokenCredential(config);
             TestingUtil.AssertThrownException<MissingCredentialException>(() => oauthTokenCredential.GetAccessToken());
         }
+        #endregion
 
+        #region Functional Tests
         [TestMethod, TestCategory("Functional")]
         public void OAuthTokenCredentialGetAccessTokenTest()
         {
@@ -120,5 +123,6 @@ namespace PayPal.Testing
                 TestingUtil.RecordConnectionDetails();
             }
         }
+        #endregion
     }
 }

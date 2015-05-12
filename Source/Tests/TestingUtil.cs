@@ -51,9 +51,9 @@ namespace PayPal.Testing
         public static void RecordConnectionDetails()
         {
             // Record the request details.
-            var request = PayPalResource.LastRequestDetails.Value;
-            if (request != null)
+            if (PayPalResource.LastRequestDetails != null && PayPalResource.LastRequestDetails.Value != null)
             {
+                var request = PayPalResource.LastRequestDetails.Value;
                 System.Diagnostics.Trace.WriteLine("[Request URL]: " + request.Url);
                 System.Diagnostics.Trace.WriteLine("[Request Headers]: " + request.Headers.ToString().Trim());
                 System.Diagnostics.Trace.WriteLine("[Request Body]: " + request.Body);
@@ -61,9 +61,9 @@ namespace PayPal.Testing
             }
 
             // Record the response details, starting with any exception-related information (if provided).
-            var response = PayPalResource.LastResponseDetails.Value;
-            if (response != null)
+            if (PayPalResource.LastResponseDetails != null && PayPalResource.LastResponseDetails.Value != null)
             {
+                var response = PayPalResource.LastResponseDetails.Value;
                 if (response.Exception != null)
                 {
                     System.Diagnostics.Trace.WriteLine("[WebExceptionStatus]: " + response.Exception.WebExceptionStatus);

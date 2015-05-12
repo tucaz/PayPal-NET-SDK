@@ -68,17 +68,6 @@ namespace PayPal.Api
         /// <summary>
         /// Time at which this transaction happened.
         /// </summary>
-        [JsonIgnore]
-        [Obsolete("This property is obsolete. Use time_stamp instead.", false)]
-        public string time_updated
-        {
-            get { return this.time_stamp; }
-            set { this.time_stamp = value; }
-        }
-
-        /// <summary>
-        /// Time at which this transaction happened.
-        /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "time_stamp")]
         public string time_stamp { get; set; }
 
@@ -87,5 +76,14 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "time_zone")]
         public string time_zone { get; set; }
+
+        #region Obsolete Properties
+        /// <summary>
+        /// Time at which this transaction happened.
+        /// </summary>
+        [JsonIgnore]
+        [Obsolete("This property is obsolete. Use time_stamp instead.", false)]
+        public string time_updated { get { return this.time_stamp; } set { this.time_stamp = value; } }
+        #endregion
     }
 }
