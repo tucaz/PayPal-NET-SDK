@@ -89,6 +89,11 @@ namespace PayPal.Api
         public const string ContentTypeHeaderJson = "application/json";
 
         /// <summary>
+        /// Application - Form URL Encoded Content Type
+        /// </summary>
+        public const string ContentTypeHeaderFormUrlEncoded = "application/x-www-form-urlencoded";
+
+        /// <summary>
         /// Authorization HTTP Header
         /// </summary>
         public const string AuthorizationHeader = "Authorization";

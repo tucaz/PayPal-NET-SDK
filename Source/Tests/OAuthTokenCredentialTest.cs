@@ -55,5 +55,70 @@ namespace PayPal.Testing
             Assert.IsTrue(!string.IsNullOrEmpty(oauthTokenCredential.ClientId));
             Assert.IsTrue(!string.IsNullOrEmpty(oauthTokenCredential.ClientSecret));
         }
+
+        [TestMethod, TestCategory("Unit")]
+        public void OAuthTokenCredentialMissingClientIdTest()
+        {
+            var config = ConfigManager.Instance.GetProperties();
+            config[BaseConstants.ClientId] = "";
+            var oauthTokenCredential = new OAuthTokenCredential("", "abc", config);
+            TestingUtil.AssertThrownException<MissingCredentialException>(() => oauthTokenCredential.GetAccessToken());
+        }
+
+        [TestMethod, TestCategory("Unit")]
+        public void OAuthTokenCredentialMissingClientSecretTest()
+        {
+            var config = ConfigManager.Instance.GetProperties();
+            config[BaseConstants.ClientSecret] = "";
+            var oauthTokenCredential = new OAuthTokenCredential(config);
+            TestingUtil.AssertThrownException<MissingCredentialException>(() => oauthTokenCredential.GetAccessToken());
+        }
+
+        [TestMethod, TestCategory("Functional")]
+        public void OAuthTokenCredentialGetAccessTokenTest()
+        {
+            try
+            {
+                var oauthTokenCredential = new OAuthTokenCredential();
+                var accessToken = oauthTokenCredential.GetAccessToken();
+                Assert.IsTrue(accessToken.StartsWith("Bearer "));
+            }
+            finally
+            {
+                TestingUtil.RecordConnectionDetails();
+            }
+        }
+
+        [TestMethod, TestCategory("Functional")]
+        public void OAuthTokenCredentialInvalidClientIdTest()
+        {
+            try
+            {
+                var config = ConfigManager.Instance.GetProperties();
+                config[BaseConstants.ClientId] = "abc";
+                var oauthTokenCredential = new OAuthTokenCredential(config);
+                TestingUtil.AssertThrownException<IdentityException>(() => oauthTokenCredential.GetAccessToken());
+            }
+            finally
+            {
+                TestingUtil.RecordConnectionDetails();
+            }
+        }
+
+        [TestMethod, TestCategory("Functional")]
+        public void OAuthTokenCredentialInvalidClientSecretTest()
+        {
+            try
+            {
+                var config = ConfigManager.Instance.GetProperties();
+                config[BaseConstants.ClientSecret] = "abc";
+                var oauthTokenCredential = new OAuthTokenCredential(config);
+                TestingUtil.AssertThrownException<IdentityException>(() => oauthTokenCredential.GetAccessToken());
+            }
+            finally
+            {
+                TestingUtil.RecordConnectionDetails();
+            }
+        }
     }
 }
