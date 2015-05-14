@@ -7,7 +7,7 @@ using System.Net;
 namespace PayPal.Testing
 {
     [TestClass]
-    public class SaleTest
+    public class SaleTest : BaseTest
     {
         public static readonly string SaleJson =
             "{\"amount\":" + AmountTest.AmountJson + "," +
@@ -57,12 +57,14 @@ namespace PayPal.Testing
             {
                 var saleId = "4V7971043K262623A";
                 var sale = Sale.Get(TestingUtil.GetApiContext(), saleId);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(sale);
                 Assert.AreEqual(saleId, sale.id);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -71,8 +73,12 @@ namespace PayPal.Testing
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 // Create a credit card sale payment
-                var payment = PaymentTest.CreatePaymentForSale();
+                var payment = PaymentTest.CreatePaymentForSale(apiContext);
+                this.RecordConnectionDetails();
 
                 // Get the sale resource
                 var sale = payment.transactions[0].related_resources[0].sale;
@@ -86,13 +92,15 @@ namespace PayPal.Testing
                     }
                 };
 
-                var response = sale.Refund(TestingUtil.GetApiContext(), refund);
+                var response = sale.Refund(apiContext, refund);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(response);
                 Assert.AreEqual("completed", response.state);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
     }

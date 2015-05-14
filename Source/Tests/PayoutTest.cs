@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace PayPal.Testing
 {
-    [TestClass()]
-    public class PayoutTest
+    [TestClass]
+    public class PayoutTest : BaseTest
     {
         public static readonly string PayoutJson = 
             "{\"sender_batch_header\":" + PayoutSenderBatchHeaderTest.PayoutSenderBatchHeaderJson + "," +
@@ -48,18 +48,22 @@ namespace PayPal.Testing
                 var payoutSenderBatchId = "batch_" + System.Guid.NewGuid().ToString().Substring(0, 8);
                 payout.sender_batch_header.sender_batch_id = payoutSenderBatchId;
                 var createdPayout = payout.Create(apiContext, false);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(createdPayout);
                 Assert.IsTrue(!string.IsNullOrEmpty(createdPayout.batch_header.payout_batch_id));
                 Assert.AreEqual(payoutSenderBatchId, createdPayout.batch_header.sender_batch_header.sender_batch_id);
 
                 var payoutBatchId = createdPayout.batch_header.payout_batch_id;
                 var retrievedPayout = Payout.Get(apiContext, payoutBatchId);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(payout);
                 Assert.AreEqual(payoutBatchId, retrievedPayout.batch_header.payout_batch_id);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 

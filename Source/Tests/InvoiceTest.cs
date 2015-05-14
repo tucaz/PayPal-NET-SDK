@@ -11,7 +11,7 @@ namespace PayPal.Testing
     /// Summary description for InvoiceTest
     /// </summary>
     [TestClass]
-    public class InvoiceTest
+    public class InvoiceTest : BaseTest
     {
         public static readonly string InvoiceJson =
             "{\"merchant_info\":" + MerchantInfoTest.MerchantInfoJson + "," +
@@ -57,16 +57,21 @@ namespace PayPal.Testing
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var invoice = GetInvoice();
                 invoice.merchant_info.address.phone = null;
                 invoice.shipping_info.address.phone = null;
-                var createdInvoice = invoice.Create(TestingUtil.GetApiContext());
+                var createdInvoice = invoice.Create(apiContext);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(createdInvoice.id);
                 Assert.AreEqual(invoice.note, createdInvoice.note);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -75,16 +80,25 @@ namespace PayPal.Testing
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var invoice = GetInvoice();
-                var createdInvoice = invoice.Create(TestingUtil.GetApiContext());
-                var qrCode = Invoice.QrCode(TestingUtil.GetApiContext(), createdInvoice.id);
+                var createdInvoice = invoice.Create(apiContext);
+                this.RecordConnectionDetails();
+
+                var qrCode = Invoice.QrCode(apiContext, createdInvoice.id);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(qrCode);
                 Assert.IsTrue(!string.IsNullOrEmpty(qrCode.image));
-                createdInvoice.Delete(TestingUtil.GetApiContext());
+
+                createdInvoice.Delete(apiContext);
+                this.RecordConnectionDetails();
             }
-            finally
+            catch (ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
     }

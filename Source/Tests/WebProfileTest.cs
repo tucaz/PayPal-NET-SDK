@@ -5,7 +5,7 @@ using System;
 namespace PayPal.Testing
 {
     [TestClass]
-    public class WebProfileTest
+    public class WebProfileTest : BaseTest
     {
         public static readonly string WebProfileJson =
             "{\"name\": \"Test profile\"," +
@@ -47,23 +47,29 @@ namespace PayPal.Testing
             {
                 // Create a new profile
                 var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var profileName = Guid.NewGuid().ToString();
                 var profile = WebProfileTest.GetWebProfile();
                 profile.name = profileName;
                 var createdProfile = profile.Create(apiContext);
+                this.RecordConnectionDetails();
 
                 // Get the list of profiles
                 var profiles = WebProfile.GetList(apiContext);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(profiles);
                 Assert.IsTrue(profiles.Count > 0);
 
                 // Delete the profile
                 profile.id = createdProfile.id;
                 profile.Delete(apiContext);
+                this.RecordConnectionDetails();
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -74,23 +80,30 @@ namespace PayPal.Testing
             {
                 // Create the profile
                 var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var profile = WebProfileTest.GetWebProfile();
                 profile.name = Guid.NewGuid().ToString();
                 var response = profile.Create(apiContext);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(response);
                 Assert.IsNotNull(response.id);
 
                 // Get the profile
                 var profileId = response.id;
                 var retrievedProfile = WebProfile.Get(apiContext, profileId);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual(profileId, retrievedProfile.id);
 
                 // Delete the profile
                 retrievedProfile.Delete(apiContext);
+                this.RecordConnectionDetails();
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -99,30 +112,39 @@ namespace PayPal.Testing
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 // Create a new profile
                 var profileName = Guid.NewGuid().ToString();
                 var profile = WebProfileTest.GetWebProfile();
                 profile.name = profileName;
-                var createdProfile = profile.Create(TestingUtil.GetApiContext());
+                var createdProfile = profile.Create(apiContext);
+                this.RecordConnectionDetails();
 
                 // Get the profile object for the new profile
-                profile = WebProfile.Get(TestingUtil.GetApiContext(), createdProfile.id);
+                profile = WebProfile.Get(apiContext, createdProfile.id);
+                this.RecordConnectionDetails();
 
                 // Update the profile
                 var newName = "New " + profileName;
                 profile.name = newName;
-                profile.Update(TestingUtil.GetApiContext());
+                profile.Update(apiContext);
+                this.RecordConnectionDetails();
 
                 // Get the profile again and verify it was successfully updated.
-                var retrievedProfile = WebProfile.Get(TestingUtil.GetApiContext(), profile.id);
+                var retrievedProfile = WebProfile.Get(apiContext, profile.id);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual(newName, retrievedProfile.name);
 
                 // Delete the profile
-                profile.Delete(TestingUtil.GetApiContext());
+                profile.Delete(apiContext);
+                this.RecordConnectionDetails();
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -131,43 +153,58 @@ namespace PayPal.Testing
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 // Create a new profile
                 var profileName = Guid.NewGuid().ToString();
                 var profile = WebProfileTest.GetWebProfile();
                 profile.name = profileName;
-                var createdProfile = profile.Create(TestingUtil.GetApiContext());
+                var createdProfile = profile.Create(apiContext);
+                this.RecordConnectionDetails();
 
                 // Get the profile object for the new profile
-                profile = WebProfile.Get(TestingUtil.GetApiContext(), createdProfile.id);
+                profile = WebProfile.Get(apiContext, createdProfile.id);
+                this.RecordConnectionDetails();
 
                 // Partially update the profile
                 var newName = "New " + profileName;
-                var patch1 = new Patch();
-                patch1.op = "add";
-                patch1.path = "/presentation/brand_name";
-                patch1.value = newName;
+                var patch1 = new Patch
+                {
+                    op = "add",
+                    path = "/presentation/brand_name",
+                    value = newName
+                };
 
-                var patch2 = new Patch();
-                patch2.op = "remove";
-                patch2.path = "/flow_config/landing_page_type";
+                var patch2 = new Patch
+                {
+                    op = "remove",
+                    path = "/flow_config/landing_page_type"
+                };
 
-                var patchRequest = new PatchRequest();
-                patchRequest.Add(patch1);
-                patchRequest.Add(patch2);
+                var patchRequest = new PatchRequest
+                {
+                    patch1,
+                    patch2
+                };
 
-                profile.PartialUpdate(TestingUtil.GetApiContext(), patchRequest);
+                profile.PartialUpdate(apiContext, patchRequest);
+                this.RecordConnectionDetails();
 
                 // Get the profile again and verify it was successfully updated via the patch commands.
-                var retrievedProfile = WebProfile.Get(TestingUtil.GetApiContext(), profile.id);
+                var retrievedProfile = WebProfile.Get(apiContext, profile.id);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual(newName, retrievedProfile.presentation.brand_name);
                 Assert.IsTrue(string.IsNullOrEmpty(retrievedProfile.flow_config.landing_page_type));
 
                 // Delete the profile
-                profile.Delete(TestingUtil.GetApiContext());
+                profile.Delete(apiContext);
+                this.RecordConnectionDetails();
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -176,22 +213,29 @@ namespace PayPal.Testing
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 // Create a new profile
                 var profileName = Guid.NewGuid().ToString();
                 var profile = WebProfileTest.GetWebProfile();
                 profile.name = profileName;
-                var createdProfile = profile.Create(TestingUtil.GetApiContext());
+                var createdProfile = profile.Create(apiContext);
+                this.RecordConnectionDetails();
 
                 // Get the profile object for the new profile
-                profile = WebProfile.Get(TestingUtil.GetApiContext(), createdProfile.id);
+                profile = WebProfile.Get(apiContext, createdProfile.id);
+                this.RecordConnectionDetails();
 
                 // Delete the profile
-                profile.Delete(TestingUtil.GetApiContext());
+                profile.Delete(apiContext);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual(204, (int)PayPalResource.LastResponseDetails.Value.StatusCode);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
     }

@@ -5,8 +5,8 @@ using PayPal;
 
 namespace PayPal.Testing
 {
-    [TestClass()]
-    public class AuthorizationTest
+    [TestClass]
+    public class AuthorizationTest : BaseTest
     {
         public static readonly string AuthorizationJson =
             "{\"amount\":" + AmountTest.AmountJson + "," +
@@ -52,14 +52,21 @@ namespace PayPal.Testing
         {
             try
             {
-                var pay = PaymentTest.CreatePaymentAuthorization();
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
+                this.RecordConnectionDetails();
+
                 var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-                var authorize = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
+                var authorize = Authorization.Get(apiContext, authorizationId);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual(authorizationId, authorize.id);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -68,20 +75,32 @@ namespace PayPal.Testing
         {
             try
             {
-                var pay = PaymentTest.CreatePaymentAuthorization();
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
+                this.RecordConnectionDetails();
+
                 var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-                var authorize = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
-                var cap = new Capture();
-                var amt = new Amount();
-                amt.total = "1";
-                amt.currency = "USD";
-                cap.amount = amt;
-                var response = authorize.Capture(TestingUtil.GetApiContext(), cap);
+                var authorize = Authorization.Get(apiContext, authorizationId);
+                this.RecordConnectionDetails();
+
+                var cap = new Capture
+                {
+                    amount = new Amount
+                    {
+                        total = "1",
+                        currency = "USD"
+                    }
+                };
+                var response = authorize.Capture(apiContext, cap);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual("completed", response.state);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -90,15 +109,24 @@ namespace PayPal.Testing
         {
             try
             {
-                var pay = PaymentTest.CreatePaymentAuthorization();
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
+                this.RecordConnectionDetails();
+
                 var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-                var authorize = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
-                var authorizationResponse = authorize.Void(TestingUtil.GetApiContext());
+                var authorize = Authorization.Get(apiContext, authorizationId);
+                this.RecordConnectionDetails();
+
+                var authorizationResponse = authorize.Void(apiContext);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual("voided", authorizationResponse.state);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -111,19 +139,12 @@ namespace PayPal.Testing
         [Ignore]
         public void AuthroizationReauthorizeTest()
         {
-            try
-            {
-                var authorization = Authorization.Get(TestingUtil.GetApiContext(), "7GH53639GA425732B");
-                var reauthorizeAmount = new Amount();
-                reauthorizeAmount.currency = "USD";
-                reauthorizeAmount.total = "1";
-                authorization.amount = reauthorizeAmount;
-                TestingUtil.AssertThrownException<PayPal.PaymentsException>(() => authorization.Reauthorize(TestingUtil.GetApiContext()));
-            }
-            finally
-            {
-                TestingUtil.RecordConnectionDetails();
-            }
+            var authorization = Authorization.Get(TestingUtil.GetApiContext(), "7GH53639GA425732B");
+            var reauthorizeAmount = new Amount();
+            reauthorizeAmount.currency = "USD";
+            reauthorizeAmount.total = "1";
+            authorization.amount = reauthorizeAmount;
+            TestingUtil.AssertThrownException<PayPal.PaymentsException>(() => authorization.Reauthorize(TestingUtil.GetApiContext()));
         }
     }
 }

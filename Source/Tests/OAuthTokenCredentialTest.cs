@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace PayPal.Testing
 {
     [TestClass]
-    public class OAuthTokenCredentialTest
+    public class OAuthTokenCredentialTest : BaseTest
     {
         #region Unit Tests
         [TestMethod, TestCategory("Unit")]
@@ -84,11 +84,13 @@ namespace PayPal.Testing
             {
                 var oauthTokenCredential = new OAuthTokenCredential();
                 var accessToken = oauthTokenCredential.GetAccessToken();
+                this.RecordConnectionDetails();
+
                 Assert.IsTrue(accessToken.StartsWith("Bearer "));
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -101,10 +103,11 @@ namespace PayPal.Testing
                 config[BaseConstants.ClientId] = "abc";
                 var oauthTokenCredential = new OAuthTokenCredential(config);
                 TestingUtil.AssertThrownException<IdentityException>(() => oauthTokenCredential.GetAccessToken());
+                this.RecordConnectionDetails();
             }
-            finally
+            catch (ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -117,10 +120,11 @@ namespace PayPal.Testing
                 config[BaseConstants.ClientSecret] = "abc";
                 var oauthTokenCredential = new OAuthTokenCredential(config);
                 TestingUtil.AssertThrownException<IdentityException>(() => oauthTokenCredential.GetAccessToken());
+                this.RecordConnectionDetails();
             }
-            finally
+            catch (ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
         #endregion

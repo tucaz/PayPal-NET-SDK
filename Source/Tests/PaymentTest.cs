@@ -8,8 +8,8 @@ using System.Linq;
 
 namespace PayPal.Testing
 {
-    [TestClass()]
-    public class PaymentTest
+    [TestClass]
+    public class PaymentTest : BaseTest
     {
         public static Payment GetPaymentAuthorization()
         {
@@ -74,19 +74,19 @@ namespace PayPal.Testing
             return paymnt;
         }
 
-        public static Payment CreatePaymentAuthorization()
+        public static Payment CreatePaymentAuthorization(APIContext apiContext)
         {
-            return GetPaymentAuthorization().Create(TestingUtil.GetApiContext());
+            return GetPaymentAuthorization().Create(apiContext);
         }
 
-        public static Payment CreatePaymentForSale()
+        public static Payment CreatePaymentForSale(APIContext apiContext)
         {
-            return GetPaymentForSale().Create(TestingUtil.GetApiContext());
+            return GetPaymentForSale().Create(apiContext);
         }
 
-        public static Payment CreatePaymentOrder()
+        public static Payment CreatePaymentOrder(APIContext apiContext)
         {
-            return GetPaymentOrder().Create(TestingUtil.GetApiContext());
+            return GetPaymentOrder().Create(apiContext);
         }
 
         #region Unit Tests
@@ -105,12 +105,17 @@ namespace PayPal.Testing
         {
             try
             {
-                var actual = CreatePaymentForSale();
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var actual = CreatePaymentForSale(apiContext);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual("approved", actual.state);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -119,14 +124,20 @@ namespace PayPal.Testing
         {
             try
             {
-                var context = TestingUtil.GetApiContext();
-                var pay = CreatePaymentForSale();
-                var retrievedPayment = Payment.Get(context, pay.id);
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var pay = CreatePaymentForSale(apiContext);
+                this.RecordConnectionDetails();
+
+                var retrievedPayment = Payment.Get(apiContext, pay.id);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual(pay.id, retrievedPayment.id);
             }
-            finally
+            catch (ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -135,13 +146,17 @@ namespace PayPal.Testing
         {
             try
             {
-                var context = TestingUtil.GetApiContext();
-                var paymentHistory = Payment.List(context, count: 10);
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var paymentHistory = Payment.List(apiContext, count: 10);
+                this.RecordConnectionDetails();
+
                 Assert.IsTrue(paymentHistory.count > 0 && paymentHistory.count <= 10);
             }
-            finally
+            catch (ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -150,14 +165,20 @@ namespace PayPal.Testing
         {
             try
             {
-                var context = TestingUtil.GetApiContext();
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var futurePayment = CreateFuturePayment();
-                var retrievedPayment = FuturePayment.Get(context, futurePayment.id);
+                this.RecordConnectionDetails();
+
+                var retrievedPayment = FuturePayment.Get(apiContext, futurePayment.id);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual(futurePayment.id, retrievedPayment.id);
             }
-            finally
+            catch (ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -169,8 +190,12 @@ namespace PayPal.Testing
                 var deserializationErrors = new List<string>();
                 JsonFormatter.DeserializationError += (e) => { deserializationErrors.Add(e.Message); };
 
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var payment = GetPaymentUsingPayPal("sale");
-                var createdPayment = payment.Create(TestingUtil.GetApiContext());
+                var createdPayment = payment.Create(apiContext);
+                this.RecordConnectionDetails();
 
                 // Verify no errors were encountered while deserializing the response.
                 if (deserializationErrors.Any())
@@ -189,9 +214,9 @@ namespace PayPal.Testing
                 Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.ApprovalUrl));
                 Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Execute));
             }
-            finally
+            catch (ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -203,8 +228,12 @@ namespace PayPal.Testing
                 var deserializationErrors = new List<string>();
                 JsonFormatter.DeserializationError += (e) => { deserializationErrors.Add(e.Message); };
 
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var payment = GetPaymentUsingPayPal("order");
-                var createdPayment = payment.Create(TestingUtil.GetApiContext());
+                var createdPayment = payment.Create(apiContext);
+                this.RecordConnectionDetails();
 
                 // Verify no errors were encountered while deserializing the response.
                 if (deserializationErrors.Any())
@@ -223,9 +252,9 @@ namespace PayPal.Testing
                 Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.ApprovalUrl));
                 Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Execute));
             }
-            finally
+            catch (ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -237,8 +266,12 @@ namespace PayPal.Testing
                 var deserializationErrors = new List<string>();
                 JsonFormatter.DeserializationError += (e) => { deserializationErrors.Add(e.Message); };
 
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var payment = GetPaymentUsingCreditCard("sale");
-                var createdPayment = payment.Create(TestingUtil.GetApiContext());
+                var createdPayment = payment.Create(apiContext);
+                this.RecordConnectionDetails();
 
                 // Verify no errors were encountered while deserializing the response.
                 if (deserializationErrors.Any())
@@ -255,9 +288,9 @@ namespace PayPal.Testing
                 Assert.AreEqual(1, createdPayment.links.Count);
                 Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Self));
             }
-            finally
+            catch (ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
         #endregion

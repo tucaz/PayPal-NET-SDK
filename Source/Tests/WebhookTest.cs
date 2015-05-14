@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace PayPal.Testing
 {
     [TestClass]
-    public class WebhookTest
+    public class WebhookTest : BaseTest
     {
         public static readonly string WebhookJson =
             "{\"url\":\"https://www.paypal.com/paypal_webhook\"," +
@@ -43,25 +43,32 @@ namespace PayPal.Testing
             try
             {
                 var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var webhook = WebhookTest.GetWebhook();
                 var url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
                 webhook.url = url;
                 var createdWebhook = webhook.Create(apiContext);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(createdWebhook);
                 Assert.IsTrue(!string.IsNullOrEmpty(createdWebhook.id));
 
                 var webhookId = createdWebhook.id;
                 var retrievedWebhook = Webhook.Get(apiContext, webhookId);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(retrievedWebhook);
                 Assert.AreEqual(webhookId, retrievedWebhook.id);
                 Assert.AreEqual(url, retrievedWebhook.url);
 
                 // Cleanup
                 retrievedWebhook.Delete(apiContext);
+                this.RecordConnectionDetails();
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -71,12 +78,14 @@ namespace PayPal.Testing
             try
             {
                 var webhookList = Webhook.GetAll(TestingUtil.GetApiContext());
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(webhookList);
                 Assert.IsNotNull(webhookList.webhooks);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -88,6 +97,7 @@ namespace PayPal.Testing
                 var webhook = WebhookTest.GetWebhook();
                 webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
                 var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
+                this.RecordConnectionDetails();
 
                 var newUrl = "https://update.com/paypal_webhooks/" + Guid.NewGuid().ToString();
                 var newEventTypeName = "PAYMENT.SALE.REFUNDED";
@@ -115,6 +125,8 @@ namespace PayPal.Testing
                 };
 
                 var updatedWebhook = createdWebhook.Update(TestingUtil.GetApiContext(), patchRequest);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(updatedWebhook);
                 Assert.AreEqual(createdWebhook.id, updatedWebhook.id);
                 Assert.AreEqual(newUrl, updatedWebhook.url);
@@ -124,10 +136,11 @@ namespace PayPal.Testing
 
                 // Cleanup
                 updatedWebhook.Delete(TestingUtil.GetApiContext());
+                this.RecordConnectionDetails();
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -139,12 +152,16 @@ namespace PayPal.Testing
                 var webhook = WebhookTest.GetWebhook();
                 webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
                 var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
+                this.RecordConnectionDetails();
+
                 createdWebhook.Delete(TestingUtil.GetApiContext());
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual(204, (int)PayPalResource.LastResponseDetails.Value.StatusCode);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
     }

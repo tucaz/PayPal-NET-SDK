@@ -4,8 +4,8 @@ using PayPal.Api;
 
 namespace PayPal.Testing
 {
-    [TestClass()]
-    public class CreditCardTest
+    [TestClass]
+    public class CreditCardTest : BaseTest
     {
         public static readonly string CreditCardJson = "{" +
             "\"cvv2\": \"962\"," +
@@ -20,11 +20,6 @@ namespace PayPal.Testing
         public static CreditCard GetCreditCard()
         {
             return JsonFormatter.ConvertFromJson<CreditCard>(CreditCardJson);
-        }
-
-        public static CreditCard CreateCreditCard()
-        {
-            return GetCreditCard().Create(TestingUtil.GetApiContext());
         }
 
         [TestMethod, TestCategory("Unit")]
@@ -55,14 +50,21 @@ namespace PayPal.Testing
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var card = GetCreditCard();
-                var createdCreditCard = card.Create(TestingUtil.GetApiContext());
-                var retrievedCreditCard = CreditCard.Get(TestingUtil.GetApiContext(), createdCreditCard.id);
+                var createdCreditCard = card.Create(apiContext);
+                this.RecordConnectionDetails();
+
+                var retrievedCreditCard = CreditCard.Get(apiContext, createdCreditCard.id);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual(createdCreditCard.id, retrievedCreditCard.id);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -71,14 +73,22 @@ namespace PayPal.Testing
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var card = GetCreditCard();
-                var createdCreditCard = card.Create(TestingUtil.GetApiContext());
-                var retrievedCreditCard = CreditCard.Get(TestingUtil.GetApiContext(), createdCreditCard.id);
-                retrievedCreditCard.Delete(TestingUtil.GetApiContext());
+                var createdCreditCard = card.Create(apiContext);
+                this.RecordConnectionDetails();
+
+                var retrievedCreditCard = CreditCard.Get(apiContext, createdCreditCard.id);
+                this.RecordConnectionDetails();
+
+                retrievedCreditCard.Delete(apiContext);
+                this.RecordConnectionDetails();
             }
-            finally
+            catch (ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -87,14 +97,19 @@ namespace PayPal.Testing
         {
             try
             {
-                var creditCardList = CreditCard.List(TestingUtil.GetApiContext(), startTime: "2014-11-01T19:27:56Z", endTime: "2014-12-25T19:27:56Z");
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var creditCardList = CreditCard.List(apiContext, startTime: "2014-11-01T19:27:56Z", endTime: "2014-12-25T19:27:56Z");
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(creditCardList);
                 Assert.IsTrue(creditCardList.total_items > 0);
                 Assert.IsTrue(creditCardList.total_pages > 0);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -103,7 +118,11 @@ namespace PayPal.Testing
         {
             try
             {
-                var creditCard = CreateCreditCard();
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var creditCard = GetCreditCard().Create(apiContext);
+                this.RecordConnectionDetails();
 
                 // Create a patch request to update the credit card.
                 var patchRequest = new PatchRequest
@@ -123,12 +142,14 @@ namespace PayPal.Testing
                     }
                 };
 
-                var apiContext = TestingUtil.GetApiContext();
                 var updatedCreditCard = creditCard.Update(apiContext, patchRequest);
+                this.RecordConnectionDetails();
 
                 // Retrieve the credit card details from the vault and verify the
                 // billing address was updated properly.
                 var retrievedCreditCard = CreditCard.Get(apiContext, updatedCreditCard.id);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(retrievedCreditCard);
                 Assert.IsNotNull(retrievedCreditCard.billing_address);
                 Assert.AreEqual("111 First Street", retrievedCreditCard.billing_address.line1);
@@ -137,9 +158,9 @@ namespace PayPal.Testing
                 Assert.AreEqual("CA", retrievedCreditCard.billing_address.state);
                 Assert.AreEqual("95070", retrievedCreditCard.billing_address.postal_code);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 

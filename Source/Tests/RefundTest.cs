@@ -5,8 +5,8 @@ using PayPal;
 
 namespace PayPal.Testing
 {
-    [TestClass()]
-    public class RefundTest
+    [TestClass]
+    public class RefundTest : BaseTest
     {
         public static Refund GetRefund()
         {
@@ -41,27 +41,46 @@ namespace PayPal.Testing
         {
             try
             {
-                var pay = PaymentTest.CreatePaymentAuthorization();
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
+                this.RecordConnectionDetails();
+
                 var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-                var authorization = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
-                var cap = new Capture();
-                var amt = new Amount();
-                amt.total = "1";
-                amt.currency = "USD";
-                cap.amount = amt;
-                var response = authorization.Capture(TestingUtil.GetApiContext(), cap);
-                var fund = new Refund();
-                var refundAmount = new Amount();
-                refundAmount.total = "1";
-                refundAmount.currency = "USD";
-                fund.amount = refundAmount;
-                var responseRefund = response.Refund(TestingUtil.GetApiContext(), fund);
-                var retrievedRefund = Refund.Get(TestingUtil.GetApiContext(), responseRefund.id);
+                var authorization = Authorization.Get(apiContext, authorizationId);
+                this.RecordConnectionDetails();
+
+                var cap = new Capture
+                {
+                    amount = new Amount
+                    {
+                        total = "1",
+                        currency = "USD"
+                    }
+                };
+                var response = authorization.Capture(apiContext, cap);
+                this.RecordConnectionDetails();
+
+                var fund = new Refund
+                {
+                    amount = new Amount
+                    {
+                        total = "1",
+                        currency = "USD"
+                    }
+                };
+                var responseRefund = response.Refund(apiContext, fund);
+                this.RecordConnectionDetails();
+
+                var retrievedRefund = Refund.Get(apiContext, responseRefund.id);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual(responseRefund.id, retrievedRefund.id);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 

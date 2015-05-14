@@ -7,7 +7,7 @@ namespace PayPal.Testing
     /// Summary description for OrderTest
     /// </summary>
     [TestClass]
-    public class OrderTest
+    public class OrderTest : BaseTest
     {
         public static Order GetOrder()
         {
@@ -42,11 +42,12 @@ namespace PayPal.Testing
             {
                 var orderId = "O-2HT09787H36911800";
                 var order = Order.Get(TestingUtil.GetApiContext(), orderId);
+                this.RecordConnectionDetails();
                 Assert.AreEqual(orderId, order.id);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -57,7 +58,7 @@ namespace PayPal.Testing
         /// <returns></returns>
         private Order GetExecutedPaymentOrder(PayPal.Api.APIContext apiContext)
         {
-            var pay = PaymentTest.CreatePaymentOrder();
+            var pay = PaymentTest.CreatePaymentOrder(apiContext);
             var paymentExecution = PaymentExecutionTest.GetPaymentExecution();
             paymentExecution.payer_id = pay.id;
             paymentExecution.transactions[0].amount.details = null;

@@ -9,7 +9,7 @@ namespace PayPal.Testing
     /// Summary description for PlanTest
     /// </summary>
     [TestClass]
-    public class PlanTest
+    public class PlanTest : BaseTest
     {
         public static readonly string PlanJson = 
             "{\"name\":\"T-Shirt of the Month Club Plan\"," +
@@ -53,21 +53,27 @@ namespace PayPal.Testing
             try
             {
                 var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var plan = GetPlan();
                 var createdPlan = plan.Create(apiContext);
+                this.RecordConnectionDetails();
+
                 Assert.IsTrue(!string.IsNullOrEmpty(createdPlan.id));
                 Assert.AreEqual(plan.name, createdPlan.name);
 
                 var retrievedPlan = Plan.Get(apiContext, createdPlan.id);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(retrievedPlan);
                 Assert.AreEqual(createdPlan.id, retrievedPlan.id);
                 Assert.AreEqual("T-Shirt of the Month Club Plan", retrievedPlan.name);
                 Assert.AreEqual("Template creation.", retrievedPlan.description);
                 Assert.AreEqual("FIXED", retrievedPlan.type);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -77,32 +83,40 @@ namespace PayPal.Testing
             try
             {
                 var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
 
                 // Get a test plan for updating purposes.
                 var plan = GetPlan();
-                var createdPlan = plan.Create(TestingUtil.GetApiContext());
+                var createdPlan = plan.Create(apiContext);
+                this.RecordConnectionDetails();
+
                 var planId = createdPlan.id;
 
                 // Create the patch request and update the description to a random value.
                 var updatedDescription = Guid.NewGuid().ToString();
-                var patch = new Patch();
-                patch.op = "replace";
-                patch.path = "/";
-                patch.value = new Plan() { description = updatedDescription };
-                var patchRequest = new PatchRequest();
-                patchRequest.Add(patch);
+                var patch = new Patch
+                {
+                    op = "replace",
+                    path = "/",
+                    value = new Plan { description = updatedDescription }
+                };
+
+                var patchRequest = new PatchRequest { patch };
 
                 // Update the plan.
                 createdPlan.Update(apiContext, patchRequest);
+                this.RecordConnectionDetails();
 
                 // Verify the plan was updated successfully.
                 var updatedPlan = Plan.Get(apiContext, planId);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual(planId, updatedPlan.id);
                 Assert.AreEqual(updatedDescription, updatedPlan.description);
             }
-            finally
+            catch (ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -111,14 +125,19 @@ namespace PayPal.Testing
         {
             try
             {
-                var planList = Plan.List(TestingUtil.GetApiContext());
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var planList = Plan.List(apiContext);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(planList);
                 Assert.IsNotNull(planList.plans);
                 Assert.IsTrue(planList.plans.Count > 0);
             }
-            finally
+            catch (ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -127,8 +146,13 @@ namespace PayPal.Testing
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var plan = GetPlan();
-                var createdPlan = plan.Create(TestingUtil.GetApiContext());
+                var createdPlan = plan.Create(apiContext);
+                this.RecordConnectionDetails();
+
                 var planId = createdPlan.id;
 
                 // Create a patch request that will delete the plan
@@ -145,14 +169,16 @@ namespace PayPal.Testing
                     }
                 };
 
-                createdPlan.Update(TestingUtil.GetApiContext(), patchRequest);
+                createdPlan.Update(apiContext, patchRequest);
+                this.RecordConnectionDetails();
 
                 // Attempting to retrieve the plan should result in a PayPalException being thrown.
                 TestingUtil.AssertThrownException<PaymentsException>(() => Plan.Get(TestingUtil.GetApiContext(), planId));
+                this.RecordConnectionDetails();
             }
-            finally
+            catch (ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
     }

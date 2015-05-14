@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace PayPal.Testing
 {
-    [TestClass()]
-    public class PayoutItemTest
+    [TestClass]
+    public class PayoutItemTest : BaseTest
     {
         public static readonly string PayoutItemJson = 
             "{\"recipient_type\":\"EMAIL\"," +
@@ -52,13 +52,14 @@ namespace PayPal.Testing
             {
                 var payoutItemId = "G2CFT8SJRB7RN";
                 var payoutItemDetails = PayoutItem.Get(TestingUtil.GetApiContext(), payoutItemId);
+                this.RecordConnectionDetails();
                 Assert.IsNotNull(payoutItemDetails);
                 Assert.AreEqual(payoutItemId, payoutItemDetails.payout_item_id);
                 Assert.AreEqual("8NX77PFLN255E", payoutItemDetails.payout_batch_id);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -71,6 +72,7 @@ namespace PayPal.Testing
                 // This will cause the status to be marked as 'UNCLAIMED', allowing
                 // us to cancel the payout.
                 var payoutBatch = PayoutTest.CreateSingleSynchronousPayoutBatch();
+                this.RecordConnectionDetails();
 
                 Assert.IsNotNull(payoutBatch);
                 Assert.IsNotNull(payoutBatch.items);
@@ -81,14 +83,15 @@ namespace PayPal.Testing
                 if (payoutItem.transaction_status == PayoutTransactionStatus.UNCLAIMED)
                 {
                     var payoutItemDetails = PayoutItem.Cancel(TestingUtil.GetApiContext(), payoutItem.payout_item_id);
+                    this.RecordConnectionDetails();
 
                     Assert.IsNotNull(payoutItemDetails);
                     Assert.AreEqual(PayoutTransactionStatus.RETURNED, payoutItemDetails.transaction_status);
                 }
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
     }

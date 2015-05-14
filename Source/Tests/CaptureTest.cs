@@ -5,8 +5,8 @@ using PayPal;
 
 namespace PayPal.Testing
 {
-    [TestClass()]
-    public class CaptureTest
+    [TestClass]
+    public class CaptureTest : BaseTest
     {
         public static readonly string CaptureJson =
             "{\"amount\":" + AmountTest.AmountJson + "," +
@@ -58,21 +58,35 @@ namespace PayPal.Testing
         {
             try
             {
-                var pay = PaymentTest.CreatePaymentAuthorization();
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
+                this.RecordConnectionDetails();
+
                 var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-                var authorization = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
-                var cap = new Capture();
-                var amt = new Amount();
-                amt.total = "1";
-                amt.currency = "USD";
-                cap.amount = amt;
-                var responseCapture = authorization.Capture(TestingUtil.GetApiContext(), cap);
-                var returnCapture = Capture.Get(TestingUtil.GetApiContext(), responseCapture.id);
+                var authorization = Authorization.Get(apiContext, authorizationId);
+                this.RecordConnectionDetails();
+
+                var cap = new Capture
+                {
+                    amount = new Amount
+                    {
+                        total = "1",
+                        currency = "USD"
+                    }
+                };
+                var responseCapture = authorization.Capture(apiContext, cap);
+                this.RecordConnectionDetails();
+
+                var returnCapture = Capture.Get(apiContext, responseCapture.id);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual(responseCapture.id, returnCapture.id);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
@@ -81,26 +95,43 @@ namespace PayPal.Testing
         {
             try
             {
-                var pay = PaymentTest.CreatePaymentAuthorization();
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
+                this.RecordConnectionDetails();
+
                 var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-                var authorization = Authorization.Get(TestingUtil.GetApiContext(), authorizationId);
-                var cap = new Capture();
-                var amnt = new Amount();
-                amnt.total = "1";
-                amnt.currency = "USD";
-                cap.amount = amnt;
-                var response = authorization.Capture(TestingUtil.GetApiContext(), cap);
-                var fund = new Refund();
-                var refundAmount = new Amount();
-                refundAmount.total = "1";
-                refundAmount.currency = "USD";
-                fund.amount = refundAmount;
-                var responseRefund = response.Refund(TestingUtil.GetApiContext(), fund);
+                var authorization = Authorization.Get(apiContext, authorizationId);
+                this.RecordConnectionDetails();
+
+                var cap = new Capture
+                {
+                    amount = new Amount
+                    {
+                        total = "1",
+                        currency = "USD"
+                    }
+                };
+                var response = authorization.Capture(apiContext, cap);
+                this.RecordConnectionDetails();
+
+                var fund = new Refund
+                {
+                    amount = new Amount
+                    {
+                        total = "1",
+                        currency = "USD"
+                    }
+                };
+                var responseRefund = response.Refund(apiContext, fund);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual("completed", responseRefund.state);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 

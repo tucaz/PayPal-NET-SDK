@@ -8,7 +8,7 @@ namespace PayPal.Testing
     /// Summary description for AgreementTest
     /// </summary>
     [TestClass]
-    public class AgreementTest
+    public class AgreementTest : BaseTest
     {
         public static readonly string AgreementJson =
             "{\"name\":\"T-Shirt of the Month Club Agreement\"," + 
@@ -53,10 +53,12 @@ namespace PayPal.Testing
             try
             {
                 var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
 
                 // Create a new plan.
                 var plan = PlanTest.GetPlan();
                 var createdPlan = plan.Create(apiContext);
+                this.RecordConnectionDetails();
 
                 // Activate the plan.
                 var patchRequest = new PatchRequest()
@@ -69,89 +71,71 @@ namespace PayPal.Testing
                     }
                 };
                 createdPlan.Update(apiContext, patchRequest);
+                this.RecordConnectionDetails();
 
                 // Create an agreement using the activated plan.
                 var agreement = GetAgreement();
                 agreement.plan = new Plan() { id = createdPlan.id };
                 agreement.shipping_address = null;
                 var createdAgreement = agreement.Create(apiContext);
+                this.RecordConnectionDetails();
+
                 Assert.IsNull(createdAgreement.id);
                 Assert.IsNotNull(createdAgreement.token);
                 Assert.AreEqual(agreement.name, createdAgreement.name);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
         [Ignore]
         public void AgreementGetTest()
         {
-            try
-            {
-                var apiContext = TestingUtil.GetApiContext();
-                var agreement = new Agreement() { token = "EC-2CD33889A9699491E" };
-                var executedAgreement = agreement.Execute(apiContext);
-                var agreementId = executedAgreement.id;
-                var retrievedAgreement = Agreement.Get(apiContext, agreementId);
-                Assert.AreEqual(agreementId, retrievedAgreement.id);
-                Assert.AreEqual("-6514356286402072739", retrievedAgreement.description);
-                Assert.AreEqual("2015-02-19T08:00:00Z", retrievedAgreement.start_date);
-                Assert.IsNotNull(retrievedAgreement.plan);
-            }
-            finally
-            {
-                TestingUtil.RecordConnectionDetails();
-            }
+            var apiContext = TestingUtil.GetApiContext();
+            var agreement = new Agreement() { token = "EC-2CD33889A9699491E" };
+            var executedAgreement = agreement.Execute(apiContext);
+            var agreementId = executedAgreement.id;
+            var retrievedAgreement = Agreement.Get(apiContext, agreementId);
+            Assert.AreEqual(agreementId, retrievedAgreement.id);
+            Assert.AreEqual("-6514356286402072739", retrievedAgreement.description);
+            Assert.AreEqual("2015-02-19T08:00:00Z", retrievedAgreement.start_date);
+            Assert.IsNotNull(retrievedAgreement.plan);
         }
 
         [Ignore]
         public void AgreementExecuteTest()
         {
-            try
-            {
-                var agreement = new Agreement() { token = "EC-2CD33889A9699491E" };
-                var executedAgreement = agreement.Execute(TestingUtil.GetApiContext());
-                Assert.AreEqual("I-ASXCM9U5MJJV", executedAgreement.id);
-            }
-            finally
-            {
-                TestingUtil.RecordConnectionDetails();
-            }
+            var agreement = new Agreement() { token = "EC-2CD33889A9699491E" };
+            var executedAgreement = agreement.Execute(TestingUtil.GetApiContext());
+            Assert.AreEqual("I-ASXCM9U5MJJV", executedAgreement.id);
         }
 
         [Ignore]
         public void AgreementUpdateTest()
         {
-            try
-            {
-                // Get the agreement to be used for verifying the update functionality
-                var apiContext = TestingUtil.GetApiContext();
-                var agreementId = "I-HP4H4YJFCN07";
-                var agreement = Agreement.Get(apiContext, agreementId);
+            // Get the agreement to be used for verifying the update functionality
+            var apiContext = TestingUtil.GetApiContext();
+            var agreementId = "I-HP4H4YJFCN07";
+            var agreement = Agreement.Get(apiContext, agreementId);
 
-                // Create an update for the agreement
-                var updatedDescription = Guid.NewGuid().ToString();
-                var patch = new Patch();
-                patch.op = "replace";
-                patch.path = "/";
-                patch.value = new Agreement() { description = updatedDescription };
-                var patchRequest = new PatchRequest();
-                patchRequest.Add(patch);
+            // Create an update for the agreement
+            var updatedDescription = Guid.NewGuid().ToString();
+            var patch = new Patch();
+            patch.op = "replace";
+            patch.path = "/";
+            patch.value = new Agreement() { description = updatedDescription };
+            var patchRequest = new PatchRequest();
+            patchRequest.Add(patch);
 
-                // Update the agreement
-                agreement.Update(apiContext, patchRequest);
+            // Update the agreement
+            agreement.Update(apiContext, patchRequest);
 
-                // Verify the agreement was successfully updated
-                var updatedAgreement = Agreement.Get(apiContext, agreementId);
-                Assert.AreEqual(agreementId, updatedAgreement.id);
-                Assert.AreEqual(updatedDescription, updatedAgreement.description);
-            }
-            finally
-            {
-                TestingUtil.RecordConnectionDetails();
-            }
+            // Verify the agreement was successfully updated
+            var updatedAgreement = Agreement.Get(apiContext, agreementId);
+            Assert.AreEqual(agreementId, updatedAgreement.id);
+            Assert.AreEqual(updatedDescription, updatedAgreement.description);
         }
 
         [TestMethod, TestCategory("Functional")]
@@ -162,12 +146,14 @@ namespace PayPal.Testing
                 var startDate = "2014-10-01";
                 var endDate = "2014-10-14";
                 var transactions = Agreement.ListTransactions(TestingUtil.GetApiContext(), "I-9STXMKR58UNN", startDate, endDate);
+                this.RecordConnectionDetails();
+
                 Assert.IsNotNull(transactions);
                 Assert.IsNotNull(transactions.agreement_transaction_list);
             }
-            finally
+            catch(ConnectionException)
             {
-                TestingUtil.RecordConnectionDetails();
+                this.RecordConnectionDetails(false);
             }
         }
 
