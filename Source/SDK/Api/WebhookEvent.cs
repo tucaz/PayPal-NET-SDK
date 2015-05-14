@@ -152,6 +152,9 @@ namespace PayPal.Api
 
             try
             {
+                // Convert the provided auth alrogithm header into a known hash alrogithm name.
+                var hashAlgorithm = ConvertAuthAlgorithmHeaderToHashAlgorithmName(authAlgorithm);
+
                 // Calculate a CRC32 checksum using the request body.
                 var crc32 = Crc32.ComputeChecksum(requestBody);
 
@@ -165,7 +168,7 @@ namespace PayPal.Api
                 // Verify the received signature matches the expected signature.
                 var rsa = x509Certificate.PublicKey.Key as RSACryptoServiceProvider;
                 var signatureBytes = Convert.FromBase64String(signature);
-                isValid = rsa.VerifyData(expectedSignatureBytes, CryptoConfig.MapNameToOID("SHA1"), signatureBytes);
+                isValid = rsa.VerifyData(expectedSignatureBytes, CryptoConfig.MapNameToOID(hashAlgorithm), signatureBytes);
             }
             catch (PayPalException)
             {
@@ -177,6 +180,29 @@ namespace PayPal.Api
             }
 
             return isValid;
+        }
+
+        /// <summary>
+        /// Converts the algorithm name specified by <paramref name="authAlgorithmHeader"/> into a hash algorithm name recognized by <seealso cref="System.Security.Cryptography.CryptoConfig"/>.
+        /// </summary>
+        /// <param name="authAlgorithmHeader">The PAYPAL-AUTH-ALGO header value included with a received Webhook event.</param>
+        /// <returns>A mapped hash algorithm name.</returns>
+        internal static string ConvertAuthAlgorithmHeaderToHashAlgorithmName(string authAlgorithmHeader)
+        {
+            // The PAYPAL-AUTH-ALGO header will be specified in a name recognized
+            // by Java's java.security.Signature class.
+            //
+            // Currently, only RSA is supported, and the hashing algorithm will
+            // be derived with the following assumption on the format:
+            //   "<hash_algorithm>withRSA"
+            var token = "withRSA";
+            if (authAlgorithmHeader.EndsWith(token))
+            {
+                return authAlgorithmHeader.Split(new string[] { token }, StringSplitOptions.None)[0];
+            }
+
+            // At this point, we've encountered an unsupported algorithm.
+            throw new AlgorithmNotSupportedException(string.Format("Unable to map {0} to a known hash algorithm.", authAlgorithmHeader));
         }
     }
 }

@@ -71,6 +71,24 @@ namespace PayPal.Testing
             Assert.IsNotNull(webhookEventList);
         }
 
+        [TestMethod, TestCategory("Unit")]
+        public void WebhookEventValidateSupportedAuthAlgorithm()
+        {
+            Assert.AreEqual("SHA1", WebhookEvent.ConvertAuthAlgorithmHeaderToHashAlgorithmName("SHA1withRSA"));
+            Assert.AreEqual("SHA256", WebhookEvent.ConvertAuthAlgorithmHeaderToHashAlgorithmName("SHA256withRSA"));
+            Assert.AreEqual("SHA512", WebhookEvent.ConvertAuthAlgorithmHeaderToHashAlgorithmName("SHA512withRSA"));
+            Assert.AreEqual("MD5", WebhookEvent.ConvertAuthAlgorithmHeaderToHashAlgorithmName("MD5withRSA"));
+        }
+
+        [TestMethod, TestCategory("Unit")]
+        public void WebhookEventValidateNotSupportedAuthAlgorithm()
+        {
+            TestingUtil.AssertThrownException<AlgorithmNotSupportedException>(() => WebhookEvent.ConvertAuthAlgorithmHeaderToHashAlgorithmName("SHA1withDSA"));
+            TestingUtil.AssertThrownException<AlgorithmNotSupportedException>(() => WebhookEvent.ConvertAuthAlgorithmHeaderToHashAlgorithmName("SHA256withDSA"));
+            TestingUtil.AssertThrownException<AlgorithmNotSupportedException>(() => WebhookEvent.ConvertAuthAlgorithmHeaderToHashAlgorithmName("SHA512withDSA"));
+            TestingUtil.AssertThrownException<AlgorithmNotSupportedException>(() => WebhookEvent.ConvertAuthAlgorithmHeaderToHashAlgorithmName("MD5withDSA"));
+        }
+
         [TestMethod, TestCategory("Functional")]
         public void WebhookEventValidateReceivedEventTest()
         {

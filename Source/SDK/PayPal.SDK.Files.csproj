@@ -116,6 +116,7 @@
     <ExternalCompile Include="SDKVersion.cs" />
     <ExternalCompile Include="Util\ArgumentValidator.cs" />
     <ExternalCompile Include="BaseConstants.cs" />
+    <ExternalCompile Include="Exception\AlgorithmNotSupportedException.cs" />
     <ExternalCompile Include="Exception\ConfigException.cs" />
     <ExternalCompile Include="Exception\ConnectionException.cs" />
     <ExternalCompile Include="Exception\HttpException.cs" />
