@@ -34,6 +34,31 @@ namespace PayPal.Api
         public const string PayPalAuthAlgorithmHeader = "PAYPAL-AUTH-ALGO";
 
         /// <summary>
+        /// PayPal webhook transmission ID HTTP request header
+        /// </summary>
+        public const string PayPalTransmissionIdHeader = "PAYPAL-TRANSMISSION-ID";
+
+        /// <summary>
+        /// PayPal webhook transmission time HTTP request header
+        /// </summary>
+        public const string PayPalTransmissionTimeHeader = "PAYPAL-TRANSMISSION-TIME";
+
+        /// <summary>
+        /// PayPal webhook transmission signature HTTP request header
+        /// </summary>
+        public const string PayPalTransmissionSignatureHeader = "PAYPAL-TRANSMISSION-SIG";
+
+        /// <summary>
+        /// PayPal webhook certificate URL HTTP request header
+        /// </summary>
+        public const string PayPalCertificateUrlHeader = "PAYPAL-CERT-URL";
+
+        /// <summary>
+        /// PayPal webhook authentication algorithm HTTP request header
+        /// </summary>
+        public const string PayPalAuthAlgorithmHeader = "PAYPAL-AUTH-ALGO";
+
+        /// <summary>
         /// Allowed application mode - live
         /// </summary>
         public const string LiveMode = "live";
