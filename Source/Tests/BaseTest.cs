@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api;
 
@@ -46,17 +47,8 @@ namespace PayPal.Testing
                 Trace.WriteLine("  \"request\": {");
                 var request = PayPalResource.LastRequestDetails.Value;
                 Trace.WriteLine("    \"url\": \"" + request.Url + "\",");
-                Trace.WriteLine("    \"headers\": \"" + request.Headers.ToString().Trim() + "\",");
-
-                if (request.Headers[System.Net.HttpRequestHeader.ContentType] == BaseConstants.ContentTypeHeaderJson)
-                {
-                    Trace.WriteLine("    \"body\": " + request.Body);
-                }
-                else
-                {
-                    Trace.WriteLine("    \"body\": \"" + request.Body + "\"");
-                }
-
+                Trace.WriteLine("    \"headers\": " + this.ConvertWebHeaderCollectionToJson(request.Headers) + ",");
+                this.RecordBody(request.Body, request.Headers[System.Net.HttpRequestHeader.ContentType]);
                 Trace.WriteLine("  }" + (hasResponseDetails ? "," : ""));
             }
 
@@ -75,21 +67,37 @@ namespace PayPal.Testing
                     Trace.WriteLine("    \"status\": \"" + (int)response.StatusCode + "\",");
                 }
 
-                Trace.WriteLine("    \"headers\": \"" + response.Headers.ToString().Trim() + "\",");
-
-                if (response.Headers[System.Net.HttpResponseHeader.ContentType] == BaseConstants.ContentTypeHeaderJson)
+                Trace.WriteLine("    \"headers\": " + this.ConvertWebHeaderCollectionToJson(response.Headers) + ",");
+                var body = response.Body;
+                if(string.IsNullOrEmpty(body) && response.Exception != null)
                 {
-                    Trace.WriteLine("    \"body\": " + response.Body);
+                    body = response.Exception.Response;
                 }
-                else
-                {
-                    Trace.WriteLine("    \"body\": \"" + response.Body + "\"");
-                }
+                this.RecordBody(body, response.Headers[System.Net.HttpResponseHeader.ContentType]);
                 Trace.WriteLine("  }");
             }
             Trace.WriteLine("}");
 
             this.hasPreviousRecordings = true;
+        }
+
+        private string ConvertWebHeaderCollectionToJson(System.Net.WebHeaderCollection headers)
+        {
+            var headersDictionary = headers.AllKeys.ToDictionary(key => key, key => headers[key]);
+            return "{" + string.Join(", ", headersDictionary.Select(x => string.Format("\"{0}\": \"{1}\"", x.Key, x.Value))) + "}";
+        }
+
+        private void RecordBody(string body, string contentType)
+        {
+            Trace.Write("    \"body\": ");
+            if (string.IsNullOrEmpty(body))
+            {
+                Trace.WriteLine("\"\"");
+            }
+            else
+            {
+                Trace.WriteLine(string.Format(contentType == BaseConstants.ContentTypeHeaderJson ? "{0}" : "\"{0}\"", body));
+            }
         }
     }
 }

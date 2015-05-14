@@ -116,6 +116,7 @@ namespace PayPal.Testing
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -138,6 +139,7 @@ namespace PayPal.Testing
             catch (ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -152,11 +154,12 @@ namespace PayPal.Testing
                 var paymentHistory = Payment.List(apiContext, count: 10);
                 this.RecordConnectionDetails();
 
-                Assert.IsTrue(paymentHistory.count > 0 && paymentHistory.count <= 10);
+                Assert.IsTrue(paymentHistory.count >= 0 && paymentHistory.count <= 10);
             }
             catch (ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -179,6 +182,7 @@ namespace PayPal.Testing
             catch (ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -217,6 +221,7 @@ namespace PayPal.Testing
             catch (ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -255,6 +260,7 @@ namespace PayPal.Testing
             catch (ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -291,6 +297,7 @@ namespace PayPal.Testing
             catch (ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
         #endregion

@@ -70,6 +70,8 @@ namespace PayPal.Testing
                         currency = "USD"
                     }
                 };
+
+                apiContext.ResetRequestId();
                 var responseRefund = response.Refund(apiContext, fund);
                 this.RecordConnectionDetails();
 
@@ -81,6 +83,7 @@ namespace PayPal.Testing
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 

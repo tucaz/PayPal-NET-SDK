@@ -35,19 +35,24 @@ namespace PayPal.Testing
             Assert.IsFalse(GetOrder().ToString().Length == 0);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Ignore]
         public void OrderGetTest()
         {
             try
             {
-                var orderId = "O-2HT09787H36911800";
-                var order = Order.Get(TestingUtil.GetApiContext(), orderId);
+                var apiContext = TestingUtil.GetApiContext();
                 this.RecordConnectionDetails();
+
+                var orderId = "O-2HT09787H36911800";
+                var order = Order.Get(apiContext, orderId);
+                this.RecordConnectionDetails();
+
                 Assert.AreEqual(orderId, order.id);
             }
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 

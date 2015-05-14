@@ -69,6 +69,7 @@ namespace PayPal.Testing
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -77,7 +78,10 @@ namespace PayPal.Testing
         {
             try
             {
-                var webhookList = Webhook.GetAll(TestingUtil.GetApiContext());
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var webhookList = Webhook.GetAll(apiContext);
                 this.RecordConnectionDetails();
 
                 Assert.IsNotNull(webhookList);
@@ -86,6 +90,7 @@ namespace PayPal.Testing
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -94,9 +99,12 @@ namespace PayPal.Testing
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var webhook = WebhookTest.GetWebhook();
                 webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
-                var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
+                var createdWebhook = webhook.Create(apiContext);
                 this.RecordConnectionDetails();
 
                 var newUrl = "https://update.com/paypal_webhooks/" + Guid.NewGuid().ToString();
@@ -124,7 +132,7 @@ namespace PayPal.Testing
                     }
                 };
 
-                var updatedWebhook = createdWebhook.Update(TestingUtil.GetApiContext(), patchRequest);
+                var updatedWebhook = createdWebhook.Update(apiContext, patchRequest);
                 this.RecordConnectionDetails();
 
                 Assert.IsNotNull(updatedWebhook);
@@ -135,12 +143,13 @@ namespace PayPal.Testing
                 Assert.AreEqual(newEventTypeName, updatedWebhook.event_types[0].name);
 
                 // Cleanup
-                updatedWebhook.Delete(TestingUtil.GetApiContext());
+                updatedWebhook.Delete(apiContext);
                 this.RecordConnectionDetails();
             }
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -149,12 +158,15 @@ namespace PayPal.Testing
         {
             try
             {
-                var webhook = WebhookTest.GetWebhook();
-                webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
-                var createdWebhook = webhook.Create(TestingUtil.GetApiContext());
+                var apiContext = TestingUtil.GetApiContext();
                 this.RecordConnectionDetails();
 
-                createdWebhook.Delete(TestingUtil.GetApiContext());
+                var webhook = WebhookTest.GetWebhook();
+                webhook.url = "https://" + Guid.NewGuid().ToString() + ".com/paypal_webhooks";
+                var createdWebhook = webhook.Create(apiContext);
+                this.RecordConnectionDetails();
+
+                createdWebhook.Delete(apiContext);
                 this.RecordConnectionDetails();
 
                 Assert.AreEqual(204, (int)PayPalResource.LastResponseDetails.Value.StatusCode);
@@ -162,6 +174,7 @@ namespace PayPal.Testing
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
     }

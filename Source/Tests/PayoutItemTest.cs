@@ -68,10 +68,13 @@ namespace PayPal.Testing
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 // Create a single synchronous payout with an invalid email address.
                 // This will cause the status to be marked as 'UNCLAIMED', allowing
                 // us to cancel the payout.
-                var payoutBatch = PayoutTest.CreateSingleSynchronousPayoutBatch();
+                var payoutBatch = PayoutTest.CreateSingleSynchronousPayoutBatch(apiContext);
                 this.RecordConnectionDetails();
 
                 Assert.IsNotNull(payoutBatch);
@@ -82,7 +85,7 @@ namespace PayPal.Testing
 
                 if (payoutItem.transaction_status == PayoutTransactionStatus.UNCLAIMED)
                 {
-                    var payoutItemDetails = PayoutItem.Cancel(TestingUtil.GetApiContext(), payoutItem.payout_item_id);
+                    var payoutItemDetails = PayoutItem.Cancel(apiContext, payoutItem.payout_item_id);
                     this.RecordConnectionDetails();
 
                     Assert.IsNotNull(payoutItemDetails);
@@ -92,6 +95,7 @@ namespace PayPal.Testing
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
     }

@@ -50,13 +50,16 @@ namespace PayPal.Testing
             Assert.IsFalse(GetSale().ToString().Length == 0);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Ignore]
         public void SaleGetTest()
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var saleId = "4V7971043K262623A";
-                var sale = Sale.Get(TestingUtil.GetApiContext(), saleId);
+                var sale = Sale.Get(apiContext, saleId);
                 this.RecordConnectionDetails();
 
                 Assert.IsNotNull(sale);
@@ -65,6 +68,7 @@ namespace PayPal.Testing
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -92,6 +96,7 @@ namespace PayPal.Testing
                     }
                 };
 
+                apiContext.ResetRequestId();
                 var response = sale.Refund(apiContext, refund);
                 this.RecordConnectionDetails();
 
@@ -101,6 +106,7 @@ namespace PayPal.Testing
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
     }

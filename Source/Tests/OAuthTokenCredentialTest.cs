@@ -91,6 +91,7 @@ namespace PayPal.Testing
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -108,6 +109,7 @@ namespace PayPal.Testing
             catch (ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -125,6 +127,7 @@ namespace PayPal.Testing
             catch (ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
         #endregion

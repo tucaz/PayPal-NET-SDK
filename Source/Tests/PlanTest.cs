@@ -74,6 +74,7 @@ namespace PayPal.Testing
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -117,6 +118,7 @@ namespace PayPal.Testing
             catch (ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -138,6 +140,7 @@ namespace PayPal.Testing
             catch (ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -173,12 +176,13 @@ namespace PayPal.Testing
                 this.RecordConnectionDetails();
 
                 // Attempting to retrieve the plan should result in a PayPalException being thrown.
-                TestingUtil.AssertThrownException<PaymentsException>(() => Plan.Get(TestingUtil.GetApiContext(), planId));
+                TestingUtil.AssertThrownException<PaymentsException>(() => Plan.Get(apiContext, planId));
                 this.RecordConnectionDetails();
             }
             catch (ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
     }

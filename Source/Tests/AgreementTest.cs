@@ -87,6 +87,7 @@ namespace PayPal.Testing
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
@@ -143,9 +144,12 @@ namespace PayPal.Testing
         {
             try
             {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var startDate = "2014-10-01";
                 var endDate = "2014-10-14";
-                var transactions = Agreement.ListTransactions(TestingUtil.GetApiContext(), "I-9STXMKR58UNN", startDate, endDate);
+                var transactions = Agreement.ListTransactions(apiContext, "I-9STXMKR58UNN", startDate, endDate);
                 this.RecordConnectionDetails();
 
                 Assert.IsNotNull(transactions);
@@ -154,6 +158,7 @@ namespace PayPal.Testing
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 

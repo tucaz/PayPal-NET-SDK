@@ -5,7 +5,7 @@ using PayPal.Api;
 namespace PayPal.Testing
 {
     [TestClass]
-    public class WebhookEventTypeTest
+    public class WebhookEventTypeTest : BaseTest
     {
         public static readonly string WebhookEventTypeJsonCreated = "{\"name\":\"PAYMENT.AUTHORIZATION.CREATED\"}";
         public static readonly string WebhookEventTypeJsonVoided = "{\"name\":\"PAYMENT.AUTHORIZATION.VOIDED\"}";
@@ -47,10 +47,23 @@ namespace PayPal.Testing
         [TestMethod, TestCategory("Functional")]
         public void WebhookEventTypeAvailableEventsTest()
         {
-            var webhookEventTypeList = WebhookEventType.AvailableEventTypes(TestingUtil.GetApiContext());
-            Assert.IsNotNull(webhookEventTypeList);
-            Assert.IsNotNull(webhookEventTypeList.event_types);
-            Assert.IsTrue(webhookEventTypeList.event_types.Count > 2);
+            try
+            {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var webhookEventTypeList = WebhookEventType.AvailableEventTypes(apiContext);
+                this.RecordConnectionDetails();
+
+                Assert.IsNotNull(webhookEventTypeList);
+                Assert.IsNotNull(webhookEventTypeList.event_types);
+                Assert.IsTrue(webhookEventTypeList.event_types.Count > 2);
+            }
+            catch(ConnectionException)
+            {
+                this.RecordConnectionDetails(false);
+                throw;
+            }
         }
     }
 }

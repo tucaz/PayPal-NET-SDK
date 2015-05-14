@@ -44,6 +44,8 @@ namespace PayPal.Testing
             try
             {
                 var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
                 var payout = PayoutTest.GetPayout();
                 var payoutSenderBatchId = "batch_" + System.Guid.NewGuid().ToString().Substring(0, 8);
                 payout.sender_batch_header.sender_batch_id = payoutSenderBatchId;
@@ -64,13 +66,14 @@ namespace PayPal.Testing
             catch(ConnectionException)
             {
                 this.RecordConnectionDetails(false);
+                throw;
             }
         }
 
         [Ignore]
-        public static PayoutBatch CreateSingleSynchronousPayoutBatch()
+        public static PayoutBatch CreateSingleSynchronousPayoutBatch(APIContext apiContext)
         {
-            return Payout.Create(TestingUtil.GetApiContext(), new Payout
+            return Payout.Create(apiContext, new Payout
             {
                 sender_batch_header = new PayoutSenderBatchHeader
                 {
