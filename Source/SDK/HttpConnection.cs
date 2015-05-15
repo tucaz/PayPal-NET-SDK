@@ -89,11 +89,6 @@ namespace PayPal.Api
     {
         private static Logger logger = Logger.GetLogger(typeof(HttpConnection));
         private Dictionary<string, string> config;
-        private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
-                                                { HttpStatusCode.GatewayTimeout,
-                                                  HttpStatusCode.RequestTimeout,
-                                                  HttpStatusCode.BadGateway
-                                                });
 
         /// <summary>
         /// Gets the HTTP request details.
@@ -275,17 +270,20 @@ namespace PayPal.Api
                             // If the HTTP status code is flagged as one where we
                             // should continue retrying, then ignore the exception
                             // and continue with the retry attempt.
-                            if (retryCodes.Contains(httpWebResponse.StatusCode))
+                            if(httpWebResponse.StatusCode == HttpStatusCode.GatewayTimeout ||
+                               httpWebResponse.StatusCode == HttpStatusCode.RequestTimeout ||
+                               httpWebResponse.StatusCode == HttpStatusCode.BadGateway)
                             {
                                 continue;
                             }
 
                             rethrowEx = new HttpException(ex.Message, response, httpWebResponse.StatusCode, ex.Status, httpWebResponse.Headers, httpRequest);
                         }
-                        else if(ex.Status == WebExceptionStatus.ReceiveFailure)
+                        else if(ex.Status == WebExceptionStatus.ReceiveFailure ||
+                                ex.Status == WebExceptionStatus.ConnectFailure ||
+                                ex.Status == WebExceptionStatus.KeepAliveFailure)
                         {
-                            // For receive failures, the connection to the server may have been interrupted.
-                            logger.Debug("ReceiveFailure: A complete response was not received from the server.");
+                            logger.Debug("There was a problem connecting to the server: " + ex.Status.ToString());
                             continue;
                         }
                         else if (ex.Status == WebExceptionStatus.Timeout)

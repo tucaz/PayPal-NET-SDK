@@ -139,7 +139,7 @@ namespace PayPal.Testing
             Assert.AreEqual(updatedDescription, updatedAgreement.description);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Ignore]
         public void AgreementSearchTest()
         {
             try

@@ -48,7 +48,7 @@ namespace PayPal.Testing
                 var request = PayPalResource.LastRequestDetails.Value;
                 Trace.WriteLine("    \"url\": \"" + request.Url + "\",");
                 Trace.WriteLine("    \"headers\": " + this.ConvertWebHeaderCollectionToJson(request.Headers) + ",");
-                this.RecordBody(request.Body, request.Headers[System.Net.HttpRequestHeader.ContentType]);
+                this.RecordBody(request.Body, (request.Headers == null ? "" : request.Headers[System.Net.HttpRequestHeader.ContentType]));
                 Trace.WriteLine("  }" + (hasResponseDetails ? "," : ""));
             }
 
@@ -73,7 +73,7 @@ namespace PayPal.Testing
                 {
                     body = response.Exception.Response;
                 }
-                this.RecordBody(body, response.Headers[System.Net.HttpResponseHeader.ContentType]);
+                this.RecordBody(body, (response.Headers == null ? "" : response.Headers[System.Net.HttpResponseHeader.ContentType]));
                 Trace.WriteLine("  }");
             }
             Trace.WriteLine("}");
@@ -83,6 +83,11 @@ namespace PayPal.Testing
 
         private string ConvertWebHeaderCollectionToJson(System.Net.WebHeaderCollection headers)
         {
+            if(headers == null)
+            {
+                return "{}";
+            }
+
             var headersDictionary = headers.AllKeys.ToDictionary(key => key, key => headers[key]);
             return "{" + string.Join(", ", headersDictionary.Select(x => string.Format("\"{0}\": \"{1}\"", x.Key, x.Value))) + "}";
         }
