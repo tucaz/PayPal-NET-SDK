@@ -58,7 +58,18 @@ namespace PayPal.Testing
                 var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
                 this.RecordConnectionDetails();
 
-                var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
+                Assert.IsNotNull(pay);
+                Assert.IsNotNull(pay.transactions);
+                Assert.IsTrue(pay.transactions.Count > 0);
+                var transaction = pay.transactions[0];
+
+                Assert.IsNotNull(transaction.related_resources);
+                Assert.IsTrue(transaction.related_resources.Count > 0);
+
+                var resource = transaction.related_resources[0];
+                Assert.IsNotNull(resource.authorization);
+
+                var authorizationId = resource.authorization.id;
                 var authorize = Authorization.Get(apiContext, authorizationId);
                 this.RecordConnectionDetails();
 
@@ -82,8 +93,18 @@ namespace PayPal.Testing
                 var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
                 this.RecordConnectionDetails();
 
-                var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-                var authorize = Authorization.Get(apiContext, authorizationId);
+                Assert.IsNotNull(pay);
+                Assert.IsNotNull(pay.transactions);
+                Assert.IsTrue(pay.transactions.Count > 0);
+                var transaction = pay.transactions[0];
+
+                Assert.IsNotNull(transaction.related_resources);
+                Assert.IsTrue(transaction.related_resources.Count > 0);
+
+                var resource = transaction.related_resources[0];
+                Assert.IsNotNull(resource.authorization);
+
+                var authorize = Authorization.Get(apiContext, resource.authorization.id);
                 this.RecordConnectionDetails();
 
                 var cap = new Capture
@@ -117,8 +138,18 @@ namespace PayPal.Testing
                 var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
                 this.RecordConnectionDetails();
 
-                var authorizationId = pay.transactions[0].related_resources[0].authorization.id;
-                var authorize = Authorization.Get(apiContext, authorizationId);
+                Assert.IsNotNull(pay);
+                Assert.IsNotNull(pay.transactions);
+                Assert.IsTrue(pay.transactions.Count > 0);
+                var transaction = pay.transactions[0];
+
+                Assert.IsNotNull(transaction.related_resources);
+                Assert.IsTrue(transaction.related_resources.Count > 0);
+
+                var resource = transaction.related_resources[0];
+                Assert.IsNotNull(resource.authorization);
+
+                var authorize = Authorization.Get(apiContext, resource.authorization.id);
                 this.RecordConnectionDetails();
 
                 var authorizationResponse = authorize.Void(apiContext);
