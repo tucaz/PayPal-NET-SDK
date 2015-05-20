@@ -14,8 +14,6 @@ namespace PayPal.Api
         public APIContext()
         {
             this.ResetRequestId();
-            this.Config = new Dictionary<string, string>();
-            this.HTTPHeaders = new Dictionary<string, string>();
             this.SdkVersion = new SDKVersion();
         }
 
