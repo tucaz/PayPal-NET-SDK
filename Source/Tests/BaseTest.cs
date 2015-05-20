@@ -5,6 +5,7 @@ using PayPal.Api;
 
 namespace PayPal.Testing
 {
+    [TestClass]
     public abstract class BaseTest
     {
         private bool hasPreviousRecordings;
