@@ -19,6 +19,11 @@ namespace PayPal.Api
         public string Url { get; set; }
 
         /// <summary>
+        /// Gets or sets the HTTP method verb used for the request.
+        /// </summary>
+        public string Method { get; set; }
+
+        /// <summary>
         /// Gets or sets the headers used in the request.
         /// </summary>
         public WebHeaderCollection Headers { get; set; }
@@ -191,6 +196,7 @@ namespace PayPal.Api
             this.RequestDetails.Body = payLoad;
             this.RequestDetails.Headers = httpRequest.Headers;
             this.RequestDetails.Url = httpRequest.RequestUri.AbsoluteUri;
+            this.RequestDetails.Method = httpRequest.Method;
 
             try
             {

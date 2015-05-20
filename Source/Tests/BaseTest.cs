@@ -47,6 +47,7 @@ namespace PayPal.Testing
                 Trace.WriteLine("  \"request\": {");
                 var request = PayPalResource.LastRequestDetails.Value;
                 Trace.WriteLine("    \"url\": \"" + request.Url + "\",");
+                Trace.WriteLine("    \"method\": \"" + request.Method + "\",");
                 Trace.WriteLine("    \"headers\": " + this.ConvertWebHeaderCollectionToJson(request.Headers) + ",");
                 this.RecordBody(request.Body, (request.Headers == null ? "" : request.Headers[System.Net.HttpRequestHeader.ContentType]));
                 Trace.WriteLine("  }" + (hasResponseDetails ? "," : ""));
