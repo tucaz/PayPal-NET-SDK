@@ -1,8 +1,15 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.4.3
+* Fix issue #94: Null exception thrown when specifying an endpoint in the config without defining the mode
+* Fix default state of APIContext so Config and Headers properties are null. Some callers rely on these properties being null by default.
+* Minor code improvements related to providing more debug details about HTTP requests and responses
+* Remove unused constants from BaseConstants class.
+* Improve interface on SDK so internal-specific classes are now correctly marked as internal instead of public.
+
 ## v1.4.2
-* Fix Issue #89: Add `ResetRequestId()` method to `APIContext` class, which can be called to reset the request ID used for ensuring idempotency when making REST API calls.
+* Fix issue #89: Add `ResetRequestId()` method to `APIContext` class, which can be called to reset the request ID used for ensuring idempotency when making REST API calls.
 * Improve XML documentation
 
 ## v1.4.1
