@@ -13,8 +13,8 @@ namespace PayPal.Testing
             Assert.IsFalse(string.IsNullOrEmpty(apiContext.RequestId));
             Assert.IsFalse(apiContext.MaskRequestId);
             Assert.IsTrue(string.IsNullOrEmpty(apiContext.AccessToken));
-            Assert.IsNotNull(apiContext.Config);
-            Assert.IsNotNull(apiContext.HTTPHeaders);
+            Assert.IsNull(apiContext.Config);
+            Assert.IsNull(apiContext.HTTPHeaders);
             Assert.IsNotNull(apiContext.SdkVersion);
         }
 
@@ -25,8 +25,8 @@ namespace PayPal.Testing
             Assert.IsFalse(string.IsNullOrEmpty(apiContext.RequestId));
             Assert.IsFalse(apiContext.MaskRequestId);
             Assert.AreEqual("abc", apiContext.AccessToken);
-            Assert.IsNotNull(apiContext.Config);
-            Assert.IsNotNull(apiContext.HTTPHeaders);
+            Assert.IsNull(apiContext.Config);
+            Assert.IsNull(apiContext.HTTPHeaders);
             Assert.IsNotNull(apiContext.SdkVersion);
         }
 
@@ -37,8 +37,8 @@ namespace PayPal.Testing
             Assert.AreEqual("xyz", apiContext.RequestId);
             Assert.IsFalse(apiContext.MaskRequestId);
             Assert.AreEqual("abc", apiContext.AccessToken);
-            Assert.IsNotNull(apiContext.Config);
-            Assert.IsNotNull(apiContext.HTTPHeaders);
+            Assert.IsNull(apiContext.Config);
+            Assert.IsNull(apiContext.HTTPHeaders);
             Assert.IsNotNull(apiContext.SdkVersion);
         }
 
