@@ -4,108 +4,6 @@
         <name>PayPal</name>
     </assembly>
     <members>
-        <member name="T:PayPal.Api.RESTAPICallPreHandler">
-            <summary>
-            RESTApiCallPreHandler requires a configuration system to function properly. Pass
-            a config Dictionary for dynamic configuration.
-            </summary>
-        </member>
-        <member name="M:PayPal.IAPICallPreHandler.GetHeaderMap">
-            <summary>
-            Returns headers for the HTTP call
-            with name and value
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PayPal.IAPICallPreHandler.GetPayload">
-            <summary>
-            Returns the payload for the API call. 
-            The implementation should take care 
-            in formatting the payload appropriately
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PayPal.IAPICallPreHandler.GetEndpoint">
-            <summary>
-            Returns the endpoint for the API call
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:PayPal.IAPICallPreHandler.GetCredential">
-            <summary>
-            Returns the ICredential configured for the API call
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="F:PayPal.Api.RESTAPICallPreHandler.config">
-            <summary>
-            Dynamic configuration map
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.RESTAPICallPreHandler.headersMap">
-            <summary>
-            Optional headers map
-            </summary>
-        </member>
-        <member name="M:PayPal.Api.RESTAPICallPreHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>
-            RESTAPICallPreHandler taking dynamic configuration Dictionary
-            </summary>
-            <param name="config">Dictionary for dynamic configuration</param>
-        </member>
-        <member name="M:PayPal.Api.RESTAPICallPreHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>
-            RESTAPICallPreHandler taking dynamic configuration Dictionary and HTTP Headers Dictionary
-            </summary>
-            <param name="config">Dictionary for dynamic configuration</param>
-            <param name="headersMap">Dictionary for HTTP Headers</param>
-        </member>
-        <member name="M:PayPal.Api.RESTAPICallPreHandler.GetProcessedHeadersMap">
-            <summary>
-            Overrided this method to return HTTP headers
-            </summary>
-            <returns>HTTP headers as Dictionary</returns>
-        </member>
-        <member name="M:PayPal.Api.RESTAPICallPreHandler.GetProcessedPayload">
-            <summary>
-            Override this method to post process the payload.
-            The payload is returned unaltered as a default
-            behaviour
-            </summary>
-            <returns>Payload string</returns>
-        </member>
-        <member name="M:PayPal.Api.RESTAPICallPreHandler.GetProcessedEndPoint">
-            <summary>
-            Override this method to return default behavior for endpoint fetching
-            </summary>
-            <returns>Endpoint as a string</returns>
-        </member>
-        <member name="M:PayPal.Api.RESTAPICallPreHandler.FormUserAgentHeader">
-            <summary>
-            Override this method to customize User-Agent header value
-            </summary>
-            <returns>User-Agent header value string</returns>
-        </member>
-        <member name="P:PayPal.Api.RESTAPICallPreHandler.SdkVersion">
-            <summary>
-            Gets or sets the SDK version information
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.RESTAPICallPreHandler.AuthorizationToken">
-            <summary>
-             Gets and sets the Authorization Token
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.RESTAPICallPreHandler.RequestId">
-            <summary>
-            Gets and sets the Idempotency Request Id
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.RESTAPICallPreHandler.Payload">
-            <summary>
-            Payload
-            </summary>
-        </member>
         <member name="T:PayPal.PaymentsException">
             <summary>
             Represents an error that occurred when making a call to PayPal's REST API.
@@ -183,13 +81,14 @@
             preserving the exception heirarchy.
             </summary>
         </member>
-        <member name="M:PayPal.ConnectionException.#ctor(System.String,System.String,System.Net.WebExceptionStatus)">
+        <member name="M:PayPal.ConnectionException.#ctor(System.String,System.String,System.Net.WebExceptionStatus,System.Net.HttpWebRequest)">
             <summary>
             Represents errors that occur during application execution
             </summary>
             <param name="message">The message that describes the error</param>
             <param name="response">The response from server</param>
             <param name="status">The <see cref="T:System.Net.WebExceptionStatus"/> that triggered this exception.</param>
+            <param name="request">HTTP request sent by this SDK.</param>
         </member>
         <member name="M:PayPal.ConnectionException.#ctor(PayPal.ConnectionException)">
             <summary>
@@ -207,12 +106,17 @@
             Gets the <see cref="T:System.Net.WebExceptionStatus"/> returned from a failed HTTP request.
             </summary>
         </member>
+        <member name="P:PayPal.ConnectionException.Request">
+            <summary>
+            Gets the <see cref="T:System.Net.HttpWebRequest"/> sent by the SDK.
+            </summary>
+        </member>
         <member name="P:PayPal.ConnectionException.ExceptionMessagePrefix">
             <summary>
             Gets the prefix to use when logging the exception information.
             </summary>
         </member>
-        <member name="M:PayPal.HttpException.#ctor(System.String,System.String,System.Net.HttpStatusCode,System.Net.WebExceptionStatus)">
+        <member name="M:PayPal.HttpException.#ctor(System.String,System.String,System.Net.HttpStatusCode,System.Net.WebExceptionStatus,System.Net.WebHeaderCollection,System.Net.HttpWebRequest)">
             <summary>
             Represents an error occurred when attempting to send an HTTP request.
             </summary>
@@ -220,6 +124,8 @@
             <param name="response">The response from server.</param>
             <param name="statusCode">HTTP status code</param>
             <param name="webExceptionStatus">HTTP status code returned from the server.</param>
+            <param name="headers">HTTP headers included with the server response.</param>
+            <param name="request">HTTP request sent by this SDK.</param>
         </member>
         <member name="M:PayPal.HttpException.#ctor(PayPal.HttpException)">
             <summary>
@@ -244,6 +150,11 @@
         <member name="P:PayPal.HttpException.StatusCode">
             <summary>
             Gets the <see cref="T:System.Net.HttpStatusCode"/> returned from the server.
+            </summary>
+        </member>
+        <member name="P:PayPal.HttpException.Headers">
+            <summary>
+            Gets the <see cref="T:System.Net.WebHeaderCollection"/> included with the HTTP response.
             </summary>
         </member>
         <member name="P:PayPal.HttpException.ExceptionMessagePrefix">
@@ -463,6 +374,138 @@
         <member name="P:PayPal.Api.InstallmentOption.discount_percentage">
             <summary>
             Discount percentage applied to the payment, if any
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.PayPalRelationalObject">
+            <summary>
+            Represents a PayPal model object that will be returned from PayPal containing common resource data.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.PayPalResource">
+            <summary>
+            Abstract class that handles configuring an HTTP request prior to making an API call.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayPalResource.logger">
+            <summary>
+            Logs output statements, errors, debug info to a text file    
+            </summary>
+        </member>
+        <member name="M:PayPal.Api.PayPalResource.#cctor">
+            <summary>
+            Static constructor initializing any static properties.
+            </summary>
+        </member>
+        <member name="M:PayPal.Api.PayPalResource.ConfigureAndExecute(PayPal.Api.APIContext,PayPal.Api.PayPalResource.HttpMethod,System.String,System.String)">
+            <summary>
+            Configures and executes REST call: Supports JSON
+            </summary>
+            <param name="apiContext">APIContext object</param>
+            <param name="httpMethod">HttpMethod type</param>
+            <param name="resource">URI path of the resource</param>
+            <param name="payload">JSON request payload</param>
+            <returns>Response object or null otherwise for void API calls</returns>
+            <exception cref="T:PayPal.HttpException">Thrown if there was an error sending the request.</exception>
+            <exception cref="T:PayPal.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
+            <exception cref="T:PayPal.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
+        </member>
+        <member name="M:PayPal.Api.PayPalResource.ConfigureAndExecute``1(PayPal.Api.APIContext,PayPal.Api.PayPalResource.HttpMethod,System.String,System.String)">
+            <summary>
+            Configures and executes REST call: Supports JSON
+            </summary>
+            <typeparam name="T">Generic Type parameter for response object</typeparam>
+            <param name="apiContext">APIContext object</param>
+            <param name="httpMethod">HttpMethod type</param>
+            <param name="resource">URI path of the resource</param>
+            <param name="payload">JSON request payload</param>
+            <returns>Response object or null otherwise for void API calls</returns>
+            <exception cref="T:PayPal.HttpException">Thrown if there was an error sending the request.</exception>
+            <exception cref="T:PayPal.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
+            <exception cref="T:PayPal.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
+        </member>
+        <member name="M:PayPal.Api.PayPalResource.GetHeaderMap(PayPal.Api.APIContext)">
+            <summary>
+            Gets a collection of headers to be used in an HTTP request.
+            </summary>
+            <param name="apiContext">APIContext object containing information needed to construct the headers map.</param>
+            <returns>A collection of headers.</returns>
+        </member>
+        <member name="M:PayPal.Api.PayPalResource.GetEndpoint(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Gets the endpoint to be used when making an HTTP call to the REST API.
+            </summary>
+            <returns>The endpoint to be used when making an HTTP call to the REST API.</returns>
+        </member>
+        <member name="P:PayPal.Api.PayPalResource.LastRequestDetails">
+            <summary>
+            Gets the last request sent by the SDK in the current thread.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.PayPalResource.LastResponseDetails">
+            <summary>
+            Gets the last response received by the SDK in the current thread.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.PayPalResource.HttpMethod">
+            <summary>
+            List of supported HTTP methods when making HTTP requests to the PayPal REST API.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayPalResource.HttpMethod.GET">
+            <summary>
+            GET HTTP request. This is typically used in API operations to retrieve a static resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayPalResource.HttpMethod.HEAD">
+            <summary>
+            HEAD HTTP request. This is typically used to retrieve only the header information for a static resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayPalResource.HttpMethod.POST">
+            <summary>
+            POST HTTP request. This is typically used in API operations that require data in the request body to complete.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayPalResource.HttpMethod.PUT">
+            <summary>
+            PUT HTTP request. This is used in some API operations that update a given resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayPalResource.HttpMethod.DELETE">
+            <summary>
+            DELETE HTTP request. This is typcially used in API oeprations that delete a given resource.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayPalResource.HttpMethod.PATCH">
+            <summary>
+            PATCH HTTP request. This is typcially used in API operations that update a given resource.
+            </summary>
+        </member>
+        <member name="M:PayPal.Api.PayPalRelationalObject.GetHateoasLink(System.String)">
+            <summary>
+            Gets the HATEOAS link that matches the specified relation name.
+            </summary>
+            <param name="relationName">The name of the link relation.</param>
+            <returns>A Links object containing the details of the HATEOAS link; null if not found.</returns>
+        </member>
+        <member name="M:PayPal.Api.PayPalRelationalObject.GetApprovalUrl(System.Boolean)">
+            <summary>
+            Gets the approval URL from a list of HATEOAS links.
+            </summary>
+            <param name="setUserActionParameter">If true, appends the 'useraction' URL query parameter.
+            <para>For PayPal payments, this will set the approval button text on the PayPal site to "Pay Now".</para></param>
+            <returns>The approval URL or an empty string if not found.</returns>
+        </member>
+        <member name="M:PayPal.Api.PayPalRelationalObject.GetTokenFromApprovalUrl">
+            <summary>
+            Gets the resource token from an approval URL HATEOAS link, if found.
+            </summary>
+            <returns>A string containing the resource token associated with an approval URL.</returns>
+        </member>
+        <member name="P:PayPal.Api.PayPalRelationalObject.links">
+            <summary>
+            A list of HATEOAS (Hypermedia as the Engine of Application State) links.
+            More information: https://developer.paypal.com/docs/api/#hateoas-links
             </summary>
         </member>
         <member name="T:PayPal.Api.PayoutTransactionStatus">
@@ -1089,41 +1132,6 @@
             Event handler for when an error occurs while attempting to deserialize a JSON string.
             </summary>
         </member>
-        <member name="T:PayPal.HttpMethod">
-            <summary>
-            List of supported HTTP methods when making HTTP requests to the PayPal REST API.
-            </summary>
-        </member>
-        <member name="F:PayPal.HttpMethod.GET">
-            <summary>
-            GET HTTP request. This is typically used in API operations to retrieve a static resource.
-            </summary>
-        </member>
-        <member name="F:PayPal.HttpMethod.HEAD">
-            <summary>
-            HEAD HTTP request. This is typically used to retrieve only the header information for a static resource.
-            </summary>
-        </member>
-        <member name="F:PayPal.HttpMethod.POST">
-            <summary>
-            POST HTTP request. This is typically used in API operations that require data in the request body to complete.
-            </summary>
-        </member>
-        <member name="F:PayPal.HttpMethod.PUT">
-            <summary>
-            PUT HTTP request. This is used in some API operations that update a given resource.
-            </summary>
-        </member>
-        <member name="F:PayPal.HttpMethod.DELETE">
-            <summary>
-            DELETE HTTP request. This is typcially used in API oeprations that delete a given resource.
-            </summary>
-        </member>
-        <member name="F:PayPal.HttpMethod.PATCH">
-            <summary>
-            PATCH HTTP request. This is typcially used in API operations that update a given resource.
-            </summary>
-        </member>
         <member name="T:PayPal.Api.WebhookList">
             <summary>
             A list of webhook resource objects returned from a search operation.
@@ -1219,38 +1227,6 @@
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
-            </summary>
-        </member>
-        <member name="T:PayPal.Api.PayPalResourceObject">
-            <summary>
-            Represents a PayPal model object that will be returned from PayPal containing common resource data.
-            </summary>
-        </member>
-        <member name="M:PayPal.Api.PayPalResourceObject.GetHateoasLink(System.String)">
-            <summary>
-            Gets the HATEOAS link that matches the specified relation name.
-            </summary>
-            <param name="relationName">The name of the link relation.</param>
-            <returns>A Links object containing the details of the HATEOAS link; null if not found.</returns>
-        </member>
-        <member name="M:PayPal.Api.PayPalResourceObject.GetApprovalUrl(System.Boolean)">
-            <summary>
-            Gets the approval URL from a list of HATEOAS links.
-            </summary>
-            <param name="setUserActionParameter">If true, appends the 'useraction' URL query parameter.
-            <para>For PayPal payments, this will set the approval button text on the PayPal site to "Pay Now".</para></param>
-            <returns>The approval URL or an empty string if not found.</returns>
-        </member>
-        <member name="M:PayPal.Api.PayPalResourceObject.GetTokenFromApprovalUrl">
-            <summary>
-            Gets the resource token from an approval URL HATEOAS link, if found.
-            </summary>
-            <returns>A string containing the resource token associated with an approval URL.</returns>
-        </member>
-        <member name="P:PayPal.Api.PayPalResourceObject.links">
-            <summary>
-            A list of HATEOAS (Hypermedia as the Engine of Application State) links.
-            More information: https://developer.paypal.com/docs/api/#hateoas-links
             </summary>
         </member>
         <member name="P:PayPal.Api.HyperSchema.fragmentResolution">
@@ -2588,6 +2564,12 @@
             Resets the request ID used for ensuring idempotency when making a REST API call.
             </summary>
         </member>
+        <member name="M:PayPal.Api.APIContext.GetConfigWithDefaults">
+            <summary>
+            Gets the stored configuration and merges it with the application's default config.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:PayPal.Api.APIContext.AccessToken">
             <summary>
             Gets or sets the OAuth access token to use when making API requests.
@@ -2648,6 +2630,11 @@
             Country name component.
             </summary>
         </member>
+        <member name="T:PayPal.Util.QueryParameters">
+            <summary>
+            Helper class that can be converted into a URL query string.
+            </summary>
+        </member>
         <member name="M:PayPal.Util.QueryParameters.ToUrlFormattedString">
             <summary>
             Converts the dictionary of query parameters to a URL-formatted string. Empty values are ommitted from the parameter list.
@@ -2657,6 +2644,48 @@
         <member name="T:PayPal.Log.LogMessage">
             <summary>
             Log message
+            </summary>
+        </member>
+        <member name="M:PayPal.Log.LogMessage.#ctor(System.String)">
+            <summary>
+            Constructor that logs the specified message.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:PayPal.Log.LogMessage.#ctor(System.String,System.Object[])">
+            <summary>
+            Constructor that logs the specified formatted message.
+            </summary>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:PayPal.Log.LogMessage.#ctor(System.IFormatProvider,System.String,System.Object[])">
+            <summary>
+            Constructor that logs the specified formatted message using the defined provider.
+            </summary>
+            <param name="provider"></param>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:PayPal.Log.LogMessage.ToString">
+            <summary>
+            Converts the stored message details into a string to be logged.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:PayPal.Log.LogMessage.Args">
+            <summary>
+            Gets the arguments to be used in logging a formatted string.
+            </summary>
+        </member>
+        <member name="P:PayPal.Log.LogMessage.Provider">
+            <summary>
+            Gets the <seealso cref="T:System.IFormatProvider"/> that provides the formatted string.
+            </summary>
+        </member>
+        <member name="P:PayPal.Log.LogMessage.Format">
+            <summary>
+            Gets the string format to be used when logging.
             </summary>
         </member>
         <member name="T:PayPal.IdentityException">
@@ -3352,6 +3381,13 @@
             </summary>
             <returns>Default configuration dictionary</returns>
         </member>
+        <member name="M:PayPal.Api.ConfigManager.GetDefault(System.String)">
+            <summary>
+            Gets the default configuration value for the specified key.
+            </summary>
+            <param name="configKey">The key to lookup in the default configuration.</param>
+            <returns>A string containing the default configuration value for the specified key. If the key is not found, returns null.</returns>
+        </member>
         <member name="P:PayPal.Api.ConfigManager.Instance">
             <summary>
             Gets the Singleton instance of the ConfigManager
@@ -3360,91 +3396,6 @@
         <member name="T:PayPal.Api.BaseConstants">
             <summary>
             Constants that are used by the PayPal SDK.
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.RequestMethod">
-            <summary>
-            Request Method in HTTP Connection
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.PayPalLogFile">
-            <summary>
-            Log file
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.AccountPrefix">
-            <summary>
-            Account Prefix
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.PayPalSandboxEmailAddressDefault">
-            <summary>
-            Sandbox Default Email Address
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.SOAP">
-            <summary>
-            SOAP Format
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.NVP">
-            <summary>
-            NVP Format
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.PayPalSecurityUserIdHeader">
-            <summary>
-            PayPal Security UserId Header
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.PayPalSecurityPasswordHeader">
-            <summary>
-            PayPal Security Password Header
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.PayPalSecuritySignatureHeader">
-            <summary>
-            PayPal Security Signature Header
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.PayPalAuthorizationPlatformHeader">
-            <summary>
-            PayPal Platform Authorization Header
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.PayPalAuthorizationMerchantHeader">
-            <summary>
-            PayPal Merchant Authorization Header
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.PayPalApplicationIdHeader">
-            <summary>
-            PayPal Application Id Header
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.PayPalRequestDataFormatHeader">
-            <summary>
-            PayPal Request Data Header
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.PayPalResponseDataFormatHeader">
-            <summary>
-            PayPal Request Data Header
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.PayPalRequestSourceHeader">
-            <summary>
-            PayPal Request Source Header
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.PayPalSandboxDeviceIPAddress">
-            <summary>
-            PayPal Sandbox Email Address Header
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.PayPalSandboxEmailAddressHeader">
-            <summary>
-            PayPal Sandbox Email Address Header
             </summary>
         </member>
         <member name="F:PayPal.Api.BaseConstants.LiveMode">
@@ -3475,11 +3426,6 @@
         <member name="F:PayPal.Api.BaseConstants.EndpointConfig">
             <summary>
             Configuration key for End point
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.ClientIPAddressConfig">
-            <summary>
-            Configuration key for IPAddress
             </summary>
         </member>
         <member name="F:PayPal.Api.BaseConstants.HttpProxyAddressConfig">
@@ -3545,11 +3491,6 @@
         <member name="F:PayPal.Api.BaseConstants.SdkName">
             <summary>
             The name of this SDK.
-            </summary>
-        </member>
-        <member name="F:PayPal.Api.BaseConstants.ENCODING_FORMAT">
-            <summary>
-            Encoding Format
             </summary>
         </member>
         <member name="P:PayPal.Api.BaseConstants.SdkVersion">
@@ -3693,6 +3634,21 @@
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayoutRecipientType.EMAIL">
+            <summary>
+            Email recipient for a payout.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayoutRecipientType.PHONE">
+            <summary>
+            Phone number recipient for a payout.
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.PayoutRecipientType.PAYPAL_ID">
+            <summary>
+            PayPal recipient for a payout.
             </summary>
         </member>
         <member name="T:PayPal.Api.PayoutBatchHeader">
@@ -4558,59 +4514,6 @@
             Total number of failed payments for this agreement.
             </summary>
         </member>
-        <member name="F:PayPal.PayPalResource.logger">
-            <summary>
-            Logs output statements, errors, debug info to a text file    
-            </summary>
-        </member>
-        <member name="M:PayPal.PayPalResource.ConfigureAndExecute(PayPal.Api.APIContext,PayPal.HttpMethod,System.String,System.String)">
-            <summary>
-            Configures and executes REST call: Supports JSON
-            </summary>
-            <param name="apiContext">APIContext object</param>
-            <param name="httpMethod">HttpMethod type</param>
-            <param name="resource">URI path of the resource</param>
-            <param name="payload">JSON request payload</param>
-            <returns>Response object or null otherwise for void API calls</returns>
-            <exception cref="T:PayPal.HttpException">Thrown if there was an error sending the request.</exception>
-            <exception cref="T:PayPal.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
-            <exception cref="T:PayPal.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
-        </member>
-        <member name="M:PayPal.PayPalResource.ConfigureAndExecute``1(PayPal.Api.APIContext,PayPal.HttpMethod,System.String,System.String)">
-            <summary>
-            Configures and executes REST call: Supports JSON
-            </summary>
-            <typeparam name="T">Generic Type parameter for response object</typeparam>
-            <param name="apiContext">APIContext object</param>
-            <param name="httpMethod">HttpMethod type</param>
-            <param name="resource">URI path of the resource</param>
-            <param name="payload">JSON request payload</param>
-            <returns>Response object or null otherwise for void API calls</returns>
-            <exception cref="T:PayPal.HttpException">Thrown if there was an error sending the request.</exception>
-            <exception cref="T:PayPal.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
-            <exception cref="T:PayPal.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
-        </member>
-        <member name="M:PayPal.PayPalResource.ConfigureAndExecute``1(System.Collections.Generic.Dictionary{System.String,System.String},PayPal.IAPICallPreHandler,PayPal.HttpMethod,System.String)">
-            <summary>
-            Configures and executes REST call: Supports JSON 
-            </summary>
-            <typeparam name="T">Generic Type parameter for response object</typeparam>
-            <param name="config">Configuration Dictionary</param>
-            <param name="apiCallPreHandler">IAPICallPreHandler instance</param>
-            <param name="httpMethod">HttpMethod type</param>
-            <param name="resourcePath">URI path of the resource</param>
-            <returns>Response object or null otherwise for void API calls</returns>
-            <exception cref="T:PayPal.HttpException">Thrown if there was an error sending the request.</exception>
-            <exception cref="T:PayPal.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
-            <exception cref="T:PayPal.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
-        </member>
-        <member name="M:PayPal.PayPalResource.RequiresRetry(System.Net.WebException)">
-            <summary>
-            Returns true if a HTTP retry is required
-            </summary>
-            <param name="ex"></param>
-            <returns></returns>
-        </member>
         <member name="T:PayPal.Api.PaymentHistory">
             <summary>
             Response object from a payment search operation.
@@ -5034,6 +4937,11 @@
         <member name="P:PayPal.ConfigException.ExceptionMessagePrefix">
             <summary>
             Gets the prefix to use when logging the exception information.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.Tokeninfo">
+            <summary>
+            Class that stores OpenIdConnect access token information.
             </summary>
         </member>
         <member name="M:PayPal.Api.Tokeninfo.#ctor">
@@ -5734,14 +5642,6 @@
             <param name="links">The list of HATEOAS links objects to search.</param>
             <returns>A string containing the resource token associated with an approval URL.</returns>
         </member>
-        <member name="T:PayPal.Authentication.ICredential">
-            <summary>
-            ICredential
-            Acts as base type for any credential required
-            by the service for authentication. Credential implementations are
-            essentially information passed on to any API service for authentication
-            </summary>
-        </member>
         <member name="T:PayPal.Api.WebProfile">
             <summary>
             A REST API web experience profile resource object.
@@ -6432,6 +6332,11 @@
             Total number of pages that exist, for the total number of items, with the given page size.
             </summary>
         </member>
+        <member name="T:PayPal.Api.UserinfoParameters">
+            <summary>
+            Class for storing user information for OpenIdConnect API calls.
+            </summary>
+        </member>
         <member name="F:PayPal.Api.UserinfoParameters.Schema">
             <summary>
             Schema used in query parameters
@@ -6510,6 +6415,11 @@
         <member name="P:PayPal.InvalidCredentialException.ExceptionMessagePrefix">
             <summary>
             Gets the prefix to use when logging the exception information.
+            </summary>
+        </member>
+        <member name="T:PayPal.Util.ArgumentValidator">
+            <summary>
+            Helper class that validates arguments.
             </summary>
         </member>
         <member name="M:PayPal.Util.ArgumentValidator.Validate(System.Object,System.String)">
@@ -6902,14 +6812,77 @@
             Explicit default constructor
             </summary>
         </member>
+        <member name="M:PayPal.SDKConfigHandler.Setting(System.String)">
+            <summary>
+            Gets the setting with the specified name. If the setting is not found, returns null.
+            </summary>
+            <param name="name">The name of the setting to lookup.</param>
+            <returns>The value associated with the setting name. If the name is not found, returns null.</returns>
+        </member>
         <member name="P:PayPal.SDKConfigHandler.Accounts">
             <summary>
             Accounts Collection
             </summary>
         </member>
+        <member name="P:PayPal.SDKConfigHandler.Settings">
+            <summary>
+            PayPal application settings.
+            </summary>
+        </member>
+        <member name="T:PayPal.AccountCollection">
+            <summary>
+            Account colleciton details. This is included for compatibility with the older Classic SDKs.
+            </summary>
+        </member>
+        <member name="M:PayPal.AccountCollection.CreateNewElement">
+            <summary>
+            Creates a new <see cref="T:PayPal.Account"/>.
+            </summary>
+            <returns>A new <see cref="T:PayPal.Account"/>.</returns>
+        </member>
+        <member name="M:PayPal.AccountCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            Gets the API username for the specified <seealso cref="T:System.Configuration.ConfigurationElement"/>.
+            </summary>
+            <param name="element">The element to be used.</param>
+            <returns>The API user name.</returns>
+        </member>
+        <member name="M:PayPal.AccountCollection.Account(System.Int32)">
+            <summary>
+            Gets the <see cref="T:PayPal.Account"/> at the specified index.
+            </summary>
+            <param name="index">Index of the <see cref="T:PayPal.Account"/>.</param>
+            <returns>The <see cref="T:PayPal.Account"/> at the specified index.</returns>
+        </member>
+        <member name="M:PayPal.AccountCollection.Account(System.String)">
+            <summary>
+            Gets the <see cref="T:PayPal.Account"/> for the specified value.
+            </summary>
+            <param name="value">The value of the <see cref="T:PayPal.Account"/>.</param>
+            <returns>The <see cref="T:PayPal.Account"/> for the specified value.</returns>
+        </member>
+        <member name="P:PayPal.AccountCollection.Item(System.String)">
+            <summary>
+            Index operator that looks up an <see cref="T:PayPal.Account"/> for the specified name.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="P:PayPal.AccountCollection.Item(System.Int32)">
+            <summary>
+            Index operator that looks up an <see cref="T:PayPal.Account"/> at the specified index.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
         <member name="T:PayPal.Account">
             <summary>
             Account information
+            </summary>
+        </member>
+        <member name="M:PayPal.Account.#ctor">
+            <summary>
+            Default constructor that initializes all the properties for the account.
             </summary>
         </member>
         <member name="P:PayPal.Account.APIUserName">
@@ -6952,6 +6925,66 @@
             Certificate Subject
             </summary>
         </member>
+        <member name="T:PayPal.Api.RequestDetails">
+            <summary>
+            Stores details related to an HTTP request.
+            </summary>
+        </member>
+        <member name="M:PayPal.Api.RequestDetails.Reset">
+            <summary>
+            Resets the state of this object and clears its properties.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.RequestDetails.Url">
+            <summary>
+            Gets or sets the URL for the request.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.RequestDetails.Headers">
+            <summary>
+            Gets or sets the headers used in the request.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.RequestDetails.Body">
+            <summary>
+            Gets or sets the request body.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.RequestDetails.RetryAttempts">
+            <summary>
+            Gets or sets the number of retry attempts for sending an HTTP request.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.ResponseDetails">
+            <summary>
+            Stores details related to an HTTP response.
+            </summary>
+        </member>
+        <member name="M:PayPal.Api.ResponseDetails.Reset">
+            <summary>
+            Resets the state of this object and clears its properties.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ResponseDetails.Headers">
+            <summary>
+            Gets or sets the headers used in the response.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ResponseDetails.Body">
+            <summary>
+            Gets or sets the response body.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ResponseDetails.StatusCode">
+            <summary>
+            Gets or sets the response HTTP status code.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ResponseDetails.Exception">
+            <summary>
+            Gets or sets an exception related to the response.
+            </summary>
+        </member>
         <member name="T:PayPal.Api.HttpConnection">
             <summary>
             Helper class for sending HTTP requests.
@@ -6987,6 +7020,16 @@
             <param name="payLoad"></param>
             <param name="httpRequest"></param>
             <returns>A string containing the response from the remote host.</returns>
+        </member>
+        <member name="P:PayPal.Api.HttpConnection.RequestDetails">
+            <summary>
+            Gets the HTTP request details.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.HttpConnection.ResponseDetails">
+            <summary>
+            Gets the HTTP response details.
+            </summary>
         </member>
         <member name="T:PayPal.Api.Refund">
             <summary>
