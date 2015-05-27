@@ -1,6 +1,9 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.4.4
+* Fix issue #101: Make `<accounts>` config section optional.  This section is included to maintain compatibility with the Classic SDKs.
+
 ## v1.4.3
 * Fix issue #94: Null exception thrown when specifying an endpoint in the config without defining the mode
 * Fix default state of APIContext so Config and Headers properties are null. Some callers rely on these properties being null by default.
