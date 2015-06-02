@@ -18,7 +18,7 @@ namespace PayPal
         /// <summary>
         /// Accounts Collection
         /// </summary>
-        [ConfigurationProperty("accounts", IsRequired = true)]
+        [ConfigurationProperty("accounts", IsRequired = false)]
         public AccountCollection Accounts
         {
             get { return (AccountCollection)this[accountsElement]; }
