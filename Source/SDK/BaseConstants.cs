@@ -99,6 +99,11 @@ namespace PayPal.Api
         public const string OAuthEndpoint = "oauth.EndPoint";
 
         /// <summary>
+        /// Trusted certificate file location to be used when validating webhook event certifcates.
+        /// </summary>
+        public const string TrustedCertificateLocation = "webhook.trustCert";
+
+        /// <summary>
         /// User Agent HTTP Header
         /// </summary>
         public const string UserAgentHeader = "User-Agent";

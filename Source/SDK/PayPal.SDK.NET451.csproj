@@ -68,6 +68,7 @@
     <Compile Include="@(ExternalCompile)" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\DigiCertSHA2ExtendedValidationServerCA.crt" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

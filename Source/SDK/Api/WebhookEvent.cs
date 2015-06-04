@@ -129,11 +129,12 @@ namespace PayPal.Api
         /// <summary>
         /// Validates a received webhook event by checking the signature of the event and verifying the event originated from PayPal.
         /// </summary>
+        /// <param name="apiContext">APIContext containing any configuration settings to be used when validating the event.</param>
         /// <param name="requestHeaders">A collection of HTTP request headers included with the received webhook event.</param>
         /// <param name="requestBody">The body of the received HTTP request.</param>
         /// <param name="webhookId">ID of the webhook resource associated with this webhook event.</param>
         /// <returns>True if the webhook event is valid and was sent from PayPal; false otherwise.</returns>
-        public static bool ValidateReceivedEvent(NameValueCollection requestHeaders, string requestBody, string webhookId)
+        public static bool ValidateReceivedEvent(APIContext apiContext, NameValueCollection requestHeaders, string requestBody, string webhookId)
         {
             bool isValid = false;
 
@@ -162,13 +163,20 @@ namespace PayPal.Api
                 var expectedSignature = string.Format("{0}|{1}|{2}|{3}", transmissionId, transmissionTimestamp, webhookId, crc32);
                 var expectedSignatureBytes = Encoding.UTF8.GetBytes(expectedSignature);
 
-                // Get the cert from the cache.
-                var x509Certificate = CertificateManager.Instance.GetCertificate(certUrl);
+                // Get the cert from the cache and load the trusted certificate.
+                var x509CertificateCollection = CertificateManager.Instance.GetCertificatesFromUrl(certUrl);
+                var trustedX509Certificate = CertificateManager.Instance.GetTrustedCertificateFromFile(apiContext == null ? null : apiContext.Config);
+
+                // Validate the certificate chain.
+                isValid = CertificateManager.Instance.ValidateCertificateChain(trustedX509Certificate, x509CertificateCollection);
 
                 // Verify the received signature matches the expected signature.
-                var rsa = x509Certificate.PublicKey.Key as RSACryptoServiceProvider;
-                var signatureBytes = Convert.FromBase64String(signature);
-                isValid = rsa.VerifyData(expectedSignatureBytes, CryptoConfig.MapNameToOID(hashAlgorithm), signatureBytes);
+                if (isValid)
+                {
+                    var rsa = x509CertificateCollection[0].PublicKey.Key as RSACryptoServiceProvider;
+                    var signatureBytes = Convert.FromBase64String(signature);
+                    isValid = rsa.VerifyData(expectedSignatureBytes, CryptoConfig.MapNameToOID(hashAlgorithm), signatureBytes);
+                }
             }
             catch (PayPalException)
             {
