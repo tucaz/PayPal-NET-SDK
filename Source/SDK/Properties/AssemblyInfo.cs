@@ -38,8 +38,8 @@ using System.Security;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.4.4.0")]
-[assembly: AssemblyFileVersion("1.4.4.0")]
+[assembly: AssemblyVersion("1.5.0.0")]
+[assembly: AssemblyFileVersion("1.5.0.0")]
 
 // Allow the unit test project to access internal classes.
 [assembly: InternalsVisibleTo("PayPal.Tests, PublicKey=002400000480000094000000060200000024000052534131000400000100010099e0459fc959effbb4c85c906fa3c08803ac5fe1160ad4a83d41235c32cf2704d6c60373ee0657341bc265e61f609e02d0828a56e2d88c75a83303bd9591773f64b4877845aa1a78f406f6f35ded663b0c6972680bacdd6393ade437b0f7b8b59d5d86579a23a6264abad073dcd95ed5f3bc41f04ba23a592dc6dafd5c5caeca")]
