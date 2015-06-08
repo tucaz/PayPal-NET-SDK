@@ -1,6 +1,13 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.5.0
+* Add support for validating received webhook event notifications
+* Fix issue #102: Add `PayPalLogger.Delimiter` key support in `<appSettings>` config section.
+* Improved connection retry logic
+* Improved unit and functional test coverage
+* Marked certain PayPal-internal fields as obsolete
+
 ## v1.4.4
 * Fix issue #101: Make `<accounts>` config section optional.  This section is included to maintain compatibility with the Classic SDKs.
 
