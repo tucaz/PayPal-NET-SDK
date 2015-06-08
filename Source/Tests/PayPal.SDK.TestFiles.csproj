@@ -16,6 +16,7 @@
     <ExternalCompile Include="AmountTest.cs" />
     <ExternalCompile Include="AuthorizationTest.cs" />
     <ExternalCompile Include="CaptureTest.cs" />
+    <ExternalCompile Include="Crc32Test.cs" />
     <ExternalCompile Include="CreditCardTest.cs" />
     <ExternalCompile Include="CreditCardTokenTest.cs" />
     <ExternalCompile Include="FlowConfigTest.cs" />

@@ -4,8 +4,12 @@
 //  More information: https://developer.paypal.com/docs/api/
 //
 //==============================================================================
+using System;
 using Newtonsoft.Json;
 using PayPal.Util;
+using System.Collections.Specialized;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace PayPal.Api
 {
@@ -120,6 +124,93 @@ namespace PayPal.Api
             // Configure and send the request
             var resourcePath = "v1/notifications/webhooks-events" + queryParameters.ToUrlFormattedString();
             return PayPalResource.ConfigureAndExecute<WebhookEventList>(apiContext, HttpMethod.GET, resourcePath);
+        }
+
+        /// <summary>
+        /// Validates a received webhook event by checking the signature of the event and verifying the event originated from PayPal.
+        /// </summary>
+        /// <param name="apiContext">APIContext containing any configuration settings to be used when validating the event.</param>
+        /// <param name="requestHeaders">A collection of HTTP request headers included with the received webhook event.</param>
+        /// <param name="requestBody">The body of the received HTTP request.</param>
+        /// <param name="webhookId">ID of the webhook resource associated with this webhook event.</param>
+        /// <returns>True if the webhook event is valid and was sent from PayPal; false otherwise.</returns>
+        public static bool ValidateReceivedEvent(APIContext apiContext, NameValueCollection requestHeaders, string requestBody, string webhookId)
+        {
+            bool isValid = false;
+
+            // Check the headers and ensure all the correct information is present.
+            var transmissionId = requestHeaders[BaseConstants.PayPalTransmissionIdHeader];
+            var transmissionTimestamp = requestHeaders[BaseConstants.PayPalTransmissionTimeHeader];
+            var signature = requestHeaders[BaseConstants.PayPalTransmissionSignatureHeader];
+            var certUrl = requestHeaders[BaseConstants.PayPalCertificateUrlHeader];
+            var authAlgorithm = requestHeaders[BaseConstants.PayPalAuthAlgorithmHeader];
+
+            ArgumentValidator.Validate(transmissionId, BaseConstants.PayPalTransmissionIdHeader);
+            ArgumentValidator.Validate(transmissionTimestamp, BaseConstants.PayPalTransmissionTimeHeader);
+            ArgumentValidator.Validate(signature, BaseConstants.PayPalTransmissionSignatureHeader);
+            ArgumentValidator.Validate(certUrl, BaseConstants.PayPalCertificateUrlHeader);
+            ArgumentValidator.Validate(authAlgorithm, BaseConstants.PayPalAuthAlgorithmHeader);
+
+            try
+            {
+                // Convert the provided auth alrogithm header into a known hash alrogithm name.
+                var hashAlgorithm = ConvertAuthAlgorithmHeaderToHashAlgorithmName(authAlgorithm);
+
+                // Calculate a CRC32 checksum using the request body.
+                var crc32 = Crc32.ComputeChecksum(requestBody);
+
+                // Generate the expected signature.
+                var expectedSignature = string.Format("{0}|{1}|{2}|{3}", transmissionId, transmissionTimestamp, webhookId, crc32);
+                var expectedSignatureBytes = Encoding.UTF8.GetBytes(expectedSignature);
+
+                // Get the cert from the cache and load the trusted certificate.
+                var x509CertificateCollection = CertificateManager.Instance.GetCertificatesFromUrl(certUrl);
+                var trustedX509Certificate = CertificateManager.Instance.GetTrustedCertificateFromFile(apiContext == null ? null : apiContext.Config);
+
+                // Validate the certificate chain.
+                isValid = CertificateManager.Instance.ValidateCertificateChain(trustedX509Certificate, x509CertificateCollection);
+
+                // Verify the received signature matches the expected signature.
+                if (isValid)
+                {
+                    var rsa = x509CertificateCollection[0].PublicKey.Key as RSACryptoServiceProvider;
+                    var signatureBytes = Convert.FromBase64String(signature);
+                    isValid = rsa.VerifyData(expectedSignatureBytes, CryptoConfig.MapNameToOID(hashAlgorithm), signatureBytes);
+                }
+            }
+            catch (PayPalException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new PayPalException("Encountered an error while attepting to validate a webhook event.", ex);
+            }
+
+            return isValid;
+        }
+
+        /// <summary>
+        /// Converts the algorithm name specified by <paramref name="authAlgorithmHeader"/> into a hash algorithm name recognized by <seealso cref="System.Security.Cryptography.CryptoConfig"/>.
+        /// </summary>
+        /// <param name="authAlgorithmHeader">The PAYPAL-AUTH-ALGO header value included with a received Webhook event.</param>
+        /// <returns>A mapped hash algorithm name.</returns>
+        internal static string ConvertAuthAlgorithmHeaderToHashAlgorithmName(string authAlgorithmHeader)
+        {
+            // The PAYPAL-AUTH-ALGO header will be specified in a name recognized
+            // by Java's java.security.Signature class.
+            //
+            // Currently, only RSA is supported, and the hashing algorithm will
+            // be derived with the following assumption on the format:
+            //   "<hash_algorithm>withRSA"
+            var token = "withRSA";
+            if (authAlgorithmHeader.EndsWith(token))
+            {
+                return authAlgorithmHeader.Split(new string[] { token }, StringSplitOptions.None)[0];
+            }
+
+            // At this point, we've encountered an unsupported algorithm.
+            throw new AlgorithmNotSupportedException(string.Format("Unable to map {0} to a known hash algorithm.", authAlgorithmHeader));
         }
     }
 }
