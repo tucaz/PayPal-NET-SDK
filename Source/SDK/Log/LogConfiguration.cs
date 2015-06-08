@@ -16,7 +16,15 @@ namespace PayPal.Log
         /// </summary>
         public const string PayPalLogKey = "PayPalLogger";
 
-        private static char[] splitters = new char[] { ',' };
+        /// <summary>
+        /// AppSettings configuration key that defines the delimiter to be used when specifying the list of loggers.
+        /// </summary>
+        public const string PayPalLogDelimiterKey = "PayPalLogger.Delimiter";
+
+        /// <summary>
+        /// Default delimiter to use for the <see cref="PayPalLogDelimiterKey"/> value.
+        /// </summary>
+        public const string PayPalLogDefaultDelimiter = ",";
 
         private static List<string> configurationLoggerList = GetConfigurationLoggerList();
 
@@ -35,14 +43,20 @@ namespace PayPal.Log
         {
             List<string> loggerList = new List<string>();
 
-            string value = GetConfiguration(PayPalLogKey);
+            var value = GetConfiguration(PayPalLogKey);
+            var delimiter = GetConfiguration(PayPalLogDelimiterKey);
 
             if (string.IsNullOrEmpty(value))
             {
                 return null;
             }
 
-            List<string> splitList = new List<string>(value.Split(splitters, StringSplitOptions.RemoveEmptyEntries));
+            if(string.IsNullOrEmpty(delimiter))
+            {
+                delimiter = PayPalLogDefaultDelimiter; // Default is a comma-separated list.
+            }
+
+            var splitList = new List<string>(value.Split(new string[] { delimiter }, StringSplitOptions.RemoveEmptyEntries));
 
             if (splitList == null || splitList.Count == 0)
             {
