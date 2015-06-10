@@ -132,11 +132,26 @@ namespace PayPal.Api
         /// <param name="apiContext">APIContext containing any configuration settings to be used when validating the event.</param>
         /// <param name="requestHeaders">A collection of HTTP request headers included with the received webhook event.</param>
         /// <param name="requestBody">The body of the received HTTP request.</param>
-        /// <param name="webhookId">ID of the webhook resource associated with this webhook event.</param>
+        /// <param name="webhookId">ID of the webhook resource associated with this webhook event. If not specified, it is assumed the ID is provided via the Config property of the <paramref name="apiContext"/> parameter.</param>
         /// <returns>True if the webhook event is valid and was sent from PayPal; false otherwise.</returns>
-        public static bool ValidateReceivedEvent(APIContext apiContext, NameValueCollection requestHeaders, string requestBody, string webhookId)
+        public static bool ValidateReceivedEvent(APIContext apiContext, NameValueCollection requestHeaders, string requestBody, string webhookId = "")
         {
             bool isValid = false;
+
+            // Validate the APIContext object.
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+
+            // Make sure the webhook ID has been provided.
+            if(string.IsNullOrEmpty(webhookId))
+            {
+                if(apiContext.Config == null
+                    || !apiContext.Config.ContainsKey(BaseConstants.WebhookIdConfig)
+                    || string.IsNullOrEmpty(apiContext.Config[BaseConstants.WebhookIdConfig]))
+                {
+                    throw new PayPalException("Webhook ID needed for event validation was not found. Ensure the 'webhook.id' key is included in your application's config file or provide the webhook ID when you call this method.");
+                }
+                webhookId = apiContext.Config[BaseConstants.WebhookIdConfig];
+            }
 
             // Check the headers and ensure all the correct information is present.
             var transmissionId = requestHeaders[BaseConstants.PayPalTransmissionIdHeader];

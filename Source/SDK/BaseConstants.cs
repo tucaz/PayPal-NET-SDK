@@ -104,6 +104,11 @@ namespace PayPal.Api
         public const string TrustedCertificateLocation = "webhook.trustCert";
 
         /// <summary>
+        /// Webhook ID used when validating received webhook notifications.
+        /// </summary>
+        public const string WebhookIdConfig = "webhook.id";
+
+        /// <summary>
         /// User Agent HTTP Header
         /// </summary>
         public const string UserAgentHeader = "User-Agent";
