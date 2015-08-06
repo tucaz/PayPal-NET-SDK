@@ -12,6 +12,7 @@ SET DEVENV="%IDE_DIR%\devenv.com"
 %DEVENV% PayPal.SDK.NET45.sln /build Release
 %DEVENV% PayPal.SDK.NET451.sln /build Release
 
+IF NOT EXIST TestResults MKDIR TestResults
 DEL TestResults\results_net*.xml
 
 SET MSTEST="%IDE_DIR%\MSTest.exe"
