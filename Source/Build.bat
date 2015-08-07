@@ -16,9 +16,9 @@ DEL TestResults\results_net*.xml
 
 SET MSTEST="%IDE_DIR%\MSTest.exe"
 SET TEST_DLL=PayPal.Tests.dll
-%MSTEST% /testcontainer:Bin\Release\net40\%TEST_DLL% /category:Unit /resultsfile:TestResults\results_net40.xml
-%MSTEST% /testcontainer:Bin\Release\net45\%TEST_DLL% /category:Unit /resultsfile:TestResults\results_net45.xml
-%MSTEST% /testcontainer:Bin\Release\net451\%TEST_DLL% /category:Unit /resultsfile:TestResults\results_net451.xml
+%MSTEST% /testcontainer:Tests\bin\Release\net40\%TEST_DLL% /category:Unit /resultsfile:TestResults\results_net40.xml
+%MSTEST% /testcontainer:Tests\bin\Release\net45\%TEST_DLL% /category:Unit /resultsfile:TestResults\results_net45.xml
+%MSTEST% /testcontainer:Tests\bin\Release\net451\%TEST_DLL% /category:Unit /resultsfile:TestResults\results_net451.xml
 GOTO :END
 
 :VS_NOT_FOUND
