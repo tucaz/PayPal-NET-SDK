@@ -9,6 +9,9 @@ bin
 *.pdb
 *.bak
 
+#IDE folders
+.vs
+
 #Unit Test Results
 Source/TestResults
 

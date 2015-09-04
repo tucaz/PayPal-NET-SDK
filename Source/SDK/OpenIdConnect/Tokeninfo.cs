@@ -1,3 +1,5 @@
+using System;
+using System.Text;
 using System.Web;
 using System.Collections.Generic;
 using Newtonsoft.Json;
@@ -130,6 +132,14 @@ namespace PayPal.Api
         /// </summary>
         public Tokeninfo CreateFromRefreshToken(APIContext apiContext, CreateFromRefreshTokenParameters createFromRefreshTokenParameters)
         {
+            if(!createFromRefreshTokenParameters.ContainerMap.ContainsKey("client_id"))
+            {
+                createFromRefreshTokenParameters.ContainerMap["client_id"] = apiContext.Config[BaseConstants.ClientId];
+            }
+            if (!createFromRefreshTokenParameters.ContainerMap.ContainsKey("client_secret"))
+            {
+                createFromRefreshTokenParameters.ContainerMap["client_secret"] = apiContext.Config[BaseConstants.ClientSecret];
+            }
             string pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
             createFromRefreshTokenParameters.SetRefreshToken(HttpUtility.UrlEncode(refresh_token));
             object[] parameters = new object[] { createFromRefreshTokenParameters };
@@ -144,6 +154,11 @@ namespace PayPal.Api
             }
             apiContext.HTTPHeaders = headersMap;
             apiContext.MaskRequestId = true;
+
+            // Set the authentication header
+            byte[] bytes = Encoding.UTF8.GetBytes(string.Format("{0}:{1}", apiContext.Config[BaseConstants.ClientId], apiContext.Config[BaseConstants.ClientSecret]));
+            apiContext.AccessToken = Convert.ToBase64String(bytes);
+
             return PayPalResource.ConfigureAndExecute<Tokeninfo>(apiContext, HttpMethod.POST, resourcePath, payLoad);
         }
     }

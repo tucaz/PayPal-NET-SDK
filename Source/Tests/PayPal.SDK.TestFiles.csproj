@@ -71,5 +71,6 @@
     <ExternalCompile Include="FmfDetailsTest.cs" />
     <ExternalCompile Include="MeasurementTest.cs" />
     <ExternalCompile Include="PayPalResourceTest.cs" />
+	<ExternalCompile Include="UserInfoTest.cs" />
   </ItemGroup>
 </Project>

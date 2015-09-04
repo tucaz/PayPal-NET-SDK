@@ -146,7 +146,7 @@ namespace PayPal.Api.OpenIdConnect
                 apiContext = new APIContext();
             }
             apiContext.MaskRequestId = true;
-            return PayPalResource.ConfigureAndExecute<Userinfo>(apiContext, HttpMethod.GET, resourcePath);
+            return PayPalResource.ConfigureAndExecute<Userinfo>(apiContext, HttpMethod.GET, resourcePath, setAuthorizationHeader: false);
         }
     }
 }
