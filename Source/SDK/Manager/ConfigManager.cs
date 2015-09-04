@@ -25,6 +25,7 @@ namespace PayPal.Api
             // Default connection timeout in milliseconds
             defaultConfig[BaseConstants.HttpConnectionTimeoutConfig] = "30000";
             defaultConfig[BaseConstants.HttpConnectionRetryConfig] = "3";
+            defaultConfig[BaseConstants.ApplicationModeConfig] = BaseConstants.SandboxMode;
         }
 
         /// <summary>
@@ -127,7 +128,6 @@ namespace PayPal.Api
         {
             // returns a copy of the configuration properties
             return new Dictionary<string, string>(this.configValues);
-
         }
     
         /// <summary>
@@ -137,7 +137,16 @@ namespace PayPal.Api
         /// <returns>Default configuration dictionary</returns>
         public static Dictionary<string, string> GetConfigWithDefaults(Dictionary<string, string> config)
         {
-            Dictionary<string, string> ret = new Dictionary<string, string>(config);
+            Dictionary<string, string> ret = null;
+            if (config == null)
+            {
+                ret = new Dictionary<string, string>();
+            }
+            else
+            {
+                ret = new Dictionary<string, string>(config);
+            }
+
             foreach (string key in ConfigManager.defaultConfig.Keys)
             {
                 if (!ret.ContainsKey(key))
@@ -160,6 +169,18 @@ namespace PayPal.Api
                 return ConfigManager.defaultConfig[configKey];
             }
             return null;
+        }
+
+        /// <summary>
+        /// Returns whether or not live mode is enabled in the given configuration.
+        /// </summary>
+        /// <param name="config">Configuration to use</param>
+        /// <returns>True if live mode is enabled; false otherwise.</returns>
+        public static bool IsLiveModeEnabled(Dictionary<string, string> config)
+        {
+            return config != null &&
+                config.ContainsKey(BaseConstants.ApplicationModeConfig) &&
+                config[BaseConstants.ApplicationModeConfig] == BaseConstants.LiveMode;
         }
     }
 }

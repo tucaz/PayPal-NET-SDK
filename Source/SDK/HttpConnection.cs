@@ -217,10 +217,18 @@ namespace PayPal.Api
                             case "PATCH":
                                 using (StreamWriter writerStream = new StreamWriter(httpRequest.GetRequestStream()))
                                 {
-                                        writerStream.Write(payLoad);
-                                        writerStream.Flush();
-                                        writerStream.Close();
+                                    writerStream.Write(payLoad);
+                                    writerStream.Flush();
+                                    writerStream.Close();
+
+                                    if (ConfigManager.IsLiveModeEnabled(config))
+                                    {
+                                        logger.Debug("Request details are hidden in live mode.");
+                                    }
+                                    else
+                                    {
                                         logger.Debug(payLoad);
+                                    }
                                 }
                                 break;
 
@@ -241,10 +249,15 @@ namespace PayPal.Api
                             {
                                 this.ResponseDetails.Body = readerStream.ReadToEnd().Trim();
 
-                                // Log the service response
-                                logger.Debug("Service response: ");
-                                logger.Debug(this.ResponseDetails.Body);
-
+                                if (ConfigManager.IsLiveModeEnabled(config))
+                                {
+                                    logger.Debug("Response details are hidden in live mode.");
+                                }
+                                else
+                                {
+                                    logger.Debug("Service response: ");
+                                    logger.Debug(this.ResponseDetails.Body);
+                                }
                                 return this.ResponseDetails.Body;
                             }
                         }
