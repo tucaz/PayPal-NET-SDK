@@ -1,6 +1,11 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.6.0
+* Disable logging of request & response in live mode
+* Update Newtonsoft.Json dependency
+* Minor bug fixes
+
 ## v1.5.0
 * Add support for validating received webhook event notifications
 * Fix issue #102: Add `PayPalLogger.Delimiter` key support in `<appSettings>` config section.
@@ -135,7 +140,7 @@ PayPal .NET SDK release notes
 
 ## v0.7.8
 * Fixed NuGet package dependency listing for PayPal Core
- 
+
 ## v0.7.7
 * Added Invoice API support.
 * Added constructor for getting Payer ID.
@@ -152,7 +157,7 @@ PayPal .NET SDK release notes
 
 ## v0.7.3
 * Added support for Reauthorization.
- 
+
 ## v0.7.2
 * Fixed bug for extended types in stubs #7.
 
@@ -169,4 +174,3 @@ PayPal .NET SDK release notes
 
 ## v0.5.2
 * Initial Release
-
