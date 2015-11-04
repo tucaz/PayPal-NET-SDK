@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using PayPal.Log;
+using PayPal.Util;
 
 namespace PayPal.Api
 {
@@ -24,12 +25,28 @@ namespace PayPal.Api
         /// <summary>
         /// Accessor for the Singleton instance of ConnectionManager
         /// </summary>
-        public static ConnectionManager Instance { get { return lazyConnectionManager.Value; } }  
+        public static ConnectionManager Instance { get { return lazyConnectionManager.Value; } }
+
+        private bool logTlsWarning = false;
 
         /// <summary>
         /// Private constructor, private to prevent direct instantiation
         /// </summary>
-        private ConnectionManager() { }     
+        private ConnectionManager()
+        {
+#if NET_4_5 || NET_4_5_1
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+#else
+            if(SDKUtil.IsNet45OrLaterDetected())
+            {
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)0xC00;
+            }
+            else
+            {
+                this.logTlsWarning = true;
+            }
+#endif
+        }
 
         /// <summary>
         /// Create and Config a HttpWebRequest
@@ -39,7 +56,6 @@ namespace PayPal.Api
         /// <returns></returns>
         public HttpWebRequest GetConnection(Dictionary<string, string> config, string url)
         {
-
             HttpWebRequest httpRequest = null;                        
             try
             {
@@ -79,6 +95,11 @@ namespace PayPal.Api
             // Don't set the Expect: 100-continue header as it's not supported
             // well by Akamai and can negatively impact performance.
             httpRequest.ServicePoint.Expect100Continue = false;
+
+            if(this.logTlsWarning)
+            {
+                logger.Warn("SECURITY WARNING: TLSv1.2 is not supported on this system. Please update your .NET framework to a version that supports TLSv1.2.");
+            }
 
             return httpRequest;
         }

@@ -139,7 +139,6 @@ namespace PayPal.Api
 
                 // Create the HttpRequest object that will be used to send the HTTP request.
                 var connMngr = ConnectionManager.Instance;
-                connMngr.GetConnection(config, uniformResourceIdentifier.ToString());
                 var httpRequest = connMngr.GetConnection(config, uniformResourceIdentifier.ToString());
                 httpRequest.Method = httpMethod.ToString();
 
