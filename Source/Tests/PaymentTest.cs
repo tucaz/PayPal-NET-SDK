@@ -198,6 +198,7 @@ namespace PayPal.Testing
                 this.RecordConnectionDetails();
 
                 var payment = GetPaymentUsingPayPal("sale");
+                payment.transactions[0].related_resources.Clear();
                 var createdPayment = payment.Create(apiContext);
                 this.RecordConnectionDetails();
 
@@ -276,6 +277,7 @@ namespace PayPal.Testing
                 this.RecordConnectionDetails();
 
                 var payment = GetPaymentUsingCreditCard("sale");
+                payment.transactions[0].related_resources.Clear();
                 var createdPayment = payment.Create(apiContext);
                 this.RecordConnectionDetails();
 

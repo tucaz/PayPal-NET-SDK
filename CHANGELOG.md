@@ -3,6 +3,7 @@ PayPal .NET SDK release notes
 
 ## v1.7.0
 * Connections to PayPal should use TLSv1.2
+* Update Payments API support
 
 ## v1.6.0
 * Disable logging of request & response in live mode

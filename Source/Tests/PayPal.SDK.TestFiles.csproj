@@ -72,5 +72,7 @@
     <ExternalCompile Include="MeasurementTest.cs" />
     <ExternalCompile Include="PayPalResourceTest.cs" />
 	<ExternalCompile Include="UserInfoTest.cs" />
+	<ExternalCompile Include="ProcessorResponseTest.cs" />
+	<ExternalCompile Include="PotentialPayerInfoTest.cs" />
   </ItemGroup>
 </Project>

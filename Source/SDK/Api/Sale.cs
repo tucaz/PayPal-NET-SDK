@@ -132,6 +132,18 @@ namespace PayPal.Api
         public string update_time { get; set; }
 
         /// <summary>
+        /// Collection of payment response related fields returned from a payment request.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "processor_response")]
+        public ProcessorResponse processor_response { get; set; }
+
+        /// <summary>
+        /// ID of the billing agreement used as reference to execute this transaction.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_agreement_id")]
+        public string billing_agreement_id { get; set; }
+
+        /// <summary>
         /// Obtain the Sale transaction resource for the given identifier.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>

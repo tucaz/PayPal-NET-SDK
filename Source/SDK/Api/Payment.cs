@@ -97,6 +97,18 @@ namespace PayPal.Api
         public string update_time { get; set; }
 
         /// <summary>
+        /// Free-form field that allows clients to pass in a message to the payer.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "note_to_payer")]
+        public string note_to_payer { get; set; }
+
+        /// <summary>
+        /// Collection of PayPal generated billing agreement tokens.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_agreement_tokens")]
+        public List<string> billing_agreement_tokens { get; set; }
+
+        /// <summary>
         /// Get or sets the token found in the approval_url link returned from a call to create this resource.
         /// </summary>
         [JsonIgnore]

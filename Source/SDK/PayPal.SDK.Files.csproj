@@ -90,7 +90,9 @@
     <ExternalCompile Include="Api\Phone.cs" />
     <ExternalCompile Include="Api\Plan.cs" />
     <ExternalCompile Include="Api\PlanList.cs" />
+	<ExternalCompile Include="Api\PotentialPayerInfo.cs" />
     <ExternalCompile Include="Api\Presentation.cs" />
+	<ExternalCompile Include="Api\ProcessorResponse.cs" />
     <ExternalCompile Include="Api\RecipientBankingInstruction.cs" />
     <ExternalCompile Include="Api\RedirectUrls.cs" />
     <ExternalCompile Include="Api\Refund.cs" />
