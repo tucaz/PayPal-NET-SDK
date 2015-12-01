@@ -1,6 +1,9 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.7.1
+* Added Subject Name validation to Webhooks Validation logic
+
 ## v1.7.0
 * Connections to PayPal should use TLSv1.2
 * Update Payments API support

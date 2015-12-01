@@ -4,9 +4,11 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 
 namespace PayPal
 {
@@ -178,7 +180,7 @@ namespace PayPal
                 {
                     // The trusted certificate has been found, so we don't need
                     // to venture any further up the chain.
-                    return true;
+                    return ValidatePayPalClientCertificate(clientCerts);
                 }
             }
 
@@ -186,6 +188,24 @@ namespace PayPal
             // provided trusted certificate in the certificate chain from the
             // provided client certificate.
             return false;
+        }
+
+        /// <summary>
+        /// Validates the leaf client cert for the owner to be PayPal
+        /// </summary>
+        /// <param name="clientCerts"></param>
+        /// <returns>True if leaf client certificate belongs to .paypal.com, false otherwise</returns>
+        public bool ValidatePayPalClientCertificate(X509Certificate2Collection clientCerts)
+        {
+            // If there's no client certificates provided, return immediately.
+            if (clientCerts == null || clientCerts.Count <= 0)
+            {
+                return false;
+            }
+
+            String subjectName = clientCerts[0].Subject;
+            String[] results = Regex.Matches(subjectName, @"CN=[a-zA-Z._-]+").Cast<Match>().Select(m => m.Value).ToArray();
+            return (results != null && results.Length > 0 && results[0].StartsWith("CN=") && results[0].EndsWith(".paypal.com"));
         }
     }
 }
