@@ -1,6 +1,9 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.7.2
+* Added `security-test-sandbox` as mode for TLSv1.2 verification
+
 ## v1.7.1
 * Added Subject Name validation to Webhooks Validation logic
 
