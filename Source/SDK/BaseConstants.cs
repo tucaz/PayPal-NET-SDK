@@ -44,6 +44,11 @@ namespace PayPal.Api
         public const string SandboxMode = "sandbox";
 
         /// <summary>
+        /// Allowed application mode - security-test-sandbox
+        /// </summary>
+        public const string SecurityTestSandboxMode = "security-test-sandbox";
+
+        /// <summary>
         /// Sandbox REST API endpoint
         /// </summary>
         public const string RESTSandboxEndpoint = "https://api.sandbox.paypal.com/";
@@ -52,6 +57,11 @@ namespace PayPal.Api
         /// Live REST API endpoint
         /// </summary>
         public const string RESTLiveEndpoint = "https://api.paypal.com/";
+
+        /// <summary>
+        /// Security Test Sandbox REST API endpoint
+        /// </summary>
+        public const string RESTSecurityTestSandoxEndpoint = "https://test-api.sandbox.paypal.com/";
 
         /// <summary>
         /// Configuration key for application mode

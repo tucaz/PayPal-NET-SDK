@@ -310,6 +310,9 @@ namespace PayPal.Api
                     case BaseConstants.SandboxMode:
                         endpoint = BaseConstants.RESTSandboxEndpoint;
                         break;
+                    case BaseConstants.SecurityTestSandboxMode:
+                        endpoint = BaseConstants.RESTSecurityTestSandoxEndpoint;
+                        break;
                 }
             }
 
