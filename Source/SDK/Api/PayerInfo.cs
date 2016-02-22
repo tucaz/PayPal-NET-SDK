@@ -113,7 +113,7 @@ namespace PayPal.Api
         public Address billing_address { get; set; }
 
         /// <summary>
-        /// Obsolete. Use shipping address present in purchase unit.
+        /// Shipping address of payer PayPal account.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "shipping_address")]
         public ShippingAddress shipping_address { get; set; }
