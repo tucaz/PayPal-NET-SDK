@@ -1,6 +1,12 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.7.3
+* Update shipping address summary
+* TLSv1.2 changes
+* Removed issues list link
+* Update License to 2016
+
 ## v1.7.2
 * Added `security-test-sandbox` as mode for TLSv1.2 verification
 
