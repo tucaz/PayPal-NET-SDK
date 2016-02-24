@@ -10,7 +10,7 @@ using System.Security;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("PayPal")]
 [assembly: AssemblyProduct("PayPal")]
-[assembly: AssemblyCopyright("Copyright © 2009-2015 PayPal")]
+[assembly: AssemblyCopyright("Copyright © 2009-2016 PayPal")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
