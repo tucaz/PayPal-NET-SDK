@@ -242,8 +242,9 @@ namespace PayPal.Api
         /// <param name="merchantId">Merchant identifier to filter the search results in list operations.</param>
         /// <param name="externalCardId">Externally provided card identifier to filter the search results in list operations.</param>
         /// <param name="externalCustomerId">Externally provided customer identifier to filter the search results in list operations.</param>
+        /// <param name="totalRequired">Total Required.</param>
         /// <returns>CreditCardList</returns>
-        public static CreditCardList List(APIContext apiContext, int pageSize = 10, int page = 1, string startTime = "", string endTime = "", string sortOrder = "asc", string sortBy = "create_time", string merchantId = "", string externalCardId = "", string externalCustomerId = "")
+        public static CreditCardList List(APIContext apiContext, int pageSize = 10, int page = 1, string startTime = "", string endTime = "", string sortOrder = "asc", string sortBy = "create_time", string merchantId = "", string externalCardId = "", string externalCustomerId = "", bool totalRequired = false)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
@@ -258,6 +259,7 @@ namespace PayPal.Api
             queryParameters["merchant_id"] = merchantId;
             queryParameters["external_card_id"] = externalCardId;
             queryParameters["external_customer_id"] = externalCustomerId;
+            queryParameters["total_required"] = totalRequired.ToString();
 
             // Configure and send the request
             var resourcePath = "v1/vault/credit-cards" + queryParameters.ToUrlFormattedString();
