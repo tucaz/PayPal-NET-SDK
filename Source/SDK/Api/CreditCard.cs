@@ -242,9 +242,9 @@ namespace PayPal.Api
         /// <param name="merchantId">Merchant identifier to filter the search results in list operations.</param>
         /// <param name="externalCardId">Externally provided card identifier to filter the search results in list operations.</param>
         /// <param name="externalCustomerId">Externally provided customer identifier to filter the search results in list operations.</param>
-        /// <param name="totalRequired">Total Required.</param>
+        /// <param name="totalRequired">Identifies if total count is required or not. Defaults to true.</param>
         /// <returns>CreditCardList</returns>
-        public static CreditCardList List(APIContext apiContext, int pageSize = 10, int page = 1, string startTime = "", string endTime = "", string sortOrder = "asc", string sortBy = "create_time", string merchantId = "", string externalCardId = "", string externalCustomerId = "", bool totalRequired = false)
+        public static CreditCardList List(APIContext apiContext, int pageSize = 10, int page = 1, string startTime = "", string endTime = "", string sortOrder = "asc", string sortBy = "create_time", string merchantId = "", string externalCardId = "", string externalCustomerId = "", bool totalRequired = true)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
