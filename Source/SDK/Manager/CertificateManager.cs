@@ -203,8 +203,8 @@ namespace PayPal
                 return false;
             }
 
-            String subjectName = clientCerts[0].Subject;
-            String[] results = Regex.Matches(subjectName, @"CN=[a-zA-Z._-]+").Cast<Match>().Select(m => m.Value).ToArray();
+            var subjectName = clientCerts[0].Subject;
+            var results = Regex.Matches(subjectName, @"CN=[a-zA-Z._-]+").Cast<Match>().Select(m => m.Value).ToArray();
             return (results != null && results.Length > 0 && results[0].StartsWith("CN=") && results[0].EndsWith(".paypal.com"));
         }
     }
