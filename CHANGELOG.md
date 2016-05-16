@@ -1,6 +1,9 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.8.0
+* Vault API Updates
+
 ## v1.7.3
 * Update shipping address summary
 * TLSv1.2 changes
