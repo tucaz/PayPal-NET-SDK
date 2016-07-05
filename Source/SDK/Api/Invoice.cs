@@ -17,7 +17,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class Invoice : PayPalResource
+    public class Invoice : PayPalRelationalObject
     {
         /// <summary>
         /// Unique invoice resource identifier.
@@ -162,6 +162,12 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "additional_data")]
         public string additional_data { get; set; }
+
+        /// <summary>
+        /// The template ID used for the invoice. Useful for copy functionality.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "template_id")]
+        public string template_id { get; set; }
 
         #region Obsolete Properties
         /// <summary>
