@@ -80,6 +80,12 @@ namespace PayPal.Api
         public PaymentTerm payment_term { get; set; }
 
         /// <summary>
+        /// Reference data, such as PO number, to add to the invoice. Maximum length is 60 characters.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reference")]
+        public string reference { get; set; }
+
+        /// <summary>
         /// Invoice level discount in percent or amount.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "discount")]
