@@ -1,6 +1,9 @@
 PayPal .NET SDK release notes
 =============================
 
+## TO BE RELEASED
+* Added missing fields for invoice.
+
 ## v1.8.0
 * Vault API Updates
 
