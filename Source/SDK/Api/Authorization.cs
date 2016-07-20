@@ -90,6 +90,12 @@ namespace PayPal.Api
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
         public string update_time { get; set; }
 
+        /// <summary>
+        /// Collection of payment response related fields returned from a payment request.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "processor_response")]
+        public ProcessorResponse processor_response { get; set; }
+
         #region Obsolete Properties
         /// <summary>
         /// Reason code for the transaction state being Pending.
