@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using PayPal.Log;
 
 namespace PayPal.Api
 {
@@ -9,6 +10,11 @@ namespace PayPal.Api
     /// </summary>
     public sealed class ConfigManager
     {
+        /// <summary>
+        /// Logger
+        /// </summary>
+        private static Logger logger = Logger.GetLogger(typeof(ConfigManager));
+
         /// <summary>
         /// The configValue is readonly as it should not be changed outside constructor (but the content can)
         /// </summary>
@@ -68,55 +74,63 @@ namespace PayPal.Api
             }
             catch (System.Exception ex)
             {
-                throw new ConfigException("Unable to load 'paypal' section from *.config: " + ex.Message);
+                logger.Warn("Unable to load 'paypal' section from *.config: " + ex.Message);
             }
+
+            this.configValues = new Dictionary<string, string>();
 
             if (paypalConfigSection == null)
             {
-                throw new ConfigException(
-                    "Cannot parse *.Config file. Ensure you have configured the 'paypal' section correctly.");
+                logger.Warn("Cannot parse *.Config file. Ensure you have configured the 'paypal' section correctly.");
             }
-
-            NameValueConfigurationCollection settings = (NameValueConfigurationCollection)paypalConfigSection.GetType().GetProperty("Settings").GetValue(paypalConfigSection, null);
-            this.configValues = new Dictionary<string, string>();
-            foreach (NameValueConfigurationElement setting in settings)
+            else
             {
-                configValues.Add(setting.Name, setting.Value);
-            }
+                NameValueConfigurationCollection settings =
+                    (NameValueConfigurationCollection)
+                    paypalConfigSection.GetType().GetProperty("Settings").GetValue(paypalConfigSection, null);
+                
+                foreach (NameValueConfigurationElement setting in settings)
+                {
+                    configValues.Add(setting.Name, setting.Value);
+                }
 
-            int index = 0;
-            foreach (ConfigurationElement element in (ConfigurationElementCollection)paypalConfigSection.GetType().GetProperty("Accounts").GetValue(paypalConfigSection, null))
-            {
-                Account account = (Account)element;
-                if (!string.IsNullOrEmpty(account.APIUserName))
+                int index = 0;
+                foreach (
+                    ConfigurationElement element in
+                    (ConfigurationElementCollection)
+                    paypalConfigSection.GetType().GetProperty("Accounts").GetValue(paypalConfigSection, null))
                 {
-                    this.configValues.Add("account" + index + ".apiUsername", account.APIUserName);
+                    Account account = (Account) element;
+                    if (!string.IsNullOrEmpty(account.APIUserName))
+                    {
+                        this.configValues.Add("account" + index + ".apiUsername", account.APIUserName);
+                    }
+                    if (!string.IsNullOrEmpty(account.APIPassword))
+                    {
+                        this.configValues.Add("account" + index + ".apiPassword", account.APIPassword);
+                    }
+                    if (!string.IsNullOrEmpty(account.APISignature))
+                    {
+                        this.configValues.Add("account" + index + ".apiSignature", account.APISignature);
+                    }
+                    if (!string.IsNullOrEmpty(account.APICertificate))
+                    {
+                        this.configValues.Add("account" + index + ".apiCertificate", account.APICertificate);
+                    }
+                    if (!string.IsNullOrEmpty(account.PrivateKeyPassword))
+                    {
+                        this.configValues.Add("account" + index + ".privateKeyPassword", account.PrivateKeyPassword);
+                    }
+                    if (!string.IsNullOrEmpty(account.CertificateSubject))
+                    {
+                        this.configValues.Add("account" + index + ".subject", account.CertificateSubject);
+                    }
+                    if (!string.IsNullOrEmpty(account.ApplicationId))
+                    {
+                        this.configValues.Add("account" + index + ".applicationId", account.ApplicationId);
+                    }
+                    index++;
                 }
-                if (!string.IsNullOrEmpty(account.APIPassword))
-                {
-                    this.configValues.Add("account" + index + ".apiPassword", account.APIPassword);
-                }
-                if (!string.IsNullOrEmpty(account.APISignature))
-                {
-                    this.configValues.Add("account" + index + ".apiSignature", account.APISignature);
-                }
-                if (!string.IsNullOrEmpty(account.APICertificate))
-                {
-                    this.configValues.Add("account" + index + ".apiCertificate", account.APICertificate);
-                }
-                if (!string.IsNullOrEmpty(account.PrivateKeyPassword))
-                {
-                    this.configValues.Add("account" + index + ".privateKeyPassword", account.PrivateKeyPassword);
-                }
-                if (!string.IsNullOrEmpty(account.CertificateSubject))
-                {
-                    this.configValues.Add("account" + index + ".subject", account.CertificateSubject);
-                }
-                if (!string.IsNullOrEmpty(account.ApplicationId))
-                {
-                    this.configValues.Add("account" + index + ".applicationId", account.ApplicationId);
-                }
-                index++;
             }
         }
 
