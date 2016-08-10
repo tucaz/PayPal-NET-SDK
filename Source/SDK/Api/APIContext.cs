@@ -25,7 +25,7 @@ namespace PayPal.Api
         {
             if (string.IsNullOrEmpty(accessToken))
             {
-                throw new ArgumentNullException("accessToken", "accessToken cannot be null");
+                throw new ArgumentNullException(nameof(accessToken), "accessToken cannot be null");
             }
             this.AccessToken = accessToken;
         }
@@ -39,7 +39,7 @@ namespace PayPal.Api
         {
             if (string.IsNullOrEmpty(requestId))
             {
-                throw new ArgumentNullException("requestId", "requestId cannot be null");
+                throw new ArgumentNullException(nameof(requestId), "requestId cannot be null");
             }
             this.RequestId = requestId;
         }

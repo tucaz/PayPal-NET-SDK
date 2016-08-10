@@ -63,7 +63,7 @@ namespace PayPal.Log
         {
             if (givenType == null)
             {
-                throw new ArgumentNullException("givenType", "Type cannot be null");
+                throw new ArgumentNullException(nameof(givenType), "Type cannot be null");
             }
 
             Logger log;
