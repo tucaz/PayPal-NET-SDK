@@ -9,23 +9,23 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Base object for all financial value related fields (balance, payment due, etc.)
+    /// Template settings.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class Currency : PayPalSerializableObject
+    public class TemplateSettings : PayPalSerializableObject
     {
         /// <summary>
-        /// 3 letter currency code as defined by ISO 4217.
+        /// The field name for any field in `template_data` for which to map corresponding display preferences.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
-        public string currency { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "field_name")]
+        public string field_name { get; set; }
 
         /// <summary>
-        /// amount up to N digit after the decimals separator as defined in ISO 4217 for the appropriate currency code.
+        /// The settings metadata for each field.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "value")]
-        public string value { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "display_preference")]
+        public TemplateSettingsMetadata display_preference { get; set; }
     }
 }

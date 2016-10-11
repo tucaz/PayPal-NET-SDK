@@ -9,17 +9,23 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Base Address object used as billing address in a payment or extended for Shipping Address.
+    /// The file attached to an invoice or template.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class InvoiceAddress : BaseAddress
+    public class FileAttachment : PayPalSerializableObject
     {
         /// <summary>
-        /// Phone number in E.123 format.
+        /// The name of the attached file.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "phone")]
-        public Phone phone { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
+        public string name { get; set; }
+
+        /// <summary>
+        /// The URL of the attached file, which can be downloaded.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "url")]
+        public string url { get; set; }
     }
 }

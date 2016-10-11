@@ -9,17 +9,17 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Base Address object used as billing address in a payment or extended for Shipping Address.
+    /// Settings metadata for a template field.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class InvoiceAddress : BaseAddress
+    public class TemplateSettingsMetadata : PayPalSerializableObject
     {
         /// <summary>
-        /// Phone number in E.123 format.
+        /// Indicates whether this field is hidden. Default is `false`.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "phone")]
-        public Phone phone { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "hidden")]
+        public bool? hidden { get; set; }
     }
 }

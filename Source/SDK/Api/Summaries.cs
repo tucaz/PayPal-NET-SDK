@@ -4,22 +4,23 @@
 //  More information: https://developer.paypal.com/docs/api/
 //
 //==============================================================================
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
     /// <summary>
-    /// Base Address object used as billing address in a payment or extended for Shipping Address.
+    /// List of summaries of merchant invoice data.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class InvoiceAddress : BaseAddress
+    public class Summaries : PayPalResource
     {
         /// <summary>
-        /// Phone number in E.123 format.
+        /// An array of summaries.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "phone")]
-        public Phone phone { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "summaries")]
+        public List<Summary> summaries { get; set; }
     }
 }
