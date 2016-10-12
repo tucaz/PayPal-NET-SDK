@@ -5,6 +5,7 @@
 //
 //==============================================================================
 using Newtonsoft.Json;
+using System;
 
 namespace PayPal.Api
 {
