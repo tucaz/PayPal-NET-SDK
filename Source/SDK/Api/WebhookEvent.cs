@@ -46,6 +46,12 @@ namespace PayPal.Api
         public string event_type { get; set; }
 
         /// <summary>
+        /// The version of the event.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "event_version")]
+        public string event_version { get; set; }
+
+        /// <summary>
         /// A summary description of the event. E.g. A successful payment authorization was created for $$
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "summary")]
