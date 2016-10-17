@@ -10,10 +10,10 @@ namespace PayPal.Testing
     {
         public static readonly string CaptureJson =
             "{\"amount\":" + AmountTest.AmountJson + "," +
-            "\"create_time\":\"2013-01-15T15:10:05.123Z\"," +
+            "\"create_time\":\"" + TestingUtil.GetCurrentDateISO() + "\"," +
             "\"id\":\"001\"," +
             "\"parent_payment\":\"1000\"," +
-            "\"state\":\"Authorized\"," +
+            "\"state\":\"COMPLETED\"," +
             "\"links\":[" + LinksTest.LinksJson + "]}";
 
         public static Capture GetCapture()

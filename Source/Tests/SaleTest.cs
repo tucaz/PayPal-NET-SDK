@@ -13,7 +13,7 @@ namespace PayPal.Testing
             "{\"amount\":" + AmountTest.AmountJson + "," +
             "\"parent_payment\":\"103\"," +
             "\"state\":\"completed\"," +
-            "\"create_time\":\"2013-01-17T18:12:02.347Z\"," +
+            "\"create_time\":\"" + TestingUtil.GetCurrentDateISO() + "\"," +
             "\"links\":[" + LinksTest.LinksJson + "]}";
 
         public static Sale GetSale()

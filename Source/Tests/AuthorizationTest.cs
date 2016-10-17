@@ -10,7 +10,7 @@ namespace PayPal.Testing
     {
         public static readonly string AuthorizationJson =
             "{\"amount\":" + AmountTest.AmountJson + "," +
-            "\"create_time\":\"2013-01-15T15:10:05.123Z\"," +
+            "\"create_time\":\"" + TestingUtil.GetCurrentDateISO() + "\"," +
             "\"id\":\"007\"," +
             "\"parent_payment\":\"1000\"," +
             "\"state\":\"Authorized\"," +
