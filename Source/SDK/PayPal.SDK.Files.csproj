@@ -11,6 +11,7 @@
     <ExternalCompile Include="Api\AgreementTransaction.cs" />
     <ExternalCompile Include="Api\AgreementTransactions.cs" />
     <ExternalCompile Include="Api\Amount.cs" />
+    <ExternalCompile Include="Api\AmountSummary.cs" />
     <ExternalCompile Include="Api\Authorization.cs" />
     <ExternalCompile Include="Api\BankAccount.cs" />
     <ExternalCompile Include="Api\BankAccountList.cs" />
@@ -112,7 +113,14 @@
     <ExternalCompile Include="Api\ShippingAddress.cs" />
     <ExternalCompile Include="Api\ShippingCost.cs" />
     <ExternalCompile Include="Api\ShippingInfo.cs" />
+    <ExternalCompile Include="Api\Summary.cs" />
+    <ExternalCompile Include="Api\Summaries.cs" />
     <ExternalCompile Include="Api\Tax.cs" />
+    <ExternalCompile Include="Api\Template.cs" />
+    <ExternalCompile Include="Api\TemplateData.cs" />
+    <ExternalCompile Include="Api\TemplateSettings.cs" />
+    <ExternalCompile Include="Api\TemplateSettingsMetadata.cs" />
+    <ExternalCompile Include="Api\Templates.cs" />
     <ExternalCompile Include="Api\Terms.cs" />
     <ExternalCompile Include="Api\Transaction.cs" />
     <ExternalCompile Include="Api\VerifyWebhookSignature.cs" />

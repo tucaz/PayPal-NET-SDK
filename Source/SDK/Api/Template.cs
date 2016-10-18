@@ -6,6 +6,7 @@
 //==============================================================================
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using PayPal.Util;
 
 namespace PayPal.Api
 {
@@ -33,7 +34,7 @@ namespace PayPal.Api
         /// Indicates whether this template is the default merchant template. A merchant can have one default template.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "default")]
-        public bool? default { get; set; }
+        public bool? @default { get; set; }
 
         /// <summary>
         /// Customized invoice data, which is saved as the template.
@@ -58,5 +59,102 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom")]
         public bool? custom { get; set; }
+
+        /// <summary>
+        /// Shows details for a template, by ID.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="templateId">The ID of the template for which to show details.</param>
+        /// <returns>Template</returns>
+        public static Template Get(APIContext apiContext, string templateId)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(templateId, "templateId");
+
+            // Configure and send the request
+            var pattern = "v1/invoicing/templates/{0}";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { templateId });
+            return PayPalResource.ConfigureAndExecute<Template>(apiContext, HttpMethod.GET, resourcePath);
+        }
+
+        /// <summary>
+        /// Lists all merchant-created templates. The list shows the emails, addresses, and phone numbers from the merchant profile.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="fields">The fields to return in the response. Value is `all` or `none`. Specify `none` to return only the template name, ID, and default attributes.</param>
+        /// <returns>Templates</returns>
+        public static Templates GetAll(APIContext apiContext, string fields = "all")
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+
+            var queryParameters = new QueryParameters();
+            queryParameters["fields"] = fields;
+
+            // Configure and send the request
+            var resourcePath = "v1/invoicing/templates" + queryParameters.ToUrlFormattedString();
+            return PayPalResource.ConfigureAndExecute<Templates>(apiContext, HttpMethod.GET, resourcePath);
+        }
+
+        /// <summary>
+        /// Deletes a template, by ID.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        public void Delete(APIContext apiContext)
+        {
+            Template.Delete(apiContext, this.template_id);
+        }
+
+        /// <summary>
+        /// Deletes a template, by ID.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="templateId">The ID of the template to delete.</param>
+        public static void Delete(APIContext apiContext, string templateId)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(templateId, "templateId");
+
+            // Configure and send the request
+            apiContext.MaskRequestId = true;
+            var pattern = "v1/invoicing/templates/{0}";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { templateId });
+            PayPalResource.ConfigureAndExecute(apiContext, HttpMethod.DELETE, resourcePath);
+        }
+
+        /// <summary>
+        /// Creates a template.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <returns>Template</returns>
+        public Template Create(APIContext apiContext)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(this, "template");
+
+            // Configure and send the request
+            var resourcePath = "v1/invoicing/templates";
+            return PayPalResource.ConfigureAndExecute<Template>(apiContext, HttpMethod.POST, resourcePath, this.ConvertToJson());
+        }
+
+        /// <summary>
+        /// Updates a template, by ID. In the JSON request body, pass a complete `template` object. The update method does not support partial updates.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <returns>Template</returns>
+        public Template Update(APIContext apiContext)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(this, "template");
+
+            // Configure and send the request
+            var pattern = "v1/invoicing/templates/{0}";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.template_id });
+            return PayPalResource.ConfigureAndExecute<Template>(apiContext, HttpMethod.PUT, resourcePath, this.ConvertToJson());
+        }
     }
 }
