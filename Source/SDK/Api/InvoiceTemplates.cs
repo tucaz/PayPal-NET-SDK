@@ -15,7 +15,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class Templates : PayPalResource
+    public class InvoiceTemplates : PayPalResource
     {
         /// <summary>
         /// List of addresses in merchant profile.
@@ -39,6 +39,6 @@ namespace PayPal.Api
         /// An array of templates.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "templates")]
-        public List<Template> templates { get; set; }
+        public List<InvoiceTemplate> templates { get; set; }
     }
 }

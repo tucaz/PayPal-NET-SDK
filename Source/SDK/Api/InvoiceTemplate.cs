@@ -16,7 +16,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class Template : PayPalResource
+    public class InvoiceTemplate : PayPalResource
     {
         /// <summary>
         /// The ID of the template.
@@ -40,13 +40,13 @@ namespace PayPal.Api
         /// Customized invoice data, which is saved as the template.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "template_data")]
-        public TemplateData template_data { get; set; }
+        public InvoiceTemplateData template_data { get; set; }
 
         /// <summary>
         /// Settings for each template.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "settings")]
-        public List<TemplateSettings> settings { get; set; }
+        public List<InvoiceTemplateSettings> settings { get; set; }
 
         /// <summary>
         /// The unit of measure for the template. Value is quantity, hours, or amount.
@@ -66,7 +66,7 @@ namespace PayPal.Api
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="templateId">The ID of the template for which to show details.</param>
         /// <returns>Template</returns>
-        public static Template Get(APIContext apiContext, string templateId)
+        public static InvoiceTemplate Get(APIContext apiContext, string templateId)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
@@ -75,7 +75,7 @@ namespace PayPal.Api
             // Configure and send the request
             var pattern = "v1/invoicing/templates/{0}";
             var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { templateId });
-            return PayPalResource.ConfigureAndExecute<Template>(apiContext, HttpMethod.GET, resourcePath);
+            return PayPalResource.ConfigureAndExecute<InvoiceTemplate>(apiContext, HttpMethod.GET, resourcePath);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace PayPal.Api
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="fields">The fields to return in the response. Value is `all` or `none`. Specify `none` to return only the template name, ID, and default attributes.</param>
         /// <returns>Templates</returns>
-        public static Templates GetAll(APIContext apiContext, string fields = "all")
+        public static InvoiceTemplates GetAll(APIContext apiContext, string fields = "all")
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
@@ -94,7 +94,7 @@ namespace PayPal.Api
 
             // Configure and send the request
             var resourcePath = "v1/invoicing/templates" + queryParameters.ToUrlFormattedString();
-            return PayPalResource.ConfigureAndExecute<Templates>(apiContext, HttpMethod.GET, resourcePath);
+            return PayPalResource.ConfigureAndExecute<InvoiceTemplates>(apiContext, HttpMethod.GET, resourcePath);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace PayPal.Api
         /// <param name="apiContext">APIContext used for the API call.</param>
         public void Delete(APIContext apiContext)
         {
-            Template.Delete(apiContext, this.template_id);
+            InvoiceTemplate.Delete(apiContext, this.template_id);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace PayPal.Api
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <returns>Template</returns>
-        public Template Create(APIContext apiContext)
+        public InvoiceTemplate Create(APIContext apiContext)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
@@ -137,7 +137,7 @@ namespace PayPal.Api
 
             // Configure and send the request
             var resourcePath = "v1/invoicing/templates";
-            return PayPalResource.ConfigureAndExecute<Template>(apiContext, HttpMethod.POST, resourcePath, this.ConvertToJson());
+            return PayPalResource.ConfigureAndExecute<InvoiceTemplate>(apiContext, HttpMethod.POST, resourcePath, this.ConvertToJson());
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace PayPal.Api
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <returns>Template</returns>
-        public Template Update(APIContext apiContext)
+        public InvoiceTemplate Update(APIContext apiContext)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
@@ -154,7 +154,7 @@ namespace PayPal.Api
             // Configure and send the request
             var pattern = "v1/invoicing/templates/{0}";
             var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { this.template_id });
-            return PayPalResource.ConfigureAndExecute<Template>(apiContext, HttpMethod.PUT, resourcePath, this.ConvertToJson());
+            return PayPalResource.ConfigureAndExecute<InvoiceTemplate>(apiContext, HttpMethod.PUT, resourcePath, this.ConvertToJson());
         }
     }
 }

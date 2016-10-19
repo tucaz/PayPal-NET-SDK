@@ -51,9 +51,9 @@ namespace PayPal.Api.Tests
 "  ]" +
 "}";
 
-        public static Template GetTemplate()
+        public static InvoiceTemplate GetTemplate()
         {
-            return JsonFormatter.ConvertFromJson<Template>(TemplateJson);
+            return JsonFormatter.ConvertFromJson<InvoiceTemplate>(TemplateJson);
         }
 
         [TestMethod, TestCategory("Unit")]

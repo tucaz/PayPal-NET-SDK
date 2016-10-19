@@ -116,11 +116,11 @@
     <ExternalCompile Include="Api\Summary.cs" />
     <ExternalCompile Include="Api\Summaries.cs" />
     <ExternalCompile Include="Api\Tax.cs" />
-    <ExternalCompile Include="Api\Template.cs" />
-    <ExternalCompile Include="Api\TemplateData.cs" />
-    <ExternalCompile Include="Api\TemplateSettings.cs" />
-    <ExternalCompile Include="Api\TemplateSettingsMetadata.cs" />
-    <ExternalCompile Include="Api\Templates.cs" />
+    <ExternalCompile Include="Api\InvoiceTemplate.cs" />
+    <ExternalCompile Include="Api\InvoiceTemplateData.cs" />
+    <ExternalCompile Include="Api\InvoiceTemplateSettings.cs" />
+    <ExternalCompile Include="Api\InvoiceTemplateSettingsMetadata.cs" />
+    <ExternalCompile Include="Api\InvoiceTemplates.cs" />
     <ExternalCompile Include="Api\Terms.cs" />
     <ExternalCompile Include="Api\Transaction.cs" />
     <ExternalCompile Include="Api\VerifyWebhookSignature.cs" />

@@ -15,7 +15,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class TemplateData : PayPalSerializableObject
+    public class InvoiceTemplateData : PayPalSerializableObject
     {
         /// <summary>
         /// Information about the merchant who sends the invoice.

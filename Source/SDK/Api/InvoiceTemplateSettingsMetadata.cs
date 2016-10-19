@@ -14,7 +14,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class TemplateSettingsMetadata : PayPalSerializableObject
+    public class InvoiceTemplateSettingsMetadata : PayPalSerializableObject
     {
         /// <summary>
         /// Indicates whether this field is hidden. Default is `false`.

@@ -14,7 +14,7 @@ namespace PayPal.Api
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class TemplateSettings : PayPalSerializableObject
+    public class InvoiceTemplateSettings : PayPalSerializableObject
     {
         /// <summary>
         /// The field name for any field in `template_data` for which to map corresponding display preferences.
@@ -26,6 +26,6 @@ namespace PayPal.Api
         /// The settings metadata for each field.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "display_preference")]
-        public TemplateSettingsMetadata display_preference { get; set; }
+        public InvoiceTemplateSettingsMetadata display_preference { get; set; }
     }
 }
