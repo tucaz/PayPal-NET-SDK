@@ -102,7 +102,22 @@ namespace PayPal.Sample
                             new SampleItem { Title = "Delete an invoice", ExecutePage = "InvoiceDelete.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Retrieve a QR code", ExecutePage = "InvoiceGetQrCode.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Record a payment", ExecutePage = "InvoiceRecordPayment.aspx", HasSourcePage = true },
-                            new SampleItem { Title = "Record a refund", ExecutePage = "InvoiceRecordRefund.aspx", HasSourcePage = true }
+                            new SampleItem { Title = "Delete a payment", ExecutePage = "InvoiceDeletePayment.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Record a refund", ExecutePage = "InvoiceRecordRefund.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Delete a refund", ExecutePage = "InvoiceDeleteRefund.aspx", HasSourcePage = true }
+                        }
+                    },
+                    new SampleCategory
+                    {
+                        Title = "Invoice Templates",
+                        Id = "invoice-templates",
+                        Items = new List<SampleItem>
+                        {
+                            new SampleItem { Title = "Create an invoice template", ExecutePage = "InvoiceTemplateCreate.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Delete an invoice template", ExecutePage = "InvoiceTemplateDelete.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Retrieve an invoice template", ExecutePage = "InvoiceTemplateGet.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Retreive a list of invoice templates", ExecutePage = "InvoiceTemplateGetAll.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Update an invoice template", ExecutePage = "InvoiceTemplateUpdate.aspx", HasSourcePage = true },
                         }
                     },
                     new SampleCategory
