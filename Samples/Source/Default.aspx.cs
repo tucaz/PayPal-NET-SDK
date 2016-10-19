@@ -115,8 +115,8 @@ namespace PayPal.Sample
                         {
                             new SampleItem { Title = "Create an invoice template", ExecutePage = "InvoiceTemplateCreate.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Delete an invoice template", ExecutePage = "InvoiceTemplateDelete.aspx", HasSourcePage = true },
-                            new SampleItem { Title = "Retrieve an invoice template", ExecutePage = "InvoiceTemplateGet.aspx", HasSourcePage = true },
-                            new SampleItem { Title = "Retreive a list of invoice templates", ExecutePage = "InvoiceTemplateGetAll.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Retrieve an invoice template", ExecutePage = "InvoiceTemplateRetrieve.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Retreive a list of invoice templates", ExecutePage = "InvoiceTemplateRetrieveList.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Update an invoice template", ExecutePage = "InvoiceTemplateUpdate.aspx", HasSourcePage = true },
                         }
                     },

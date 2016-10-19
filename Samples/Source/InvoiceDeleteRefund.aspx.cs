@@ -165,11 +165,24 @@ namespace PayPal.Sample
 
             // ^ Ignore workflow code segment
             #region Track Workflow
+            this.flow.AddNewRequest("Fetch details about the invoice", refundDetail);
+            #endregion
+
+            // The external payment will now be attached to the details of your invoice
+            var invoiceDetails = Invoice.Get(apiContext, createdInvoice.id);
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
+			this.flow.RecordResponse(invoiceDetails);
+            this.flow.RecordActionSuccess("Invoice details fetched.");
+            #endregion
+
+            // ^ Ignore workflow code segment
+            #region Track Workflow
             this.flow.AddNewRequest("Delete the external refund");
             #endregion
 
-            var invoiceDetails = Invoice.Get(apiContext, createdInvoice.id);
-
+            // Delete external refund
             Invoice.DeleteExternalRefund(apiContext, invoiceDetails.id, invoiceDetails.refunds[0].transaction_id);
 
             // ^ Ignore workflow code segment

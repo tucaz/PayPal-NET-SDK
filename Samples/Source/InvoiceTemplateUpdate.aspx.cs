@@ -74,7 +74,7 @@ namespace PayPal.Sample
             this.flow.AddNewRequest("Create the template.", invoiceTemplate);
             #endregion
 
-            // Create the invoice
+            // Create the invoice template
             var createdTemplate = invoiceTemplate.Create(apiContext);
 
             // ^ Ignore workflow code segment
@@ -82,6 +82,7 @@ namespace PayPal.Sample
             this.flow.RecordResponse(createdTemplate);
             #endregion
 
+            // Update the template
             createdTemplate.name = "Updated" + createdTemplate.name;
 
             // ^ Ignore workflow code segment
@@ -89,7 +90,7 @@ namespace PayPal.Sample
             this.flow.AddNewRequest("Update the Template.", createdTemplate);
             #endregion
 
-            // Create the invoice
+            // Update the invoice
             var updatedTemplate = createdTemplate.Update(apiContext);
 
             // ^ Ignore workflow code segment
