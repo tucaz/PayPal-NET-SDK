@@ -46,6 +46,7 @@
     <ExternalContent Include="Content\bootstrap-theme.css.map" />
     <ExternalContent Include="Content\bootstrap.css.map" />
     <ExternalContent Include="Main.Master" />
+    <ExternalContent Include="VerifyWebhookSignature.aspx" />
     <ExternalContent Include="WebhookCreate.aspx" />
     <ExternalContent Include="WebhookDelete.aspx" />
     <ExternalContent Include="WebhookEventList.aspx" />
@@ -449,6 +450,15 @@
     <ExternalCompile Include="Utilities\RequestFlow.cs" />
     <ExternalCompile Include="Utilities\SampleCategory.cs" />
     <ExternalCompile Include="Utilities\SampleItem.cs" />
+
+    <ExternalCompile Include="VerifyWebhookSignature.aspx.cs">
+      <DependentUpon>VerifyWebhookSignature.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
+    <ExternalCompile Include="VerifyWebhookSignature.aspx.designer.cs">
+      <DependentUpon>VerifyWebhookSignature.aspx</DependentUpon>
+    </ExternalCompile>
+
     <ExternalCompile Include="WebhookCreate.aspx.cs">
       <DependentUpon>WebhookCreate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
