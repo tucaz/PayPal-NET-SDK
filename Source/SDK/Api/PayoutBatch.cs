@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// A REST API payout batch resource object.
+    /// The PayPal-generated batch status.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -18,13 +18,13 @@ namespace PayPal.Api
     public class PayoutBatch : PayPalRelationalObject
     {
         /// <summary>
-        /// A batch header that includes the generated batch status.
+        /// A batch header. Includes the generated batch status.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "batch_header")]
         public PayoutBatchHeader batch_header { get; set; }
 
         /// <summary>
-        /// Array of the items in a batch payout.
+        /// An array of items in a batch payout.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "items")]
         public List<PayoutItemDetails> items { get; set; }

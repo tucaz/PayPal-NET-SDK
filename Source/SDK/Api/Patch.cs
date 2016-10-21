@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// A JSON patch object that you can use to apply partial updates to resources.
+    /// A JSON Patch object used for doing partial updates to resources.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
