@@ -24,16 +24,23 @@ namespace PayPal.Sample
         protected override void RunSample()
         {
             string accessToken = new OAuthTokenCredential("EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM", "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM", Configuration.GetConfig()).GetAccessToken();
+
+            // ### Api Context
+            // Pass in a `APIContext` object to authenticate 
+            // the call and to send a unique request id 
+            // (that ensures idempotency). The SDK generates
+            // a request id if you do not pass one explicitly. 
+            // See [Configuration.cs](/Source/Configuration.html) to know more about APIContext.
             var apiContext = new APIContext(accessToken);
 
             var webhookId = "9XL90610J3647323C";
 
+            // ^ Ignore workflow code segment
             #region Track Workflow
-            //--------------------
             this.flow.AddNewRequest("Verify received webhook event");
-            //--------------------
             #endregion
 
+            // Construct a `VerifyWebhookSignature` and assign its properties from the headers received in your webhook event.
             var signatureVerification = new PayPal.Api.VerifyWebhookSignature
             {
                 auth_algo = headers["Paypal-Auth-Algo"],
@@ -45,18 +52,17 @@ namespace PayPal.Sample
                 webhook_event = JsonFormatter.ConvertFromJson<WebhookEvent>(requestBody)
             };
 
+            // ^ Ignore workflow code segment
             #region Track Workflow
-            //--------------------
             this.flow.AddNewRequest("Verify the received webhook Event", signatureVerification);
-            //--------------------
             #endregion
 
+            // Call the `Post` method on your `VerifyWebhookSignature` object to verify the Webhook event was actually sent by PayPal.
             var signatureVerificationResponse = signatureVerification.Post(apiContext);
 
+            // ^ Ignore workflow code segment
             #region Track Workflow
-            //--------------------
             this.flow.RecordResponse(signatureVerificationResponse);
-            //--------------------
             #endregion
         }
     }

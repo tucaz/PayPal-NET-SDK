@@ -113,10 +113,11 @@ namespace PayPal.Sample
                         {
                             new SampleItem { Title = "Create and retrieve a webhook", ExecutePage = "WebhookCreate.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Retrieve a list of webhooks", ExecutePage = "WebhookGetAll.aspx", HasSourcePage = true },
-                            new SampleItem { Title = "Retrieve a list of recent webhook events", ExecutePage = "WebhookEventGetList.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Retrieve a list of recent webhook events", ExecutePage = "WebhookEventList.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Update a webhook", ExecutePage = "WebhookUpdate.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Delete a webhook", ExecutePage = "WebhookDelete.aspx", HasSourcePage = true },
-                            new SampleItem { Title = "Delete all webhooks", ExecutePage = "WebhookDelete.aspx?deleteAll=true", Note = "Use this if you get the error WEBHOOK_NUMBER_LIMIT_EXCEEDED" }
+                            new SampleItem { Title = "Delete all webhooks", ExecutePage = "WebhookDelete.aspx?deleteAll=true", Note = "Use this if you get the error WEBHOOK_NUMBER_LIMIT_EXCEEDED" },
+                            new SampleItem { Title = "Verify a Webhook Event", ExecutePage = "VerifyWebhookSignature.aspx", HasSourcePage = true }
                         }
                     },
                     new SampleCategory
