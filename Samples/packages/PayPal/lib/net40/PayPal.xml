@@ -2005,7 +2005,7 @@
         </member>
         <member name="T:PayPal.Api.FlowConfig">
             <summary>
-            A flow configuration to be used in context of a web experience profile.
+            Parameters for flow configuration.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -2013,12 +2013,22 @@
         </member>
         <member name="P:PayPal.Api.FlowConfig.landing_page_type">
             <summary>
-            Type of PayPal page to be displayed when a user lands on the PayPal site for checkout. Allowed values: `Billing` or `Login`. When set to `Billing`, the Non-PayPal account landing page is used. When set to `Login`, the PayPal account login landing page is used.
+            The type of landing page to display on the PayPal site for user checkout. Set to `Billing` to use the non-PayPal account landing page. Set to `Login` to use the PayPal account login landing page.
             </summary>
         </member>
         <member name="P:PayPal.Api.FlowConfig.bank_txn_pending_url">
             <summary>
-            The URL on the merchant site for transferring to after a bank transfer payment. Use this field only if you are using giropay or bank transfer payment methods in Germany.
+            The merchant site URL to display after a bank transfer payment. Valid for only the Giropay or bank transfer payment method in Germany.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.FlowConfig.user_action">
+            <summary>
+            Defines whether buyers can complete purchases on the PayPal or merchant website.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.FlowConfig.return_uri_http_method">
+            <summary>
+            The HTTP method to use to redirect the user to a return URL. Valid value is `GET` or `POST`.
             </summary>
         </member>
         <member name="T:PayPal.Api.FundingInstrument">
@@ -2135,7 +2145,7 @@
         </member>
         <member name="T:PayPal.Api.InputFields">
             <summary>
-            Input field settings for a web experience profile.
+            Parameters for input fields customization.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -2143,17 +2153,17 @@
         </member>
         <member name="P:PayPal.Api.InputFields.allow_note">
             <summary>
-            Enables the buyer to enter a note to the merchant on the PayPal page during checkout.
+            Indicates whether the buyer can enter a note to the merchant on the PayPal page during checkout.
             </summary>
         </member>
         <member name="P:PayPal.Api.InputFields.no_shipping">
             <summary>
-            Determines whether or not PayPal displays shipping address fields on the experience pages. Allowed values: `0`, `1`, or `2`. When set to `0`, PayPal displays the shipping address on the PayPal pages. When set to `1`, PayPal does not display shipping address fields whatsoever. When set to `2`, if you do not pass the shipping address, PayPal obtains it from the buyer's account profile. For digital goods, this field is required, and you must set it to `1`. 
+            Indicates whether PayPal displays shipping address fields on the experience pages. For digital goods, this field is required and must be <code>1</code>. Value is:<ul><li><code>0</code>. Displays the shipping address on the PayPal pages.</li><li><code>1</code>. Redacts shipping address fields from the PayPal pages.</li><li><code>2</code>. Gets the shipping address from the buyer's account profile.</li></ul>
             </summary>
         </member>
         <member name="P:PayPal.Api.InputFields.address_override">
             <summary>
-            Determines if the PayPal pages should display the shipping address supplied in this call, rather than the shipping address on file with PayPal for this buyer. Displaying the address on file does not allow the buyer to edit the address. Allowed values: `0` or `1`. When set to `0`, the PayPal pages should display the address on file. When set to `1`, the PayPal pages should display the addresses supplied in this call instead of the address from the buyer's PayPal account.
+            Indicates whether to display the shipping address that is passed to this call rather than the one on file with PayPal for this buyer on the PayPal experience pages. Value is:<ul><li><code>0</code>. Displays the shipping address on file.</li><li><code>1</code>. Displays the shipping address supplied to this call. The buyer cannot edit this shipping address.</li></ul>
             </summary>
         </member>
         <member name="T:PayPal.Api.Invoice">
@@ -3039,7 +3049,7 @@
         </member>
         <member name="P:PayPal.Api.Patch.path">
             <summary>
-            A JSON pointer that references a location in the target document where the operation is performed. A `string` value.
+            A JSON pointer that references a location in the target document where the operation is performed.
             </summary>
         </member>
         <member name="P:PayPal.Api.Patch.value">
@@ -3049,7 +3059,7 @@
         </member>
         <member name="P:PayPal.Api.Patch.from">
             <summary>
-            A JSON pointer that references the location in the target document from which to move the value. A `string` value. Required for the `move` operation.
+            A JSON pointer that references the location in the target document from which to move the value.
             </summary>
         </member>
         <member name="T:PayPal.Api.PatchRequest">
@@ -4359,7 +4369,7 @@
         </member>
         <member name="T:PayPal.Api.Presentation">
             <summary>
-            Presentation details for a web experience profile.
+            Parameters for style and presentation.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -4372,12 +4382,22 @@
         </member>
         <member name="P:PayPal.Api.Presentation.logo_image">
             <summary>
-            A URL to logo image. Allowed vaues: `.gif`, `.jpg`, or `.png`. Limit the image to 190 pixels wide by 60 pixels high. PayPal crops images that are larger. PayPal places your logo image at the top of the cart review area. PayPal recommends that you store the image on a secure (https) server. Otherwise, web browsers display a message that checkout pages contain non-secure items. Character length and limit: 127 single-byte alphanumeric characters.
+            A URL to the logo image. A valid media type is `.gif`, `.jpg`, or `.png`. The maximum width of the image is 190 pixels. The maximum height of the image is 60 pixels. PayPal crops images that are larger. PayPal places your logo image at the top of the cart review area. PayPal recommends that you store the image on a secure (HTTPS) server. Otherwise, web browsers display a message that checkout pages contain non-secure items. Character length and limit: 127 single-byte alphanumeric characters.
             </summary>
         </member>
         <member name="P:PayPal.Api.Presentation.locale_code">
             <summary>
-            Locale of pages displayed by PayPal payment experience. Allowed values: `AU`, `AT`, `BE`, `BR`, `CA`, `CH`, `CN`, `DE`, `ES`, `GB`, `FR`, `IT`, `NL`, `PL`, `PT`, `RU`, `US`. The following 5-character codes are also allowed for languages in specific countries: `da_DK`, `he_IL`, `id_ID`, `ja_JP`, `no_NO`, `pt_BR`, `ru_RU`, `sv_SE`, `th_TH`, `tr_TR`, `zh_CN`, `zh_HK`, `zh_TW`.
+            The locale of pages displayed by PayPal payment experience. A valid value is `AU`, `AT`, `BE`, `BR`, `CA`, `CH`, `CN`, `DE`, `ES`, `GB`, `FR`, `IT`, `NL`, `PL`, `PT`, `RU`, or `US`. A 5-character code is also valid for languages in specific countries: `da_DK`, `he_IL`, `id_ID`, `ja_JP`, `no_NO`, `pt_BR`, `ru_RU`, `sv_SE`, `th_TH`, `zh_CN`, `zh_HK`, or `zh_TW`.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Presentation.return_url_label">
+            <summary>
+            A label to use as hypertext for the return to merchant link.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Presentation.note_to_seller_label">
+            <summary>
+            A label to use as the title for the note to seller field. Used only when `allow_note` is `1`.
             </summary>
         </member>
         <member name="T:PayPal.Api.ProcessorResponse">
@@ -5002,72 +5022,9 @@
             List of financial transactions (Sale, Authorization, Capture, Refund) related to the payment.
             </summary>
         </member>
-        <member name="T:PayPal.Api.VerifyWebhookSignature">
-            <summary>
-            Verify webhook signature.
-            <para>
-            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
-            </para>
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.VerifyWebhookSignature.auth_algo">
-            <summary>
-            The algorithm that PayPal uses to generate the signature and that you can use to verify the signature. Extract this value from the `PAYPAL-AUTH-ALGO` response header, which is received with the webhook notification.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.VerifyWebhookSignature.cert_url">
-            <summary>
-            The X.509 public key certificate. Download the certificate from this URL and use it to verify the signature. Extract this value from the `PAYPAL-CERT-URL` response header, which is received with the webhook notification.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.VerifyWebhookSignature.transmission_id">
-            <summary>
-            The ID of the HTTP transmission. Contained in the `PAYPAL-TRANSMISSION-ID` header of the notification message.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.VerifyWebhookSignature.transmission_sig">
-            <summary>
-            The PayPal-generated asymmetric signature. Extract this value from the `PAYPAL-TRANSMISSION-SIG` response header, which is received with the webhook notification.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.VerifyWebhookSignature.transmission_time">
-            <summary>
-            The date and time of the HTTP transmission. Contained in the `PAYPAL-TRANSMISSION-TIME` header of the notification message.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.VerifyWebhookSignature.webhook_id">
-            <summary>
-            The ID of the webhook as configured in your Developer Portal account.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.VerifyWebhookSignature.webhook_event">
-            <summary>
-            The webhook notification, which is the content of the HTTP `POST` request body.
-            </summary>
-        </member>
-        <member name="M:PayPal.Api.VerifyWebhookSignature.Post(PayPal.Api.APIContext)">
-            <summary>
-            Verifies a webhook signature.
-            </summary>
-            <param name="apiContext">APIContext used for the API call.</param>
-            <returns>VerifyWebhookSignatureResponse</returns>
-        </member>
-        <member name="T:PayPal.Api.VerifyWebhookSignatureResponse">
-            <summary>
-            The verify webhook signature response.
-            <para>
-            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
-            </para>
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.VerifyWebhookSignatureResponse.verification_status">
-            <summary>
-            The status of the signature verification. Value is `SUCCESS` or `FAILURE`.
-            </summary>
-        </member>
         <member name="T:PayPal.Api.Webhook">
             <summary>
-            One or more webhook objects.
+            A REST API webhook resource object.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5075,22 +5032,22 @@
         </member>
         <member name="P:PayPal.Api.Webhook.id">
             <summary>
-            The ID of the webhook.
+            Identifier of the webhook resource.
             </summary>
         </member>
         <member name="P:PayPal.Api.Webhook.url">
             <summary>
-            The URL that is configured to listen on `localhost` for incoming `POST` notification messages that contain event information.
+            Webhook notification endpoint url.
             </summary>
         </member>
         <member name="P:PayPal.Api.Webhook.event_types">
             <summary>
-            A list of up to ten events to which to subscribe your webhook. To subscribe to all events including new events as they are added, specify the asterisk (`*`) wildcard. To replace the `event_types` array, specify the `*` wildcard. To see all supported events, [list available events](#available-event-type.list).
+            List of Webhooks event-types.
             </summary>
         </member>
         <member name="M:PayPal.Api.Webhook.Create(PayPal.Api.APIContext)">
             <summary>
-            Subscribes your webhook listener to events. A successful call returns a [`webhook`](/docs/api/webhooks/#definition-webhook) object, which includes the webhook ID for later use.
+            Creates the Webhook for the application associated with the access token.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Webhook</returns>
@@ -5105,23 +5062,22 @@
         </member>
         <member name="M:PayPal.Api.Webhook.Get(PayPal.Api.APIContext,System.String)">
             <summary>
-            Shows details for a webhook, by ID.
+            Retrieves the Webhook identified by webhook_id for the application associated with access token.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="webhookId">The ID of the webhook for which to show details.</param>
+            <param name="webhookId">Identifier of the webhook</param>
             <returns>Webhook</returns>
         </member>
-        <member name="M:PayPal.Api.Webhook.GetAll(PayPal.Api.APIContext,System.String)">
+        <member name="M:PayPal.Api.Webhook.GetAll(PayPal.Api.APIContext)">
             <summary>
-            Lists all webhooks for an app.
+            Retrieves all Webhooks for the application associated with access token.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="anchorType">Filters the response by an entity type, `anchor_id`. Value is `APPLICATION` or `ACCOUNT`. Default is `APPLICATION`.</param>
             <returns>WebhookList</returns>
         </member>
         <member name="M:PayPal.Api.Webhook.Update(PayPal.Api.APIContext,PayPal.Api.PatchRequest)">
             <summary>
-            Replaces webhook fields with new values. Pass a `json_patch` object with `replace` operation and `path`, which is `/url` for a URL or `/event_types` for events. The `value` is either the URL or a list of events.
+            Updates the Webhook identified by webhook_id for the application associated with access token.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="patchRequest">PatchRequest</param>
@@ -5138,20 +5094,20 @@
         </member>
         <member name="M:PayPal.Api.Webhook.Delete(PayPal.Api.APIContext)">
             <summary>
-            Deletes a webhook, by ID.
+            Deletes the Webhook identified by webhook_id for the application associated with access token.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
         </member>
         <member name="M:PayPal.Api.Webhook.Delete(PayPal.Api.APIContext,System.String)">
             <summary>
-            Deletes a webhook, by ID.
+            Deletes the Webhook identified by webhook_id for the application associated with access token.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="webhookId">The ID of the webhook to delete.</param>
+            <param name="webhookId">Identifier of the webhook</param>
         </member>
         <member name="T:PayPal.Api.WebhookEvent">
             <summary>
-            A webhook event notification.
+            A REST API webhook event resource object.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5159,17 +5115,22 @@
         </member>
         <member name="P:PayPal.Api.WebhookEvent.id">
             <summary>
-            The ID of the webhook event notification.
+            Identifier of the Webhooks event resource.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebhookEvent.create_time">
             <summary>
-            The date and time when the webhook event notification was created.
+            Time the resource was created.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebhookEvent.resource_type">
             <summary>
-            The name of the resource related to the webhook notification event.
+            Name of the resource contained in resource element.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookEvent.event_type">
+            <summary>
+            Name of the event type that occurred on resource, identified by data_resource element, to trigger the Webhooks event.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebhookEvent.event_version">
@@ -5177,37 +5138,22 @@
             The version of the event.
             </summary>
         </member>
-        <member name="P:PayPal.Api.WebhookEvent.event_type">
-            <summary>
-            The event that triggered the webhook event notification.
-            </summary>
-        </member>
         <member name="P:PayPal.Api.WebhookEvent.summary">
             <summary>
-            A summary description for the event notification. For example, `A payment authorization was created.`
+            A summary description of the event. E.g. A successful payment authorization was created for $$
             </summary>
         </member>
         <member name="P:PayPal.Api.WebhookEvent.resource">
             <summary>
-            The resource that triggered the webhook event notification.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.WebhookEvent.status">
-            <summary>
-            The event transmission status. Displayed only for internal API calls through the PayPal Developer portal.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.WebhookEvent.transmissions">
-            <summary>
-            The list of transmissions for an event. Displayed only for internal API calls through the PayPal Developer portal.
+            This contains the resource that is identified by resource_type element.
             </summary>
         </member>
         <member name="M:PayPal.Api.WebhookEvent.Get(PayPal.Api.APIContext,System.String)">
             <summary>
-            Shows details for a webhook event notification, by ID.
+            Retrieves the Webhooks event resource identified by event_id. Can be used to retrieve the payload for an event.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="eventId">The ID of the webhook event notification for which to show details.</param>
+            <param name="eventId">Identifier of the Webhooks event resource.</param>
             <returns>WebhookEvent</returns>
         </member>
         <member name="M:PayPal.Api.WebhookEvent.Resend(PayPal.Api.APIContext)">
@@ -5254,7 +5200,7 @@
         </member>
         <member name="T:PayPal.Api.WebhookEventList">
             <summary>
-            List of webhooks events.
+            A list of webhook event resources returned from a search operation.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5262,17 +5208,17 @@
         </member>
         <member name="P:PayPal.Api.WebhookEventList.events">
             <summary>
-            A list of webhooks events.
+            A list of Webhooks event resources
             </summary>
         </member>
         <member name="P:PayPal.Api.WebhookEventList.count">
             <summary>
-            The number of items in each range of results. Note that the response might have fewer items than the requested `page_size` value.
+            Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items.
             </summary>
         </member>
         <member name="T:PayPal.Api.WebhookEventType">
             <summary>
-            A list of events.
+            Details about a specific webhook event type that a <seealso cref="T:PayPal.Api.Webhook"/> can be setup to listen to.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5280,37 +5226,32 @@
         </member>
         <member name="P:PayPal.Api.WebhookEventType.name">
             <summary>
-            The unique event name.
+            Unique event-type name.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebhookEventType.description">
             <summary>
-            A human-readable description of the event.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.WebhookEventType.status">
-            <summary>
-            The status of a webhook event.
+            Human readable description of the event-type
             </summary>
         </member>
         <member name="M:PayPal.Api.WebhookEventType.SubscribedEventTypes(PayPal.Api.APIContext,System.String)">
             <summary>
-            Lists event subscriptions for a webhook, by ID.
+            Retrieves the list of events-types subscribed by the given Webhook.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="webhookId">The ID of the webhook for which to list subscriptions.</param>
-            <returns>WebhookEventTypeList</returns>
+            <param name="webhookId">Identifier of the webhook</param>
+            <returns>EventTypeList</returns>
         </member>
         <member name="M:PayPal.Api.WebhookEventType.AvailableEventTypes(PayPal.Api.APIContext)">
             <summary>
-            Lists available events to which any webhook can subscribe. For a list of supported events, see [Webhook events](/docs/integration/direct/rest/webhooks/webhook-events/).
+            Retrieves the master list of available Webhooks events-types resources for any webhook to subscribe to.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <returns>WebhookEventTypeList</returns>
+            <returns>EventTypeList</returns>
         </member>
         <member name="T:PayPal.Api.WebhookEventTypeList">
             <summary>
-            List of webhook events.
+            A list of webhook event types returned from a search operation.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5318,12 +5259,12 @@
         </member>
         <member name="P:PayPal.Api.WebhookEventTypeList.event_types">
             <summary>
-            A list of webhook events.
+            A list of Webhooks event-types
             </summary>
         </member>
         <member name="T:PayPal.Api.WebhookList">
             <summary>
-            List of webhooks.
+            A list of webhook resource objects returned from a search operation.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5331,12 +5272,12 @@
         </member>
         <member name="P:PayPal.Api.WebhookList.webhooks">
             <summary>
-            A list of webhooks.
+            A list of Webhooks
             </summary>
         </member>
         <member name="T:PayPal.Api.WebProfile">
             <summary>
-            A REST API web experience profile resource object.
+            Payment web experience profile.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5344,12 +5285,17 @@
         </member>
         <member name="P:PayPal.Api.WebProfile.id">
             <summary>
-            Unique ID of the web experience profile.
+            The ID of the web experience profile.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebProfile.name">
             <summary>
-            Name of the web experience profile. Unique only among the profiles for a given merchant.
+            The web experience profile name. Unique for a specified merchant's profiles.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebProfile.temporary">
+            <summary>
+            Indicates whether the profile persists for three hours or permanently. Set to `false` to persist the profile permanently. Set to `true` to persist the profile for three hours.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebProfile.flow_config">
@@ -5369,7 +5315,7 @@
         </member>
         <member name="M:PayPal.Api.WebProfile.Create(PayPal.Api.APIContext)">
             <summary>
-            Create a web experience profile by passing the name of the profile and other profile details in the request JSON to the request URI.
+            Creates a web experience profile. Pass the profile name and details in the JSON request body.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>CreateProfileResponse</returns>
@@ -5384,7 +5330,7 @@
         </member>
         <member name="M:PayPal.Api.WebProfile.Update(PayPal.Api.APIContext)">
             <summary>
-            Update a web experience profile by passing the ID of the profile to the request URI. In addition, pass the profile details in the request JSON. If your request does not include values for all profile detail fields, the previously set values for the omitted fields are removed by this operation.
+            Updates a web experience profile. Pass the ID of the profile to the request URI and pass the profile details in the JSON request body. If your request omits any profile detail fields, the operation removes the previously set values for those fields.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
         </member>
@@ -5397,7 +5343,7 @@
         </member>
         <member name="M:PayPal.Api.WebProfile.PartialUpdate(PayPal.Api.APIContext,PayPal.Api.PatchRequest)">
             <summary>
-            Partially update an existing web experience profile by passing the ID of the profile to the request URI. In addition, pass a patch object in the request JSON that specifies the operation to perform, path of the profile location to update, and a new value if needed to complete the operation.
+            Partially-updates a web experience profile. Pass the profile ID to the request URI. Pass a patch object with the operation, path of the profile location to update, and, if needed, a new value to complete the operation in the JSON request body.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="patchRequest">PatchRequest</param>
@@ -5412,31 +5358,31 @@
         </member>
         <member name="M:PayPal.Api.WebProfile.Get(PayPal.Api.APIContext,System.String)">
             <summary>
-            Retrieve the details of a particular web experience profile by passing the ID of the profile to the request URI.
+            Shows details for a web experience profile, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="profileId">ID of the profile to retrieve.</param>
+            <param name="profileId">The ID of the profile for which to show details.</param>
             <returns>WebProfile</returns>
         </member>
         <member name="M:PayPal.Api.WebProfile.GetList(PayPal.Api.APIContext)">
             <summary>
-            Lists all web experience profiles that exist for a merchant (or subject).
+            Lists all web experience profiles for a merchant or subject.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>WebProfileList</returns>
         </member>
         <member name="M:PayPal.Api.WebProfile.Delete(PayPal.Api.APIContext)">
             <summary>
-            Delete an existing web experience profile by passing the profile ID to the request URI.
+            Deletes a web experience profile, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
         </member>
         <member name="M:PayPal.Api.WebProfile.Delete(PayPal.Api.APIContext,System.String)">
             <summary>
-            Delete an existing web experience profile by passing the profile ID to the request URI.
+            Deletes a web experience profile, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="profileId">ID of the profile to delete.</param>
+            <param name="profileId">The ID of the profile to delete.</param>
         </member>
         <member name="T:PayPal.Api.WebProfileList">
             <summary>
