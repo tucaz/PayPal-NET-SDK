@@ -23,7 +23,7 @@ namespace PayPal.Api
         public string op { get; set; }
 
         /// <summary>
-        /// A JSON pointer that references a location in the target document where the operation is performed. A `string` value.
+        /// A JSON pointer that references a location in the target document where the operation is performed.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "path")]
         public string path { get; set; }
