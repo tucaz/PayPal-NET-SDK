@@ -22,7 +22,6 @@ namespace PayPal.Api
         /// Credit Card information.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_card")]
-        [Obsolete("Please use PaymentCard instead. This will be removed in a future release.", false)]
         public CreditCard credit_card { get; set; }
 
         /// <summary>
