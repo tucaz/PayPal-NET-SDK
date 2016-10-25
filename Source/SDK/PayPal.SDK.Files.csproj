@@ -90,9 +90,9 @@
     <ExternalCompile Include="Api\Phone.cs" />
     <ExternalCompile Include="Api\Plan.cs" />
     <ExternalCompile Include="Api\PlanList.cs" />
-	<ExternalCompile Include="Api\PotentialPayerInfo.cs" />
+    <ExternalCompile Include="Api\PotentialPayerInfo.cs" />
     <ExternalCompile Include="Api\Presentation.cs" />
-	<ExternalCompile Include="Api\ProcessorResponse.cs" />
+    <ExternalCompile Include="Api\ProcessorResponse.cs" />
     <ExternalCompile Include="Api\RecipientBankingInstruction.cs" />
     <ExternalCompile Include="Api\RedirectUrls.cs" />
     <ExternalCompile Include="Api\Refund.cs" />
@@ -106,6 +106,8 @@
     <ExternalCompile Include="Api\Tax.cs" />
     <ExternalCompile Include="Api\Terms.cs" />
     <ExternalCompile Include="Api\Transaction.cs" />
+    <ExternalCompile Include="Api\VerifyWebhookSignature.cs" />
+    <ExternalCompile Include="Api\VerifyWebhookSignatureResponse.cs" />
     <ExternalCompile Include="Api\Webhook.cs" />
     <ExternalCompile Include="Api\WebhookEvent.cs" />
     <ExternalCompile Include="Api\WebhookEventList.cs" />
