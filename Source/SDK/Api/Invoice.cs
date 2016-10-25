@@ -589,15 +589,15 @@ namespace PayPal.Api
         /// Generates the next invoice number that is available to the user.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
-        /// <returns>object</returns>
-        public object GenerateNumber(APIContext apiContext)
+        /// <returns>InvoiceNumber</returns>
+        public InvoiceNumber GenerateNumber(APIContext apiContext)
         {
             // Validate the arguments to be used in the request
             ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
 
             // Configure and send the request
             var resourcePath = "v1/invoicing/invoices/next-invoice-number";
-            return PayPalResource.ConfigureAndExecute<object>(apiContext, HttpMethod.POST, resourcePath);
+            return PayPalResource.ConfigureAndExecute<InvoiceNumber>(apiContext, HttpMethod.POST, resourcePath);
         }
     }
 }

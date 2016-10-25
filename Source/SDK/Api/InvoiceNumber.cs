@@ -4,23 +4,21 @@
 //  More information: https://developer.paypal.com/docs/api/
 //
 //==============================================================================
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
     /// <summary>
-    /// List of summaries of merchant invoice data.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
-    public class Summaries : PayPalResource
+    public class InvoiceNumber : PayPalSerializableObject
     {
         /// <summary>
-        /// An array of summaries.
+        /// The next invoice number that is available to the user. This number is auto-incremented from the most recent invoice number.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "summaries")]
-        public List<Summary> summaries { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number")]
+        public string number { get; set; }
     }
 }

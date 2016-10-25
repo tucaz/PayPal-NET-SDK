@@ -11,7 +11,6 @@
     <ExternalCompile Include="Api\AgreementTransaction.cs" />
     <ExternalCompile Include="Api\AgreementTransactions.cs" />
     <ExternalCompile Include="Api\Amount.cs" />
-    <ExternalCompile Include="Api\AmountSummary.cs" />
     <ExternalCompile Include="Api\Authorization.cs" />
     <ExternalCompile Include="Api\BankAccount.cs" />
     <ExternalCompile Include="Api\BankAccountList.cs" />
@@ -54,6 +53,7 @@
     <ExternalCompile Include="Api\Invoice.cs" />
     <ExternalCompile Include="Api\InvoiceAddress.cs" />
     <ExternalCompile Include="Api\InvoiceItem.cs" />
+    <ExternalCompile Include="Api\InvoiceNumber.cs" />
     <ExternalCompile Include="Api\InvoiceSearchResponse.cs" />
     <ExternalCompile Include="Api\Item.cs" />
     <ExternalCompile Include="Api\ItemList.cs" />
@@ -113,8 +113,6 @@
     <ExternalCompile Include="Api\ShippingAddress.cs" />
     <ExternalCompile Include="Api\ShippingCost.cs" />
     <ExternalCompile Include="Api\ShippingInfo.cs" />
-    <ExternalCompile Include="Api\Summary.cs" />
-    <ExternalCompile Include="Api\Summaries.cs" />
     <ExternalCompile Include="Api\Tax.cs" />
     <ExternalCompile Include="Api\InvoiceTemplate.cs" />
     <ExternalCompile Include="Api\InvoiceTemplateData.cs" />
