@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-	<ExternalCompile Include="Api\PotentialPayerInfo.cs" />
-	<ExternalCompile Include="Api\ProcessorResponse.cs" />
     <ExternalCompile Include="Api\APIContext.cs" />
     <ExternalCompile Include="Api\Address.cs" />
     <ExternalCompile Include="Api\Agreement.cs" />
@@ -102,7 +100,6 @@
     <ExternalCompile Include="Api\PotentialPayerInfo.cs" />
     <ExternalCompile Include="Api\Presentation.cs" />
     <ExternalCompile Include="Api\ProcessorResponse.cs" />
-    <ExternalCompile Include="Api\Presentation.cs" />
     <ExternalCompile Include="Api\RecipientBankingInstruction.cs" />
     <ExternalCompile Include="Api\RedirectUrls.cs" />
     <ExternalCompile Include="Api\Refund.cs" />
