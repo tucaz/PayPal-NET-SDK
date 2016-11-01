@@ -469,8 +469,15 @@
       <DependentUpon>PaymentWithPayPal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </ExternalCompile>
+    <ExternalCompile Include="ThirdPartyPaymentWithPayPal.aspx.cs">
+      <DependentUpon>ThirdPartyPaymentWithPayPal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </ExternalCompile>
     <ExternalCompile Include="PaymentWithPayPal.aspx.designer.cs">
       <DependentUpon>PaymentWithPayPal.aspx</DependentUpon>
+    </ExternalCompile>
+    <ExternalCompile Include="ThirdPartyPaymentWithPayPal.aspx.designer.cs">
+      <DependentUpon>ThirdPartyPaymentWithPayPal.aspx</DependentUpon>
     </ExternalCompile>
     <ExternalCompile Include="PaymentWithSavedCard.aspx.cs">
       <DependentUpon>PaymentWithSavedCard.aspx</DependentUpon>
@@ -593,6 +600,7 @@
     <ExternalContent Include="assets\play_button.png" />
     <ExternalContent Include="PaymentWithCreditCard.aspx" />
     <ExternalContent Include="PaymentWithPayPal.aspx" />
+    <ExternalContent Include="ThirdPartyPaymentWithPayPal.aspx" />
     <ExternalContent Include="PaymentWithSavedCard.aspx" />
     <ExternalContent Include="Reauthorization.aspx" />
     <ExternalContent Include="RefundCapture.aspx" />

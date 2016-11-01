@@ -312,7 +312,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "pageTitle": "Source/Default.aspx",
             "title": "Default.aspx"
           },
-          "depth": 2
+          "depth": 2,
+          "outline": []
         }, {
           "type": "file",
           "data": {
@@ -546,6 +547,46 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "CSharp"
             },
+            "sourcePath": "/Users/scoffey/paypal/server_sdk/PayPal-NET-SDK/Samples/Source/InvoiceDeletePayment.aspx.cs",
+            "projectPath": "Source/InvoiceDeletePayment.aspx.cs",
+            "targetPath": "Source/InvoiceDeletePayment.aspx",
+            "pageTitle": "Source/InvoiceDeletePayment.aspx",
+            "title": "InvoiceDeletePayment.aspx"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".cs"],
+              "pygmentsLexer": "csharp",
+              "highlightJS": "cs",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CSharp"
+            },
+            "sourcePath": "/Users/scoffey/paypal/server_sdk/PayPal-NET-SDK/Samples/Source/InvoiceDeleteRefund.aspx.cs",
+            "projectPath": "Source/InvoiceDeleteRefund.aspx.cs",
+            "targetPath": "Source/InvoiceDeleteRefund.aspx",
+            "pageTitle": "Source/InvoiceDeleteRefund.aspx",
+            "title": "InvoiceDeleteRefund.aspx"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".cs"],
+              "pygmentsLexer": "csharp",
+              "highlightJS": "cs",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CSharp"
+            },
             "sourcePath": "/Users/scoffey/paypal/server_sdk/PayPal-NET-SDK/Samples/Source/InvoiceGet.aspx.cs",
             "projectPath": "Source/InvoiceGet.aspx.cs",
             "targetPath": "Source/InvoiceGet.aspx",
@@ -691,6 +732,106 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "targetPath": "Source/InvoiceSendReminder.aspx",
             "pageTitle": "Source/InvoiceSendReminder.aspx",
             "title": "InvoiceSendReminder.aspx"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".cs"],
+              "pygmentsLexer": "csharp",
+              "highlightJS": "cs",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CSharp"
+            },
+            "sourcePath": "/Users/scoffey/paypal/server_sdk/PayPal-NET-SDK/Samples/Source/InvoiceTemplateCreate.aspx.cs",
+            "projectPath": "Source/InvoiceTemplateCreate.aspx.cs",
+            "targetPath": "Source/InvoiceTemplateCreate.aspx",
+            "pageTitle": "Source/InvoiceTemplateCreate.aspx",
+            "title": "InvoiceTemplateCreate.aspx"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".cs"],
+              "pygmentsLexer": "csharp",
+              "highlightJS": "cs",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CSharp"
+            },
+            "sourcePath": "/Users/scoffey/paypal/server_sdk/PayPal-NET-SDK/Samples/Source/InvoiceTemplateDelete.aspx.cs",
+            "projectPath": "Source/InvoiceTemplateDelete.aspx.cs",
+            "targetPath": "Source/InvoiceTemplateDelete.aspx",
+            "pageTitle": "Source/InvoiceTemplateDelete.aspx",
+            "title": "InvoiceTemplateDelete.aspx"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".cs"],
+              "pygmentsLexer": "csharp",
+              "highlightJS": "cs",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CSharp"
+            },
+            "sourcePath": "/Users/scoffey/paypal/server_sdk/PayPal-NET-SDK/Samples/Source/InvoiceTemplateRetrieve.aspx.cs",
+            "projectPath": "Source/InvoiceTemplateRetrieve.aspx.cs",
+            "targetPath": "Source/InvoiceTemplateRetrieve.aspx",
+            "pageTitle": "Source/InvoiceTemplateRetrieve.aspx",
+            "title": "InvoiceTemplateRetrieve.aspx"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".cs"],
+              "pygmentsLexer": "csharp",
+              "highlightJS": "cs",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CSharp"
+            },
+            "sourcePath": "/Users/scoffey/paypal/server_sdk/PayPal-NET-SDK/Samples/Source/InvoiceTemplateRetrieveList.aspx.cs",
+            "projectPath": "Source/InvoiceTemplateRetrieveList.aspx.cs",
+            "targetPath": "Source/InvoiceTemplateRetrieveList.aspx",
+            "pageTitle": "Source/InvoiceTemplateRetrieveList.aspx",
+            "title": "InvoiceTemplateRetrieveList.aspx"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".cs"],
+              "pygmentsLexer": "csharp",
+              "highlightJS": "cs",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CSharp"
+            },
+            "sourcePath": "/Users/scoffey/paypal/server_sdk/PayPal-NET-SDK/Samples/Source/InvoiceTemplateUpdate.aspx.cs",
+            "projectPath": "Source/InvoiceTemplateUpdate.aspx.cs",
+            "targetPath": "Source/InvoiceTemplateUpdate.aspx",
+            "pageTitle": "Source/InvoiceTemplateUpdate.aspx",
+            "title": "InvoiceTemplateUpdate.aspx"
           },
           "depth": 2
         }, {
@@ -1092,7 +1233,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "pageTitle": "Source/Response.aspx",
             "title": "Response.aspx"
           },
-          "depth": 2
+          "depth": 2,
+          "outline": []
         }, {
           "type": "file",
           "data": {
@@ -1126,11 +1268,96 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "CSharp"
             },
-            "sourcePath": "/Users/scoffey/paypal/server_sdk/PayPal-NET-SDK/Samples/Source/VerifyWebhookSignature.aspx.cs",
-            "projectPath": "Source/VerifyWebhookSignature.aspx.cs",
-            "targetPath": "Source/VerifyWebhookSignature.aspx",
-            "pageTitle": "Source/VerifyWebhookSignature.aspx",
-            "title": "VerifyWebhookSignature.aspx"
+            "sourcePath": "/Users/scoffey/paypal/server_sdk/PayPal-NET-SDK/Samples/Source/ThirdPartyPaymentWithPayPal.aspx.cs",
+            "projectPath": "Source/ThirdPartyPaymentWithPayPal.aspx.cs",
+            "targetPath": "Source/ThirdPartyPaymentWithPayPal.aspx",
+            "pageTitle": "Source/ThirdPartyPaymentWithPayPal.aspx",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Create Payment Using PayPal Sample",
+                "slug": "create-payment-using-paypal-sample",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Api Context",
+                    "slug": "api-context"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Items",
+                    "slug": "items"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Payer",
+                    "slug": "payer"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Redirect URLS",
+                    "slug": "redirect-urls"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Details",
+                    "slug": "details"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Amount",
+                    "slug": "amount"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Transaction",
+                    "slug": "transaction"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Payee",
+                    "slug": "payee"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Payment",
+                    "slug": "payment"
+                  },
+                  "depth": 3
+                }
+              ]
+            },
+            "title": "Create Payment Using PayPal Sample"
           },
           "depth": 2,
           "outline": [
@@ -1142,8 +1369,170 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 "slug": "api-context"
               },
               "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Items",
+                "slug": "items"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Payer",
+                "slug": "payer"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Redirect URLS",
+                "slug": "redirect-urls"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Details",
+                "slug": "details"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Amount",
+                "slug": "amount"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Transaction",
+                "slug": "transaction"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Payee",
+                "slug": "payee"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Payment",
+                "slug": "payment"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Create Future Payment Using PayPal",
+                "slug": "create-future-payment-using-paypal"
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Payer",
+                    "slug": "payer"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Amount",
+                    "slug": "amount"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Details",
+                    "slug": "details"
+                  },
+                  "depth": 3
+                }
+              ]
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Redirect URLS",
+                "slug": "redirect-urls"
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Items",
+                    "slug": "items"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Transaction",
+                    "slug": "transaction"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Api Context",
+                    "slug": "api-context"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Payment",
+                    "slug": "payment"
+                  },
+                  "depth": 3
+                }
+              ]
             }
           ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".cs"],
+              "pygmentsLexer": "csharp",
+              "highlightJS": "cs",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CSharp"
+            },
+            "sourcePath": "/Users/scoffey/paypal/server_sdk/PayPal-NET-SDK/Samples/Source/VerifyWebhookSignature.aspx.cs",
+            "projectPath": "Source/VerifyWebhookSignature.aspx.cs",
+            "targetPath": "Source/VerifyWebhookSignature.aspx",
+            "pageTitle": "Source/VerifyWebhookSignature.aspx",
+            "title": "VerifyWebhookSignature.aspx"
+          },
+          "depth": 2
         }, {
           "type": "file",
           "data": {
