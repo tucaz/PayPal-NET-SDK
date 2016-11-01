@@ -6,11 +6,12 @@
 //==============================================================================
 using Newtonsoft.Json;
 using PayPal.Util;
+using System;
 
 namespace PayPal.Api
 {
     /// <summary>
-    /// A REST API capture resource used in context of capturing a payment.
+    /// A capture transaction.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -18,58 +19,70 @@ namespace PayPal.Api
     public class Capture : PayPalRelationalObject
     {
         /// <summary>
-        /// Identifier of the Capture transaction.
+        /// The ID of the capture transaction.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string id { get; set; }
 
         /// <summary>
-        /// Amount being captured. If no amount is specified, amount is used from the authorization being captured. If amount is same as the amount that's authorized for, the state of the authorization changes to captured. If not, the state of the authorization changes to partially_captured. Alternatively, you could indicate a final capture by setting the is_final_capture flag to true.
+        /// The amount to capture. If the amount matches the orginally authorized amount, the state of the authorization changes to `captured`. If not, the state of the authorization changes to `partially_captured`.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public Amount amount { get; set; }
 
         /// <summary>
-        /// whether this is a final capture for the given authorization or not. If it's final, all the remaining funds held by the authorization, will be released in the funding instrument.
+        /// Indicates whether to release all remaining funds that the authorization holds in the funding instrument. Default is `false`.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "is_final_capture")]
         public bool? is_final_capture { get; set; }
 
         /// <summary>
-        /// State of the capture transaction.
+        /// The state of the capture.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string state { get; set; }
 
         /// <summary>
-        /// ID of the Payment resource that this transaction is based on.
+        /// The reason code that describes why the transaction state is pending or reversed.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reason_code")]
+        public string reason_code { get; set; }
+
+        /// <summary>
+        /// The ID of the payment on which this transaction is based.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "parent_payment")]
         public string parent_payment { get; set; }
 
         /// <summary>
-        /// Transaction fee applicable for this payment.
+        /// The invoice number to track this payment.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_number")]
+        public string invoice_number { get; set; }
+
+        /// <summary>
+        /// The transaction fee for this payment.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "transaction_fee")]
         public Currency transaction_fee { get; set; }
 
         /// <summary>
-        /// Time the resource was created in UTC ISO8601 format.
+        /// The date and time of capture, as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
         public string create_time { get; set; }
 
         /// <summary>
-        /// Time the resource was last updated in UTC ISO8601 format.
+        /// The date and time when the resource was last updated.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
         public string update_time { get; set; }
 
         /// <summary>
-        /// Obtain the Capture transaction resource for the given identifier.
+        /// Shows details for a captured payment, by ID.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
-        /// <param name="captureId">Identifier of the Capture Resource to obtain the data for.</param>
+        /// <param name="captureId">The ID of the captured payment for which to show details.</param>
         /// <returns>Capture</returns>
         public static Capture Get(APIContext apiContext, string captureId)
         {
@@ -89,6 +102,7 @@ namespace PayPal.Api
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="refund">Refund</param>
         /// <returns>Refund</returns>
+	    [Obsolete("Use Refund(ApiContext, RefundRequest instead")]
         public Refund Refund(APIContext apiContext, Refund refund)
         {
             return Capture.Refund(apiContext, this.id, refund);
@@ -101,6 +115,7 @@ namespace PayPal.Api
         /// <param name="captureId">ID of the captured payment resource to refund.</param>
         /// <param name="refund">Refund</param>
         /// <returns>Refund</returns>
+	    [Obsolete("Use Refund(ApiContext, RefundRequest instead")]
         public static Refund Refund(APIContext apiContext, string captureId, Refund refund)
         {
             // Validate the arguments to be used in the request
@@ -112,6 +127,25 @@ namespace PayPal.Api
             var pattern = "v1/payments/capture/{0}/refund";
             var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { captureId });
             return PayPalResource.ConfigureAndExecute<Refund>(apiContext, HttpMethod.POST, resourcePath, refund.ConvertToJson());
+        }
+
+        /// <summary>
+        /// Refunds a captured payment, by ID. Include an `amount` object in the JSON request body.
+        /// </summary>
+        /// <param name="apiContext">APIContext used for the API call.</param>
+        /// <param name="refundRequest">RefundRequest</param>
+        /// <returns>DetailedRefund</returns>
+        public static DetailedRefund Refund(APIContext apiContext, string captureId, RefundRequest refundRequest)
+        {
+            // Validate the arguments to be used in the request
+            ArgumentValidator.ValidateAndSetupAPIContext(apiContext);
+            ArgumentValidator.Validate(captureId, "captureId");
+            ArgumentValidator.Validate(refundRequest, "refundRequest");
+
+            // Configure and send the request
+            var pattern = "v1/payments/capture/{0}/refund";
+            var resourcePath = SDKUtil.FormatURIPath(pattern, new object[] { captureId });
+            return PayPalResource.ConfigureAndExecute<DetailedRefund>(apiContext, HttpMethod.POST, resourcePath, refundRequest.ConvertToJson());
         }
     }
 }

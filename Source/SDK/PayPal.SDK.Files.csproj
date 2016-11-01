@@ -29,10 +29,12 @@
     <ExternalCompile Include="Api\Currency.cs" />
     <ExternalCompile Include="Api\CurrencyConversion.cs" />
     <ExternalCompile Include="Api\CustomAmount.cs" />
+    <ExternalCompile Include="Api\DetailedRefund.cs" />
     <ExternalCompile Include="Api\Details.cs" />
     <ExternalCompile Include="Api\Error.cs" />
     <ExternalCompile Include="Api\ErrorDetails.cs" />
     <ExternalCompile Include="Api\ExtendedBankAccount.cs" />
+    <ExternalCompile Include="Api\ExternalFunding.cs" />
     <ExternalCompile Include="Api\FileAttachment.cs" />
     <ExternalCompile Include="Api\FlowConfig.cs" />
     <ExternalCompile Include="Api\FmfDetails.cs" />
@@ -104,6 +106,7 @@
     <ExternalCompile Include="Api\RedirectUrls.cs" />
     <ExternalCompile Include="Api\Refund.cs" />
     <ExternalCompile Include="Api\RefundDetail.cs" />
+    <ExternalCompile Include="Api\RefundRequest.cs" />
     <ExternalCompile Include="Api\RelatedResources.cs" />
     <ExternalCompile Include="Api\Sale.cs" />
     <ExternalCompile Include="Api\Search.cs" />

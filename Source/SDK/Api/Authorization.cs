@@ -11,7 +11,7 @@ using System;
 namespace PayPal.Api
 {
     /// <summary>
-    /// A REST API authorization resource used to authorize a payment.
+    /// An authorization transaction.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -19,49 +19,49 @@ namespace PayPal.Api
     public class Authorization : PayPalRelationalObject
     {
         /// <summary>
-        /// Identifier of the authorization transaction.
+        /// ID of the authorization transaction.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string id { get; set; }
 
         /// <summary>
-        /// Amount being authorized for.
+        /// Amount being authorized.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public Amount amount { get; set; }
 
         /// <summary>
-        /// specifies payment mode of the transaction
+        /// Specifies the payment mode of the transaction.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_mode")]
         public string payment_mode { get; set; }
 
         /// <summary>
-        /// State of the authorization transaction.
+        /// State of the authorization.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string state { get; set; }
 
         /// <summary>
-        /// Reason code for the transaction state being Pending. This field will replace pending_reason field eventually.
+        /// Reason code, `AUTHORIZATION`, for a transaction state of `pending`.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reason_code")]
         public string reason_code { get; set; }
 
         /// <summary>
-        /// Protection Eligibility of the Payer 
+        /// The level of seller protection in force for the transaction. Only supported when the `payment_method` is set to `paypal`. Allowed values:<br>  `ELIGIBLE`- Merchant is protected by PayPal's Seller Protection Policy for Unauthorized Payments and Item Not Received.</br> `PARTIALLY_ELIGIBLE`- Merchant is protected by PayPal's Seller Protection Policy for Item Not Received or Unauthorized Payments. Refer to `protection_eligibility_type` for specifics. <br> `INELIGIBLE`- Merchant is not protected under the Seller Protection Policy.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "protection_eligibility")]
         public string protection_eligibility { get; set; }
 
         /// <summary>
-        /// Protection Eligibility Type of the Payer 
+        /// The kind of seller protection in force for the transaction. This property is returned only when the `protection_eligibility` property is set to `ELIGIBLE`or `PARTIALLY_ELIGIBLE`. Only supported when the `payment_method` is set to `paypal`. Allowed values:<br> `ITEM_NOT_RECEIVED_ELIGIBLE`- Sellers are protected against claims for items not received.<br> `UNAUTHORIZED_PAYMENT_ELIGIBLE`- Sellers are protected against claims for unauthorized payments.<br> One or both of the allowed values can be returned.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "protection_eligibility_type")]
         public string protection_eligibility_type { get; set; }
 
         /// <summary>
-        /// Fraud Management Filter (FMF) details applied for the payment that could result in accept/deny/pending action.
+        /// Fraud Management Filter (FMF) details applied for the payment that could result in accept, deny, or pending action. Returned in a payment response only if the merchant has enabled FMF in the profile settings and one of the fraud filters was triggered based on those settings. See [Fraud Management Filters Summary](https://developer.paypal.com/docs/classic/fmf/integration-guide/FMFSummary/) for more information.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fmf_details")]
         public FmfDetails fmf_details { get; set; }
@@ -73,19 +73,19 @@ namespace PayPal.Api
         public string parent_payment { get; set; }
 
         /// <summary>
-        /// Date/Time until which funds may be captured against this resource in UTC ISO8601 format.
+        /// Authorization expiration time and date as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "valid_until")]
         public string valid_until { get; set; }
 
         /// <summary>
-        /// Time the resource was created in UTC ISO8601 format.
+        /// Time of authorization as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
         public string create_time { get; set; }
 
         /// <summary>
-        /// Time the resource was last updated in UTC ISO8601 format.
+        /// Time that the resource was last updated.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
         public string update_time { get; set; }
@@ -103,13 +103,26 @@ namespace PayPal.Api
         [JsonIgnore]
         [Obsolete("This property is obsolete. Use reason_code instead.", false)]
         public string pending_reason { get { return this.reason_code; } set { this.reason_code = value; } }
+
+        /// <summary>
+        /// Identifier to the purchase or transaction unit corresponding to this authorization transaction.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reference_id")]
+        public string reference_id { get; set; }
+
+        /// <summary>
+        /// Receipt id is 16 digit number payment identification number returned for guest users to identify the payment.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "receipt_id")]
+        public string receipt_id { get; set; }
+
         #endregion
 
         /// <summary>
-        /// Obtain the Authorization transaction resource for the given identifier.
+        /// Shows details for an authorization, by ID.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
-        /// <param name="authorizationId">Identifier of the Authorization Resource to obtain the data for.</param>
+        /// <param name="authorizationId">The ID of the authorization for which to show details.</param>
         /// <returns>Authorization</returns>
         public static Authorization Get(APIContext apiContext, string authorizationId)
         {
@@ -124,7 +137,7 @@ namespace PayPal.Api
         }
 
         /// <summary>
-        /// Creates (and processes) a new Capture Transaction added as a related resource.
+        /// Captures and processes an authorization, by ID. To use this call, the original payment call must specify an intent of `authorize`.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="capture">Capture</param>
@@ -155,7 +168,7 @@ namespace PayPal.Api
         }
 
         /// <summary>
-        /// Voids (cancels) an Authorization.
+        /// Voids, or cancels, an authorization, by ID. You cannot void a fully captured authorization.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <returns>Authorization</returns>
@@ -183,7 +196,7 @@ namespace PayPal.Api
         }
 
         /// <summary>
-        /// Reauthorizes an expired Authorization.
+        /// Reauthorizes a PayPal account payment, by authorization ID. To ensure that funds are still available, reauthorize a payment after the initial three-day honor period. Supports only the `amount` request parameter.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <returns>Authorization</returns>

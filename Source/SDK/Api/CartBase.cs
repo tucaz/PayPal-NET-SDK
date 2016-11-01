@@ -4,18 +4,25 @@
 //  More information: https://developer.paypal.com/docs/api/
 //
 //==============================================================================
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace PayPal.Api
 {
     /// <summary>
-    /// Common payment transaction details.
+    /// Base properties of a cart resource
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
     public class CartBase : PayPalSerializableObject
     {
+        /// <summary>
+        /// Merchant identifier to the purchase unit. Optional parameter
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reference_id")]
+        public string reference_id { get; set; }
+
         /// <summary>
         /// Amount being collected.
         /// </summary>
@@ -53,7 +60,7 @@ namespace PayPal.Api
         public string invoice_number { get; set; }
 
         /// <summary>
-        /// Soft descriptor used when charging this funding source.
+        /// Soft descriptor used when charging this funding source. If length exceeds max length, the value will be truncated
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "soft_descriptor")]
         public string soft_descriptor { get; set; }

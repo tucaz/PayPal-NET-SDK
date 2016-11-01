@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Information about a PayPal account making a payment.
+    /// A resource representing a Payer that funds a payment.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -42,19 +42,19 @@ namespace PayPal.Api
         public string account_age { get; set; }
 
         /// <summary>
-        /// List of funding instruments to fund the payment.
+        /// List of funding instruments to fund the payment. 'OneOf' funding_instruments,funding_option_id to be used to identify the specifics of payment method passed.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "funding_instruments")]
         public List<FundingInstrument> funding_instruments { get; set; }
 
         /// <summary>
-        /// Id of user selected funding option for the payment. 'OneOf' funding_instruments or funding_option_id to be present 
+        /// Instrument type pre-selected by the user outside of PayPal and passed along the payment creation. This param is used in cases such as PayPal Credit Second Button
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "funding_option_id")]
         public string funding_option_id { get; set; }
 
         /// <summary>
-        /// Default funding option available for the payment 
+        /// Default funding option available for the payment
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "funding_option")]
         public FundingOption funding_option { get; set; }
@@ -70,5 +70,11 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payer_info")]
         public PayerInfo payer_info { get; set; }
+
+        /// <summary>
+        /// Instrument type pre-selected by the user outside of PayPal and passed along the payment creation. This param is used in cases such as PayPal Credit Second Button
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "external_selected_funding_instrument_type")]
+        public string external_selected_funding_instrument_type { get; set; }
     }
 }

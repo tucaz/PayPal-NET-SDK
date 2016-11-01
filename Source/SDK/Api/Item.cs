@@ -12,7 +12,7 @@ using System.ComponentModel;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Details of a purchasable item included with a payment transaction.
+    /// Item details.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -20,46 +20,46 @@ namespace PayPal.Api
     public class Item : PayPalSerializableObject
     {
         /// <summary>
-        /// Number of items.
+        /// Stock keeping unit corresponding (SKU) to item.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "quantity")]
-        public string quantity { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sku")]
+        public string sku { get; set; }
 
         /// <summary>
-        /// Name of the item.
+        /// Item name. 127 characters max.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string name { get; set; }
 
         /// <summary>
-        /// Description of the item.
+        /// Description of the item. Only supported when the `payment_method` is set to `paypal`.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string description { get; set; }
 
         /// <summary>
-        /// Cost of the item.
+        /// Number of a particular item. 10 characters max.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "quantity")]
+        public string quantity { get; set; }
+
+        /// <summary>
+        /// Item cost. 10 characters max.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "price")]
         public string price { get; set; }
 
         /// <summary>
-        /// tax of the item.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax")]
-        public string tax { get; set; }
-
-        /// <summary>
-        /// 3-letter Currency Code
+        /// 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
         public string currency { get; set; }
 
         /// <summary>
-        /// Number or code to identify the item in your catalog/records.
+        /// Tax of the item. Only supported when the `payment_method` is set to `paypal`.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sku")]
-        public string sku { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax")]
+        public string tax { get; set; }
 
         /// <summary>
         /// URL linking to item information. Available to payer in transaction history.
