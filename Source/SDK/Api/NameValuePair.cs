@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Details about an <seealso cref="Item"/>.
+    /// Used to define a type for name-value pairs.  The use of name value pairs in an API should be limited and approved by architecture.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>

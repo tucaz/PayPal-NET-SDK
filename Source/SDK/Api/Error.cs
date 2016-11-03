@@ -48,18 +48,18 @@ namespace PayPal.Api
         /// </summary>
         [Obsolete]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "code")]
-        public string code { get; set; }
-
-        /// <summary>
-        /// URI for detailed information related to this error for the developer.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "information_link")]
-        public string information_link { get; set; }
+	    public string code { get; set; }
 
         /// <summary>
         /// Additional details of the error
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "details")]
         public List<ErrorDetails> details { get; set; }
+
+        /// <summary>
+        /// URI for detailed information related to this error for the developer.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "information_link")]
+        public string information_link { get; set; }
     }
 }

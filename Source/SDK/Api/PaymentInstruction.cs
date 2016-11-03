@@ -10,7 +10,7 @@ using PayPal.Util;
 namespace PayPal.Api
 {
     /// <summary>
-    /// A REST API payment instruction resource object.
+    /// Contain details of how and when the payment should be made to PayPal in cases of manual bank transfer.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>

@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Details about a specific payment transaction.
+    /// A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>

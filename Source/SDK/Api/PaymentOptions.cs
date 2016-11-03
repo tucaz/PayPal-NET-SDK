@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Payment options for a transaction's purchase unit.
+    /// Payment options requested for this purchase unit
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>

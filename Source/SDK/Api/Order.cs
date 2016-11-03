@@ -10,7 +10,7 @@ using PayPal.Util;
 namespace PayPal.Api
 {
     /// <summary>
-    /// A REST API order resource used when making payment orders.
+    /// An order transaction.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -48,25 +48,25 @@ namespace PayPal.Api
         public string state { get; set; }
 
         /// <summary>
-        /// Reason code for the transaction state being Pending or Reversed. This field will replace pending_reason field eventually
+        /// Reason code for the transaction state being Pending or Reversed. This field will replace pending_reason field eventually. Only supported when the `payment_method` is set to `paypal`.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reason_code")]
         public string reason_code { get; set; }
 
         /// <summary>
-        /// Reason code for the transaction state being Pending. Obsolete. Retained for backward compatability. Use reason_code field above instead. 
+        /// [DEPRECATED] Reason code for the transaction state being Pending. Obsolete. Retained for backward compatability. Use reason_code field above instead. 
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pending_reason")]
         public string pending_reason { get; set; }
 
         /// <summary>
-        /// Protection Eligibility of the Payer 
+        /// The level of seller protection in force for the transaction.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "protection_eligibility")]
         public string protection_eligibility { get; set; }
 
         /// <summary>
-        /// Protection Eligibility Type of the Payer 
+        /// The kind of seller protection in force for the transaction. This property is returned only when the `protection_eligibility` property is set to `ELIGIBLE`or `PARTIALLY_ELIGIBLE`. Only supported when the `payment_method` is set to `paypal`. Allowed values:<br> `ITEM_NOT_RECEIVED_ELIGIBLE`- Sellers are protected against claims for items not received.<br> `UNAUTHORIZED_PAYMENT_ELIGIBLE`- Sellers are protected against claims for unauthorized payments.<br> One or both of the allowed values can be returned.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "protection_eligibility_type")]
         public string protection_eligibility_type { get; set; }
@@ -96,10 +96,10 @@ namespace PayPal.Api
         public string update_time { get; set; }
 
         /// <summary>
-        /// Obtain the Order resource for the given identifier.
+        /// Shows details for an order, by ID.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
-        /// <param name="orderId">Identifier of the Order resource to obtain the data for.</param>
+        /// <param name="orderId">The ID of the order for which to show details.</param>
         /// <returns>Order</returns>
         public static Order Get(APIContext apiContext, string orderId)
         {
@@ -114,7 +114,7 @@ namespace PayPal.Api
         }
 
         /// <summary>
-        /// Creates (and processes) a new Capture Transaction added as a related resource.
+        /// Captures a payment for an order, by ID. To use this call, the original payment call must specify an intent of `order`. In the JSON request body, include the payment amount and indicate whether this capture is the final capture for the authorization.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="capture">Capture</param>
@@ -145,7 +145,7 @@ namespace PayPal.Api
         }
 
         /// <summary>
-        /// Voids (cancels) an Order.
+        /// Voids, or cancels, an order, by ID. You cannot void an order if a payment has already been partially or fully captured.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <returns>Order</returns>
@@ -173,7 +173,7 @@ namespace PayPal.Api
         }
 
         /// <summary>
-        /// Creates an authorization on an order
+        /// Authorizes an order, by ID. Include an `amount` object in the JSON request body.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <returns>Authorization</returns>

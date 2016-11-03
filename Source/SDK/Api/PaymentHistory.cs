@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Response object from a payment search operation.
+    /// List of Payments made by the seller.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -24,7 +24,7 @@ namespace PayPal.Api
         public List<Payment> payments { get; set; }
 
         /// <summary>
-        /// Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items.
+        /// Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items. Maximum value: 20.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "count")]
         public int count { get; set; }

@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Details of a stored credit card.
+    /// A resource representing a credit card that can be used to fund a payment.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -17,37 +17,37 @@ namespace PayPal.Api
     public class CreditCardToken : PayPalSerializableObject
     {
         /// <summary>
-        /// ID of a previously saved Credit Card resource using /vault/credit-card API.
+        /// ID of credit card previously stored using `/vault/credit-card`.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_card_id")]
         public string credit_card_id { get; set; }
 
         /// <summary>
-        /// The unique identifier of the payer used when saving this credit card using /vault/credit-card API.
+        /// A unique identifier that you can assign and track when storing a credit card or using a stored credit card. This ID can help to avoid unintentional use or misuse of credit cards. This ID can be any value you would like to associate with the saved card, such as a UUID, username, or email address.  **Required when using a stored credit card if a payer_id was originally provided when storing the credit card in vault.**
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payer_id")]
         public string payer_id { get; set; }
 
         /// <summary>
-        /// Last 4 digits of the card number from the saved card.
+        /// Last four digits of the stored credit card number.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "last4")]
         public string last4 { get; set; }
 
         /// <summary>
-        /// Type of the Card (eg. visa, mastercard, etc.) from the saved card. Please note that the values are always in lowercase and not meant to be used directly for display.
+        /// Credit card type. Valid types are: `visa`, `mastercard`, `discover`, `amex`. Values are presented in lowercase and not should not be used for display.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string type { get; set; }
 
         /// <summary>
-        /// card expiry month from the saved card with value 1 - 12
+        /// Expiration month with no leading zero. Acceptable values are 1 through 12.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "expire_month")]
         public int expire_month { get; set; }
 
         /// <summary>
-        /// 4 digit card expiry year from the saved card
+        /// 4-digit expiration year.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "expire_year")]
         public int expire_year { get; set; }

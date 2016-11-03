@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Request object used to execute a <seealso cref="Payment"/> resource.
+    /// Let's you execute a PayPal Account based Payment resource with the payer_id obtained from web approval url.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -18,13 +18,13 @@ namespace PayPal.Api
     public class PaymentExecution : PayPalSerializableObject
     {
         /// <summary>
-        /// PayPal assigned Payer ID returned in the approval return url.
+        /// The ID of the Payer, passed in the `return_url` by PayPal.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payer_id")]
         public string payer_id { get; set; }
 
         /// <summary>
-        /// Transaction information to be used at the time of execute payment. Only amount and shipping_address can be updated in execute payment
+        /// Transactional details including the amount and item details.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "transactions")]
         public List<Transaction> transactions { get; set; }

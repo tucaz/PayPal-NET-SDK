@@ -11,7 +11,7 @@ using PayPal.Util;
 namespace PayPal.Api
 {
     /// <summary>
-    /// A REST API payment resource.
+    /// Lets you create, process and manage payments.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -25,7 +25,7 @@ namespace PayPal.Api
         public string id { get; set; }
 
         /// <summary>
-        /// Intent of the payment - Sale or Authorization or Order.
+        /// Payment intent.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "intent")]
         public string intent { get; set; }
@@ -49,7 +49,7 @@ namespace PayPal.Api
         public string cart { get; set; }
 
         /// <summary>
-        /// A payment can have more than one transaction, with each transaction establishing a contract between the payer and a payee
+        /// Transactional details including the amount and item details.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "transactions")]
         public List<Transaction> transactions { get; set; }
@@ -67,40 +67,46 @@ namespace PayPal.Api
         public PaymentInstruction payment_instruction { get; set; }
 
         /// <summary>
-        /// state of the payment
+        /// The state of the payment, authorization, or order transaction. The value is:<ul><li><code>created</code>. The transaction was successfully created.</li><li><code>approved</code>. The buyer approved the transaction.</li><li><code>failed</code>. The transaction request failed.</li></ul>
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string state { get; set; }
 
         /// <summary>
-        /// Identifier for the payment experience.
+        /// PayPal generated identifier for the merchant's payment experience profile. Refer to [this](https://developer.paypal.com/docs/api/#payment-experience) link to create experience profile ID.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "experience_profile_id")]
         public string experience_profile_id { get; set; }
 
         /// <summary>
-        /// Redirect urls required only when using payment_method as PayPal - the only settings supported are return and cancel urls.
+        /// free-form field for the use of clients to pass in a message to the payer
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "note_to_payer")]
+        public string note_to_payer { get; set; }
+
+        /// <summary>
+        /// Set of redirect URLs you provide only for PayPal-based payments.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "redirect_urls")]
         public RedirectUrls redirect_urls { get; set; }
 
         /// <summary>
-        /// Time the resource was created in UTC ISO8601 format.
+        /// Failure reason code returned when the payment failed for some valid reasons.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "failure_reason")]
+        public string failure_reason { get; set; }
+
+        /// <summary>
+        /// Payment creation time as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
         public string create_time { get; set; }
 
         /// <summary>
-        /// Time the resource was last updated in UTC ISO8601 format.
+        /// Payment update time as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
         public string update_time { get; set; }
-
-        /// <summary>
-        /// Free-form field that allows clients to pass in a message to the payer.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "note_to_payer")]
-        public string note_to_payer { get; set; }
 
         /// <summary>
         /// Collection of PayPal generated billing agreement tokens.
@@ -115,7 +121,7 @@ namespace PayPal.Api
         public string token { get; set; }
 
         /// <summary>
-        /// Creates (and processes) a new Payment Resource.
+        /// Creates and processes a payment. In the JSON request body, include a `payment` object with the intent, payer, and transactions. For PayPal payments, include redirect URLs in the `payment` object.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <returns>Payment</returns>
@@ -143,10 +149,10 @@ namespace PayPal.Api
         }
 
         /// <summary>
-        /// Obtain the Payment resource for the given identifier.
+        /// Shows details for a payment, by ID.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
-        /// <param name="paymentId">Identifier of the Payment Resource to obtain the data for.</param>
+        /// <param name="paymentId">The ID of the payment for which to show details.</param>
         /// <returns>Payment</returns>
         public static Payment Get(APIContext apiContext, string paymentId)
         {
@@ -161,7 +167,7 @@ namespace PayPal.Api
         }
 
         /// <summary>
-        /// Partially update the Payment resource for the given identifier
+        /// Partially updates a payment, by ID. You can update the amount, shipping address, invoice ID, and custom data. You cannot use patch after execute has been called.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="patchRequest">PatchRequest</param>
@@ -190,7 +196,7 @@ namespace PayPal.Api
         }
 
         /// <summary>
-        /// Executes the payment (after approved by the Payer) associated with this resource when the payment method is PayPal.
+        /// Executes, or completes, a PayPal payment that the payer has approved. You can optionally update selective payment information when you execute a payment.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
         /// <param name="paymentExecution">PaymentExecution</param>
@@ -221,14 +227,14 @@ namespace PayPal.Api
         }
 
         /// <summary>
-        /// Retrieves a list of payments.
+        /// List payments that were made to the merchant who issues the request. Payments can be in any state.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
-        /// <param name="count">Number of items to be returned by a GET operation.</param>
-        /// <param name="startId">A resource ID that indicates the starting resource in the returned results.</param>
-        /// <param name="startIndex">Start index of the resources to be returned. Typically used to jump to a specific position in the resource history based on it's cart.</param>
-        /// <param name="startTime">Resource creation time in ISO-8601 format that indicates the start of a range of results. Example: start_time=2016-03-06T11:00:00Z.</param>
-        /// <param name="endTime">Resource creation time in ISO-8601 format that indicates the end of a range of results. Example: end_time=2016-03-20T10:30:00Z.</param>
+        /// <param name="count">The number of items to list in the response.</param>
+        /// <param name="startId">The ID of the starting resource in the response. When results are paged, you can use the `next_id` value as the `start_id` to continue with the next set of results.</param>
+        /// <param name="startIndex">The start index of the resources to return. Typically used to jump to a specific position in the resource history based on its cart. Example for starting at the second item in a list of results: `?start_index=2`</param>
+        /// <param name="startTime">The date and time when the resource was created. Indicates the start of a range of results. Example: `start_time=2013-03-06T11:00:00Z`</param>
+        /// <param name="endTime">The date and time when the resource was created. Indicates the end of a range of results.</param>
         /// <param name="startDate">Resource creation date that indicates the start of results.</param>
         /// <param name="endDate">Resource creation date that indicates the end of a range of results.</param>
         /// <param name="payeeEmail">Payee identifier (email) to filter the search results in list operations.</param>

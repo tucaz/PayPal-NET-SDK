@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Redirect URLs for where a payer will be sent after approving or canceling a payment.
+    /// Set of redirect URLs you provide only for PayPal-based payments.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -17,13 +17,13 @@ namespace PayPal.Api
     public class RedirectUrls : PayPalSerializableObject
     {
         /// <summary>
-        /// Url where the payer would be redirected to after approving the payment.
+        /// Url where the payer would be redirected to after approving the payment. **Required for PayPal account payments.**
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "return_url")]
         public string return_url { get; set; }
 
         /// <summary>
-        /// Url where the payer would be redirected to after canceling the payment.
+        /// Url where the payer would be redirected to after canceling the payment. **Required for PayPal account payments.**
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel_url")]
         public string cancel_url { get; set; }

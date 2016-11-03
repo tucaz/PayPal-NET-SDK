@@ -23,19 +23,19 @@ namespace PayPal.Api
         public string op { get; set; }
 
         /// <summary>
-        /// A JSON pointer that references a location in the target document where the operation is performed.
+        /// A JSON pointer that references a location in the target document where the operation is performed. A `string` value.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "path")]
         public string path { get; set; }
 
         /// <summary>
-        /// The value to apply based on the operation. The `remove` operation does not require a `value`.
+        /// New value to apply based on the operation.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "value")]
         public object value { get; set; }
 
         /// <summary>
-        /// A JSON pointer that references the location in the target document from which to move the value. A `string` value. Required for the `move` operation.
+        /// A string containing a JSON Pointer value that references the location in the target document to move the value from.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "from")]
         public string from { get; set; }

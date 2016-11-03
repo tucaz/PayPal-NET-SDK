@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Defines extra details for an <see cref="Amount"/> object.
+    /// Additional details of the payment amount.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -17,37 +17,37 @@ namespace PayPal.Api
     public class Details : PayPalSerializableObject
     {
         /// <summary>
-        /// Sub-total (amount) of items being paid for.
+        /// Amount of the subtotal of the items. **Required** if line items are specified. 10 characters max, with support for 2 decimal places.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subtotal")]
         public string subtotal { get; set; }
 
         /// <summary>
-        /// Amount being charged for shipping.
+        /// Amount charged for shipping. 10 characters max with support for 2 decimal places.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "shipping")]
         public string shipping { get; set; }
 
         /// <summary>
-        /// Amount being charged as tax.
+        /// Amount charged for tax. 10 characters max with support for 2 decimal places.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax")]
         public string tax { get; set; }
 
         /// <summary>
-        /// Amount being charged as handling fee.
+        /// Amount being charged for the handling fee. Only supported when the `payment_method` is set to `paypal`.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "handling_fee")]
         public string handling_fee { get; set; }
 
         /// <summary>
-        /// Amount being charged as shipping discount.
+        /// Amount being discounted for the shipping fee. Only supported when the `payment_method` is set to `paypal`.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "shipping_discount")]
         public string shipping_discount { get; set; }
 
         /// <summary>
-        /// Amount being charged as insurance.
+        /// Amount being charged for the insurance fee. Only supported when the `payment_method` is set to `paypal`.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "insurance")]
         public string insurance { get; set; }

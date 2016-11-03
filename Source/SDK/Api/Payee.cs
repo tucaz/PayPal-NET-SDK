@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Information about a merchant account receiving funds related to a payment transaction.
+    /// A resource representing a Payee who receives the funds and fulfills the order.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -23,13 +23,13 @@ namespace PayPal.Api
         public string email { get; set; }
 
         /// <summary>
-        /// Encrypted PayPal Account identifier for the Payee.
+        /// Encrypted PayPal account identifier for the Payee.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "merchant_id")]
         public string merchant_id { get; set; }
 
         /// <summary>
-        /// Information related to the Payer. In case of PayPal Wallet payment, this information will be filled in by PayPal after the user approves the payment using their PayPal Wallet. 
+        /// Information related to the Payer. In case of PayPal Wallet payment, this information will be filled in by PayPal after the user approves the payment using their PayPal Wallet.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "phone")]
         public Phone phone { get; set; }

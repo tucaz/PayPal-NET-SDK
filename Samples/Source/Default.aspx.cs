@@ -23,6 +23,7 @@ namespace PayPal.Sample
                         Items = new List<SampleItem>
                         {
                             new SampleItem { Title = "Make a payment with a PayPal account", ExecutePage = "PaymentWithPayPal.aspx", HasSourcePage = true },
+                            new SampleItem { Title = "Make a payment to a third party with a PayPal account", ExecutePage = "ThirdPartyPaymentWithPayPal.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Make a payment with a PayPal account and include a discount", ExecutePage = "PaymentWithPayPalWithDiscount.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Make a payment with a credit card", ExecutePage = "PaymentWithCreditCard.aspx", HasSourcePage = true },
                             new SampleItem { Title = "Make a payment with a stored credit card", ExecutePage = "PaymentWithSavedCard.aspx", HasSourcePage = true },

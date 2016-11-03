@@ -10,7 +10,7 @@ using PayPal.Util;
 namespace PayPal.Api
 {
     /// <summary>
-    /// A REST API credit card resource.
+    /// [DEPRECATED] Represents a credit card to fund a payment. Use Payment Card instead.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -24,43 +24,43 @@ namespace PayPal.Api
         public string id { get; set; }
 
         /// <summary>
-        /// Card number.
+        /// Credit card number. Numeric characters only with no spaces or punctuation. The string must conform with modulo and length required by each credit card type. *Redacted in responses.*
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number")]
         public string number { get; set; }
 
         /// <summary>
-        /// Type of the Card (eg. Visa, Mastercard, etc.).
+        /// Credit card type. Valid types are: `visa`, `mastercard`, `discover`, `amex`
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string type { get; set; }
 
         /// <summary>
-        /// 2 digit card expiry month.
+        /// Expiration month with no leading zero. Acceptable values are 1 through 12.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "expire_month")]
         public int expire_month { get; set; }
 
         /// <summary>
-        /// 4 digit card expiry year
+        /// 4-digit expiration year.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "expire_year")]
         public int expire_year { get; set; }
 
         /// <summary>
-        /// Card validation code. Only supported when making a Payment but not when saving a credit card for future use.
+        /// 3-4 digit card validation code.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cvv2")]
         public string cvv2 { get; set; }
 
         /// <summary>
-        /// Card holder's first name.
+        /// Cardholder's first name.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "first_name")]
         public string first_name { get; set; }
 
         /// <summary>
-        /// Card holder's last name.
+        /// Cardholder's last name.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "last_name")]
         public string last_name { get; set; }
@@ -78,7 +78,7 @@ namespace PayPal.Api
         public string payer_id { get; set; }
 
         /// <summary>
-        /// A unique identifier of the customer to whom this bank account belongs to. Generated and provided by the facilitator. This is required when creating or using a stored funding instrument in vault.
+        /// A unique identifier of the customer to whom this bank account belongs. Generated and provided by the facilitator. **This is now used in favor of `payer_id` when creating or using a stored funding instrument in the vault.**
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "external_customer_id")]
         public string external_customer_id { get; set; }
@@ -96,7 +96,7 @@ namespace PayPal.Api
         public string external_card_id { get; set; }
 
         /// <summary>
-        /// State of the funding instrument.
+        /// State of the credit card funding instrument.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string state { get; set; }
@@ -114,7 +114,7 @@ namespace PayPal.Api
         public string update_time { get; set; }
 
         /// <summary>
-        /// Date/Time until this resource can be used fund a payment.
+        /// Funding instrument expiration date.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "valid_until")]
         public string valid_until { get; set; }

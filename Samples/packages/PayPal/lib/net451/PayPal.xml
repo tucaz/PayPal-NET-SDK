@@ -4,61 +4,6 @@
         <name>PayPal</name>
     </assembly>
     <members>
-        <member name="T:PayPal.Api.PotentialPayerInfo">
-            <summary>
-            A resource representing a information about a potential payer.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.PotentialPayerInfo.email">
-            <summary>
-            Email address representing the potential payer.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.PotentialPayerInfo.external_remember_me_id">
-            <summary>
-            xternalRememberMe id representing the potential payer.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.PotentialPayerInfo.billing_address">
-            <summary>
-            Billing address of the potential payer.
-            </summary>
-        </member>
-        <member name="T:PayPal.Api.ProcessorResponse">
-            <summary>
-            Collection of payment response related fields returned from a payment request.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.ProcessorResponse.response_code">
-            <summary>
-            Paypal normalized response code, generated from the processor's specific response code
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.ProcessorResponse.avs_code">
-            <summary>
-            Address Verification System response code. https://developer.paypal.com/webapps/developer/docs/classic/api/AVSResponseCodes/
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.ProcessorResponse.cvv_code">
-            <summary>
-            CVV System response code. https://developer.paypal.com/webapps/developer/docs/classic/api/AVSResponseCodes/
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.ProcessorResponse.advice_code">
-            <summary>
-            Provides merchant advice on how to handle declines related to recurring payments
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.ProcessorResponse.eci_submitted">
-            <summary>
-            Response back from the authorization. Provided by the processor
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.ProcessorResponse.vpas">
-            <summary>
-            PVisa Payer Authentication Service status. Will be return from processor
-            </summary>
-        </member>
         <member name="T:PayPal.Api.APIContext">
             <summary>
             APIContext is used when making HTTP calls to the PayPal REST API.
@@ -133,7 +78,22 @@
         </member>
         <member name="P:PayPal.Api.Address.phone">
             <summary>
-            Phone number in E.123 format.
+            Phone number in E.123 format. 50 characters max.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Address.normalization_status">
+            <summary>
+            Address normalization status, returned only for payers from Brazil.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Address.status">
+            <summary>
+            Address status
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Address.type">
+            <summary>
+            Type of address (e.g., HOME_OR_WORK, GIFT etc).
             </summary>
         </member>
         <member name="T:PayPal.Api.Agreement">
@@ -496,7 +456,7 @@
         </member>
         <member name="T:PayPal.Api.Amount">
             <summary>
-            Defines a total currency amount and associated details.
+            payment amount with break-ups.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -504,12 +464,12 @@
         </member>
         <member name="P:PayPal.Api.Amount.currency">
             <summary>
-            3 letter currency code
+            3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/). PayPal does not support all currencies.
             </summary>
         </member>
         <member name="P:PayPal.Api.Amount.total">
             <summary>
-            Total amount charged as part of this payment.
+            Total amount charged from the payer to the payee. In case of a refund, this is the refunded amount to the original payer from the payee. 10 characters max with support for 2 decimal places.
             </summary>
         </member>
         <member name="P:PayPal.Api.Amount.details">
@@ -517,32 +477,9 @@
             Additional details of the payment amount.
             </summary>
         </member>
-        <member name="T:PayPal.Api.AmountSummary">
-            <summary>
-            Summary of invoice total and paid and refunded amounts grouped by currency code.
-            <para>
-            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
-            </para>
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.AmountSummary.total_amount">
-            <summary>
-            The total amount of the invoice.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.AmountSummary.paid_amount">
-            <summary>
-            Payment summary of invoice data including the amount paid through PayPal and other sources
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.AmountSummary.refunded_amount">
-            <summary>
-            Payment summary of invoice data including the amount refunded through PayPal and other sources.
-            </summary>
-        </member>
         <member name="T:PayPal.Api.Authorization">
             <summary>
-            A REST API authorization resource used to authorize a payment.
+            An authorization transaction.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -550,42 +487,34 @@
         </member>
         <member name="P:PayPal.Api.Authorization.id">
             <summary>
-            Identifier of the authorization transaction.
+            ID of the authorization transaction.
             </summary>
         </member>
         <member name="P:PayPal.Api.Authorization.amount">
             <summary>
-            Amount being authorized for.
+            Amount being authorized.
             </summary>
         </member>
         <member name="P:PayPal.Api.Authorization.payment_mode">
             <summary>
-            specifies payment mode of the transaction
+            Specifies the payment mode of the transaction.
             </summary>
         </member>
         <member name="P:PayPal.Api.Authorization.state">
             <summary>
-            State of the authorization transaction.
+            State of the authorization.
             </summary>
         </member>
         <member name="P:PayPal.Api.Authorization.reason_code">
             <summary>
-            Reason code for the transaction state being Pending. This field will replace pending_reason field eventually.
+            Reason code, `AUTHORIZATION`, for a transaction state of `pending`.
             </summary>
         </member>
-        <member name="P:PayPal.Api.Authorization.protection_eligibility">
-            <summary>
-            Protection Eligibility of the Payer 
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.Authorization.protection_eligibility_type">
-            <summary>
-            Protection Eligibility Type of the Payer 
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "P:PayPal.Api.Authorization.protection_eligibility" -->
+        <!-- Badly formed XML comment ignored for member "P:PayPal.Api.Authorization.protection_eligibility_type" -->
         <member name="P:PayPal.Api.Authorization.fmf_details">
             <summary>
-            Fraud Management Filter (FMF) details applied for the payment that could result in accept/deny/pending action.
+            Fraud Management Filter (FMF) details applied for the payment that could result in accept, deny, or pending action. Returned in a payment response only if the merchant has enabled FMF in the profile settings and one of the fraud filters was triggered based on those settings. See [Fraud Management Filters Summary](https://developer.paypal.com/docs/classic/fmf/integration-guide/FMFSummary/) for more information.
             </summary>
         </member>
         <member name="P:PayPal.Api.Authorization.parent_payment">
@@ -595,17 +524,17 @@
         </member>
         <member name="P:PayPal.Api.Authorization.valid_until">
             <summary>
-            Date/Time until which funds may be captured against this resource in UTC ISO8601 format.
+            Authorization expiration time and date as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
             </summary>
         </member>
         <member name="P:PayPal.Api.Authorization.create_time">
             <summary>
-            Time the resource was created in UTC ISO8601 format.
+            Time of authorization as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
             </summary>
         </member>
         <member name="P:PayPal.Api.Authorization.update_time">
             <summary>
-            Time the resource was last updated in UTC ISO8601 format.
+            Time that the resource was last updated.
             </summary>
         </member>
         <member name="P:PayPal.Api.Authorization.processor_response">
@@ -618,17 +547,27 @@
             Reason code for the transaction state being Pending.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Authorization.reference_id">
+            <summary>
+            Identifier to the purchase or transaction unit corresponding to this authorization transaction.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Authorization.receipt_id">
+            <summary>
+            Receipt id is 16 digit number payment identification number returned for guest users to identify the payment.
+            </summary>
+        </member>
         <member name="M:PayPal.Api.Authorization.Get(PayPal.Api.APIContext,System.String)">
             <summary>
-            Obtain the Authorization transaction resource for the given identifier.
+            Shows details for an authorization, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="authorizationId">Identifier of the Authorization Resource to obtain the data for.</param>
+            <param name="authorizationId">The ID of the authorization for which to show details.</param>
             <returns>Authorization</returns>
         </member>
         <member name="M:PayPal.Api.Authorization.Capture(PayPal.Api.APIContext,PayPal.Api.Capture)">
             <summary>
-            Creates (and processes) a new Capture Transaction added as a related resource.
+            Captures and processes an authorization, by ID. To use this call, the original payment call must specify an intent of `authorize`.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="capture">Capture</param>
@@ -645,7 +584,7 @@
         </member>
         <member name="M:PayPal.Api.Authorization.Void(PayPal.Api.APIContext)">
             <summary>
-            Voids (cancels) an Authorization.
+            Voids, or cancels, an authorization, by ID. You cannot void a fully captured authorization.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Authorization</returns>
@@ -660,7 +599,7 @@
         </member>
         <member name="M:PayPal.Api.Authorization.Reauthorize(PayPal.Api.APIContext)">
             <summary>
-            Reauthorizes an expired Authorization.
+            Reauthorizes a PayPal account payment, by authorization ID. To ensure that funds are still available, reauthorize a payment after the initial three-day honor period. Supports only the `amount` request parameter.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Authorization</returns>
@@ -675,7 +614,7 @@
         </member>
         <member name="T:PayPal.Api.BankAccount">
             <summary>
-            A REST API bank account resource.
+            A resource representing a bank account that can be used to fund a payment.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -778,7 +717,7 @@
         </member>
         <member name="P:PayPal.Api.BankAccount.merchant_id">
             <summary>
-            A unique identifier of the merchant for which this bank account has been stored for. Generated and provided by the facilitator so it can be used to restrict the usage of the bank account to the specific merchnt.
+            A unique identifier of the merchant for which this bank account has been stored for. Generated and provided by the facilitator so it can be used to restrict the usage of the bank account to the specific merchant.
             </summary>
         </member>
         <member name="P:PayPal.Api.BankAccount.external_account_id">
@@ -895,7 +834,7 @@
         </member>
         <member name="T:PayPal.Api.BankToken">
             <summary>
-            Contains bank account identifiers.
+            A resource representing a bank that can be used to fund a payment.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1052,7 +991,7 @@
         </member>
         <member name="T:PayPal.Api.Capture">
             <summary>
-            A REST API capture resource used in context of capturing a payment.
+            A capture transaction.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1060,50 +999,60 @@
         </member>
         <member name="P:PayPal.Api.Capture.id">
             <summary>
-            Identifier of the Capture transaction.
+            The ID of the capture transaction.
             </summary>
         </member>
         <member name="P:PayPal.Api.Capture.amount">
             <summary>
-            Amount being captured. If no amount is specified, amount is used from the authorization being captured. If amount is same as the amount that's authorized for, the state of the authorization changes to captured. If not, the state of the authorization changes to partially_captured. Alternatively, you could indicate a final capture by setting the is_final_capture flag to true.
+            The amount to capture. If the amount matches the orginally authorized amount, the state of the authorization changes to `captured`. If not, the state of the authorization changes to `partially_captured`.
             </summary>
         </member>
         <member name="P:PayPal.Api.Capture.is_final_capture">
             <summary>
-            whether this is a final capture for the given authorization or not. If it's final, all the remaining funds held by the authorization, will be released in the funding instrument.
+            Indicates whether to release all remaining funds that the authorization holds in the funding instrument. Default is `false`.
             </summary>
         </member>
         <member name="P:PayPal.Api.Capture.state">
             <summary>
-            State of the capture transaction.
+            The state of the capture.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Capture.reason_code">
+            <summary>
+            The reason code that describes why the transaction state is pending or reversed.
             </summary>
         </member>
         <member name="P:PayPal.Api.Capture.parent_payment">
             <summary>
-            ID of the Payment resource that this transaction is based on.
+            The ID of the payment on which this transaction is based.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Capture.invoice_number">
+            <summary>
+            The invoice number to track this payment.
             </summary>
         </member>
         <member name="P:PayPal.Api.Capture.transaction_fee">
             <summary>
-            Transaction fee applicable for this payment.
+            The transaction fee for this payment.
             </summary>
         </member>
         <member name="P:PayPal.Api.Capture.create_time">
             <summary>
-            Time the resource was created in UTC ISO8601 format.
+            The date and time of capture, as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
             </summary>
         </member>
         <member name="P:PayPal.Api.Capture.update_time">
             <summary>
-            Time the resource was last updated in UTC ISO8601 format.
+            The date and time when the resource was last updated.
             </summary>
         </member>
         <member name="M:PayPal.Api.Capture.Get(PayPal.Api.APIContext,System.String)">
             <summary>
-            Obtain the Capture transaction resource for the given identifier.
+            Shows details for a captured payment, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="captureId">Identifier of the Capture Resource to obtain the data for.</param>
+            <param name="captureId">The ID of the captured payment for which to show details.</param>
             <returns>Capture</returns>
         </member>
         <member name="M:PayPal.Api.Capture.Refund(PayPal.Api.APIContext,PayPal.Api.Refund)">
@@ -1123,9 +1072,17 @@
             <param name="refund">Refund</param>
             <returns>Refund</returns>
         </member>
+        <member name="M:PayPal.Api.Capture.Refund(PayPal.Api.APIContext,System.String,PayPal.Api.RefundRequest)">
+            <summary>
+            Refunds a captured payment, by ID. Include an `amount` object in the JSON request body.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="refundRequest">RefundRequest</param>
+            <returns>DetailedRefund</returns>
+        </member>
         <member name="T:PayPal.Api.CarrierAccountToken">
             <summary>
-            Carrier account identifiers.
+            A resource representing a carrier account that can be used to fund a payment.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1143,10 +1100,15 @@
         </member>
         <member name="T:PayPal.Api.CartBase">
             <summary>
-            Common payment transaction details.
+            Base properties of a cart resource
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.CartBase.reference_id">
+            <summary>
+            Merchant identifier to the purchase unit. Optional parameter
             </summary>
         </member>
         <member name="P:PayPal.Api.CartBase.amount">
@@ -1181,7 +1143,7 @@
         </member>
         <member name="P:PayPal.Api.CartBase.soft_descriptor">
             <summary>
-            Soft descriptor used when charging this funding source.
+            Soft descriptor used when charging this funding source. If length exceeds max length, the value will be truncated
             </summary>
         </member>
         <member name="P:PayPal.Api.CartBase.payment_options">
@@ -1260,7 +1222,7 @@
         </member>
         <member name="T:PayPal.Api.Credit">
             <summary>
-            Details of a credit funding resource.
+            A resource representing a credit instrument.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1278,7 +1240,7 @@
         </member>
         <member name="T:PayPal.Api.CreditCard">
             <summary>
-            A REST API credit card resource.
+            [DEPRECATED] Represents a credit card to fund a payment. Use Payment Card instead.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1291,37 +1253,37 @@
         </member>
         <member name="P:PayPal.Api.CreditCard.number">
             <summary>
-            Card number.
+            Credit card number. Numeric characters only with no spaces or punctuation. The string must conform with modulo and length required by each credit card type. *Redacted in responses.*
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCard.type">
             <summary>
-            Type of the Card (eg. Visa, Mastercard, etc.).
+            Credit card type. Valid types are: `visa`, `mastercard`, `discover`, `amex`
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCard.expire_month">
             <summary>
-            2 digit card expiry month.
+            Expiration month with no leading zero. Acceptable values are 1 through 12.
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCard.expire_year">
             <summary>
-            4 digit card expiry year
+            4-digit expiration year.
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCard.cvv2">
             <summary>
-            Card validation code. Only supported when making a Payment but not when saving a credit card for future use.
+            3-4 digit card validation code.
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCard.first_name">
             <summary>
-            Card holder's first name.
+            Cardholder's first name.
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCard.last_name">
             <summary>
-            Card holder's last name.
+            Cardholder's last name.
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCard.billing_address">
@@ -1336,7 +1298,7 @@
         </member>
         <member name="P:PayPal.Api.CreditCard.external_customer_id">
             <summary>
-            A unique identifier of the customer to whom this bank account belongs to. Generated and provided by the facilitator. This is required when creating or using a stored funding instrument in vault.
+            A unique identifier of the customer to whom this bank account belongs. Generated and provided by the facilitator. **This is now used in favor of `payer_id` when creating or using a stored funding instrument in the vault.**
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCard.merchant_id">
@@ -1351,7 +1313,7 @@
         </member>
         <member name="P:PayPal.Api.CreditCard.state">
             <summary>
-            State of the funding instrument.
+            State of the credit card funding instrument.
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCard.create_time">
@@ -1366,7 +1328,7 @@
         </member>
         <member name="P:PayPal.Api.CreditCard.valid_until">
             <summary>
-            Date/Time until this resource can be used fund a payment.
+            Funding instrument expiration date.
             </summary>
         </member>
         <member name="M:PayPal.Api.CreditCard.Create(PayPal.Api.APIContext)">
@@ -1464,7 +1426,7 @@
         </member>
         <member name="T:PayPal.Api.CreditCardToken">
             <summary>
-            Details of a stored credit card.
+            A resource representing a credit card that can be used to fund a payment.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1472,32 +1434,32 @@
         </member>
         <member name="P:PayPal.Api.CreditCardToken.credit_card_id">
             <summary>
-            ID of a previously saved Credit Card resource using /vault/credit-card API.
+            ID of credit card previously stored using `/vault/credit-card`.
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCardToken.payer_id">
             <summary>
-            The unique identifier of the payer used when saving this credit card using /vault/credit-card API.
+            A unique identifier that you can assign and track when storing a credit card or using a stored credit card. This ID can help to avoid unintentional use or misuse of credit cards. This ID can be any value you would like to associate with the saved card, such as a UUID, username, or email address.  **Required when using a stored credit card if a payer_id was originally provided when storing the credit card in vault.**
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCardToken.last4">
             <summary>
-            Last 4 digits of the card number from the saved card.
+            Last four digits of the stored credit card number.
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCardToken.type">
             <summary>
-            Type of the Card (eg. visa, mastercard, etc.) from the saved card. Please note that the values are always in lowercase and not meant to be used directly for display.
+            Credit card type. Valid types are: `visa`, `mastercard`, `discover`, `amex`. Values are presented in lowercase and not should not be used for display.
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCardToken.expire_month">
             <summary>
-            card expiry month from the saved card with value 1 - 12
+            Expiration month with no leading zero. Acceptable values are 1 through 12.
             </summary>
         </member>
         <member name="P:PayPal.Api.CreditCardToken.expire_year">
             <summary>
-            4 digit card expiry year from the saved card
+            4-digit expiration year.
             </summary>
         </member>
         <member name="T:PayPal.Api.Currency">
@@ -1520,7 +1482,7 @@
         </member>
         <member name="T:PayPal.Api.CurrencyConversion">
             <summary>
-            Details of a currency conversion.
+            Object used to store the currency conversion rate.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1584,9 +1546,52 @@
             The custom amount value. Valid value is from -999999.99 to 999999.99.
             </summary>
         </member>
+        <member name="T:PayPal.Api.DetailedRefund">
+            <summary>
+            A refund transaction. This is the resource that is returned on GET /refund
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.DetailedRefund.custom">
+            <summary>
+            free-form field for the use of clients
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.DetailedRefund.invoice_number">
+            <summary>
+            invoice number to track this payment
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.DetailedRefund.refund_to_payer">
+            <summary>
+            Amount refunded to payer of the original transaction, in the current Refund call
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.DetailedRefund.refund_to_external_funding">
+            <summary>
+            List of external funding that were refunded by the Refund call. Each external_funding unit should have a unique reference_id
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.DetailedRefund.refund_from_transaction_fee">
+            <summary>
+            Transaction fee refunded to original recipient of payment.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.DetailedRefund.refund_from_received_amount">
+            <summary>
+            Amount subtracted from PayPal balance of the original recipient of payment, to make this refund.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.DetailedRefund.total_refunded_amount">
+            <summary>
+            Total amount refunded so far from the original purchase. Say, for example, a buyer makes $100 purchase, the buyer was refunded $20 a week ago and is refunded $30 in this transaction. The gross refund amount is $30 (in this transaction). The total refunded amount is $50.
+            </summary>
+        </member>
         <member name="T:PayPal.Api.Details">
             <summary>
-            Defines extra details for an <see cref="T:PayPal.Api.Amount"/> object.
+            Additional details of the payment amount.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1594,32 +1599,32 @@
         </member>
         <member name="P:PayPal.Api.Details.subtotal">
             <summary>
-            Sub-total (amount) of items being paid for.
+            Amount of the subtotal of the items. **Required** if line items are specified. 10 characters max, with support for 2 decimal places.
             </summary>
         </member>
         <member name="P:PayPal.Api.Details.shipping">
             <summary>
-            Amount being charged for shipping.
+            Amount charged for shipping. 10 characters max with support for 2 decimal places.
             </summary>
         </member>
         <member name="P:PayPal.Api.Details.tax">
             <summary>
-            Amount being charged as tax.
+            Amount charged for tax. 10 characters max with support for 2 decimal places.
             </summary>
         </member>
         <member name="P:PayPal.Api.Details.handling_fee">
             <summary>
-            Amount being charged as handling fee.
+            Amount being charged for the handling fee. Only supported when the `payment_method` is set to `paypal`.
             </summary>
         </member>
         <member name="P:PayPal.Api.Details.shipping_discount">
             <summary>
-            Amount being charged as shipping discount.
+            Amount being discounted for the shipping fee. Only supported when the `payment_method` is set to `paypal`.
             </summary>
         </member>
         <member name="P:PayPal.Api.Details.insurance">
             <summary>
-            Amount being charged as insurance.
+            Amount being charged for the insurance fee. Only supported when the `payment_method` is set to `paypal`.
             </summary>
         </member>
         <member name="P:PayPal.Api.Details.gift_wrap">
@@ -1665,14 +1670,14 @@
             PayPal internal error code.
             </summary>
         </member>
-        <member name="P:PayPal.Api.Error.information_link">
-            <summary>
-            URI for detailed information related to this error for the developer.
-            </summary>
-        </member>
         <member name="P:PayPal.Api.Error.details">
             <summary>
             Additional details of the error
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Error.information_link">
+            <summary>
+            URI for detailed information related to this error for the developer.
             </summary>
         </member>
         <member name="T:PayPal.Api.ErrorDetails">
@@ -1685,7 +1690,7 @@
         </member>
         <member name="P:PayPal.Api.ErrorDetails.field">
             <summary>
-            Name of the field that caused the error. Required for client side errors.
+            Name of the field that caused the error.
             </summary>
         </member>
         <member name="P:PayPal.Api.ErrorDetails.issue">
@@ -1705,7 +1710,7 @@
         </member>
         <member name="T:PayPal.Api.ExtendedBankAccount">
             <summary>
-            A REST API extended bank account resource.
+            A resource representing a bank account that can be used to fund a payment including support for SEPA.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1714,6 +1719,44 @@
         <member name="P:PayPal.Api.ExtendedBankAccount.mandate_reference_number">
             <summary>
             Identifier of the direct debit mandate to validate. Currently supported only for EU bank accounts(SEPA).
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.ExternalFunding">
+            <summary>
+            A resource representing an external funding object.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ExternalFunding.reference_id">
+            <summary>
+            Unique identifier for the external funding
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ExternalFunding.code">
+            <summary>
+            Generic identifier for the external funding
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ExternalFunding.funding_account_id">
+            <summary>
+            Encrypted PayPal Account identifier for the funding account
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ExternalFunding.display_text">
+            <summary>
+            Description of the external funding being applied
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ExternalFunding.amount">
+            <summary>
+            Amount being funded by the external funding account
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ExternalFunding.funding_instruction">
+            <summary>
+            Indicates that the Payment should be fully funded by External Funded Incentive
             </summary>
         </member>
         <member name="T:PayPal.Api.FileAttachment">
@@ -1736,7 +1779,7 @@
         </member>
         <member name="T:PayPal.Api.FlowConfig">
             <summary>
-            A flow configuration to be used in context of a web experience profile.
+            Parameters for flow configuration.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1744,17 +1787,27 @@
         </member>
         <member name="P:PayPal.Api.FlowConfig.landing_page_type">
             <summary>
-            Type of PayPal page to be displayed when a user lands on the PayPal site for checkout. Allowed values: `Billing` or `Login`. When set to `Billing`, the Non-PayPal account landing page is used. When set to `Login`, the PayPal account login landing page is used.
+            The type of landing page to display on the PayPal site for user checkout. Set to `Billing` to use the non-PayPal account landing page. Set to `Login` to use the PayPal account login landing page.
             </summary>
         </member>
         <member name="P:PayPal.Api.FlowConfig.bank_txn_pending_url">
             <summary>
-            The URL on the merchant site for transferring to after a bank transfer payment. Use this field only if you are using giropay or bank transfer payment methods in Germany.
+            The merchant site URL to display after a bank transfer payment. Valid for only the Giropay or bank transfer payment method in Germany.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.FlowConfig.user_action">
+            <summary>
+            Defines whether buyers can complete purchases on the PayPal or merchant website.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.FlowConfig.return_uri_http_method">
+            <summary>
+            The HTTP method to use to redirect the user to a return URL. Valid value is `GET` or `POST`.
             </summary>
         </member>
         <member name="T:PayPal.Api.FmfDetails">
             <summary>
-            Fraud management filter information.
+            Details of Fraud Management Filter (FMF).
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1782,7 +1835,7 @@
         </member>
         <member name="T:PayPal.Api.FundingDetail">
             <summary>
-            Details concerning a payer's funding source.
+            Additional detail of the funding.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1795,12 +1848,22 @@
         </member>
         <member name="P:PayPal.Api.FundingDetail.payment_hold_date">
             <summary>
-            Hold-off duration of the payment
+            [DEPRECATED] Hold-off duration of the payment. payment_debit_date should be used instead.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.FundingDetail.payment_debit_date">
+            <summary>
+            Date when funds will be debited from the payer's account
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.FundingDetail.processing_type">
+            <summary>
+            Processing type of the payment card
             </summary>
         </member>
         <member name="T:PayPal.Api.FundingInstrument">
             <summary>
-            A payer's funding instrument details used in context of payments.
+            A resource representing a Payer's funding instrument. An instance of this schema is valid if and only if it is valid against exactly one of these supported properties
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1808,12 +1871,12 @@
         </member>
         <member name="P:PayPal.Api.FundingInstrument.credit_card">
             <summary>
-            Credit Card information.
+            Credit Card instrument.
             </summary>
         </member>
         <member name="P:PayPal.Api.FundingInstrument.credit_card_token">
             <summary>
-            Credit Card information.
+            PayPal vaulted credit Card instrument.
             </summary>
         </member>
         <member name="P:PayPal.Api.FundingInstrument.payment_card">
@@ -1854,7 +1917,7 @@
         </member>
         <member name="T:PayPal.Api.FundingOption">
             <summary>
-            A REST API payer funding option resource.
+            specifies the funding option details.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1887,7 +1950,7 @@
         </member>
         <member name="T:PayPal.Api.FundingSource">
             <summary>
-            A REST API funding source resource.
+            specifies the funding source details.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -1895,7 +1958,7 @@
         </member>
         <member name="P:PayPal.Api.FundingSource.funding_mode">
             <summary>
-            Specifies funding mode of the instrument
+            specifies funding mode of the instrument
             </summary>
         </member>
         <member name="P:PayPal.Api.FundingSource.funding_instrument_type">
@@ -1913,9 +1976,19 @@
             Total anticipated amount of money to be pulled from instrument.
             </summary>
         </member>
+        <member name="P:PayPal.Api.FundingSource.negative_balance_amount">
+            <summary>
+            Additional amount to be pulled from the instrument to recover a negative balance on the buyer's account that is owed to PayPal.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.FundingSource.legal_text">
             <summary>
             Localized legal text relevant to funding source.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.FundingSource.terms">
+            <summary>
+            URL to legal terms relevant to funding source.
             </summary>
         </member>
         <member name="P:PayPal.Api.FundingSource.funding_detail">
@@ -2030,7 +2103,7 @@
         </member>
         <member name="T:PayPal.Api.Incentive">
             <summary>
-            Details of a funding incentive.
+            A resource representing a incentive.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -2083,7 +2156,7 @@
         </member>
         <member name="T:PayPal.Api.InputFields">
             <summary>
-            Input field settings for a web experience profile.
+            Parameters for input fields customization.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -2091,22 +2164,22 @@
         </member>
         <member name="P:PayPal.Api.InputFields.allow_note">
             <summary>
-            Enables the buyer to enter a note to the merchant on the PayPal page during checkout.
+            Indicates whether the buyer can enter a note to the merchant on the PayPal page during checkout.
             </summary>
         </member>
         <member name="P:PayPal.Api.InputFields.no_shipping">
             <summary>
-            Determines whether or not PayPal displays shipping address fields on the experience pages. Allowed values: `0`, `1`, or `2`. When set to `0`, PayPal displays the shipping address on the PayPal pages. When set to `1`, PayPal does not display shipping address fields whatsoever. When set to `2`, if you do not pass the shipping address, PayPal obtains it from the buyer's account profile. For digital goods, this field is required, and you must set it to `1`. 
+            Indicates whether PayPal displays shipping address fields on the experience pages. For digital goods, this field is required and must be <code>1</code>. Value is:<ul><li><code>0</code>. Displays the shipping address on the PayPal pages.</li><li><code>1</code>. Redacts shipping address fields from the PayPal pages.</li><li><code>2</code>. Gets the shipping address from the buyer's account profile.</li></ul>
             </summary>
         </member>
         <member name="P:PayPal.Api.InputFields.address_override">
             <summary>
-            Determines if the PayPal pages should display the shipping address supplied in this call, rather than the shipping address on file with PayPal for this buyer. Displaying the address on file does not allow the buyer to edit the address. Allowed values: `0` or `1`. When set to `0`, the PayPal pages should display the address on file. When set to `1`, the PayPal pages should display the addresses supplied in this call instead of the address from the buyer's PayPal account.
+            Indicates whether to display the shipping address that is passed to this call rather than the one on file with PayPal for this buyer on the PayPal experience pages. Value is:<ul><li><code>0</code>. Displays the shipping address on file.</li><li><code>1</code>. Displays the shipping address supplied to this call. The buyer cannot edit this shipping address.</li></ul>
             </summary>
         </member>
         <member name="T:PayPal.Api.InstallmentInfo">
             <summary>
-            Installment information for a funding option.
+             A resource representing installment information available for a transaction
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -2134,7 +2207,7 @@
         </member>
         <member name="T:PayPal.Api.InstallmentOption">
             <summary>
-            An installment option and associated cost.
+             A resource describing an installment
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -2518,7 +2591,7 @@
             Generates the next invoice number that is available to the user.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <returns>object</returns>
+            <returns>InvoiceNumber</returns>
         </member>
         <member name="T:PayPal.Api.InvoiceAddress">
             <summary>
@@ -2581,6 +2654,18 @@
             The unit of measure for the invoiced item. Value is quantity, hours, or amount.
             </summary>
         </member>
+        <member name="T:PayPal.Api.InvoiceNumber">
+            <summary>
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.InvoiceNumber.number">
+            <summary>
+            The next invoice number that is available to the user. This number is auto-incremented from the most recent invoice number.
+            </summary>
+        </member>
         <member name="T:PayPal.Api.InvoiceSearchResponse">
             <summary>
             Response object from an invoice search operation.
@@ -2601,45 +2686,45 @@
         </member>
         <member name="T:PayPal.Api.Item">
             <summary>
-            Details of a purchasable item included with a payment transaction.
+            Item details.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
             </summary>
         </member>
-        <member name="P:PayPal.Api.Item.quantity">
+        <member name="P:PayPal.Api.Item.sku">
             <summary>
-            Number of items.
+            Stock keeping unit corresponding (SKU) to item.
             </summary>
         </member>
         <member name="P:PayPal.Api.Item.name">
             <summary>
-            Name of the item.
+            Item name. 127 characters max.
             </summary>
         </member>
         <member name="P:PayPal.Api.Item.description">
             <summary>
-            Description of the item.
+            Description of the item. Only supported when the `payment_method` is set to `paypal`.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Item.quantity">
+            <summary>
+            Number of a particular item. 10 characters max.
             </summary>
         </member>
         <member name="P:PayPal.Api.Item.price">
             <summary>
-            Cost of the item.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.Item.tax">
-            <summary>
-            tax of the item.
+            Item cost. 10 characters max.
             </summary>
         </member>
         <member name="P:PayPal.Api.Item.currency">
             <summary>
-            3-letter Currency Code
+            3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
             </summary>
         </member>
-        <member name="P:PayPal.Api.Item.sku">
+        <member name="P:PayPal.Api.Item.tax">
             <summary>
-            Number or code to identify the item in your catalog/records.
+            Tax of the item. Only supported when the `payment_method` is set to `paypal`.
             </summary>
         </member>
         <member name="P:PayPal.Api.Item.url">
@@ -2700,6 +2785,11 @@
         <member name="P:PayPal.Api.ItemList.shipping_method">
             <summary>
             Shipping method used for this payment like USPSParcel etc.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ItemList.shipping_phone_number">
+            <summary>
+            Allows merchant's to share payer’s contact number with PayPal for the current payment. Final contact number of payer associated with the transaction might be same as shipping_phone_number or different based on Payer’s action on PayPal. The phone number must be represented in its canonical international format, as defined by the E.164 numbering plan
             </summary>
         </member>
         <member name="T:PayPal.Api.JsonFormatterDeserializationErrorEventArgs">
@@ -2791,7 +2881,7 @@
         </member>
         <member name="T:PayPal.Api.Measurement">
             <summary>
-            Measurement details for an <seealso cref="T:PayPal.Api.Item"/>.
+            Measurement to represent item dimensions like length, width, height and weight etc.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -2988,7 +3078,7 @@
         </member>
         <member name="T:PayPal.Api.NameValuePair">
             <summary>
-            Details about an <seealso cref="T:PayPal.Api.Item"/>.
+            Used to define a type for name-value pairs.  The use of name value pairs in an API should be limited and approved by architecture.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -3146,7 +3236,7 @@
         </member>
         <member name="T:PayPal.Api.Order">
             <summary>
-            A REST API order resource used when making payment orders.
+            An order transaction.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -3179,24 +3269,20 @@
         </member>
         <member name="P:PayPal.Api.Order.reason_code">
             <summary>
-            Reason code for the transaction state being Pending or Reversed. This field will replace pending_reason field eventually
+            Reason code for the transaction state being Pending or Reversed. This field will replace pending_reason field eventually. Only supported when the `payment_method` is set to `paypal`.
             </summary>
         </member>
         <member name="P:PayPal.Api.Order.pending_reason">
             <summary>
-            Reason code for the transaction state being Pending. Obsolete. Retained for backward compatability. Use reason_code field above instead. 
+            [DEPRECATED] Reason code for the transaction state being Pending. Obsolete. Retained for backward compatability. Use reason_code field above instead. 
             </summary>
         </member>
         <member name="P:PayPal.Api.Order.protection_eligibility">
             <summary>
-            Protection Eligibility of the Payer 
+            The level of seller protection in force for the transaction.
             </summary>
         </member>
-        <member name="P:PayPal.Api.Order.protection_eligibility_type">
-            <summary>
-            Protection Eligibility Type of the Payer 
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "P:PayPal.Api.Order.protection_eligibility_type" -->
         <member name="P:PayPal.Api.Order.parent_payment">
             <summary>
             ID of the Payment resource that this transaction is based on.
@@ -3219,15 +3305,15 @@
         </member>
         <member name="M:PayPal.Api.Order.Get(PayPal.Api.APIContext,System.String)">
             <summary>
-            Obtain the Order resource for the given identifier.
+            Shows details for an order, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="orderId">Identifier of the Order resource to obtain the data for.</param>
+            <param name="orderId">The ID of the order for which to show details.</param>
             <returns>Order</returns>
         </member>
         <member name="M:PayPal.Api.Order.Capture(PayPal.Api.APIContext,PayPal.Api.Capture)">
             <summary>
-            Creates (and processes) a new Capture Transaction added as a related resource.
+            Captures a payment for an order, by ID. To use this call, the original payment call must specify an intent of `order`. In the JSON request body, include the payment amount and indicate whether this capture is the final capture for the authorization.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="capture">Capture</param>
@@ -3244,7 +3330,7 @@
         </member>
         <member name="M:PayPal.Api.Order.Void(PayPal.Api.APIContext)">
             <summary>
-            Voids (cancels) an Order.
+            Voids, or cancels, an order, by ID. You cannot void an order if a payment has already been partially or fully captured.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Order</returns>
@@ -3259,7 +3345,7 @@
         </member>
         <member name="M:PayPal.Api.Order.Authorize(PayPal.Api.APIContext)">
             <summary>
-            Creates an authorization on an order
+            Authorizes an order, by ID. Include an `amount` object in the JSON request body.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Authorization</returns>
@@ -3345,7 +3431,7 @@
         </member>
         <member name="T:PayPal.Api.Patch">
             <summary>
-            A resource patch object used to update a REST API resource object.
+            A JSON patch object that you can use to apply partial updates to resources.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -3353,12 +3439,12 @@
         </member>
         <member name="P:PayPal.Api.Patch.op">
             <summary>
-            Patch operation to perform. Value required for add &amp; remove operation can be any JSON value.
+            The operation to perform.
             </summary>
         </member>
         <member name="P:PayPal.Api.Patch.path">
             <summary>
-            string containing a JSON-Pointer value that references a location within the target document (the target location) where the operation is performed.
+            A JSON pointer that references a location in the target document where the operation is performed. A `string` value.
             </summary>
         </member>
         <member name="P:PayPal.Api.Patch.value">
@@ -3550,7 +3636,7 @@
         </member>
         <member name="T:PayPal.Api.Payee">
             <summary>
-            Information about a merchant account receiving funds related to a payment transaction.
+            A resource representing a Payee who receives the funds and fulfills the order.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -3563,17 +3649,17 @@
         </member>
         <member name="P:PayPal.Api.Payee.merchant_id">
             <summary>
-            Encrypted PayPal Account identifier for the Payee.
+            Encrypted PayPal account identifier for the Payee.
             </summary>
         </member>
         <member name="P:PayPal.Api.Payee.phone">
             <summary>
-            Information related to the Payer. In case of PayPal Wallet payment, this information will be filled in by PayPal after the user approves the payment using their PayPal Wallet. 
+            Information related to the Payer. In case of PayPal Wallet payment, this information will be filled in by PayPal after the user approves the payment using their PayPal Wallet.
             </summary>
         </member>
         <member name="T:PayPal.Api.Payer">
             <summary>
-            Information about a PayPal account making a payment.
+            A resource representing a Payer that funds a payment.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -3601,17 +3687,17 @@
         </member>
         <member name="P:PayPal.Api.Payer.funding_instruments">
             <summary>
-            List of funding instruments to fund the payment.
+            List of funding instruments to fund the payment. 'OneOf' funding_instruments,funding_option_id to be used to identify the specifics of payment method passed.
             </summary>
         </member>
         <member name="P:PayPal.Api.Payer.funding_option_id">
             <summary>
-            Id of user selected funding option for the payment. 'OneOf' funding_instruments or funding_option_id to be present 
+            Instrument type pre-selected by the user outside of PayPal and passed along the payment creation. This param is used in cases such as PayPal Credit Second Button
             </summary>
         </member>
         <member name="P:PayPal.Api.Payer.funding_option">
             <summary>
-            Default funding option available for the payment 
+            Default funding option available for the payment
             </summary>
         </member>
         <member name="P:PayPal.Api.Payer.related_funding_option">
@@ -3624,9 +3710,14 @@
             Information related to the Payer. 
             </summary>
         </member>
+        <member name="P:PayPal.Api.Payer.external_selected_funding_instrument_type">
+            <summary>
+            Instrument type pre-selected by the user outside of PayPal and passed along the payment creation. This param is used in cases such as PayPal Credit Second Button
+            </summary>
+        </member>
         <member name="T:PayPal.Api.PayerInfo">
             <summary>
-            More information about a <seealso cref="T:PayPal.Api.Payer"/>.
+            A resource representing a information about Payer.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -3634,12 +3725,12 @@
         </member>
         <member name="P:PayPal.Api.PayerInfo.email">
             <summary>
-            Email address representing the Payer.
+            Email address representing the payer. 127 characters max.
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.external_remember_me_id">
             <summary>
-            External Remember Me id representing the Payer
+            External Remember Me id representing the payer
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.buyer_account_number">
@@ -3649,37 +3740,37 @@
         </member>
         <member name="P:PayPal.Api.PayerInfo.salutation">
             <summary>
-            Salutation of the Payer.
+            Salutation of the payer.
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.first_name">
             <summary>
-            First Name of the Payer.
+            First name of the payer.
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.middle_name">
             <summary>
-            Middle Name of the Payer.
+            Middle name of the payer.
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.last_name">
             <summary>
-            Last Name of the Payer.
+            Last name of the payer.
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.suffix">
             <summary>
-            Suffix of the Payer.
+            Suffix of the payer.
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.payer_id">
             <summary>
-            PayPal assigned Payer ID.
+            PayPal assigned encrypted Payer ID.
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.phone">
             <summary>
-            Phone number representing the Payer.
+            Phone number representing the payer. 20 characters max.
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.phone_type">
@@ -3694,17 +3785,17 @@
         </member>
         <member name="P:PayPal.Api.PayerInfo.tax_id">
             <summary>
-            Payer's tax ID.
+            Payer’s tax ID. Only supported when the `payment_method` is set to `paypal`.
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.tax_id_type">
             <summary>
-            Payer's tax ID type.
+            Payer’s tax ID type. Allowed values: `BR_CPF` or `BR_CNPJ`. Only supported when the `payment_method` is set to `paypal`.
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.country_code">
             <summary>
-            2 letter registered country code of the payer to identify the buyer country
+            Two-letter registered country code of the payer to identify the buyer country.
             </summary>
         </member>
         <member name="P:PayPal.Api.PayerInfo.billing_address">
@@ -3714,12 +3805,12 @@
         </member>
         <member name="P:PayPal.Api.PayerInfo.shipping_address">
             <summary>
-            Shipping address of payer PayPal account.
+            [DEPRECATED] Use shipping address present in purchase unit or at root level of checkout Session.
             </summary>
         </member>
         <member name="T:PayPal.Api.Payment">
             <summary>
-            A REST API payment resource.
+            Lets you create, process and manage payments.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -3732,7 +3823,7 @@
         </member>
         <member name="P:PayPal.Api.Payment.intent">
             <summary>
-            Intent of the payment - Sale or Authorization or Order.
+            Payment intent.
             </summary>
         </member>
         <member name="P:PayPal.Api.Payment.payer">
@@ -3752,7 +3843,7 @@
         </member>
         <member name="P:PayPal.Api.Payment.transactions">
             <summary>
-            A payment can have more than one transaction, with each transaction establishing a contract between the payer and a payee
+            Transactional details including the amount and item details.
             </summary>
         </member>
         <member name="P:PayPal.Api.Payment.failed_transactions">
@@ -3767,32 +3858,37 @@
         </member>
         <member name="P:PayPal.Api.Payment.state">
             <summary>
-            state of the payment
+            The state of the payment, authorization, or order transaction. The value is:<ul><li><code>created</code>. The transaction was successfully created.</li><li><code>approved</code>. The buyer approved the transaction.</li><li><code>failed</code>. The transaction request failed.</li></ul>
             </summary>
         </member>
         <member name="P:PayPal.Api.Payment.experience_profile_id">
             <summary>
-            Identifier for the payment experience.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.Payment.redirect_urls">
-            <summary>
-            Redirect urls required only when using payment_method as PayPal - the only settings supported are return and cancel urls.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.Payment.create_time">
-            <summary>
-            Time the resource was created in UTC ISO8601 format.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.Payment.update_time">
-            <summary>
-            Time the resource was last updated in UTC ISO8601 format.
+            PayPal generated identifier for the merchant's payment experience profile. Refer to [this](https://developer.paypal.com/docs/api/#payment-experience) link to create experience profile ID.
             </summary>
         </member>
         <member name="P:PayPal.Api.Payment.note_to_payer">
             <summary>
-            Free-form field that allows clients to pass in a message to the payer.
+            free-form field for the use of clients to pass in a message to the payer
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Payment.redirect_urls">
+            <summary>
+            Set of redirect URLs you provide only for PayPal-based payments.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Payment.failure_reason">
+            <summary>
+            Failure reason code returned when the payment failed for some valid reasons.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Payment.create_time">
+            <summary>
+            Payment creation time as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Payment.update_time">
+            <summary>
+            Payment update time as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
             </summary>
         </member>
         <member name="P:PayPal.Api.Payment.billing_agreement_tokens">
@@ -3807,7 +3903,7 @@
         </member>
         <member name="M:PayPal.Api.Payment.Create(PayPal.Api.APIContext)">
             <summary>
-            Creates (and processes) a new Payment Resource.
+            Creates and processes a payment. In the JSON request body, include a `payment` object with the intent, payer, and transactions. For PayPal payments, include redirect URLs in the `payment` object.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Payment</returns>
@@ -3822,15 +3918,15 @@
         </member>
         <member name="M:PayPal.Api.Payment.Get(PayPal.Api.APIContext,System.String)">
             <summary>
-            Obtain the Payment resource for the given identifier.
+            Shows details for a payment, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="paymentId">Identifier of the Payment Resource to obtain the data for.</param>
+            <param name="paymentId">The ID of the payment for which to show details.</param>
             <returns>Payment</returns>
         </member>
         <member name="M:PayPal.Api.Payment.Update(PayPal.Api.APIContext,PayPal.Api.PatchRequest)">
             <summary>
-            Partially update the Payment resource for the given identifier
+            Partially updates a payment, by ID. You can update the amount, shipping address, invoice ID, and custom data. You cannot use patch after execute has been called.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="patchRequest">PatchRequest</param>
@@ -3845,7 +3941,7 @@
         </member>
         <member name="M:PayPal.Api.Payment.Execute(PayPal.Api.APIContext,PayPal.Api.PaymentExecution)">
             <summary>
-            Executes the payment (after approved by the Payer) associated with this resource when the payment method is PayPal.
+            Executes, or completes, a PayPal payment that the payer has approved. You can optionally update selective payment information when you execute a payment.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="paymentExecution">PaymentExecution</param>
@@ -3862,14 +3958,14 @@
         </member>
         <member name="M:PayPal.Api.Payment.List(PayPal.Api.APIContext,System.Nullable{System.Int32},System.String,System.Nullable{System.Int32},System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
-            Retrieves a list of payments.
+            List payments that were made to the merchant who issues the request. Payments can be in any state.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="count">Number of items to be returned by a GET operation.</param>
-            <param name="startId">A resource ID that indicates the starting resource in the returned results.</param>
-            <param name="startIndex">Start index of the resources to be returned. Typically used to jump to a specific position in the resource history based on it's cart.</param>
-            <param name="startTime">Resource creation time that indicates the start of a range of results.</param>
-            <param name="endTime">Resource creation time that indicates the end of a range of results.</param>
+            <param name="count">The number of items to list in the response.</param>
+            <param name="startId">The ID of the starting resource in the response. When results are paged, you can use the `next_id` value as the `start_id` to continue with the next set of results.</param>
+            <param name="startIndex">The start index of the resources to return. Typically used to jump to a specific position in the resource history based on its cart. Example for starting at the second item in a list of results: `?start_index=2`</param>
+            <param name="startTime">The date and time when the resource was created. Indicates the start of a range of results. Example: `start_time=2013-03-06T11:00:00Z`</param>
+            <param name="endTime">The date and time when the resource was created. Indicates the end of a range of results.</param>
             <param name="startDate">Resource creation date that indicates the start of results.</param>
             <param name="endDate">Resource creation date that indicates the end of a range of results.</param>
             <param name="payeeEmail">Payee identifier (email) to filter the search results in list operations.</param>
@@ -3880,7 +3976,7 @@
         </member>
         <member name="T:PayPal.Api.PaymentCard">
             <summary>
-            A REST API payment card resource.
+            A payment card that can fund a payment.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -3888,77 +3984,87 @@
         </member>
         <member name="P:PayPal.Api.PaymentCard.id">
             <summary>
-            ID of the credit card being saved for later use.
+            The ID of a credit card to save for later use.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.number">
             <summary>
-            Card number.
+            The card number.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.type">
             <summary>
-            Type of the Card.
+            The card type.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.expire_month">
             <summary>
-            2 digit card expiry month.
+            The two-digit expiry month for the card.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.expire_year">
             <summary>
-            4 digit card expiry year
+            The four-digit expiry year for the card.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.start_month">
             <summary>
-            2 digit card start month.
+            The two-digit start month for the card. Required for UK Maestro cards.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.start_year">
             <summary>
-            4 digit card start year.
+            The four-digit start year for the card. Required for UK Maestro cards. 
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.cvv2">
             <summary>
-            Card validation code. Only supported when making a Payment but not when saving a payment card for future use.
+            The validation code for the card. Supported for payments but not for saving payment cards for future use.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.first_name">
             <summary>
-            Card holder's first name.
+            The first name of the card holder.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.last_name">
             <summary>
-            Card holder's last name.
+            The last name of the card holder.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.billing_country">
             <summary>
-            2 letter country code
+            The two-letter country code.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.billing_address">
             <summary>
-            Billing Address associated with this card.
+            The billing address for the card.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.external_customer_id">
             <summary>
-            A unique identifier of the customer to whom this card account belongs to. Generated and provided by the facilitator. This is required when creating or using a stored funding instrument in vault.
+            The ID of the customer who owns this card account. The facilitator generates and provides this ID. Required when you create or use a stored funding instrument in the PayPal vault.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.status">
             <summary>
-            State of the funding instrument.
+            The state of the funding instrument.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.PaymentCard.card_product_class">
+            <summary>
+            The product class of the financial instrument issuer.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentCard.valid_until">
             <summary>
-            Date/Time until this resource can be used fund a payment.
+            The date and time until when this instrument can be used fund a payment.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.PaymentCard.issue_number">
+            <summary>
+            The one- to two-digit card issue number. Required for UK Maestro cards.
             </summary>
         </member>
         <member name="T:PayPal.Api.PaymentDefinition">
@@ -4054,7 +4160,7 @@
         </member>
         <member name="T:PayPal.Api.PaymentExecution">
             <summary>
-            Request object used to execute a <seealso cref="T:PayPal.Api.Payment"/> resource.
+            Let's you execute a PayPal Account based Payment resource with the payer_id obtained from web approval url.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -4062,17 +4168,17 @@
         </member>
         <member name="P:PayPal.Api.PaymentExecution.payer_id">
             <summary>
-            PayPal assigned Payer ID returned in the approval return url.
+            The ID of the Payer, passed in the `return_url` by PayPal.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentExecution.transactions">
             <summary>
-            Transaction information to be used at the time of execute payment. Only amount and shipping_address can be updated in execute payment
+            Transactional details including the amount and item details.
             </summary>
         </member>
         <member name="T:PayPal.Api.PaymentHistory">
             <summary>
-            Response object from a payment search operation.
+            List of Payments made by the seller.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -4085,7 +4191,7 @@
         </member>
         <member name="P:PayPal.Api.PaymentHistory.count">
             <summary>
-            Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items.
+            Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items. Maximum value: 20.
             </summary>
         </member>
         <member name="P:PayPal.Api.PaymentHistory.next_id">
@@ -4095,7 +4201,7 @@
         </member>
         <member name="T:PayPal.Api.PaymentInstruction">
             <summary>
-            A REST API payment instruction resource object.
+            Contain details of how and when the payment should be made to PayPal in cases of manual bank transfer.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -4141,7 +4247,7 @@
         </member>
         <member name="T:PayPal.Api.PaymentOptions">
             <summary>
-            Payment options for a transaction's purchase unit.
+            Payment options requested for this purchase unit
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -4515,7 +4621,7 @@
         </member>
         <member name="T:PayPal.Api.Phone">
             <summary>
-            The phone number.
+            Information related to the Payee.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -4523,12 +4629,12 @@
         </member>
         <member name="P:PayPal.Api.Phone.country_code">
             <summary>
-            The country calling code (CC), as defined by E.164. The maximum combined length of CC+national is 15 digits.
+            Country code (from in E.164 format)
             </summary>
         </member>
         <member name="P:PayPal.Api.Phone.national_number">
             <summary>
-            The national number, as defined by E.164. A national number consists of national destination code (NDC) and subscriber number (SN). The maximum combined length of CC+national is 15 digits.
+            In-country phone number (from in E.164 format)
             </summary>
         </member>
         <member name="P:PayPal.Api.Phone.extension">
@@ -4679,9 +4785,32 @@
             Total number of pages.
             </summary>
         </member>
+        <member name="T:PayPal.Api.PotentialPayerInfo">
+            <summary>
+            A resource representing a information about a potential Payer.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.PotentialPayerInfo.email">
+            <summary>
+            Email address representing the potential payer.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.PotentialPayerInfo.external_remember_me_id">
+            <summary>
+            xternalRememberMe id representing the potential payer.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.PotentialPayerInfo.billing_address">
+            <summary>
+            Billing address of the potential payer.
+            </summary>
+        </member>
         <member name="T:PayPal.Api.Presentation">
             <summary>
-            Presentation details for a web experience profile.
+            Parameters for style and presentation.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -4694,17 +4823,65 @@
         </member>
         <member name="P:PayPal.Api.Presentation.logo_image">
             <summary>
-            A URL to logo image. Allowed vaues: `.gif`, `.jpg`, or `.png`. Limit the image to 190 pixels wide by 60 pixels high. PayPal crops images that are larger. PayPal places your logo image at the top of the cart review area. PayPal recommends that you store the image on a secure (https) server. Otherwise, web browsers display a message that checkout pages contain non-secure items. Character length and limit: 127 single-byte alphanumeric characters.
+            A URL to the logo image. A valid media type is `.gif`, `.jpg`, or `.png`. The maximum width of the image is 190 pixels. The maximum height of the image is 60 pixels. PayPal crops images that are larger. PayPal places your logo image at the top of the cart review area. PayPal recommends that you store the image on a secure (HTTPS) server. Otherwise, web browsers display a message that checkout pages contain non-secure items. Character length and limit: 127 single-byte alphanumeric characters.
             </summary>
         </member>
         <member name="P:PayPal.Api.Presentation.locale_code">
             <summary>
-            Locale of pages displayed by PayPal payment experience. Allowed values: `AU`, `AT`, `BE`, `BR`, `CA`, `CH`, `CN`, `DE`, `ES`, `GB`, `FR`, `IT`, `NL`, `PL`, `PT`, `RU`, `US`. The following 5-character codes are also allowed for languages in specific countries: `da_DK`, `he_IL`, `id_ID`, `ja_JP`, `no_NO`, `pt_BR`, `ru_RU`, `sv_SE`, `th_TH`, `tr_TR`, `zh_CN`, `zh_HK`, `zh_TW`.
+            The locale of pages displayed by PayPal payment experience. A valid value is `AU`, `AT`, `BE`, `BR`, `CA`, `CH`, `CN`, `DE`, `ES`, `GB`, `FR`, `IT`, `NL`, `PL`, `PT`, `RU`, or `US`. A 5-character code is also valid for languages in specific countries: `da_DK`, `he_IL`, `id_ID`, `ja_JP`, `no_NO`, `pt_BR`, `ru_RU`, `sv_SE`, `th_TH`, `zh_CN`, `zh_HK`, or `zh_TW`.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Presentation.return_url_label">
+            <summary>
+            A label to use as hypertext for the return to merchant link.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Presentation.note_to_seller_label">
+            <summary>
+            A label to use as the title for the note to seller field. Used only when `allow_note` is `1`.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.ProcessorResponse">
+            <summary>
+            Collection of payment response related fields returned from a payment request
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ProcessorResponse.response_code">
+            <summary>
+            Paypal normalized response code, generated from the processor's specific response code
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ProcessorResponse.avs_code">
+            <summary>
+            Address Verification System response code. https://developer.paypal.com/webapps/developer/docs/classic/api/AVSResponseCodes/
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ProcessorResponse.cvv_code">
+            <summary>
+            CVV System response code. https://developer.paypal.com/webapps/developer/docs/classic/api/AVSResponseCodes/
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ProcessorResponse.advice_code">
+            <summary>
+            Provides merchant advice on how to handle declines related to recurring payments
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ProcessorResponse.eci_submitted">
+            <summary>
+            Response back from the authorization. Provided by the processor
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ProcessorResponse.vpas">
+            <summary>
+            Visa Payer Authentication Service status. Will be return from processor
             </summary>
         </member>
         <member name="T:PayPal.Api.RecipientBankingInstruction">
             <summary>
-            Details of a recipient bank.
+            Recipient bank Details.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -4742,7 +4919,7 @@
         </member>
         <member name="T:PayPal.Api.RedirectUrls">
             <summary>
-            Redirect URLs for where a payer will be sent after approving or canceling a payment.
+            Set of redirect URLs you provide only for PayPal-based payments.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -4750,17 +4927,17 @@
         </member>
         <member name="P:PayPal.Api.RedirectUrls.return_url">
             <summary>
-            Url where the payer would be redirected to after approving the payment.
+            Url where the payer would be redirected to after approving the payment. **Required for PayPal account payments.**
             </summary>
         </member>
         <member name="P:PayPal.Api.RedirectUrls.cancel_url">
             <summary>
-            Url where the payer would be redirected to after canceling the payment.
+            Url where the payer would be redirected to after canceling the payment. **Required for PayPal account payments.**
             </summary>
         </member>
         <member name="T:PayPal.Api.Refund">
             <summary>
-            A REST API refund transaction resource object.
+            A refund transaction.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -4768,22 +4945,27 @@
         </member>
         <member name="P:PayPal.Api.Refund.id">
             <summary>
-            Identifier of the refund transaction in UTC ISO8601 format.
+            ID of the refund transaction. 17 characters max.
             </summary>
         </member>
         <member name="P:PayPal.Api.Refund.amount">
             <summary>
-            Details including both refunded amount (to Payer) and refunded fee (to Payee).If amount is not specified, it's assumed to be full refund.
+            Details including both refunded amount (to payer) and refunded fee (to payee). 10 characters max.
             </summary>
         </member>
         <member name="P:PayPal.Api.Refund.state">
             <summary>
-            State of the refund transaction.
+            State of the refund.
             </summary>
         </member>
         <member name="P:PayPal.Api.Refund.reason">
             <summary>
             Reason description for the Sale transaction being refunded.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Refund.invoice_number">
+            <summary>
+            Your own invoice or tracking ID number. Character length and limitations: 127 single-byte alphanumeric characters.
             </summary>
         </member>
         <member name="P:PayPal.Api.Refund.sale_id">
@@ -4793,12 +4975,12 @@
         </member>
         <member name="P:PayPal.Api.Refund.capture_id">
             <summary>
-            ID of the Capture transaction being refunded. 
+            ID of the sale transaction being refunded.
             </summary>
         </member>
         <member name="P:PayPal.Api.Refund.parent_payment">
             <summary>
-            ID of the Payment resource that this transaction is based on.
+            ID of the payment resource on which this transaction is based.
             </summary>
         </member>
         <member name="P:PayPal.Api.Refund.description">
@@ -4808,20 +4990,25 @@
         </member>
         <member name="P:PayPal.Api.Refund.create_time">
             <summary>
-            Time the resource was created in UTC ISO8601 format.
+            Time of refund as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
             </summary>
         </member>
         <member name="P:PayPal.Api.Refund.update_time">
             <summary>
-            Time the resource was last updated in UTC ISO8601 format.
+            Time that the resource was last updated.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Refund.reason_code">
+            <summary>
+            The reason code for the refund state being pending
             </summary>
         </member>
         <member name="M:PayPal.Api.Refund.Get(PayPal.Api.APIContext,System.String)">
             <summary>
-            Obtain the Refund transaction resource for the given identifier.
+            Shows details for a refund, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="refundId">Identifier of the Refund Transaction Resource to obtain the data for.</param>
+            <param name="refundId">The ID of the refund for which to show details.</param>
             <returns>Refund</returns>
         </member>
         <member name="T:PayPal.Api.RefundDetail">
@@ -4857,9 +5044,47 @@
             The amount to record as refunded. If you omit the amount, the total invoice paid amount is recorded as refunded.
             </summary>
         </member>
+        <member name="T:PayPal.Api.RefundRequest">
+            <summary>
+            A refund transaction.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.RefundRequest.amount">
+            <summary>
+            Details including both refunded amount (to payer) and refunded fee (to payee).
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.RefundRequest.description">
+            <summary>
+            Description of what is being refunded for. Character length and limitations: 255 single-byte alphanumeric characters.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.RefundRequest.refund_source">
+            <summary>
+            Type of PayPal funding source (balance or eCheck) that can be used for auto refund.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.RefundRequest.reason">
+            <summary>
+            Reason description for the Sale transaction being refunded.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.RefundRequest.invoice_number">
+            <summary>
+            The invoice number that is used to track this payment. Character length and limitations: 127 single-byte alphanumeric characters.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.RefundRequest.refund_advice">
+            <summary>
+            Flag to indicate that the buyer was already given store credit for a given transaction.
+            </summary>
+        </member>
         <member name="T:PayPal.Api.RelatedResources">
             <summary>
-            Transaction resources related to a parent payment.
+            Each one representing a financial transaction (Sale, Authorization, Capture, Refund) related to the payment.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -4892,7 +5117,7 @@
         </member>
         <member name="T:PayPal.Api.Sale">
             <summary>
-            A REST API sale transaction resource object.
+            A sale transaction. This is the resource that is returned as a part related resources in Payment
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -4905,7 +5130,7 @@
         </member>
         <member name="P:PayPal.Api.Sale.purchase_unit_reference_id">
             <summary>
-            Identifier to the purchase unit corresponding to this sale transaction.
+            Identifier to the purchase or transaction unit corresponding to this sale transaction.
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.amount">
@@ -4915,7 +5140,17 @@
         </member>
         <member name="P:PayPal.Api.Sale.payment_mode">
             <summary>
-            specifies payment mode of the transaction
+            Specifies payment mode of the transaction. Only supported when the `payment_method` is set to `paypal`.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.invoice_number">
+            <summary>
+            your own invoice number or tracking IDs, Maximum length: 127.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.custom">
+            <summary>
+            free-form field for the use of clients, Maximum length: 127.
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.state">
@@ -4925,27 +5160,37 @@
         </member>
         <member name="P:PayPal.Api.Sale.reason_code">
             <summary>
-            Reason code for the transaction state being Pending or Reversed.
+            Reason code for the transaction state being Pending or Reversed. Only supported when the `payment_method` is set to `paypal`.
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.protection_eligibility">
             <summary>
-            Protection Eligibility of the Payer 
+            The level of seller protection in force for the transaction. Only supported when the `payment_method` is set to `paypal`. 
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.protection_eligibility_type">
             <summary>
-            Protection Eligibility Type of the Payer 
+            The kind of seller protection in force for the transaction. It is returned only when protection_eligibility is ELIGIBLE or PARTIALLY_ELIGIBLE. Only supported when the `payment_method` is set to `paypal`.
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.clearing_time">
             <summary>
-            Expected clearing time for eCheck Transactions
+            Expected clearing time for eCheck Transactions. Returned when payment is made with eCheck. Only supported when the `payment_method` is set to `paypal`.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.payment_hold_status">
+            <summary>
+            Status of the Recipient Fund. For now, it will be returned only when fund status is held
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.payment_hold_reasons">
+            <summary>
+            Reasons for PayPal holding recipient fund. It is set only if payment hold status is held
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.recipient_fund_status">
             <summary>
-            Indicates the credit status of fund to the recipient. It will be returned only when payment status is 'completed' 
+            Indicates the credit status of fund to the recipient. It will be returned only when payment status is 'completed'
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.hold_reason">
@@ -4960,42 +5205,32 @@
         </member>
         <member name="P:PayPal.Api.Sale.receivable_amount">
             <summary>
-            Net amount payee receives for this transaction after deducting transaction fee.
+            Net amount the merchant receives for this transaction in their receivable currency. Returned only in cross-currency use cases where a merchant bills a buyer in a non-primary currency for that buyer.
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.exchange_rate">
             <summary>
-            Exchange rate applied for this transaction.
+            Exchange rate applied for this transaction. Returned only in cross-currency use cases where a merchant bills a buyer in a non-primary currency for that buyer.
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.fmf_details">
             <summary>
-            Fraud Management Filter (FMF) details applied for the payment that could result in accept/deny/pending action.
+            Fraud Management Filter (FMF) details applied for the payment that could result in accept, deny, or pending action. Returned in a payment response only if the merchant has enabled FMF in the profile settings and one of the fraud filters was triggered based on those settings. See [Fraud Management Filters Summary](/docs/classic/fmf/integration-guide/FMFSummary/) for more information.
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.receipt_id">
             <summary>
-            Receipt id is 16 digit number payment identification number returned for guest users to identify the payment.
+            Receipt id is a payment identification number returned for guest users to identify the payment.
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.parent_payment">
             <summary>
-            ID of the Payment resource that this transaction is based on.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.Sale.create_time">
-            <summary>
-            Time the resource was created in UTC ISO8601 format.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.Sale.update_time">
-            <summary>
-            Time the resource was last updated in UTC ISO8601 format.
+            ID of the payment resource on which this transaction is based.
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.processor_response">
             <summary>
-            Collection of payment response related fields returned from a payment request.
+            Response codes returned by the processor concerning the submitted payment. Only supported when the `payment_method` is set to `credit_card`.
             </summary>
         </member>
         <member name="P:PayPal.Api.Sale.billing_agreement_id">
@@ -5003,12 +5238,22 @@
             ID of the billing agreement used as reference to execute this transaction.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Sale.create_time">
+            <summary>
+            Time of sale as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6)
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.update_time">
+            <summary>
+            Time the resource was last updated in UTC ISO8601 format.
+            </summary>
+        </member>
         <member name="M:PayPal.Api.Sale.Get(PayPal.Api.APIContext,System.String)">
             <summary>
-            Obtain the Sale transaction resource for the given identifier.
+            Shows details for a sale, by ID. Returns only sales that were created through the REST API.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="saleId">Identifier of the Payment Resource to obtain the data for.</param>
+            <param name="saleId">The ID of the sale for which to show details.</param>
             <returns>Sale</returns>
         </member>
         <member name="M:PayPal.Api.Sale.Refund(PayPal.Api.APIContext,PayPal.Api.Refund)">
@@ -5027,6 +5272,14 @@
             <param name="saleId">ID of the sale to refund.</param>
             <param name="refund">Refund</param>
             <returns>Refund</returns>
+        </member>
+        <member name="M:PayPal.Api.Sale.Refund(PayPal.Api.APIContext,System.String,PayPal.Api.RefundRequest)">
+            <summary>
+            Refunds a sale, by ID. For a full refund, include an empty payload in the JSON request body. For a partial refund, include an `amount` object in the JSON request body.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <param name="refundRequest">RefundRequest</param>
+            <returns>DetailedRefund</returns>
         </member>
         <member name="T:PayPal.Api.Search">
             <summary>
@@ -5138,7 +5391,7 @@
         </member>
         <member name="T:PayPal.Api.ShippingAddress">
             <summary>
-            Details of a shipping address.
+            Extended Address object used as shipping address in a payment.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5208,42 +5461,6 @@
         <member name="P:PayPal.Api.ShippingInfo.address">
             <summary>
             The invoice recipient address.
-            </summary>
-        </member>
-        <member name="T:PayPal.Api.Summary">
-            <summary>
-            Summary of invoice data.
-            <para>
-            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
-            </para>
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.Summary.status">
-            <summary>
-            The invoice status.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.Summary.count">
-            <summary>
-            The total count of invoices.
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.Summary.amount_summary">
-            <summary>
-            An array of amounts, grouped by the currency code of the invoice.
-            </summary>
-        </member>
-        <member name="T:PayPal.Api.Summaries">
-            <summary>
-            List of summaries of merchant invoice data.
-            <para>
-            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
-            </para>
-            </summary>
-        </member>
-        <member name="P:PayPal.Api.Summaries.summaries">
-            <summary>
-            An array of summaries.
             </summary>
         </member>
         <member name="T:PayPal.Api.Tax">
@@ -5567,7 +5784,7 @@
         </member>
         <member name="T:PayPal.Api.Transaction">
             <summary>
-            Details about a specific payment transaction.
+            A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5583,9 +5800,72 @@
             List of financial transactions (Sale, Authorization, Capture, Refund) related to the payment.
             </summary>
         </member>
+        <member name="T:PayPal.Api.VerifyWebhookSignature">
+            <summary>
+            Verify webhook signature.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.VerifyWebhookSignature.auth_algo">
+            <summary>
+            The algorithm that PayPal uses to generate the signature and that you can use to verify the signature. Extract this value from the `PAYPAL-AUTH-ALGO` response header, which is received with the webhook notification.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.VerifyWebhookSignature.cert_url">
+            <summary>
+            The X.509 public key certificate. Download the certificate from this URL and use it to verify the signature. Extract this value from the `PAYPAL-CERT-URL` response header, which is received with the webhook notification.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.VerifyWebhookSignature.transmission_id">
+            <summary>
+            The ID of the HTTP transmission. Contained in the `PAYPAL-TRANSMISSION-ID` header of the notification message.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.VerifyWebhookSignature.transmission_sig">
+            <summary>
+            The PayPal-generated asymmetric signature. Extract this value from the `PAYPAL-TRANSMISSION-SIG` response header, which is received with the webhook notification.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.VerifyWebhookSignature.transmission_time">
+            <summary>
+            The date and time of the HTTP transmission. Contained in the `PAYPAL-TRANSMISSION-TIME` header of the notification message.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.VerifyWebhookSignature.webhook_id">
+            <summary>
+            The ID of the webhook as configured in your Developer Portal account.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.VerifyWebhookSignature.webhook_event">
+            <summary>
+            The webhook notification, which is the content of the HTTP `POST` request body.
+            </summary>
+        </member>
+        <member name="M:PayPal.Api.VerifyWebhookSignature.Post(PayPal.Api.APIContext)">
+            <summary>
+            Verifies a webhook signature.
+            </summary>
+            <param name="apiContext">APIContext used for the API call.</param>
+            <returns>VerifyWebhookSignatureResponse</returns>
+        </member>
+        <member name="T:PayPal.Api.VerifyWebhookSignatureResponse">
+            <summary>
+            The verify webhook signature response.
+            <para>
+            See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+            </para>
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.VerifyWebhookSignatureResponse.verification_status">
+            <summary>
+            The status of the signature verification. Value is `SUCCESS` or `FAILURE`.
+            </summary>
+        </member>
         <member name="T:PayPal.Api.WebProfile">
             <summary>
-            A REST API web experience profile resource object.
+            Payment web experience profile.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5593,12 +5873,17 @@
         </member>
         <member name="P:PayPal.Api.WebProfile.id">
             <summary>
-            Unique ID of the web experience profile.
+            The ID of the web experience profile.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebProfile.name">
             <summary>
-            Name of the web experience profile. Unique only among the profiles for a given merchant.
+            The web experience profile name. Unique for a specified merchant's profiles.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebProfile.temporary">
+            <summary>
+            Indicates whether the profile persists for three hours or permanently. Set to `false` to persist the profile permanently. Set to `true` to persist the profile for three hours.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebProfile.flow_config">
@@ -5618,7 +5903,7 @@
         </member>
         <member name="M:PayPal.Api.WebProfile.Create(PayPal.Api.APIContext)">
             <summary>
-            Create a web experience profile by passing the name of the profile and other profile details in the request JSON to the request URI.
+            Creates a web experience profile. Pass the profile name and details in the JSON request body.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>CreateProfileResponse</returns>
@@ -5633,7 +5918,7 @@
         </member>
         <member name="M:PayPal.Api.WebProfile.Update(PayPal.Api.APIContext)">
             <summary>
-            Update a web experience profile by passing the ID of the profile to the request URI. In addition, pass the profile details in the request JSON. If your request does not include values for all profile detail fields, the previously set values for the omitted fields are removed by this operation.
+            Updates a web experience profile. Pass the ID of the profile to the request URI and pass the profile details in the JSON request body. If your request omits any profile detail fields, the operation removes the previously set values for those fields.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
         </member>
@@ -5646,7 +5931,7 @@
         </member>
         <member name="M:PayPal.Api.WebProfile.PartialUpdate(PayPal.Api.APIContext,PayPal.Api.PatchRequest)">
             <summary>
-            Partially update an existing web experience profile by passing the ID of the profile to the request URI. In addition, pass a patch object in the request JSON that specifies the operation to perform, path of the profile location to update, and a new value if needed to complete the operation.
+            Partially-updates a web experience profile. Pass the profile ID to the request URI. Pass a patch object with the operation, path of the profile location to update, and, if needed, a new value to complete the operation in the JSON request body.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="patchRequest">PatchRequest</param>
@@ -5661,31 +5946,31 @@
         </member>
         <member name="M:PayPal.Api.WebProfile.Get(PayPal.Api.APIContext,System.String)">
             <summary>
-            Retrieve the details of a particular web experience profile by passing the ID of the profile to the request URI.
+            Shows details for a web experience profile, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="profileId">ID of the profile to retrieve.</param>
+            <param name="profileId">The ID of the profile for which to show details.</param>
             <returns>WebProfile</returns>
         </member>
         <member name="M:PayPal.Api.WebProfile.GetList(PayPal.Api.APIContext)">
             <summary>
-            Lists all web experience profiles that exist for a merchant (or subject).
+            Lists all web experience profiles for a merchant or subject.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>WebProfileList</returns>
         </member>
         <member name="M:PayPal.Api.WebProfile.Delete(PayPal.Api.APIContext)">
             <summary>
-            Delete an existing web experience profile by passing the profile ID to the request URI.
+            Deletes a web experience profile, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
         </member>
         <member name="M:PayPal.Api.WebProfile.Delete(PayPal.Api.APIContext,System.String)">
             <summary>
-            Delete an existing web experience profile by passing the profile ID to the request URI.
+            Deletes a web experience profile, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="profileId">ID of the profile to delete.</param>
+            <param name="profileId">The ID of the profile to delete.</param>
         </member>
         <member name="T:PayPal.Api.WebProfileList">
             <summary>
@@ -5697,7 +5982,7 @@
         </member>
         <member name="T:PayPal.Api.Webhook">
             <summary>
-            A REST API webhook resource object.
+            One or more webhook objects.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5705,22 +5990,22 @@
         </member>
         <member name="P:PayPal.Api.Webhook.id">
             <summary>
-            Identifier of the webhook resource.
+            The ID of the webhook.
             </summary>
         </member>
         <member name="P:PayPal.Api.Webhook.url">
             <summary>
-            Webhook notification endpoint url.
+            The URL that is configured to listen on `localhost` for incoming `POST` notification messages that contain event information.
             </summary>
         </member>
         <member name="P:PayPal.Api.Webhook.event_types">
             <summary>
-            List of Webhooks event-types.
+            A list of up to ten events to which to subscribe your webhook. To subscribe to all events including new events as they are added, specify the asterisk (`*`) wildcard. To replace the `event_types` array, specify the `*` wildcard. To see all supported events, [list available events](#available-event-type.list).
             </summary>
         </member>
         <member name="M:PayPal.Api.Webhook.Create(PayPal.Api.APIContext)">
             <summary>
-            Creates the Webhook for the application associated with the access token.
+            Subscribes your webhook listener to events. A successful call returns a [`webhook`](/docs/api/webhooks/#definition-webhook) object, which includes the webhook ID for later use.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <returns>Webhook</returns>
@@ -5735,22 +6020,23 @@
         </member>
         <member name="M:PayPal.Api.Webhook.Get(PayPal.Api.APIContext,System.String)">
             <summary>
-            Retrieves the Webhook identified by webhook_id for the application associated with access token.
+            Shows details for a webhook, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="webhookId">Identifier of the webhook</param>
+            <param name="webhookId">The ID of the webhook for which to show details.</param>
             <returns>Webhook</returns>
         </member>
-        <member name="M:PayPal.Api.Webhook.GetAll(PayPal.Api.APIContext)">
+        <member name="M:PayPal.Api.Webhook.GetAll(PayPal.Api.APIContext,System.String)">
             <summary>
-            Retrieves all Webhooks for the application associated with access token.
+            Lists all webhooks for an app.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
+            <param name="anchorType">Filters the response by an entity type, `anchor_id`. Value is `APPLICATION` or `ACCOUNT`. Default is `APPLICATION`.</param>
             <returns>WebhookList</returns>
         </member>
         <member name="M:PayPal.Api.Webhook.Update(PayPal.Api.APIContext,PayPal.Api.PatchRequest)">
             <summary>
-            Updates the Webhook identified by webhook_id for the application associated with access token.
+            Replaces webhook fields with new values. Pass a `json_patch` object with `replace` operation and `path`, which is `/url` for a URL or `/event_types` for events. The `value` is either the URL or a list of events.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
             <param name="patchRequest">PatchRequest</param>
@@ -5767,20 +6053,20 @@
         </member>
         <member name="M:PayPal.Api.Webhook.Delete(PayPal.Api.APIContext)">
             <summary>
-            Deletes the Webhook identified by webhook_id for the application associated with access token.
+            Deletes a webhook, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
         </member>
         <member name="M:PayPal.Api.Webhook.Delete(PayPal.Api.APIContext,System.String)">
             <summary>
-            Deletes the Webhook identified by webhook_id for the application associated with access token.
+            Deletes a webhook, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="webhookId">Identifier of the webhook</param>
+            <param name="webhookId">The ID of the webhook to delete.</param>
         </member>
         <member name="T:PayPal.Api.WebhookEvent">
             <summary>
-            A REST API webhook event resource object.
+            A webhook event notification.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5788,40 +6074,55 @@
         </member>
         <member name="P:PayPal.Api.WebhookEvent.id">
             <summary>
-            Identifier of the Webhooks event resource.
+            The ID of the webhook event notification.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebhookEvent.create_time">
             <summary>
-            Time the resource was created.
+            The date and time when the webhook event notification was created.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebhookEvent.resource_type">
             <summary>
-            Name of the resource contained in resource element.
+            The name of the resource related to the webhook notification event.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookEvent.event_version">
+            <summary>
+            The version of the event.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebhookEvent.event_type">
             <summary>
-            Name of the event type that occurred on resource, identified by data_resource element, to trigger the Webhooks event.
+            The event that triggered the webhook event notification.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebhookEvent.summary">
             <summary>
-            A summary description of the event. E.g. A successful payment authorization was created for $$
+            A summary description for the event notification. For example, `A payment authorization was created.`
             </summary>
         </member>
         <member name="P:PayPal.Api.WebhookEvent.resource">
             <summary>
-            This contains the resource that is identified by resource_type element.
+            The resource that triggered the webhook event notification.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookEvent.status">
+            <summary>
+            The event transmission status. Displayed only for internal API calls through the PayPal Developer portal.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookEvent.transmissions">
+            <summary>
+            The list of transmissions for an event. Displayed only for internal API calls through the PayPal Developer portal.
             </summary>
         </member>
         <member name="M:PayPal.Api.WebhookEvent.Get(PayPal.Api.APIContext,System.String)">
             <summary>
-            Retrieves the Webhooks event resource identified by event_id. Can be used to retrieve the payload for an event.
+            Shows details for a webhook event notification, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="eventId">Identifier of the Webhooks event resource.</param>
+            <param name="eventId">The ID of the webhook event notification for which to show details.</param>
             <returns>WebhookEvent</returns>
         </member>
         <member name="M:PayPal.Api.WebhookEvent.Resend(PayPal.Api.APIContext)">
@@ -5868,7 +6169,7 @@
         </member>
         <member name="T:PayPal.Api.WebhookEventList">
             <summary>
-            A list of webhook event resources returned from a search operation.
+            List of webhooks events.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5876,17 +6177,17 @@
         </member>
         <member name="P:PayPal.Api.WebhookEventList.events">
             <summary>
-            A list of Webhooks event resources
+            A list of webhooks events.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebhookEventList.count">
             <summary>
-            Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items.
+            The number of items in each range of results. Note that the response might have fewer items than the requested `page_size` value.
             </summary>
         </member>
         <member name="T:PayPal.Api.WebhookEventType">
             <summary>
-            Details about a specific webhook event type that a <seealso cref="T:PayPal.Api.Webhook"/> can be setup to listen to.
+            A list of events.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5894,32 +6195,37 @@
         </member>
         <member name="P:PayPal.Api.WebhookEventType.name">
             <summary>
-            Unique event-type name.
+            The unique event name.
             </summary>
         </member>
         <member name="P:PayPal.Api.WebhookEventType.description">
             <summary>
-            Human readable description of the event-type
+            A human-readable description of the event.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.WebhookEventType.status">
+            <summary>
+            The status of a webhook event.
             </summary>
         </member>
         <member name="M:PayPal.Api.WebhookEventType.SubscribedEventTypes(PayPal.Api.APIContext,System.String)">
             <summary>
-            Retrieves the list of events-types subscribed by the given Webhook.
+            Lists event subscriptions for a webhook, by ID.
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <param name="webhookId">Identifier of the webhook</param>
-            <returns>EventTypeList</returns>
+            <param name="webhookId">The ID of the webhook for which to list subscriptions.</param>
+            <returns>WebhookEventTypeList</returns>
         </member>
         <member name="M:PayPal.Api.WebhookEventType.AvailableEventTypes(PayPal.Api.APIContext)">
             <summary>
-            Retrieves the master list of available Webhooks events-types resources for any webhook to subscribe to.
+            Lists available events to which any webhook can subscribe. For a list of supported events, see [Webhook events](/docs/integration/direct/rest/webhooks/webhook-events/).
             </summary>
             <param name="apiContext">APIContext used for the API call.</param>
-            <returns>EventTypeList</returns>
+            <returns>WebhookEventTypeList</returns>
         </member>
         <member name="T:PayPal.Api.WebhookEventTypeList">
             <summary>
-            A list of webhook event types returned from a search operation.
+            List of webhook events.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5927,12 +6233,12 @@
         </member>
         <member name="P:PayPal.Api.WebhookEventTypeList.event_types">
             <summary>
-            A list of Webhooks event-types
+            A list of webhook events.
             </summary>
         </member>
         <member name="T:PayPal.Api.WebhookList">
             <summary>
-            A list of webhook resource objects returned from a search operation.
+            List of webhooks.
             <para>
             See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
             </para>
@@ -5940,7 +6246,7 @@
         </member>
         <member name="P:PayPal.Api.WebhookList.webhooks">
             <summary>
-            A list of Webhooks
+            A list of webhooks.
             </summary>
         </member>
         <member name="T:PayPal.Api.BaseConstants">

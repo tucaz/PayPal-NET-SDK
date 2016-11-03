@@ -11,7 +11,7 @@ using System.ComponentModel;
 namespace PayPal.Api
 {
     /// <summary>
-    /// A payer's funding instrument details used in context of payments.
+    /// A resource representing a Payer's funding instrument. An instance of this schema is valid if and only if it is valid against exactly one of these supported properties
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -19,13 +19,13 @@ namespace PayPal.Api
     public class FundingInstrument : PayPalSerializableObject
     {
         /// <summary>
-        /// Credit Card information.
+        /// Credit Card instrument.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_card")]
         public CreditCard credit_card { get; set; }
 
         /// <summary>
-        /// Credit Card information.
+        /// PayPal vaulted credit Card instrument.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_card_token")]
         public CreditCardToken credit_card_token { get; set; }

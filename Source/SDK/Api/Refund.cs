@@ -10,7 +10,7 @@ using PayPal.Util;
 namespace PayPal.Api
 {
     /// <summary>
-    /// A REST API refund transaction resource object.
+    /// A refund transaction.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -18,19 +18,19 @@ namespace PayPal.Api
     public class Refund : PayPalRelationalObject
     {
         /// <summary>
-        /// Identifier of the refund transaction in UTC ISO8601 format.
+        /// ID of the refund transaction. 17 characters max.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string id { get; set; }
 
         /// <summary>
-        /// Details including both refunded amount (to Payer) and refunded fee (to Payee).If amount is not specified, it's assumed to be full refund.
+        /// Details including both refunded amount (to payer) and refunded fee (to payee). 10 characters max.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public Amount amount { get; set; }
 
         /// <summary>
-        /// State of the refund transaction.
+        /// State of the refund.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string state { get; set; }
@@ -42,19 +42,25 @@ namespace PayPal.Api
         public string reason { get; set; }
 
         /// <summary>
+        /// Your own invoice or tracking ID number. Character length and limitations: 127 single-byte alphanumeric characters.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_number")]
+        public string invoice_number { get; set; }
+
+        /// <summary>
         /// ID of the Sale transaction being refunded. 
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sale_id")]
         public string sale_id { get; set; }
 
         /// <summary>
-        /// ID of the Capture transaction being refunded. 
+        /// ID of the sale transaction being refunded.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "capture_id")]
         public string capture_id { get; set; }
 
         /// <summary>
-        /// ID of the Payment resource that this transaction is based on.
+        /// ID of the payment resource on which this transaction is based.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "parent_payment")]
         public string parent_payment { get; set; }
@@ -66,22 +72,28 @@ namespace PayPal.Api
         public string description { get; set; }
 
         /// <summary>
-        /// Time the resource was created in UTC ISO8601 format.
+        /// Time of refund as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
         public string create_time { get; set; }
 
         /// <summary>
-        /// Time the resource was last updated in UTC ISO8601 format.
+        /// Time that the resource was last updated.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_time")]
         public string update_time { get; set; }
 
         /// <summary>
-        /// Obtain the Refund transaction resource for the given identifier.
+        /// The reason code for the refund state being pending
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reason_code")]
+        public string reason_code { get; set; }
+
+        /// <summary>
+        /// Shows details for a refund, by ID.
         /// </summary>
         /// <param name="apiContext">APIContext used for the API call.</param>
-        /// <param name="refundId">Identifier of the Refund Transaction Resource to obtain the data for.</param>
+        /// <param name="refundId">The ID of the refund for which to show details.</param>
         /// <returns>Refund</returns>
         public static Refund Get(APIContext apiContext, string refundId)
         {

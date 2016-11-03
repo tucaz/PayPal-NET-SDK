@@ -17,9 +17,27 @@ namespace PayPal.Api
     public class Address : BaseAddress
     {
         /// <summary>
-        /// Phone number in E.123 format.
+        /// Phone number in E.123 format. 50 characters max.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "phone")]
         public string phone { get; set; }
+
+        /// <summary>
+        /// Address normalization status, returned only for payers from Brazil.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "normalization_status")]
+        public string normalization_status { get; set; }
+
+        /// <summary>
+        /// Address status
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "status")]
+        public string status { get; set; }
+
+        /// <summary>
+        /// Type of address (e.g., HOME_OR_WORK, GIFT etc).
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
+        public string type { get; set; }
     }
 }

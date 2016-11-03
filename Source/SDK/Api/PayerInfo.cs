@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// More information about a <seealso cref="Payer"/>.
+    /// A resource representing a information about Payer.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
@@ -17,13 +17,13 @@ namespace PayPal.Api
     public class PayerInfo : PayPalSerializableObject
     {
         /// <summary>
-        /// Email address representing the Payer.
+        /// Email address representing the payer. 127 characters max.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email")]
         public string email { get; set; }
 
         /// <summary>
-        /// External Remember Me id representing the Payer
+        /// External Remember Me id representing the payer
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "external_remember_me_id")]
         public string external_remember_me_id { get; set; }
@@ -35,43 +35,43 @@ namespace PayPal.Api
         public string buyer_account_number { get; set; }
 
         /// <summary>
-        /// Salutation of the Payer.
+        /// Salutation of the payer.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "salutation")]
         public string salutation { get; set; }
 
         /// <summary>
-        /// First Name of the Payer.
+        /// First name of the payer.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "first_name")]
         public string first_name { get; set; }
 
         /// <summary>
-        /// Middle Name of the Payer.
+        /// Middle name of the payer.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "middle_name")]
         public string middle_name { get; set; }
 
         /// <summary>
-        /// Last Name of the Payer.
+        /// Last name of the payer.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "last_name")]
         public string last_name { get; set; }
 
         /// <summary>
-        /// Suffix of the Payer.
+        /// Suffix of the payer.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "suffix")]
         public string suffix { get; set; }
 
         /// <summary>
-        /// PayPal assigned Payer ID.
+        /// PayPal assigned encrypted Payer ID.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payer_id")]
         public string payer_id { get; set; }
 
         /// <summary>
-        /// Phone number representing the Payer.
+        /// Phone number representing the payer. 20 characters max.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "phone")]
         public string phone { get; set; }
@@ -89,19 +89,19 @@ namespace PayPal.Api
         public string birth_date { get; set; }
 
         /// <summary>
-        /// Payer's tax ID.
+        /// Payer’s tax ID. Only supported when the `payment_method` is set to `paypal`.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_id")]
         public string tax_id { get; set; }
 
         /// <summary>
-        /// Payer's tax ID type.
+        /// Payer’s tax ID type. Allowed values: `BR_CPF` or `BR_CNPJ`. Only supported when the `payment_method` is set to `paypal`.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_id_type")]
         public string tax_id_type { get; set; }
 
         /// <summary>
-        /// 2 letter registered country code of the payer to identify the buyer country
+        /// Two-letter registered country code of the payer to identify the buyer country.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "country_code")]
         public string country_code { get; set; }
@@ -113,7 +113,7 @@ namespace PayPal.Api
         public Address billing_address { get; set; }
 
         /// <summary>
-        /// Shipping address of payer PayPal account.
+        /// [DEPRECATED] Use shipping address present in purchase unit or at root level of checkout Session.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "shipping_address")]
         public ShippingAddress shipping_address { get; set; }

@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace PayPal.Api
 {
     /// <summary>
-    /// Transaction resources related to a parent payment.
+    /// Each one representing a financial transaction (Sale, Authorization, Capture, Refund) related to the payment.
     /// <para>
     /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
     /// </para>
