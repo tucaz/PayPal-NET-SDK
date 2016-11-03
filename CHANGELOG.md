@@ -1,6 +1,15 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.8.0
+* Enable ConfigManager to tolerate missing web.config or app.config file
+* Use PaymentCard instead of CreditCard
+* Update Webhooks to API version 1.7
+* Update Payment Experience to API version 1.3
+* Update Invoicing to API version 1.7
+* Update Payouts to API version 1.2
+* Update Payments to API version 1.9
+
 ## v1.7.4
 * Added missing fields for invoice.
 * Added missing fields for authorization. 
