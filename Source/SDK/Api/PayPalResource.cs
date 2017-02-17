@@ -18,6 +18,25 @@ namespace PayPal.Api
         private static Logger logger = Logger.GetLogger(typeof(PayPalResource));
 
         /// <summary>
+        /// PayPal debug id from response header
+        /// </summary>
+        private String _debugId;
+        /// <summary>
+        /// Sets the PayPal debug id from response header
+        /// </summary>
+        protected void SetDebugId(string debugId)
+        {
+            _debugId = debugId;
+        }
+        /// <summary>
+        /// Gets the PayPal debug id from response header
+        /// </summary>
+        public String GetDebugId()
+        {
+            return _debugId;
+        }
+
+        /// <summary>
         /// List of supported HTTP methods when making HTTP requests to the PayPal REST API.
         /// </summary>
         protected internal enum HttpMethod
@@ -192,7 +211,16 @@ namespace PayPal.Api
                     return (T)Convert.ChangeType(response, typeof(T));
                 }
 
-                return JsonFormatter.ConvertFromJson<T>(response);
+                var formattedResponse = JsonFormatter.ConvertFromJson<T>(response);
+                if (formattedResponse is PayPalResource)
+                {
+                    var responseHeaders = connectionHttp.ResponseDetails.Headers;
+                    String debugId = responseHeaders.Get("PayPal-Debug-Id");
+                    ((PayPalResource)(object)formattedResponse).SetDebugId(debugId);
+
+                }
+
+                return formattedResponse;
             }
             catch (ConnectionException ex)
             {
