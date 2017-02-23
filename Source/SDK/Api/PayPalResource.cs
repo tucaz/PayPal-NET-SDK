@@ -29,7 +29,8 @@ namespace PayPal.Api
             _debugId = debugId;
         }
         /// <summary>
-        /// Gets the PayPal debug id from response header
+        /// Gets the PayPal debug id of the last request from the response header. 
+        //  The debug id value can change if additional API operations are performed on the object. 
         /// </summary>
         public String GetDebugId()
         {
