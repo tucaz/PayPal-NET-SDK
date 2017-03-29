@@ -155,6 +155,8 @@ namespace PayPal.Sample
                 #endregion
             
                 // Refund by posting Refund object using a valid APIContext
+                //change API Context
+                apiContext = Configuration.GetAPIContext();
                 var response = sale.Refund(apiContext, refund);
 
                 // ^ Ignore workflow code segment
