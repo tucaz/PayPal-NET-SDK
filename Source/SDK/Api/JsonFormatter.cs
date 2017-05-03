@@ -55,7 +55,7 @@ namespace PayPal.Api
         {
             return JsonConvert.DeserializeObject<T>(value, new JsonSerializerSettings
             {
-                MissingMemberHandling = MissingMemberHandling.Error,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
                 Error = ErrorHandler
             });
         }
