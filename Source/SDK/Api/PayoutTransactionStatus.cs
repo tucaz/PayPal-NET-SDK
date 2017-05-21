@@ -11,7 +11,7 @@ namespace PayPal.Api
     /// <summary>
     /// Status of a payout transaction.
     /// <para>
-    /// See <a href="https://developer.paypal.com/docs/api/">PayPal Developer documentation</a> for more information.
+    /// See <a href="https://developer.paypal.com/docs/api/payments.payouts-batch#definition-payout_enumerations">PayPal Developer documentation</a> for more information.
     /// </para>
     /// </summary>
     public enum PayoutTransactionStatus
@@ -32,9 +32,9 @@ namespace PayPal.Api
         PENDING,
 
         /// <summary>
-        /// The item is being processed.
+        /// The payment processing is delayed due to PayPal internal updates.
         /// </summary>
-        PROCESSING,
+        NEW,
 
         /// <summary>
         /// Processing failed for the item.
@@ -62,10 +62,8 @@ namespace PayPal.Api
         BLOCKED,
 
         /// <summary>
-        /// It is not possible for the CANCELLED state to occur if the sender is solely using the API to send Payouts.
-        /// This status is an edge-case if a sender uses both the MassPay web upload and the Payouts API, cancels the
-        /// web upload, and then uses the API to find the batch/items. In this case, CANCELLED status is possible.
+        /// The payment for the payout item was successfully refunded.
         /// </summary>
-        CANCELLED
+        REFUNDED
     }
 }
