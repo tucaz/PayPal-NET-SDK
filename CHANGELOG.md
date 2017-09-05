@@ -1,6 +1,13 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.9.0
+* Extract PayPalDebugId Header to PayPalResource
+* Fix JSON parsing for PayoutTransactionStatus
+* Fix createFromRefreshToken to properly create Basic header
+* Fix samples
+* Removed invalid `security-test-sandbox` mode
+
 ## v1.8.0
 * Enable ConfigManager to tolerate missing web.config or app.config file
 * Use PaymentCard instead of CreditCard
