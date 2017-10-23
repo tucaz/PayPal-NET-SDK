@@ -33,5 +33,11 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "phone")]
         public Phone phone { get; set; }
+
+        /// <summary>
+        /// Displays only metadata for a payee.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName ="payee_display_metadata")]
+        public PayeeDisplayMetadata payee_display_metadata { get; set; }
     }
 }
