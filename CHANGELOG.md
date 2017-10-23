@@ -1,6 +1,9 @@
 PayPal .NET SDK release notes
 =============================
 
+## v1.9.1
+* Add PayeeDisplayMetadata to Payee
+
 ## v1.9.0
 * Extract PayPalDebugId Header to PayPalResource
 * Fix JSON parsing for PayoutTransactionStatus
