@@ -11,6 +11,8 @@ The PayPal .NET SDK makes it easy to add PayPal support to your .NET web applica
 
 > **Connections to the sandbox environment use only TLS 1.2.**
 
+## 2.0 Release Candidate!
+We're releasing a [brand new version of our SDK!](https://github.com/paypal/PayPal-net-SDK/tree/2.0-beta) 2.0 is currently at release candidate status, and represents a full refactor, with the goal of making all of our APIs extremely easy to use. 2.0 includes all of the existing APIs (except payouts), and includes the new Orders API (Disputes and Marketplace coming soon). Check out the [FAQ and migration guide](https://github.com/paypal/PayPal-net-SDK/tree/2.0-beta/docs), and let us know if you have any suggestions or issues!
 
 ## Prerequisites
 
