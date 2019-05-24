@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using PayPal.Log;
 using System;
 
 namespace PayPal.Api
@@ -27,8 +26,6 @@ namespace PayPal.Api
     /// </summary>
     public static class JsonFormatter
     {
-        private static Logger logger = Logger.GetLogger(typeof(JsonFormatter));
-
         /// <summary>
         /// Event handler for when an error occurs while attempting to deserialize a JSON string.
         /// </summary>
@@ -67,9 +64,6 @@ namespace PayPal.Api
         /// <param name="e">Event arguments</param>
         private static void ErrorHandler(object sender, ErrorEventArgs e)
         {
-            logger.Error("Error while deserializing JSON: " + e.ErrorContext.Error.Message);
-            e.ErrorContext.Handled = e.CurrentObject != null;
-
             // Raise the event if any other object has subscribed to this error.
             var handler = DeserializationError;
             if (handler != null)

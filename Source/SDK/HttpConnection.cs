@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Collections;
 using System.Net;
 using System.IO;
 using System.Globalization;
-using PayPal.Log;
 
 namespace PayPal.Api
 {
@@ -92,7 +90,6 @@ namespace PayPal.Api
     /// </summary>
     internal class HttpConnection
     {
-        private static Logger logger = Logger.GetLogger(typeof(HttpConnection));
         private Dictionary<string, string> config;
 
         /// <summary>
@@ -204,7 +201,6 @@ namespace PayPal.Api
                 {
                     if (retries > 0)
                     {
-                        logger.Info("Retrying....");
                         httpRequest = CopyRequest(httpRequest, config, httpRequest.RequestUri.ToString());
                         this.RequestDetails.RetryAttempts++;
                     }
@@ -220,15 +216,6 @@ namespace PayPal.Api
                                     writerStream.Write(payLoad);
                                     writerStream.Flush();
                                     writerStream.Close();
-
-                                    if (ConfigManager.IsLiveModeEnabled(config))
-                                    {
-                                        logger.Debug("Request details are hidden in live mode.");
-                                    }
-                                    else
-                                    {
-                                        logger.Debug(payLoad);
-                                    }
                                 }
                                 break;
 
@@ -248,16 +235,6 @@ namespace PayPal.Api
                             using (StreamReader readerStream = new StreamReader(responseWeb.GetResponseStream()))
                             {
                                 this.ResponseDetails.Body = readerStream.ReadToEnd().Trim();
-
-                                if (ConfigManager.IsLiveModeEnabled(config))
-                                {
-                                    logger.Debug("Response details are hidden in live mode.");
-                                }
-                                else
-                                {
-                                    logger.Debug("Service response: ");
-                                    logger.Debug(this.ResponseDetails.Body);
-                                }
                                 return this.ResponseDetails.Body;
                             }
                         }
@@ -271,11 +248,8 @@ namespace PayPal.Api
                             using (var readerStream = new StreamReader(ex.Response.GetResponseStream()))
                             {
                                 response = readerStream.ReadToEnd().Trim();
-                                logger.Error("Error response:");
-                                logger.Error(response);
                             }
                         }
-                        logger.Error(ex.Message);
 
                         ConnectionException rethrowEx = null;
 
@@ -302,7 +276,6 @@ namespace PayPal.Api
                                 ex.Status == WebExceptionStatus.ConnectFailure ||
                                 ex.Status == WebExceptionStatus.KeepAliveFailure)
                         {
-                            logger.Debug("There was a problem connecting to the server: " + ex.Status.ToString());
                             continue;
                         }
                         else if (ex.Status == WebExceptionStatus.Timeout)

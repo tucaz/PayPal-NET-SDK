@@ -30,7 +30,6 @@ namespace PayPal.Api
             header.Append(string.Join(";", new string[] 
             {
                 FormatUserAgentParameter("lang", "DOTNET"),
-                FormatUserAgentParameter("v", DotNetVersion),
                 FormatUserAgentParameter("clr", DotNetClrVersion),
                 FormatUserAgentParameter("bit", OperatingSystemBitness),
                 FormatUserAgentParameter("os", OperatingSystemName)
@@ -74,21 +73,5 @@ namespace PayPal.Api
         /// </summary>
         private static string DotNetClrVersion { get { return Environment.Version.ToString().Trim(); } }
 
-        /// <summary>
-        /// Gets the version of the current .NET environment.
-        /// </summary>
-        private static string DotNetVersion 
-        {
-            get
-            {
-#if NET_4_0
-                return "4.0";
-#elif NET_4_5
-                return "4.5";
-#elif NET_4_5_1
-                return "4.5.1";
-#endif
-            }
-        }
     }
 }

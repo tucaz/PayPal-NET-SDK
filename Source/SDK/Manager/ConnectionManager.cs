@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using PayPal.Log;
 using PayPal.Util;
 
 namespace PayPal.Api
@@ -12,20 +11,19 @@ namespace PayPal.Api
     public sealed class ConnectionManager
     {
         /// <summary>
-        /// Logger
-        /// </summary>
-        private static Logger logger = Logger.GetLogger(typeof(ConnectionManager));
-
-        /// <summary>
         /// System.Lazy type guarantees thread-safe lazy-construction
         /// static holder for instance, need to use lambda to construct since constructor private
         /// </summary>
-        private static readonly Lazy<ConnectionManager> lazyConnectionManager = new Lazy<ConnectionManager>(() => new ConnectionManager());
+        private static readonly Lazy<ConnectionManager> lazyConnectionManager =
+            new Lazy<ConnectionManager>(() => new ConnectionManager());
 
         /// <summary>
         /// Accessor for the Singleton instance of ConnectionManager
         /// </summary>
-        public static ConnectionManager Instance { get { return lazyConnectionManager.Value; } }
+        public static ConnectionManager Instance
+        {
+            get { return lazyConnectionManager.Value; }
+        }
 
         private bool logTlsWarning = false;
 
@@ -34,18 +32,7 @@ namespace PayPal.Api
         /// </summary>
         private ConnectionManager()
         {
-#if NET_4_5 || NET_4_5_1
-            ServicePointManager.SecurityProtocol = ServicePointManager.SecurityProtocol | SecurityProtocolType.Tls12;
-#else
-            if(SDKUtil.IsNet45OrLaterDetected())
-            {
-                ServicePointManager.SecurityProtocol = ServicePointManager.SecurityProtocol | (SecurityProtocolType)0xC00;
-            }
-            else
-            {
-                this.logTlsWarning = true;
-            }
-#endif
+            ServicePointManager.SecurityProtocol = ServicePointManager.SecurityProtocol | (SecurityProtocolType) 0xC00;
         }
 
         /// <summary>
@@ -59,24 +46,26 @@ namespace PayPal.Api
             HttpWebRequest httpRequest = null;
             try
             {
-                httpRequest = (HttpWebRequest)WebRequest.Create(url);
+                httpRequest = (HttpWebRequest) WebRequest.Create(url);
             }
             catch (UriFormatException ex)
             {
-                logger.Error(ex.Message, ex);
                 throw new ConfigException("Invalid URI: " + url);
             }
 
             // Set connection timeout
             int ConnectionTimeout = 0;
-            if(!config.ContainsKey(BaseConstants.HttpConnectionTimeoutConfig) ||
-                !int.TryParse(config[BaseConstants.HttpConnectionTimeoutConfig], out ConnectionTimeout)) {
-                int.TryParse(ConfigManager.GetDefault(BaseConstants.HttpConnectionTimeoutConfig), out ConnectionTimeout);
+            if (!config.ContainsKey(BaseConstants.HttpConnectionTimeoutConfig) ||
+                !int.TryParse(config[BaseConstants.HttpConnectionTimeoutConfig], out ConnectionTimeout))
+            {
+                int.TryParse(ConfigManager.GetDefault(BaseConstants.HttpConnectionTimeoutConfig),
+                    out ConnectionTimeout);
             }
+
             httpRequest.Timeout = ConnectionTimeout;
 
             // Set request proxy for tunnelling http requests via a proxy server
-            if(config.ContainsKey(BaseConstants.HttpProxyAddressConfig))
+            if (config.ContainsKey(BaseConstants.HttpProxyAddressConfig))
             {
                 WebProxy requestProxy = new WebProxy();
                 requestProxy.Address = new Uri(config[BaseConstants.HttpProxyAddressConfig]);
@@ -89,6 +78,7 @@ namespace PayPal.Api
                         requestProxy.Credentials = new NetworkCredential(proxyDetails[0], proxyDetails[1]);
                     }
                 }
+
                 httpRequest.Proxy = requestProxy;
             }
 
@@ -96,9 +86,10 @@ namespace PayPal.Api
             // well by Akamai and can negatively impact performance.
             httpRequest.ServicePoint.Expect100Continue = false;
 
-            if(this.logTlsWarning)
+            if (this.logTlsWarning)
             {
-                logger.Warn("SECURITY WARNING: TLSv1.2 is not supported on this system. Please update your .NET framework to a version that supports TLSv1.2.");
+                throw new InvalidOperationException(
+                    "SECURITY WARNING: TLSv1.2 is not supported on this system. Please update your .NET framework to a version that supports TLSv1.2.");
             }
 
             return httpRequest;

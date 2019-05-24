@@ -1,5 +1,4 @@
 using PayPal.Api;
-using PayPal.Log;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -17,11 +16,6 @@ namespace PayPal
     /// </summary>
     public sealed class CertificateManager
     {
-        /// <summary>
-        /// Logger
-        /// </summary>
-        private static Logger logger = Logger.GetLogger(typeof(CertificateManager));
-
         /// <summary>
         /// Cache of X509 certificates.
         /// </summary>

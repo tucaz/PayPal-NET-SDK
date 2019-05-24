@@ -4,7 +4,6 @@ using System.Text;
 using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PayPal.Log;
 
 namespace PayPal.Api
 {

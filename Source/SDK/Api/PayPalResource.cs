@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using PayPal.Log;
 using System.Text;
 using System.Threading;
 
@@ -12,10 +11,6 @@ namespace PayPal.Api
     /// </summary>
     public abstract class PayPalResource : PayPalSerializableObject
     {
-        /// <summary>
-        /// Logs output statements, errors, debug info to a text file
-        /// </summary>
-        private static Logger logger = Logger.GetLogger(typeof(PayPalResource));
 
         /// <summary>
         /// PayPal debug id from response header
@@ -186,12 +181,6 @@ namespace PayPal.Api
                 foreach (KeyValuePair<string, string> entry in headersMap)
                 {
                     httpRequest.Headers.Add(entry.Key, entry.Value);
-                }
-
-                // Log the headers
-                foreach (string headerName in httpRequest.Headers)
-                {
-                    logger.DebugFormat(headerName + ":" + httpRequest.Headers[headerName]);
                 }
 
                 // Execute call

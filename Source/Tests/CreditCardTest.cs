@@ -10,7 +10,7 @@ namespace PayPal.Testing
         public static readonly string CreditCardJson = "{" +
             "\"cvv2\": \"962\"," +
             "\"expire_month\": 01," +
-            "\"expire_year\": 2018," +
+            "\"expire_year\": 2024," +
             "\"first_name\": \"John\"," +
             "\"last_name\": \"Doe\"," +
             "\"number\": \"4449335840161468\"," +
@@ -30,7 +30,7 @@ namespace PayPal.Testing
             Assert.AreEqual("John", card.first_name);
             Assert.AreEqual("Doe", card.last_name);
             Assert.AreEqual(01, card.expire_month);
-            Assert.AreEqual(2018, card.expire_year);
+            Assert.AreEqual(2024, card.expire_year);
             Assert.AreEqual("962", card.cvv2);
             Assert.AreEqual("visa", card.type);
             Assert.IsNotNull(card.billing_address);

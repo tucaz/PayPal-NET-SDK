@@ -1,5 +1,3 @@
-using PayPal.Log;
-
 namespace PayPal
 {
     /// <summary>
@@ -7,11 +5,6 @@ namespace PayPal
     /// </summary>
     public class PayPalException : System.Exception
     {
-        /// <summary>
-        /// Logs output statements, errors, debug info to a text file
-        /// </summary>
-        private static Logger logger = Logger.GetLogger(typeof(PayPalException));
-
         /// <summary>
         /// Initializes a new <seealso cref="PayPalException"/> with no exception details set.
         /// </summary>
@@ -65,11 +58,9 @@ namespace PayPal
             string errorMessage = string.IsNullOrEmpty(this.ExceptionMessagePrefix) ? message : string.Format("{0}: {1}", this.ExceptionMessagePrefix, message);
             if (ex == null)
             {
-                logger.Error(errorMessage);
             }
             else
             {
-                logger.Error(errorMessage, ex);
             }
         }
 
