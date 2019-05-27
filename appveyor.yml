@@ -46,7 +46,7 @@ dotnet_csproj:
   informational_version: '$(APPVEYOR_BUILD_VERSION)'
 before_build:
   - cmd: dotnet --version
-  - cmd: dotnet restore ./src/PayPal.SDK/PayPal.SDK.csproj --verbosity m
+  - cmd: dotnet restore ./src/PayPal.SDK.sln --verbosity m
 build:
   publish_nuget: true
   publish_nuget_symbols: true

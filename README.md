@@ -1,46 +1,43 @@
 # PayPal .NET SDK
 
-![Home Image](https://raw.githubusercontent.com/wiki/paypal/PayPal-NET-SDK/images/homepage.jpg)
+[![Build status](https://ci.appveyor.com/api/projects/status/kofokkh2ir74hywx?svg=true)](https://ci.appveyor.com/project/tucaz/paypal-net-sdk)
 
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/paypal/paypal-net-sdk?svg=true)](https://ci.appveyor.com/project/paypal/paypal-net-sdk) [![NuGet](https://img.shields.io/nuget/v/PayPal.svg)](https://www.nuget.org/packages/PayPal)
+This is a fork from the original [v1 PayPal SDK](https://github.com/paypal/PayPal-NET-SDK) that seems to be abandoned by PayPal.
 
-The PayPal .NET SDK makes it easy to add PayPal support to your .NET web application and is built on [PayPal's REST APIs](https://developer.paypal.com/docs/api/).
+The [old documentation](https://github.com/paypal/PayPal-NET-SDK/blob/develop/README.md) is still valid and my plan is to update it as I move forward with the library.
 
-## TLSv1.2 Update
-> **The Payment Card Industry (PCI) Council has [mandated](http://blog.pcisecuritystandards.org/migrating-from-ssl-and-early-tls) that early versions of TLS be retired from service.  All organizations that handle credit card information are required to comply with this standard. As part of this obligation, PayPal is updating its services to require TLS 1.2 for all HTTPS connections. At this time, PayPal will also require HTTP/1.1 for all connections. [Click here](https://github.com/paypal/tls-update) for more information**
+It seemed like none of the multiple packages available on nuget.org are working well so that's the reason I created yet another fork.
 
-> **Connections to the sandbox environment use only TLS 1.2.**
+# Configuration
 
-## PayPal Checkout v2
-Please note that if you are integrating with PayPal Checkout, this SDK and corresponding API [v1/payments](https://developer.paypal.com/docs/api/payments/v1/) are in the process of being deprecated.
+The original configuration of the SDK was based on the old `app.config` paradigm and has been migrated to the new .NET Core standard.
 
-We recommend that you integrate with API [v2/checkout/orders](https://developer.paypal.com/docs/api/orders/v2/) and [v2/payments](https://developer.paypal.com/docs/api/payments/v2/). Please refer to the [Checkout .NET SDK](https://github.com/paypal/Checkout-NET-SDK) to continue with the integration.
+`appsettings.json` example:
 
-## 2.0 Release Candidate!
-We're releasing a [brand new version of our SDK!](https://github.com/paypal/PayPal-net-SDK/tree/2.0-beta) 2.0 is currently at release candidate status, and represents a full refactor, with the goal of making all of our APIs extremely easy to use. 2.0 includes all of the existing APIs (except payouts), and includes the new Orders API (Disputes and Marketplace coming soon). Check out the [FAQ and migration guide](https://github.com/paypal/PayPal-net-SDK/tree/2.0-beta/docs), and let us know if you have any suggestions or issues!
+```js
+{
+  "PayPal": {
+    "mode": "sandbox",
+    "connectionTimeout": 360000,
+    "requestRetries": 3,
+    "clientId": "AYrAaReQUybACfY3NJNZ1CNpbf8IdERKSHvA-urkP5G8YXzJd2khdkD8LT2WpDMUhXjn8NPl4sTFnYa2",
+    "clientSecret": "EObW1isFRDZKO6xe2FvpwABDdOsGrhrsKqMrWzSC4Ndz8k5WeYnpYofCm9EAdibSEBv5Gel6J86TzENj"
+  }
+}
+```
 
-## Prerequisites
+# Examples
 
-* .NET 4.0 or later
+Examples can be found inside the `Samples.old` folder as they are migrated. Once they are all migrated, they will live in the `Samples` folder.
 
-## Documentation
+Even though the samples provided are not really comprehensive, they are a start.
 
-* [SDK Home Page](http://paypal.github.io/PayPal-NET-SDK/) - A great starting place for using this SDK; includes links to the wiki, sample project source code, releases, and more!
-* [SDK Wiki](https://github.com/paypal/PayPal-NET-SDK/wiki)
-  * [Getting Started](https://github.com/paypal/PayPal-NET-SDK/wiki#getting-started) - Everything you need to begin using this SDK.
-  * [Quick Start](https://github.com/paypal/PayPal-NET-SDK/wiki/Quick-Start) - For those looking to hit the ground running!
-  * [Samples](https://github.com/paypal/PayPal-NET-SDK/wiki/Samples)
-  * [Classic SDK Compatibility](https://github.com/paypal/PayPal-NET-SDK/wiki/Classic-SDK-Compatibility)
-  * [FAQ](https://github.com/paypal/PayPal-NET-SDK/wiki/Frequently-Asked-Questions)
-  * [Contributing to the SDK](https://github.com/paypal/PayPal-NET-SDK/wiki/Contributing-to-the-SDK)
-
-General documentation regarding the PayPal REST API and related payment flows can be found on the [PayPal Developer](https://developer.paypal.com/) site. 
-
-* [PayPal Developer Documentation](https://developer.paypal.com/docs/)
-* [PayPal REST API Reference](https://developer.paypal.com/webapps/developer/docs/api/)
-
-## License
-
-* PayPal, Inc. SDK License - [LICENSE.txt](https://github.com/paypal/PayPal-NET-SDK/blob/master/LICENSE.txt)
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/paypal/PayPal-NET-SDK/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+# How to contribute / I want to help
+ 
+ There are multiple things that are necessary to bring this old library into life. Here are some if you are interested:
+ 
+ - [ ] Migrate samples from old ASPX style pages into Controllers or Razor Pages
+ - [ ] Provide documentation on how to setup, configure and debug the SDK (the original examples are not comprehensive enough IMO)
+ - [ ] Improve the internal implementation of basic things such as `HttpConnection`, exception handling, logging, etc
+ 
+ If there is anything that should be worked on first, please open an issue and I'm happy to help. If you feel like helping with any of these tasks just send a PR :) 
