@@ -1,20 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <IsPackable>true</IsPackable>
-    <TargetFrameworks>netstandard2.0;netcoreapp2.1;netcoreapp2.2</TargetFrameworks>
     <PackageId>paypal.dotnetcore</PackageId>
     <Title>PayPal SDK for DotNet Core</Title>
-    <Authors>paypal, tucaz</Authors>
+    <Description>Fork from official v1 PayPal .NET SDK ported to DotNet Core.</Description>
+    <Authors>paypal;tucaz</Authors>
+    <PackageTags>paypal;sdk;2019;dotnet;core;dotnetcore</PackageTags>    
+    
     <PackageProjectUrl>https://github.com/tucaz/PayPal-NET-SDK</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/tucaz/PayPal-NET-SDK/develop/LICENSE.txt</PackageLicenseUrl>    
-    <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/tucaz/PayPal-NET-SDK</RepositoryUrl>
-    <PackageTags>paypal, 2019, dotnet, core</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Fork from official v1 PayPal .NET SDK ported to DotNet Core.</Description>
-    <PackageReleaseNotes>Fork from official v1 PayPal .NET SDK ported to DotNet Core.</PackageReleaseNotes>
+    <RepositoryType>git</RepositoryType>
+    
+    <TargetFrameworks>netcoreapp2.0;netcoreapp2.1;netcoreapp2.2;netstandard2.0</TargetFrameworks>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>paypal-open-source.snk</AssemblyOriginatorKeyFile>
+
+    <PackageVersion>1.0.0</PackageVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
