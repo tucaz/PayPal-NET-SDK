@@ -44,6 +44,9 @@ dotnet_csproj:
   assembly_version: '$(APPVEYOR_BUILD_VERSION)'
   file_version: '$(APPVEYOR_BUILD_VERSION)'
   informational_version: '$(APPVEYOR_BUILD_VERSION)'
+before_build:
+  - cmd: dotnet --version
+  - cmd: dotnet restore ./src/PayPal.SDK/PayPal.SDK.csproj --verbosity m
 build:
   project: 'src\PayPal.SDK\PayPal.SDK.csproj'
   publish_nuget: true
@@ -52,6 +55,8 @@ build:
   include_nuget_references: true
   verbosity: minimal
 before_test:
+  - cmd: dotnet --version
+  - cmd: dotnet restore ./src/PayPal.SDK.Tests/PayPal.SDK.Tests.csproj --verbosity m
   - cmd: dotnet build ./src/PayPal.SDK.Tests/PayPal.SDK.Tests.csproj --verbosity m
 test:
   assemblies: '**\*.Tests.dll'  
