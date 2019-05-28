@@ -6,6 +6,7 @@
     <Authors>paypal;tucaz</Authors>
     <PackageTags>paypal;sdk;2019;dotnet;core;dotnetcore</PackageTags>    
     
+    <PackageIconUrl>https://raw.githubusercontent.com/tucaz/PayPal-NET-SDK/master/assets/paypal_logo.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/tucaz/PayPal-NET-SDK</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/tucaz/PayPal-NET-SDK/develop/LICENSE.txt</PackageLicenseUrl>    
     <RepositoryUrl>https://github.com/tucaz/PayPal-NET-SDK</RepositoryUrl>
