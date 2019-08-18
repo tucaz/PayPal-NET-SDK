@@ -63,6 +63,10 @@ The original configuration of the SDK was based on the old `app.config` paradigm
 }
 ```
 
+# Running tests
+
+As of 08/18/2019 all tests are passing. However, PayPal sandbox servers are not always in good mood so from time to time it throws some 404 or 503. If that happens with you, run the same test a couple more times and it should work.
+
 # Examples
 
 Examples can be found inside the `Samples.old` folder as they are migrated. Once they are all migrated, they will live in the `Samples` folder.
