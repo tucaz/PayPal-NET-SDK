@@ -8,6 +8,43 @@ The [old documentation](https://github.com/paypal/PayPal-NET-SDK/blob/develop/RE
 
 It seemed like none of the multiple packages available on nuget.org are working well so that's the reason I created yet another fork.
 
+# Changes from original repository
+
+## Webhook event validations
+
+In the original version, event sent by PayPal via webhooks could be validated locally based on the ceritificates provided by PayPal. However, with .NET Core things changed and that stopped working. For that reason, `WebhookEvent.ValidateReceivedEvent` has been removed from this library.
+
+Now, instead of using `WebhookEvent.ValidateReceivedEvent(apiContext, requestHeaders, requestBody, webhookId)` you should use `new VerifyWebhookSignature().Post` according to the example below:
+
+```c#
+var content = "";
+using (var sr = new StreamReader(request.Body, true))
+{
+    content = sr.ReadToEnd();
+}
+var paypalEvent = JsonConvert.DeserializeObject<WebhookEvent>(content);
+var verificationRequest = new VerifyWebhookSignature()
+{
+    auth_algo = request.Headers["paypal-auth-algo"].ToString(),
+    cert_url = request.Headers["paypal-cert-url"].ToString(),
+    transmission_id = request.Headers["paypal-transmission-id"].ToString(),
+    transmission_sig = request.Headers["paypal-transmission-sig"].ToString(),
+    transmission_time = request.Headers["paypal-transmission-time"].ToString(),
+    webhook_id = "YOUR_WEBHOOK_ID",
+    webhook_event =  paypalEvent
+};
+
+var verification = verificationRequest.Post(GetPayPalContext()); //Pass your APIContext instance
+    
+if (verification.verification_status == "SUCCESS") 
+    //EVENT IS VERIFIED
+
+```
+
+### Troubleshooting
+
+The moethod above will ask PayPal to verify the event for you. This verification is a constant source of pain. The primary reason is that PayPal wants to receive the event exactly in the way it sent you, meaning that field order matters in the JSON that is sent to PayPal. Verify this first if it stops working for you.
+
 # Configuration
 
 The original configuration of the SDK was based on the old `app.config` paradigm and has been migrated to the new .NET Core standard.

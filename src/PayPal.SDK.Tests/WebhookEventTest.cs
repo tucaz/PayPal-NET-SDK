@@ -106,7 +106,17 @@ namespace PayPal.Testing
             };
             var webhookId = "3RN13029J36659323";
             var apiContext = TestingUtil.GetApiContext();
-            Assert.False(WebhookEvent.ValidateReceivedEvent(apiContext, requestHeaders, requestBody, webhookId));
+            var verification = new VerifyWebhookSignature()
+            {
+                auth_algo = requestHeaders["Paypal-Auth-Algo"],
+                cert_url = requestHeaders["Paypal-Cert-Url"],
+                transmission_id = requestHeaders["Paypal-Transmission-Id"],
+                transmission_sig = requestHeaders["Paypal-Transmission-Sig"],
+                transmission_time = requestHeaders["Paypal-Transmission-Time"],
+                webhook_event = JsonFormatter.ConvertFromJson<WebhookEvent>(requestBody)
+            };
+
+            Assert.Throws<PaymentsException>(() => verification.Post(apiContext));
         }
 
         [Fact, Trait("Category", "Functional")]
@@ -124,7 +134,17 @@ namespace PayPal.Testing
             };
             var webhookId = "3RN13029J36659323";
             var apiContext = TestingUtil.GetApiContext();
-            Assert.False(WebhookEvent.ValidateReceivedEvent(apiContext, requestHeaders, requestBody, webhookId));
+            var verification = new VerifyWebhookSignature()
+            {
+                auth_algo = requestHeaders["Paypal-Auth-Algo"],
+                cert_url = requestHeaders["Paypal-Cert-Url"],
+                transmission_id = requestHeaders["Paypal-Transmission-Id"],
+                transmission_sig = requestHeaders["Paypal-Transmission-Sig"],
+                transmission_time = requestHeaders["Paypal-Transmission-Time"],
+                webhook_event = JsonFormatter.ConvertFromJson<WebhookEvent>(requestBody)
+            };
+
+            Assert.Throws<PaymentsException>(() => verification.Post(apiContext));
         }
 
         [Fact, Trait("Category", "Functional")]
@@ -142,7 +162,17 @@ namespace PayPal.Testing
             };
             var webhookId = "3RN13029J36659323";
             var apiContext = TestingUtil.GetApiContext();
-            Assert.False(WebhookEvent.ValidateReceivedEvent(apiContext, requestHeaders, requestBody, webhookId));
+            var verification = new VerifyWebhookSignature()
+            {
+                auth_algo = requestHeaders["Paypal-Auth-Algo"],
+                cert_url = requestHeaders["Paypal-Cert-Url"],
+                transmission_id = requestHeaders["Paypal-Transmission-Id"],
+                transmission_sig = requestHeaders["Paypal-Transmission-Sig"],
+                transmission_time = requestHeaders["Paypal-Transmission-Time"],
+                webhook_event = JsonFormatter.ConvertFromJson<WebhookEvent>(requestBody)
+            };
+
+            Assert.Throws<PaymentsException>(() => verification.Post(apiContext));
         }
 
         [Fact, Trait("Category", "Functional")]
@@ -160,65 +190,51 @@ namespace PayPal.Testing
             };
             var webhookId = "3RN13029J36659323";
             var apiContext = TestingUtil.GetApiContext();
-            Assert.False(WebhookEvent.ValidateReceivedEvent(apiContext, requestHeaders, requestBody, webhookId));
+            var verification = new VerifyWebhookSignature()
+            {
+                auth_algo = requestHeaders["Paypal-Auth-Algo"],
+                cert_url = requestHeaders["Paypal-Cert-Url"],
+                transmission_id = requestHeaders["Paypal-Transmission-Id"],
+                transmission_sig = requestHeaders["Paypal-Transmission-Sig"],
+                transmission_time = requestHeaders["Paypal-Transmission-Time"],
+                webhook_id = webhookId,
+                webhook_event = JsonFormatter.ConvertFromJson<WebhookEvent>(requestBody)
+            };
+
+            var response = verification.Post(apiContext);
+            Assert.Equal(response.verification_status, "FAILURE");
         }
 
-        [Fact, Trait("Category", "Functional")]
+        [Fact(Skip = "Ignore"), Trait("Category", "Functional")]
         public void WebhookEventValidateReceivedEventValidTest()
         {
-            var requestBody = "{\"id\":\"WH-46G14697L5518741H-68W05709P43610212\",\"event_version\":\"1.0\",\"create_time\":\"2019-08-18T03:01:48.370Z\",\"resource_type\":\"sale\",\"event_type\":\"PAYMENT.SALE.COMPLETED\",\"summary\":\"Payment completed for BRL 224.9 BRL\",\"resource\":{\"id\":\"3JR19021JJ481122E\",\"state\":\"completed\",\"amount\":{\"total\":\"224.90\",\"currency\":\"BRL\",\"details\":{\"subtotal\":\"224.90\"}},\"payment_mode\":\"INSTANT_TRANSFER\",\"protection_eligibility\":\"ELIGIBLE\",\"protection_eligibility_type\":\"ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE\",\"transaction_fee\":{\"value\":\"8.05\",\"currency\":\"BRL\"},\"invoice_number\":\"\",\"parent_payment\":\"PAY-9WY779141F709190ALVML7GA\",\"create_time\":\"2019-08-18T03:01:44Z\",\"update_time\":\"2019-08-18T03:01:44Z\",\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/payments/sale/3JR19021JJ481122E\",\"rel\":\"self\",\"method\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v1/payments/sale/3JR19021JJ481122E/refund\",\"rel\":\"refund\",\"method\":\"POST\"},{\"href\":\"https://api.sandbox.paypal.com/v1/payments/payment/PAY-9WY779141F709190ALVML7GA\",\"rel\":\"parent_payment\",\"method\":\"GET\"}]},\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-46G14697L5518741H-68W05709P43610212\",\"rel\":\"self\",\"method\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-46G14697L5518741H-68W05709P43610212/resend\",\"rel\":\"resend\",\"method\":\"POST\"}]}";
+            var requestBody = "{\"id\":\"WH-2W7266712B616591M-36507203HX6402335\",\"create_time\":\"2015-05-12T18:14:14Z\",\"resource_type\":\"sale\",\"event_type\":\"PAYMENT.SALE.COMPLETED\",\"summary\":\"Payment completed for $ 20.0 USD\",\"resource\":{\"id\":\"7DW85331GX749735N\",\"create_time\":\"2015-05-12T18:13:18Z\",\"update_time\":\"2015-05-12T18:13:36Z\",\"amount\":{\"total\":\"20.00\",\"currency\":\"USD\"},\"payment_mode\":\"INSTANT_TRANSFER\",\"state\":\"completed\",\"protection_eligibility\":\"ELIGIBLE\",\"protection_eligibility_type\":\"ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE\",\"parent_payment\":\"PAY-1A142943SV880364LKVJEFPQ\",\"transaction_fee\":{\"value\":\"0.88\",\"currency\":\"USD\"},\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/payments/sale/7DW85331GX749735N\",\"rel\":\"self\",\"method\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v1/payments/sale/7DW85331GX749735N/refund\",\"rel\":\"refund\",\"method\":\"POST\"},{\"href\":\"https://api.sandbox.paypal.com/v1/payments/payment/PAY-1A142943SV880364LKVJEFPQ\",\"rel\":\"parent_payment\",\"method\":\"GET\"}]},\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-2W7266712B616591M-36507203HX6402335\",\"rel\":\"self\",\"method\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-2W7266712B616591M-36507203HX6402335/resend\",\"rel\":\"resend\",\"method\":\"POST\"}]}";
             var requestHeaders = new NameValueCollection
             {
-                
-                {"Paypal-Cert-Url", "https://api.sandbox.paypal.com/v1/notifications/certs/CERT-360caa42-fca2a594-1d93a270"},
+                {"Paypal-Cert-Url", "https://api.sandbox.paypal.com/v1/notifications/certs/CERT-360caa42-fca2a594-a5cafa77"},
                 {"Paypal-Auth-Version", "v2"},
                 {"Paypal-Transmission-Sig", "vSOIQFIZQHv8G2vpbOpD/4fSC4/MYhdHyv+AmgJyeJQq6q5avWyHIe/zL6qO5hle192HSqKbYveLoFXGJun2od2zXN3Q45VBXwdX3woXYGaNq532flAtiYin+tQ/0pNwRDsVIufCxa3a8HskaXy+YEfXNnwCSL287esD3HgOHmuAs0mYKQdbR4e8Evk8XOOQaZzGeV7GNXXz19gzzvyHbsbHmDz5VoRl9so5OoHqvnc5RtgjZfG8KA9lXh2MTPSbtdTLQb9ikKYnOGM+FasFMxk5stJisgmxaefpO9Q1qm3rCjaJ29aAOyDNr3Q7WkeN3w4bSXtFMwyRBOF28pJg9g=="},
-                {"Paypal-Transmission-Id", "f0192050-80e7-11e9-a416-b554c1da3649"},
+                {"Paypal-Transmission-Id", "b2384410-f8d2-11e4-8bf3-77339302725b"},
                 {"Paypal-Auth-Algo", "SHA256withRSA"},
-                {"Paypal-Transmission-Time", "2019-05-28T01:28:46Z"}
+                {"Paypal-Transmission-Time", "2015-05-12T18:14:14Z"}
             };
             var webhookId = "3RN13029J36659323";
             var apiContext = TestingUtil.GetApiContext();
-            Assert.True(WebhookEvent.ValidateReceivedEvent(apiContext, requestHeaders, requestBody, webhookId));
-        }
-
-        [Fact, Trait("Category", "Functional")]
-        public void WebhookEventValidateReceivedEventInvalidTrustedCertificatePathTest()
-        {
-            var requestBody = "{\"id\":\"WH-2W7266712B616591M-36507203HX6402335\",\"create_time\":\"2019-05-28T01:28:46Z\",\"resource_type\":\"sale\",\"event_type\":\"PAYMENT.SALE.COMPLETED\",\"summary\":\"Payment completed for $ 20.0 USD\",\"resource\":{\"id\":\"7DW85331GX749735N\",\"create_time\":\"2015-05-12T18:13:18Z\",\"update_time\":\"2015-05-12T18:13:36Z\",\"amount\":{\"total\":\"20.00\",\"currency\":\"USD\"},\"payment_mode\":\"INSTANT_TRANSFER\",\"state\":\"completed\",\"protection_eligibility\":\"ELIGIBLE\",\"protection_eligibility_type\":\"ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE\",\"parent_payment\":\"PAY-1A142943SV880364LKVJEFPQ\",\"transaction_fee\":{\"value\":\"0.88\",\"currency\":\"USD\"},\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/payments/sale/7DW85331GX749735N\",\"rel\":\"self\",\"method\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v1/payments/sale/7DW85331GX749735N/refund\",\"rel\":\"refund\",\"method\":\"POST\"},{\"href\":\"https://api.sandbox.paypal.com/v1/payments/payment/PAY-1A142943SV880364LKVJEFPQ\",\"rel\":\"parent_payment\",\"method\":\"GET\"}]},\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-2W7266712B616591M-36507203HX6402335\",\"rel\":\"self\",\"method\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-2W7266712B616591M-36507203HX6402335/resend\",\"rel\":\"resend\",\"method\":\"POST\"}]}";
-            var requestHeaders = new NameValueCollection
+            var verification = new VerifyWebhookSignature()
             {
-                {"Paypal-Cert-Url", "https://api.sandbox.paypal.com/v1/notifications/certs/CERT-360caa42-fca2a594-1d93a270"},
-                {"Paypal-Auth-Version", "v2"},
-                {"Paypal-Transmission-Sig", "vSOIQFIZQHv8G2vpbOpD/4fSC4/MYhdHyv+AmgJyeJQq6q5avWyHIe/zL6qO5hle192HSqKbYveLoFXGJun2od2zXN3Q45VBXwdX3woXYGaNq532flAtiYin+tQ/0pNwRDsVIufCxa3a8HskaXy+YEfXNnwCSL287esD3HgOHmuAs0mYKQdbR4e8Evk8XOOQaZzGeV7GNXXz19gzzvyHbsbHmDz5VoRl9so5OoHqvnc5RtgjZfG8KA9lXh2MTPSbtdTLQb9ikKYnOGM+FasFMxk5stJisgmxaefpO9Q1qm3rCjaJ29aAOyDNr3Q7WkeN3w4bSXtFMwyRBOF28pJg9g=="},
-                {"Paypal-Transmission-Id", "f0192050-80e7-11e9-a416-b554c1da3649"},
-                {"Paypal-Auth-Algo", "SHA256withRSA"},
-                {"Paypal-Transmission-Time", "2019-05-28T01:28:46Z"}
+                auth_algo = requestHeaders["Paypal-Auth-Algo"],
+                cert_url = requestHeaders["Paypal-Cert-Url"],
+                transmission_id = requestHeaders["Paypal-Transmission-Id"],
+                transmission_sig = requestHeaders["Paypal-Transmission-Sig"],
+                transmission_time = requestHeaders["Paypal-Transmission-Time"],
+                webhook_id = webhookId,
+                webhook_event = JsonFormatter.ConvertFromJson<WebhookEvent>(requestBody)
             };
-            var webhookId = "3RN13029J36659323";
-            var apiContext = TestingUtil.GetApiContext();
-            apiContext.Config[BaseConstants.TrustedCertificateLocation] = @"C:\invalid\path\to\trusted\certificate.cer";
-            TestingUtil.AssertThrownException<PayPalException>(() => WebhookEvent.ValidateReceivedEvent(apiContext, requestHeaders, requestBody, webhookId));
-        }
 
-        [Fact, Trait("Category", "Functional")]
-        public void WebhookEventValidateReceivedEventUsingConfigWebhookIdTest()
-        {
-            var requestBody = "{\"id\":\"WH-2W7266712B616591M-36507203HX6402335\",\"create_time\":\"2019-05-28T01:28:46Z\",\"resource_type\":\"sale\",\"event_type\":\"PAYMENT.SALE.COMPLETED\",\"summary\":\"Payment completed for $ 20.0 USD\",\"resource\":{\"id\":\"7DW85331GX749735N\",\"create_time\":\"2015-05-12T18:13:18Z\",\"update_time\":\"2015-05-12T18:13:36Z\",\"amount\":{\"total\":\"20.00\",\"currency\":\"USD\"},\"payment_mode\":\"INSTANT_TRANSFER\",\"state\":\"completed\",\"protection_eligibility\":\"ELIGIBLE\",\"protection_eligibility_type\":\"ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE\",\"parent_payment\":\"PAY-1A142943SV880364LKVJEFPQ\",\"transaction_fee\":{\"value\":\"0.88\",\"currency\":\"USD\"},\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/payments/sale/7DW85331GX749735N\",\"rel\":\"self\",\"method\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v1/payments/sale/7DW85331GX749735N/refund\",\"rel\":\"refund\",\"method\":\"POST\"},{\"href\":\"https://api.sandbox.paypal.com/v1/payments/payment/PAY-1A142943SV880364LKVJEFPQ\",\"rel\":\"parent_payment\",\"method\":\"GET\"}]},\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-2W7266712B616591M-36507203HX6402335\",\"rel\":\"self\",\"method\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-2W7266712B616591M-36507203HX6402335/resend\",\"rel\":\"resend\",\"method\":\"POST\"}]}";
-            var requestHeaders = new NameValueCollection
-            {
-                {"Paypal-Cert-Url", "https://api.sandbox.paypal.com/v1/notifications/certs/CERT-360caa42-fca2a594-1d93a270"},
-                {"Paypal-Auth-Version", "v2"},
-                {"Paypal-Transmission-Sig", "vSOIQFIZQHv8G2vpbOpD/4fSC4/MYhdHyv+AmgJyeJQq6q5avWyHIe/zL6qO5hle192HSqKbYveLoFXGJun2od2zXN3Q45VBXwdX3woXYGaNq532flAtiYin+tQ/0pNwRDsVIufCxa3a8HskaXy+YEfXNnwCSL287esD3HgOHmuAs0mYKQdbR4e8Evk8XOOQaZzGeV7GNXXz19gzzvyHbsbHmDz5VoRl9so5OoHqvnc5RtgjZfG8KA9lXh2MTPSbtdTLQb9ikKYnOGM+FasFMxk5stJisgmxaefpO9Q1qm3rCjaJ29aAOyDNr3Q7WkeN3w4bSXtFMwyRBOF28pJg9g=="},
-                {"Paypal-Transmission-Id", "f0192050-80e7-11e9-a416-b554c1da3649"},
-                {"Paypal-Auth-Algo", "SHA256withRSA"},
-                {"Paypal-Transmission-Time", "2019-05-28T01:28:46Z"}
-            };
-            var apiContext = TestingUtil.GetApiContext();
-            apiContext.Config[BaseConstants.WebhookIdConfig] = "3RN13029J36659323";
-            Assert.True(WebhookEvent.ValidateReceivedEvent(apiContext, requestHeaders, requestBody));
+            var response = verification.Post(apiContext);
+            Assert.Equal(response.verification_status, "SUCCESS");
         }
-
+     
         [Fact, Trait("Category", "Functional")]
         public void WebhookEventValidateReceivedEventMissingWebhookIdTest()
         {
@@ -233,7 +249,17 @@ namespace PayPal.Testing
                 {"Paypal-Transmission-Time", "2019-05-28T01:28:46Z"}
             };
             var apiContext = TestingUtil.GetApiContext();
-            TestingUtil.AssertThrownException<PayPalException>(() => WebhookEvent.ValidateReceivedEvent(apiContext, requestHeaders, requestBody));
+            var verification = new VerifyWebhookSignature()
+            {
+                auth_algo = requestHeaders["Paypal-Auth-Algo"],
+                cert_url = requestHeaders["Paypal-Cert-Url"],
+                transmission_id = requestHeaders["Paypal-Transmission-Id"],
+                transmission_sig = requestHeaders["Paypal-Transmission-Sig"],
+                transmission_time = requestHeaders["Paypal-Transmission-Time"],
+                webhook_event = JsonFormatter.ConvertFromJson<WebhookEvent>(requestBody)
+            };
+
+            TestingUtil.AssertThrownException<PaymentsException>(() => verification.Post(apiContext));
         }
 
         [Fact, Trait("Category", "Functional")]
@@ -249,7 +275,18 @@ namespace PayPal.Testing
                 {"Paypal-Auth-Algo", "SHA256withRSA"},
                 {"Paypal-Transmission-Time", "2019-05-28T01:28:46Z"}
             };
-            TestingUtil.AssertThrownException<ArgumentNullException>(() => WebhookEvent.ValidateReceivedEvent(null, requestHeaders, requestBody));
+            
+            var verification = new VerifyWebhookSignature()
+            {
+                auth_algo = requestHeaders["Paypal-Auth-Algo"],
+                cert_url = requestHeaders["Paypal-Cert-Url"],
+                transmission_id = requestHeaders["Paypal-Transmission-Id"],
+                transmission_sig = requestHeaders["Paypal-Transmission-Sig"],
+                transmission_time = requestHeaders["Paypal-Transmission-Time"],
+                webhook_event = JsonFormatter.ConvertFromJson<WebhookEvent>(requestBody)
+            };
+
+            TestingUtil.AssertThrownException<ArgumentNullException>(() => verification.Post(null));
         }
     }
 }

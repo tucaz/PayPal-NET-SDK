@@ -14,6 +14,37 @@ namespace PayPal.Testing
             "\"event_types\":[" +
             WebhookEventTypeTest.WebhookEventTypeJsonCreated + "," +
             WebhookEventTypeTest.WebhookEventTypeJsonVoided + "]}";
+        
+        [Fact, Trait("Category", "Functional")]
+        public void RemoveAllWebhooks()
+        {
+            try
+            {
+                var apiContext = TestingUtil.GetApiContext();
+                this.RecordConnectionDetails();
+
+                var webhookList = Webhook.GetAll(apiContext);
+                this.RecordConnectionDetails();
+
+                foreach (var webhook in webhookList.webhooks)
+                {
+                    webhook.Delete(apiContext);
+                    this.RecordConnectionDetails();
+                }
+
+                webhookList = Webhook.GetAll(apiContext);
+                this.RecordConnectionDetails();
+
+                Assert.NotNull(webhookList);
+                Assert.Empty(webhookList.webhooks);
+            }
+            catch(ConnectionException)
+            {
+                this.RecordConnectionDetails(false);
+                throw;
+            }
+        }
+
 
         public static Webhook GetWebhook()
         {
