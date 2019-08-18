@@ -123,7 +123,7 @@ namespace PayPal
                     return new X509Certificate2(File.ReadAllBytes(config[BaseConstants.TrustedCertificateLocation]));
                 }
 
-                using (var reader = Assembly.GetExecutingAssembly().GetManifestResourceStream("PayPal.Resources.DigiCertSHA2ExtendedValidationServerCA.crt"))
+                using (var reader = Assembly.GetExecutingAssembly().GetManifestResourceStream("PayPal.SDK.Resources.DigiCertSHA2ExtendedValidationServerCA.crt"))
                 using (var memoryStream = new MemoryStream())
                 {
                     reader.CopyTo(memoryStream);
