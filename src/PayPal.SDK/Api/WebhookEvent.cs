@@ -29,6 +29,12 @@ namespace PayPal.Api
         public string id { get; set; }
 
         /// <summary>
+        /// The version of the event.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "event_version")]
+        public string event_version { get; set; }
+
+        /// <summary>
         /// The date and time when the webhook event notification was created.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "create_time")]
@@ -39,12 +45,6 @@ namespace PayPal.Api
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "resource_type")]
         public string resource_type { get; set; }
-
-        /// <summary>
-        /// The version of the event.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "event_version")]
-        public string event_version { get; set; }
 
         /// <summary>
         /// The event that triggered the webhook event notification.
