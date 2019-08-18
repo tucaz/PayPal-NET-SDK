@@ -1,9 +1,11 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
+    
     public class PayoutSenderBatchHeaderTest
     {
         public static readonly string PayoutSenderBatchHeaderJson = 
@@ -15,25 +17,25 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<PayoutSenderBatchHeader>(PayoutSenderBatchHeaderJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayoutSenderBatchHeaderObjectTest()
         {
             var testObject = GetPayoutSenderBatchHeader();
-            Assert.IsNotNull(testObject);
-            Assert.IsTrue(!string.IsNullOrEmpty(testObject.sender_batch_id));
-            Assert.AreEqual("You have a payment", testObject.email_subject);
+            Assert.NotNull(testObject);
+            Assert.True(!string.IsNullOrEmpty(testObject.sender_batch_id));
+            Assert.Equal("You have a payment", testObject.email_subject);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayoutSenderBatchHeaderConvertToJsonTest()
         {
-            Assert.IsFalse(GetPayoutSenderBatchHeader().ConvertToJson().Length == 0);
+            Assert.False(GetPayoutSenderBatchHeader().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayoutSenderBatchHeaderToStringTest()
         {
-            Assert.IsFalse(GetPayoutSenderBatchHeader().ToString().Length == 0);
+            Assert.False(GetPayoutSenderBatchHeader().ToString().Length == 0);
         }
     }
 }

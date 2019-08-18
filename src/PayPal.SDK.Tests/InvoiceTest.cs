@@ -2,15 +2,17 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
     /// <summary>
     /// Summary description for InvoiceTest
     /// </summary>
-    [TestClass]
+    
     public class InvoiceTest : BaseTest
     {
         public static readonly string InvoiceJson =
@@ -29,36 +31,36 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Invoice>(InvoiceJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void InvoiceObjectTest()
         {
             var testObject = GetInvoice();
-            Assert.IsNotNull(testObject.merchant_info);
-            Assert.IsNotNull(testObject.billing_info);
-            Assert.IsTrue(testObject.billing_info.Count == 1);
-            Assert.IsNotNull(testObject.items);
-            Assert.IsTrue(testObject.items.Count == 1);
-            Assert.IsNotNull(testObject.shipping_info);
-            Assert.AreEqual("Medical Invoice 16 Jul, 2013 PST", testObject.note);
-            Assert.IsNotNull(testObject.payment_term);
-            Assert.AreEqual(testObject.allow_partial_payment, true);
-            Assert.AreEqual(testObject.minimum_amount_due.value, CurrencyTest.GetCurrency().value);
-            Assert.AreEqual(testObject.gratuity.value, CurrencyTest.GetCurrency().value);
+            Assert.NotNull(testObject.merchant_info);
+            Assert.NotNull(testObject.billing_info);
+            Assert.True(testObject.billing_info.Count == 1);
+            Assert.NotNull(testObject.items);
+            Assert.True(testObject.items.Count == 1);
+            Assert.NotNull(testObject.shipping_info);
+            Assert.Equal("Medical Invoice 16 Jul, 2013 PST", testObject.note);
+            Assert.NotNull(testObject.payment_term);
+            Assert.Equal(testObject.allow_partial_payment, true);
+            Assert.Equal(testObject.minimum_amount_due.value, CurrencyTest.GetCurrency().value);
+            Assert.Equal(testObject.gratuity.value, CurrencyTest.GetCurrency().value);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void InvoiceConvertToJsonTest()
         {
-            Assert.IsFalse(GetInvoice().ConvertToJson().Length == 0);
+            Assert.False(GetInvoice().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void InvoiceToStringTest()
         {
-            Assert.IsFalse(GetInvoice().ToString().Length == 0);
+            Assert.False(GetInvoice().ToString().Length == 0);
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void InvoiceCreateTest()
         {
             try
@@ -72,8 +74,8 @@ namespace PayPal.Testing
                 var createdInvoice = invoice.Create(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(createdInvoice.id);
-                Assert.AreEqual(invoice.note, createdInvoice.note);
+                Assert.NotNull(createdInvoice.id);
+                Assert.Equal(invoice.note, createdInvoice.note);
             }
             catch(ConnectionException)
             {
@@ -81,7 +83,7 @@ namespace PayPal.Testing
             }
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void InvoiceQrCodeTest()
         {
             try
@@ -96,8 +98,8 @@ namespace PayPal.Testing
                 var qrCode = Invoice.QrCode(apiContext, createdInvoice.id);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(qrCode);
-                Assert.IsTrue(!string.IsNullOrEmpty(qrCode.image));
+                Assert.NotNull(qrCode);
+                Assert.True(!string.IsNullOrEmpty(qrCode.image));
 
                 createdInvoice.Delete(apiContext);
                 this.RecordConnectionDetails();

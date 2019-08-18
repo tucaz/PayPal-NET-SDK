@@ -1,10 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using System.Collections.Generic;
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
+    
     public class PaymentExecutionTest
     {
         public static PaymentExecution GetPaymentExecution()
@@ -17,23 +19,23 @@ namespace PayPal.Testing
             return execution;
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PaymentExecutionObjectTest()
         {
             var execution = GetPaymentExecution();
-            Assert.AreEqual(execution.payer_id, "100");
+            Assert.Equal(execution.payer_id, "100");
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PaymentExecutionConvertToJsonTest()
         {
-            Assert.IsFalse(GetPaymentExecution().ConvertToJson().Length == 0);
+            Assert.False(GetPaymentExecution().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PaymentExecutionToStringTest()
         {
-            Assert.IsFalse(GetPaymentExecution().ToString().Length == 0);
+            Assert.False(GetPaymentExecution().ToString().Length == 0);
         }
     }
 }

@@ -1,13 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using PayPal.Api;
 using System;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
     /// <summary>
     /// Summary description for AgreementTest
     /// </summary>
-    [TestClass]
+    
     public class AgreementTest : BaseTest
     {
         public static readonly string AgreementJson =
@@ -23,31 +25,31 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Agreement>(AgreementJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void AgreementObjectTest()
         {
             var testObject = GetAgreement();
-            Assert.AreEqual("T-Shirt of the Month Club Agreement", testObject.name);
-            Assert.AreEqual("Agreement for T-Shirt of the Month Club Plan", testObject.description);
-            Assert.IsNotNull(testObject.start_date);
-            Assert.IsNotNull(testObject.plan);
-            Assert.IsNotNull(testObject.payer);
-            Assert.IsNotNull(testObject.shipping_address);
+            Assert.Equal("T-Shirt of the Month Club Agreement", testObject.name);
+            Assert.Equal("Agreement for T-Shirt of the Month Club Plan", testObject.description);
+            Assert.NotNull(testObject.start_date);
+            Assert.NotNull(testObject.plan);
+            Assert.NotNull(testObject.payer);
+            Assert.NotNull(testObject.shipping_address);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void AgreementConvertToJsonTest()
         {
-            Assert.IsFalse(GetAgreement().ConvertToJson().Length == 0);
+            Assert.False(GetAgreement().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void AgreementToStringTest()
         {
-            Assert.IsFalse(GetAgreement().ToString().Length == 0);
+            Assert.False(GetAgreement().ToString().Length == 0);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void AgreementCreateTest()
         {
             try
@@ -80,9 +82,9 @@ namespace PayPal.Testing
                 var createdAgreement = agreement.Create(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNull(createdAgreement.id);
-                Assert.IsNotNull(createdAgreement.token);
-                Assert.AreEqual(agreement.name, createdAgreement.name);
+                Assert.Null(createdAgreement.id);
+                Assert.NotNull(createdAgreement.token);
+                Assert.Equal(agreement.name, createdAgreement.name);
             }
             catch(ConnectionException)
             {
@@ -91,7 +93,7 @@ namespace PayPal.Testing
             }
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void AgreementGetTest()
         {
             var apiContext = TestingUtil.GetApiContext();
@@ -99,21 +101,21 @@ namespace PayPal.Testing
             var executedAgreement = agreement.Execute(apiContext);
             var agreementId = executedAgreement.id;
             var retrievedAgreement = Agreement.Get(apiContext, agreementId);
-            Assert.AreEqual(agreementId, retrievedAgreement.id);
-            Assert.AreEqual("-6514356286402072739", retrievedAgreement.description);
-            Assert.AreEqual("2015-02-19T08:00:00Z", retrievedAgreement.start_date);
-            Assert.IsNotNull(retrievedAgreement.plan);
+            Assert.Equal(agreementId, retrievedAgreement.id);
+            Assert.Equal("-6514356286402072739", retrievedAgreement.description);
+            Assert.Equal("2015-02-19T08:00:00Z", retrievedAgreement.start_date);
+            Assert.NotNull(retrievedAgreement.plan);
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void AgreementExecuteTest()
         {
             var agreement = new Agreement() { token = "EC-2CD33889A9699491E" };
             var executedAgreement = agreement.Execute(TestingUtil.GetApiContext());
-            Assert.AreEqual("I-ASXCM9U5MJJV", executedAgreement.id);
+            Assert.Equal("I-ASXCM9U5MJJV", executedAgreement.id);
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void AgreementUpdateTest()
         {
             // Get the agreement to be used for verifying the update functionality
@@ -135,11 +137,11 @@ namespace PayPal.Testing
 
             // Verify the agreement was successfully updated
             var updatedAgreement = Agreement.Get(apiContext, agreementId);
-            Assert.AreEqual(agreementId, updatedAgreement.id);
-            Assert.AreEqual(updatedDescription, updatedAgreement.description);
+            Assert.Equal(agreementId, updatedAgreement.id);
+            Assert.Equal(updatedDescription, updatedAgreement.description);
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void AgreementSearchTest()
         {
             try
@@ -152,8 +154,8 @@ namespace PayPal.Testing
                 var transactions = Agreement.ListTransactions(apiContext, "I-9STXMKR58UNN", startDate, endDate);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(transactions);
-                Assert.IsNotNull(transactions.agreement_transaction_list);
+                Assert.NotNull(transactions);
+                Assert.NotNull(transactions.agreement_transaction_list);
             }
             catch(ConnectionException)
             {
@@ -165,7 +167,7 @@ namespace PayPal.Testing
         /// <summary>
         /// The following tests are disabled due to them requiring an active billing agreement.
         /// </summary>
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void AgreementSuspendTest()
         {
             var apiContext = TestingUtil.GetApiContext();
@@ -179,7 +181,7 @@ namespace PayPal.Testing
             var suspendedAgreement = Agreement.Get(apiContext, agreementId);
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void AgreementReactivateTest()
         {
             var apiContext = TestingUtil.GetApiContext();
@@ -193,7 +195,7 @@ namespace PayPal.Testing
             var reactivatedAgreement = Agreement.Get(apiContext, agreementId);
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void AgreementCancelTest()
         {
             var apiContext = TestingUtil.GetApiContext();

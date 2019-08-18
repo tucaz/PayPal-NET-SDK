@@ -1,11 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using System.Collections.Generic;
 using PayPal;
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
+    
     public class PaymentHistoryTest
     {
         public static PaymentHistory GetPaymentHistory()
@@ -19,25 +21,25 @@ namespace PayPal.Testing
             return history;
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PaymentHistoryObjectTest()
         {
             var history = GetPaymentHistory();
-            Assert.AreEqual(history.count, 1);
-            Assert.AreEqual(history.next_id, "1");
-            Assert.AreEqual(history.payments.Count, 1);
+            Assert.Equal(history.count, 1);
+            Assert.Equal(history.next_id, "1");
+            Assert.Equal(history.payments.Count, 1);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PaymentHistoryConvertToJsonTest()
         {
-            Assert.IsFalse(GetPaymentHistory().ConvertToJson().Length == 0);
+            Assert.False(GetPaymentHistory().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PaymentHistoryToStringTest()
         {
-            Assert.IsFalse(GetPaymentHistory().ToString().Length == 0);
+            Assert.False(GetPaymentHistory().ToString().Length == 0);
         }
     }
 }

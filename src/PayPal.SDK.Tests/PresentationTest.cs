@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class PresentationTest
     {
         public static readonly string PresentationJson = "{\"brand_name\": \"Test brand name\",\"logo_image\": \"http://www.paypal.com\",\"locale_code\": \"US\",\"return_url_label\":\"return\",\"note_to_seller_label\":\"thanks!\"}";
@@ -13,27 +14,27 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Presentation>(PresentationJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PresentationObjectTest()
         {
             var presentation = GetPresentation();
-            Assert.AreEqual("Test brand name", presentation.brand_name);
-            Assert.AreEqual("http://www.paypal.com", presentation.logo_image);
-            Assert.AreEqual("US", presentation.locale_code);
-            Assert.AreEqual("return", presentation.return_url_label);
-            Assert.AreEqual("thanks!", presentation.note_to_seller_label);
+            Assert.Equal("Test brand name", presentation.brand_name);
+            Assert.Equal("http://www.paypal.com", presentation.logo_image);
+            Assert.Equal("US", presentation.locale_code);
+            Assert.Equal("return", presentation.return_url_label);
+            Assert.Equal("thanks!", presentation.note_to_seller_label);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PresentationConvertToJsonTest()
         {
-            Assert.IsFalse(GetPresentation().ConvertToJson().Length == 0);
+            Assert.False(GetPresentation().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PresentationToStringTest()
         {
-            Assert.IsFalse(GetPresentation().ToString().Length == 0);
+            Assert.False(GetPresentation().ToString().Length == 0);
         }
     }
 }

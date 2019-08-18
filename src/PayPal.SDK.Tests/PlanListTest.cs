@@ -1,12 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
     /// <summary>
     /// Summary description for PlanListTest
     /// </summary>
-    [TestClass]
+    
     public class PlanListTest
     {
         public static readonly string PlanListJson = "{\"plans\":[" + PlanTest.PlanJson + "]}";
@@ -16,24 +17,24 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<PlanList>(PlanListJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PlanListObjectTest()
         {
             var testObject = GetPlanList();
-            Assert.IsNotNull(testObject.plans);
-            Assert.IsTrue(testObject.plans.Count == 1);
+            Assert.NotNull(testObject.plans);
+            Assert.True(testObject.plans.Count == 1);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PlanListConvertToJsonTest()
         {
-            Assert.IsFalse(GetPlanList().ConvertToJson().Length == 0);
+            Assert.False(GetPlanList().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PlanListToStringTest()
         {
-            Assert.IsFalse(GetPlanList().ToString().Length == 0);
+            Assert.False(GetPlanList().ToString().Length == 0);
         }
     }
 }

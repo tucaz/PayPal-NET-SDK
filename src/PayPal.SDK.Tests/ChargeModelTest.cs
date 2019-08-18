@@ -1,12 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
     /// <summary>
     /// Summary description for ChargeModelsTest
     /// </summary>
-    [TestClass]
+    
     public class ChargeModelTest
     {
         public static readonly string ChargeModelJson = "{\"id\":\"CHM-92S85978TN737850VRWBZEUA\",\"type\":\"TAX\",\"amount\":" + CurrencyTest.CurrencyJson + "}";
@@ -16,25 +17,25 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<ChargeModel>(ChargeModelJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void ChargeModelObjectTest()
         {
             var testObject = GetChargeModel();
-            Assert.AreEqual("CHM-92S85978TN737850VRWBZEUA", testObject.id);
-            Assert.AreEqual("TAX", testObject.type);
-            Assert.IsNotNull(testObject.amount);
+            Assert.Equal("CHM-92S85978TN737850VRWBZEUA", testObject.id);
+            Assert.Equal("TAX", testObject.type);
+            Assert.NotNull(testObject.amount);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void ChargeModelConvertToJsonTest()
         {
-            Assert.IsFalse(GetChargeModel().ConvertToJson().Length == 0);
+            Assert.False(GetChargeModel().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void ChargeModelToStringTest()
         {
-            Assert.IsFalse(GetChargeModel().ToString().Length == 0);
+            Assert.False(GetChargeModel().ToString().Length == 0);
         }
     }
 }

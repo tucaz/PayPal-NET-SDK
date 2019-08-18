@@ -1,10 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using PayPal;
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class CreditCardTest : BaseTest
     {
         public static readonly string CreditCardJson = "{" +
@@ -22,30 +24,30 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<CreditCard>(CreditCardJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void CreditCardObjectTest()
         {
             var card = GetCreditCard();
-            Assert.AreEqual("4449335840161468", card.number);
-            Assert.AreEqual("John", card.first_name);
-            Assert.AreEqual("Doe", card.last_name);
-            Assert.AreEqual(01, card.expire_month);
-            Assert.AreEqual(2024, card.expire_year);
-            Assert.AreEqual("962", card.cvv2);
-            Assert.AreEqual("visa", card.type);
-            Assert.IsNotNull(card.billing_address);
+            Assert.Equal("4449335840161468", card.number);
+            Assert.Equal("John", card.first_name);
+            Assert.Equal("Doe", card.last_name);
+            Assert.Equal(01, card.expire_month);
+            Assert.Equal(2024, card.expire_year);
+            Assert.Equal("962", card.cvv2);
+            Assert.Equal("visa", card.type);
+            Assert.NotNull(card.billing_address);
         }
 
-        [TestMethod, TestCategory("Unit")]        
+        [Fact, Trait("Category", "Unit")]        
         public void CreditCardConvertToJsonTest()
         {
             var card = GetCreditCard();
             var jsonString = card.ConvertToJson();
             var credit = JsonFormatter.ConvertFromJson<CreditCard>(jsonString);
-            Assert.IsNotNull(credit);
+            Assert.NotNull(credit);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void CreditCardGetTest()
         {
             try
@@ -60,7 +62,7 @@ namespace PayPal.Testing
                 var retrievedCreditCard = CreditCard.Get(apiContext, createdCreditCard.id);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual(createdCreditCard.id, retrievedCreditCard.id);
+                Assert.Equal(createdCreditCard.id, retrievedCreditCard.id);
             }
             catch(ConnectionException)
             {
@@ -69,7 +71,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void CreditCardDeleteTest()
         {
             try
@@ -94,7 +96,7 @@ namespace PayPal.Testing
             }
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void CreditCardListTest()
         {
             try
@@ -105,9 +107,9 @@ namespace PayPal.Testing
                 var creditCardList = CreditCard.List(apiContext, startTime: "2014-11-01T19:27:56Z", endTime: "2014-12-25T19:27:56Z");
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(creditCardList);
-                Assert.IsTrue(creditCardList.total_items > 0);
-                Assert.IsTrue(creditCardList.total_pages > 0);
+                Assert.NotNull(creditCardList);
+                Assert.True(creditCardList.total_items > 0);
+                Assert.True(creditCardList.total_pages > 0);
             }
             catch(ConnectionException)
             {
@@ -115,7 +117,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void CreditCardUpdateTest()
         {
             try
@@ -152,13 +154,13 @@ namespace PayPal.Testing
                 var retrievedCreditCard = CreditCard.Get(apiContext, updatedCreditCard.id);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(retrievedCreditCard);
-                Assert.IsNotNull(retrievedCreditCard.billing_address);
-                Assert.AreEqual("111 First Street", retrievedCreditCard.billing_address.line1);
-                Assert.AreEqual("Saratoga", retrievedCreditCard.billing_address.city);
-                Assert.AreEqual("US", retrievedCreditCard.billing_address.country_code);
-                Assert.AreEqual("CA", retrievedCreditCard.billing_address.state);
-                Assert.AreEqual("95070", retrievedCreditCard.billing_address.postal_code);
+                Assert.NotNull(retrievedCreditCard);
+                Assert.NotNull(retrievedCreditCard.billing_address);
+                Assert.Equal("111 First Street", retrievedCreditCard.billing_address.line1);
+                Assert.Equal("Saratoga", retrievedCreditCard.billing_address.city);
+                Assert.Equal("US", retrievedCreditCard.billing_address.country_code);
+                Assert.Equal("CA", retrievedCreditCard.billing_address.state);
+                Assert.Equal("95070", retrievedCreditCard.billing_address.postal_code);
             }
             catch(ConnectionException)
             {
@@ -167,7 +169,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void CreditCardNullIdTest()
         {
             TestingUtil.AssertThrownException<System.ArgumentNullException>(() => CreditCard.Get(new APIContext("token"), null));

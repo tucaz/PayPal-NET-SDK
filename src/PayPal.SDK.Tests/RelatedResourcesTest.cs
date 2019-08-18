@@ -2,12 +2,13 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class RelatedResourcesTest
     {
         public static RelatedResources GetRelatedResources()
@@ -21,26 +22,26 @@ namespace PayPal.Testing
             return resources;
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void RelatedResourcesObjectTest() 
         {
             var resources = GetRelatedResources();
-            Assert.AreEqual(resources.authorization.id, AuthorizationTest.GetAuthorization().id);
-            Assert.AreEqual(resources.sale.id, SaleTest.GetSale().id);
-            Assert.AreEqual(resources.refund.id, RefundTest.GetRefund().id);
-            Assert.AreEqual(resources.capture.id, CaptureTest.GetCapture().id);
+            Assert.Equal(resources.authorization.id, AuthorizationTest.GetAuthorization().id);
+            Assert.Equal(resources.sale.id, SaleTest.GetSale().id);
+            Assert.Equal(resources.refund.id, RefundTest.GetRefund().id);
+            Assert.Equal(resources.capture.id, CaptureTest.GetCapture().id);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void RelatedResourcesConvertToJsonTest() 
         {
-            Assert.IsFalse(GetRelatedResources().ConvertToJson().Length == 0);
+            Assert.False(GetRelatedResources().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void RelatedResourcesToStringTest() 
         {
-            Assert.IsFalse(GetRelatedResources().ToString().Length == 0);
+            Assert.False(GetRelatedResources().ToString().Length == 0);
         }
     }
 }

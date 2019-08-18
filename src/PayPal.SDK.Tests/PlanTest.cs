@@ -1,14 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
 using PayPal;
 using System;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
     /// <summary>
     /// Summary description for PlanTest
     /// </summary>
-    [TestClass]
+    
     public class PlanTest : BaseTest
     {
         public static readonly string PlanJson = 
@@ -23,31 +24,31 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Plan>(PlanJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PlanObjectTest()
         {
             var testObject = GetPlan();
-            Assert.AreEqual("T-Shirt of the Month Club Plan", testObject.name);
-            Assert.AreEqual("Template creation.", testObject.description);
-            Assert.AreEqual("FIXED", testObject.type);
-            Assert.IsNotNull(testObject.payment_definitions);
-            Assert.IsTrue(testObject.payment_definitions.Count == 1);
-            Assert.IsNotNull(testObject.merchant_preferences);
+            Assert.Equal("T-Shirt of the Month Club Plan", testObject.name);
+            Assert.Equal("Template creation.", testObject.description);
+            Assert.Equal("FIXED", testObject.type);
+            Assert.NotNull(testObject.payment_definitions);
+            Assert.True(testObject.payment_definitions.Count == 1);
+            Assert.NotNull(testObject.merchant_preferences);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PlanConvertToJsonTest()
         {
-            Assert.IsFalse(GetPlan().ConvertToJson().Length == 0);
+            Assert.False(GetPlan().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PlanToStringTest()
         {
-            Assert.IsFalse(GetPlan().ToString().Length == 0);
+            Assert.False(GetPlan().ToString().Length == 0);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void PlanCreateAndGetTest()
         {
             try
@@ -59,17 +60,17 @@ namespace PayPal.Testing
                 var createdPlan = plan.Create(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsTrue(!string.IsNullOrEmpty(createdPlan.id));
-                Assert.AreEqual(plan.name, createdPlan.name);
+                Assert.True(!string.IsNullOrEmpty(createdPlan.id));
+                Assert.Equal(plan.name, createdPlan.name);
 
                 var retrievedPlan = Plan.Get(apiContext, createdPlan.id);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(retrievedPlan);
-                Assert.AreEqual(createdPlan.id, retrievedPlan.id);
-                Assert.AreEqual("T-Shirt of the Month Club Plan", retrievedPlan.name);
-                Assert.AreEqual("Template creation.", retrievedPlan.description);
-                Assert.AreEqual("FIXED", retrievedPlan.type);
+                Assert.NotNull(retrievedPlan);
+                Assert.Equal(createdPlan.id, retrievedPlan.id);
+                Assert.Equal("T-Shirt of the Month Club Plan", retrievedPlan.name);
+                Assert.Equal("Template creation.", retrievedPlan.description);
+                Assert.Equal("FIXED", retrievedPlan.type);
             }
             catch(ConnectionException)
             {
@@ -78,7 +79,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void PlanUpdateTest()
         {
             try
@@ -112,8 +113,8 @@ namespace PayPal.Testing
                 var updatedPlan = Plan.Get(apiContext, planId);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual(planId, updatedPlan.id);
-                Assert.AreEqual(updatedDescription, updatedPlan.description);
+                Assert.Equal(planId, updatedPlan.id);
+                Assert.Equal(updatedDescription, updatedPlan.description);
             }
             catch (ConnectionException)
             {
@@ -122,7 +123,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void PlanListTest()
         {
             try
@@ -133,9 +134,9 @@ namespace PayPal.Testing
                 var planList = Plan.List(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(planList);
-                Assert.IsNotNull(planList.plans);
-                Assert.IsTrue(planList.plans.Count > 0);
+                Assert.NotNull(planList);
+                Assert.NotNull(planList.plans);
+                Assert.True(planList.plans.Count > 0);
             }
             catch (ConnectionException)
             {
@@ -144,7 +145,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void PlanDeleteTest()
         {
             try

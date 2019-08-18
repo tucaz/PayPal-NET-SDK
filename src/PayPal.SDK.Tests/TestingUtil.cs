@@ -1,6 +1,7 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using PayPal.Api;
+using Xunit;
 
 namespace PayPal.Testing
 {
@@ -48,9 +49,9 @@ namespace PayPal.Testing
                 {
                     return;
                 }
-                Assert.Fail("Expected " + typeof(T) + " to be thrown, but " + ex.GetType() + " was thrown instead.");
+                Assert.True(false, "Expected " + typeof(T) + " to be thrown, but " + ex.GetType() + " was thrown instead.");
             }
-            Assert.Fail("Expected " + typeof(T) + " to be thrown, but no exception was thrown.");
+            Assert.True(false, "Expected " + typeof(T) + " to be thrown, but no exception was thrown.");
         }
     }
 }

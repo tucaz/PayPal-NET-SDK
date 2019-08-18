@@ -1,9 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
+    
     public class MeasurementTest
     {
         public static readonly string MeasurementJson =
@@ -15,24 +17,24 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Measurement>(MeasurementJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void MeasurementObjectTest()
         {
             var testObject = GetMeasurement();
-            Assert.AreEqual("2", testObject.value);
-            Assert.AreEqual("meters", testObject.unit);
+            Assert.Equal("2", testObject.value);
+            Assert.Equal("meters", testObject.unit);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void MeasurementConvertToJsonTest()
         {
-            Assert.IsFalse(GetMeasurement().ConvertToJson().Length == 0);
+            Assert.False(GetMeasurement().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void MeasurementToStringTest()
         {
-            Assert.IsFalse(GetMeasurement().ToString().Length == 0);
+            Assert.False(GetMeasurement().ToString().Length == 0);
         }
     }
 }

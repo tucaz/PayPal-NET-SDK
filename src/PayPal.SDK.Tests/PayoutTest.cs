@@ -1,10 +1,12 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using PayPal.Api;
 using System.Collections.Generic;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class PayoutTest : BaseTest
     {
         public static readonly string PayoutJson = 
@@ -16,29 +18,29 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Payout>(PayoutJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayoutObjectTest()
         {
             var testObject = GetPayout();
-            Assert.IsNotNull(testObject);
-            Assert.IsNotNull(testObject.sender_batch_header);
-            Assert.IsNotNull(testObject.items);
-            Assert.IsTrue(testObject.items.Count == 1);
+            Assert.NotNull(testObject);
+            Assert.NotNull(testObject.sender_batch_header);
+            Assert.NotNull(testObject.items);
+            Assert.True(testObject.items.Count == 1);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayoutConvertToJsonTest()
         {
-            Assert.IsFalse(GetPayout().ConvertToJson().Length == 0);
+            Assert.False(GetPayout().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayoutToStringTest()
         {
-            Assert.IsFalse(GetPayout().ToString().Length == 0);
+            Assert.False(GetPayout().ToString().Length == 0);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void PayoutCreateAndGetTest()
         {
             try
@@ -52,16 +54,16 @@ namespace PayPal.Testing
                 var createdPayout = payout.Create(apiContext, false);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(createdPayout);
-                Assert.IsTrue(!string.IsNullOrEmpty(createdPayout.batch_header.payout_batch_id));
-                Assert.AreEqual(payoutSenderBatchId, createdPayout.batch_header.sender_batch_header.sender_batch_id);
+                Assert.NotNull(createdPayout);
+                Assert.True(!string.IsNullOrEmpty(createdPayout.batch_header.payout_batch_id));
+                Assert.Equal(payoutSenderBatchId, createdPayout.batch_header.sender_batch_header.sender_batch_id);
 
                 var payoutBatchId = createdPayout.batch_header.payout_batch_id;
                 var retrievedPayout = Payout.Get(apiContext, payoutBatchId);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(payout);
-                Assert.AreEqual(payoutBatchId, retrievedPayout.batch_header.payout_batch_id);
+                Assert.NotNull(payout);
+                Assert.Equal(payoutBatchId, retrievedPayout.batch_header.payout_batch_id);
             }
             catch(ConnectionException)
             {
@@ -69,8 +71,15 @@ namespace PayPal.Testing
                 throw;
             }
         }
+        
+        public static IEnumerable<object[]> Data =>
+            new List<object[]>
+            {
+                new object[] { TestingUtil.GetApiContext() }
+            };
 
-        [Ignore]
+        [Theory(Skip = "Ignore")]
+        [MemberData(nameof(Data), null)]
         public static PayoutBatch CreateSingleSynchronousPayoutBatch(APIContext apiContext)
         {
             return Payout.Create(apiContext, new Payout

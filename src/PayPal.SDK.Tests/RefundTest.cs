@@ -1,11 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using PayPal.Api;
 using PayPal;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class RefundTest : BaseTest
     {
         public static Refund GetRefund()
@@ -22,21 +23,21 @@ namespace PayPal.Testing
             return refund;
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void RefundObjectTest()
         {
             var refund = GetRefund();
-            Assert.AreEqual("101", refund.capture_id);
-            Assert.AreEqual("102", refund.id);
-            Assert.AreEqual("103", refund.parent_payment);
-            Assert.AreEqual("104", refund.sale_id);
-            Assert.AreEqual("COMPLETED", refund.state);
-            Assert.IsNotNull(refund.create_time);
-            Assert.IsNotNull(refund.amount);
-            Assert.IsNotNull(refund.links);
+            Assert.Equal("101", refund.capture_id);
+            Assert.Equal("102", refund.id);
+            Assert.Equal("103", refund.parent_payment);
+            Assert.Equal("104", refund.sale_id);
+            Assert.Equal("COMPLETED", refund.state);
+            Assert.NotNull(refund.create_time);
+            Assert.NotNull(refund.amount);
+            Assert.NotNull(refund.links);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void RefundIdTest()
         {
             try
@@ -47,16 +48,16 @@ namespace PayPal.Testing
                 var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(pay);
-                Assert.IsNotNull(pay.transactions);
-                Assert.IsTrue(pay.transactions.Count > 0);
+                Assert.NotNull(pay);
+                Assert.NotNull(pay.transactions);
+                Assert.True(pay.transactions.Count > 0);
                 var transaction = pay.transactions[0];
 
-                Assert.IsNotNull(transaction.related_resources);
-                Assert.IsTrue(transaction.related_resources.Count > 0);
+                Assert.NotNull(transaction.related_resources);
+                Assert.True(transaction.related_resources.Count > 0);
 
                 var resource = transaction.related_resources[0];
-                Assert.IsNotNull(resource.authorization);
+                Assert.NotNull(resource.authorization);
 
                 var authorization = Authorization.Get(apiContext, resource.authorization.id);
                 this.RecordConnectionDetails();
@@ -88,7 +89,7 @@ namespace PayPal.Testing
                 var retrievedRefund = Refund.Get(apiContext, responseRefund.id);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual(responseRefund.id, retrievedRefund.id);
+                Assert.Equal(responseRefund.id, retrievedRefund.id);
             }
             catch(ConnectionException)
             {
@@ -97,22 +98,22 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void RefundNullIdTest()
         {
             TestingUtil.AssertThrownException<System.ArgumentNullException>(() => Refund.Get(new APIContext("token"), null));
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void RefundConvertToJsonTest()
         {
-            Assert.IsFalse(GetRefund().ConvertToJson().Length == 0);
+            Assert.False(GetRefund().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void RefundToStringTest()
         {
-            Assert.IsFalse(GetRefund().ToString().Length == 0);
+            Assert.False(GetRefund().ToString().Length == 0);
         }
     }
 }

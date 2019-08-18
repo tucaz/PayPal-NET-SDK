@@ -1,10 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using PayPal;
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
+    
     public class FundingInstrumentTest
     {
         public static FundingInstrument GetFundingInstrument()
@@ -14,16 +16,16 @@ namespace PayPal.Testing
             return instrument;
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void FundingInstrumentConvertToJsonTest()
         {
-            Assert.IsFalse(GetFundingInstrument().ConvertToJson().Length == 0);
+            Assert.False(GetFundingInstrument().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void FundingInstrumentToStringTest()
         {
-            Assert.IsFalse(GetFundingInstrument().ToString().Length == 0);
+            Assert.False(GetFundingInstrument().ToString().Length == 0);
         }
     }
 }

@@ -1,15 +1,16 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using PayPal.Api;
 using System.Collections.Generic;
 using System.Text;
+using Xunit;
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class UserInfoTest : BaseTest
     {
-        [TestMethod, TestCategory("Functional"), Ignore]
+        [Fact(Skip="Ignore"), Trait("Category", "Functional")]
         public void UserInfoGetUserInfoWithRefreshTokenTest()
         {
             try
@@ -33,13 +34,13 @@ namespace PayPal.Testing
                 var userInfo = PayPal.Api.OpenIdConnect.Userinfo.GetUserinfo(userInfoParameters);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual("account", userInfo.family_name);
-                Assert.AreEqual("facilitator account", userInfo.name);
-                Assert.AreEqual("facilitator", userInfo.given_name);
-                Assert.AreEqual("BUSINESS", userInfo.account_type);
-                Assert.AreEqual("https://www.paypal.com/webapps/auth/identity/user/jWZav5QbA94DNm5FzsNOsq88y4QYrRvu4KLfUydcJqU", userInfo.user_id);
-                Assert.IsTrue(userInfo.verified_account.Value);
-                Assert.AreEqual("en_US", userInfo.locale);
+                Assert.Equal("account", userInfo.family_name);
+                Assert.Equal("facilitator account", userInfo.name);
+                Assert.Equal("facilitator", userInfo.given_name);
+                Assert.Equal("BUSINESS", userInfo.account_type);
+                Assert.Equal("https://www.paypal.com/webapps/auth/identity/user/jWZav5QbA94DNm5FzsNOsq88y4QYrRvu4KLfUydcJqU", userInfo.user_id);
+                Assert.True(userInfo.verified_account.Value);
+                Assert.Equal("en_US", userInfo.locale);
             }
             catch(ConnectionException)
             {

@@ -2,16 +2,17 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api;
 using PayPal;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
     /// <summary>
     /// Summary description for InvoiceItemTest
     /// </summary>
-    [TestClass]
+    
     public class InvoiceItemTest
     {
         public static readonly string InvoiceItemJson =
@@ -24,25 +25,25 @@ namespace PayPal.Testing
             return PayPal.Api.JsonFormatter.ConvertFromJson<InvoiceItem>(InvoiceItemJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void InvoiceItemObjectTest()
         {
             var testObject = GetInvoiceItem();
-            Assert.AreEqual("Sutures", testObject.name);
-            Assert.AreEqual(100, testObject.quantity);
-            Assert.IsNotNull(testObject.unit_price);
+            Assert.Equal("Sutures", testObject.name);
+            Assert.Equal(100, testObject.quantity);
+            Assert.NotNull(testObject.unit_price);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void InvoiceItemConvertToJsonTest()
         {
-            Assert.IsFalse(GetInvoiceItem().ConvertToJson().Length == 0);
+            Assert.False(GetInvoiceItem().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void InvoiceItemToStringTest()
         {
-            Assert.IsFalse(GetInvoiceItem().ToString().Length == 0);
+            Assert.False(GetInvoiceItem().ToString().Length == 0);
         }
     }
 }

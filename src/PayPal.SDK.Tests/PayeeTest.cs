@@ -1,9 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
+    
     public class PayeeTest
     {
         public static Payee GetPayee()
@@ -15,25 +17,25 @@ namespace PayPal.Testing
             return pay;
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayeeObjectTest()
         {
             var pay = GetPayee();
-            Assert.AreEqual(pay.merchant_id, "100");
-            Assert.AreEqual(pay.email, "paypaluser@email.com");
-            Assert.IsNotNull(pay.phone);
+            Assert.Equal(pay.merchant_id, "100");
+            Assert.Equal(pay.email, "paypaluser@email.com");
+            Assert.NotNull(pay.phone);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayeeConvertToJsonTest()
         {
-            Assert.IsFalse(GetPayee().ConvertToJson().Length == 0);
+            Assert.False(GetPayee().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayeeToStringTest()
         {
-            Assert.IsFalse(GetPayee().ToString().Length == 0);
+            Assert.False(GetPayee().ToString().Length == 0);
         }
     }
 }

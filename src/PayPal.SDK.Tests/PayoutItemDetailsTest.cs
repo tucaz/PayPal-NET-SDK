@@ -1,9 +1,11 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
+    
     public class PayoutItemDetailsTest
     {
         public static readonly string PayoutItemDetailsJson = 
@@ -22,29 +24,29 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<PayoutItemDetails>(PayoutItemDetailsJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayoutItemDetailsObjectTest()
         {
             var testObject = GetPayoutItemDetails();
-            Assert.IsNotNull(testObject);
-            Assert.AreEqual("7SB2EHDQ8MWCS", testObject.payout_item_id);
-            Assert.AreEqual(PayoutTransactionStatus.PENDING, testObject.transaction_status);
-            Assert.AreEqual("CFBTNR3EKL8A8", testObject.payout_batch_id);
-            Assert.IsNotNull(testObject.payout_item_fee);
-            Assert.IsNotNull(testObject.payout_item);
-            Assert.IsNotNull(testObject.links);
+            Assert.NotNull(testObject);
+            Assert.Equal("7SB2EHDQ8MWCS", testObject.payout_item_id);
+            Assert.Equal(PayoutTransactionStatus.PENDING, testObject.transaction_status);
+            Assert.Equal("CFBTNR3EKL8A8", testObject.payout_batch_id);
+            Assert.NotNull(testObject.payout_item_fee);
+            Assert.NotNull(testObject.payout_item);
+            Assert.NotNull(testObject.links);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayoutItemDetailsConvertToJsonTest()
         {
-            Assert.IsFalse(GetPayoutItemDetails().ConvertToJson().Length == 0);
+            Assert.False(GetPayoutItemDetails().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayoutItemDetailsToStringTest()
         {
-            Assert.IsFalse(GetPayoutItemDetails().ToString().Length == 0);
+            Assert.False(GetPayoutItemDetails().ToString().Length == 0);
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
+    
     public class DetailsTest
     {
         public static readonly string DetailsJson = 
@@ -17,26 +19,26 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Details>(DetailsJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void DetailsObjectTest()
         {
             var detail = GetDetails();
-            Assert.AreEqual("75", detail.subtotal);
-            Assert.AreEqual("15", detail.tax);
-            Assert.AreEqual("10", detail.shipping);
-            Assert.AreEqual("0", detail.fee);
+            Assert.Equal("75", detail.subtotal);
+            Assert.Equal("15", detail.tax);
+            Assert.Equal("10", detail.shipping);
+            Assert.Equal("0", detail.fee);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void DetailsConvertToJsonTest()
         {
-            Assert.IsFalse(GetDetails().ConvertToJson().Length == 0);
+            Assert.False(GetDetails().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void DetailsToStringTest()
         {
-            Assert.IsFalse(GetDetails().ToString().Length == 0);
+            Assert.False(GetDetails().ToString().Length == 0);
         }
     }
 }

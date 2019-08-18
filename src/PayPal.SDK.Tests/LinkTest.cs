@@ -1,10 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using PayPal.Api;
 using System.Collections.Generic;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
+    
     public class LinksTest
     {
         public static readonly string LinksJson =
@@ -34,41 +36,41 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Links>(LinksJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void LinksObjectTest()
         {
             var link = GetLinks();
-            Assert.AreEqual("http://paypal.com/", link.href);
-            Assert.AreEqual("POST", link.method);
-            Assert.AreEqual("authorize", link.rel);
+            Assert.Equal("http://paypal.com/", link.href);
+            Assert.Equal("POST", link.method);
+            Assert.Equal("authorize", link.rel);
 
             link = GetLinks(true);
-            Assert.AreEqual("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-0JP008296V451950C", link.href);
-            Assert.AreEqual("REDIRECT", link.method);
-            Assert.AreEqual("approval_url", link.rel);
+            Assert.Equal("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-0JP008296V451950C", link.href);
+            Assert.Equal("REDIRECT", link.method);
+            Assert.Equal("approval_url", link.rel);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void LinksConvertToJsonTest()
         {
-            Assert.IsFalse(GetLinks().ConvertToJson().Length == 0);
+            Assert.False(GetLinks().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void LinksToStringTest()
         {
-            Assert.IsFalse(GetLinks().ToString().Length == 0);
+            Assert.False(GetLinks().ToString().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void LinksApprovalUrlTest()
         {
             var resource = new PayPalRelationalObject { links = GetLinksList() };
             var approvalUrl = resource.GetApprovalUrl();
-            Assert.AreEqual("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-0JP008296V451950C", approvalUrl);
+            Assert.Equal("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-0JP008296V451950C", approvalUrl);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void LinksNoApprovalUrlTest()
         {
             var resource = new PayPalRelationalObject
@@ -79,18 +81,18 @@ namespace PayPal.Testing
                 }
             };
             var approvalUrl = resource.GetApprovalUrl();
-            Assert.IsTrue(string.IsNullOrEmpty(approvalUrl));
+            Assert.True(string.IsNullOrEmpty(approvalUrl));
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void LinksApprovalUrlPayNowTest()
         {
             var resource = new PayPalRelationalObject { links = GetLinksList() };
             var approvalUrl = resource.GetApprovalUrl(true);
-            Assert.AreEqual("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-0JP008296V451950C&useraction=commit", approvalUrl);
+            Assert.Equal("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-0JP008296V451950C&useraction=commit", approvalUrl);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void LinksNoApprovalUrlPayNowTest()
         {
             var resource = new PayPalRelationalObject
@@ -101,18 +103,18 @@ namespace PayPal.Testing
                 }
             };
             var approvalUrl = resource.GetApprovalUrl(true);
-            Assert.IsTrue(string.IsNullOrEmpty(approvalUrl));
+            Assert.True(string.IsNullOrEmpty(approvalUrl));
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void LinksApprovalUrlTokenTest()
         {
             var resource = new PayPalRelationalObject { links = GetLinksList() };
             var token = resource.GetTokenFromApprovalUrl();
-            Assert.AreEqual("EC-0JP008296V451950C", token);
+            Assert.Equal("EC-0JP008296V451950C", token);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void LinksNoApprovalUrlEmptyTokenTest()
         {
             var resource = new PayPalRelationalObject
@@ -123,7 +125,7 @@ namespace PayPal.Testing
                 }
             };
             var token = resource.GetTokenFromApprovalUrl();
-            Assert.IsTrue(string.IsNullOrEmpty(token));
+            Assert.True(string.IsNullOrEmpty(token));
         }
     }
 }

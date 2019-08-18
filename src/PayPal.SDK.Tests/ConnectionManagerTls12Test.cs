@@ -1,23 +1,25 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
+using System;
 using PayPal.Api;
 using System.Net;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
-    public class ConnectionManagerTls12Test
+    
+    public class ConnectionManagerTls12Test : IDisposable
     {
 
+        
         private SecurityProtocolType DefaultSecurityProtocol { get; set; }
 
-        [TestInitialize]
-        public void SetUp()
+        public ConnectionManagerTls12Test()
         {
             DefaultSecurityProtocol = ServicePointManager.SecurityProtocol;
         }
-
-        [TestCleanup]
-        public void TearDown()
+        
+        void IDisposable.Dispose()
         {
             ServicePointManager.SecurityProtocol = DefaultSecurityProtocol;
         }
@@ -34,18 +36,19 @@ namespace PayPal.Testing
         private static SecurityProtocolType Tls12 => (SecurityProtocolType)0xC00;
 #endif
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void Tls12SupportShouldBeAddedWithoutAffectingExistingProtocols()
         {
-            ServicePointManager.SecurityProtocol = Ssl3 | Tls | Tls11 | Tls12;
+            Assert.Throws<NotSupportedException>(() => { ServicePointManager.SecurityProtocol = Ssl3; });
+            
+            ServicePointManager.SecurityProtocol = Tls | Tls11 | Tls12;
 
             var connectionManager = ConnectionManager.Instance;
 
             SecurityProtocolType actual = ServicePointManager.SecurityProtocol;
-            Assert.IsTrue(actual.HasFlag(Ssl3), "SSL3 support got removed.");
-            Assert.IsTrue(actual.HasFlag(Tls), "TLSv1.0 support got removed.");
-            Assert.IsTrue(actual.HasFlag(Tls11), "TLSv1.1 support got removed.");
-            Assert.IsTrue(actual.HasFlag(Tls12), "TLSv1.2 support not added.");
+            Assert.True(actual.HasFlag(Tls), "TLSv1.0 support got removed.");
+            Assert.True(actual.HasFlag(Tls11), "TLSv1.1 support got removed.");
+            Assert.True(actual.HasFlag(Tls12), "TLSv1.2 support not added.");
         }
         
     }

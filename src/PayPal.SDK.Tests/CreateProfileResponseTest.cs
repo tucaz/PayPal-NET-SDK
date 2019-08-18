@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class CreateProfileResponseTest
     {
         public static readonly string CreateProfileResponseJson = "{\"id\": \"XP-VKRN-ZPNE-AXGJ-YFZM\"}";
@@ -13,23 +14,23 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<CreateProfileResponse>(CreateProfileResponseJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void CreateProfileResponseObjectTest()
         {
             var response = GetCreateProfileResponse();
-            Assert.AreEqual("XP-VKRN-ZPNE-AXGJ-YFZM", response.id);
+            Assert.Equal("XP-VKRN-ZPNE-AXGJ-YFZM", response.id);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void CreateProfileResponseConvertToJsonTest()
         {
-            Assert.IsFalse(GetCreateProfileResponse().ConvertToJson().Length == 0);
+            Assert.False(GetCreateProfileResponse().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void CreateProfileResponseToStringTest()
         {
-            Assert.IsFalse(GetCreateProfileResponse().ToString().Length == 0);
+            Assert.False(GetCreateProfileResponse().ToString().Length == 0);
         }
     }
 }

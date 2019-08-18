@@ -1,9 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
+    
     public class ItemTest
     {
         public static readonly string ItemJson =
@@ -18,27 +20,27 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Item>(ItemJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void ItemObjectTest()
         {
             var itm = GetItem();
-            Assert.AreEqual(itm.name, "Item Name");
-            Assert.AreEqual(itm.currency, "USD");
-            Assert.AreEqual(itm.price, "10");
-            Assert.AreEqual(itm.quantity, "5");
-            Assert.AreEqual(itm.sku, "Sku");
+            Assert.Equal(itm.name, "Item Name");
+            Assert.Equal(itm.currency, "USD");
+            Assert.Equal(itm.price, "10");
+            Assert.Equal(itm.quantity, "5");
+            Assert.Equal(itm.sku, "Sku");
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void ItemConvertToJsonTest()
         {
-            Assert.IsFalse(GetItem().ConvertToJson().Length == 0);
+            Assert.False(GetItem().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void ItemToStringTest()
         {
-            Assert.IsFalse(GetItem().ToString().Length == 0);
+            Assert.False(GetItem().ToString().Length == 0);
         }
     }
 }

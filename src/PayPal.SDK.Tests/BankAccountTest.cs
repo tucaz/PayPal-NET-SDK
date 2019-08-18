@@ -1,12 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
     /// <summary>
     /// Summary description for BankAccountTest
     /// </summary>
-    [TestClass]
+    
     public class BankAccountTest
     {
         public static BankAccount GetBankAccount()
@@ -22,29 +23,29 @@ namespace PayPal.Testing
             return bankAccount;
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void BankAccountObjectTest()
         {
             var bankAccount = GetBankAccount();
-            Assert.AreEqual("Test Account", bankAccount.account_name);
-            Assert.AreEqual("01234567890123456789", bankAccount.account_number);
-            Assert.AreEqual("BBAN", bankAccount.account_number_type);
-            Assert.AreEqual("CHECKING", bankAccount.account_type);
-            Assert.AreEqual("PERSONAL", bankAccount.check_type);
-            Assert.IsNotNull(bankAccount.billing_address);
-            Assert.IsNotNull(bankAccount.links);
+            Assert.Equal("Test Account", bankAccount.account_name);
+            Assert.Equal("01234567890123456789", bankAccount.account_number);
+            Assert.Equal("BBAN", bankAccount.account_number_type);
+            Assert.Equal("CHECKING", bankAccount.account_type);
+            Assert.Equal("PERSONAL", bankAccount.check_type);
+            Assert.NotNull(bankAccount.billing_address);
+            Assert.NotNull(bankAccount.links);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void BankAccountConvertToJsonTest()
         {
-            Assert.IsFalse(GetBankAccount().ConvertToJson().Length == 0);
+            Assert.False(GetBankAccount().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void BankAccountToStringTest()
         {
-            Assert.IsFalse(GetBankAccount().ToString().Length == 0);
+            Assert.False(GetBankAccount().ToString().Length == 0);
         }
     }
 }

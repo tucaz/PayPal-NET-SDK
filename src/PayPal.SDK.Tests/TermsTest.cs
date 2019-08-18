@@ -1,12 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
     /// <summary>
     /// Summary description for TermsTest
     /// </summary>
-    [TestClass]
+    
     public class TermsTest
     {
         public static readonly string TermsJson =
@@ -21,27 +22,27 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Terms>(TermsJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void TermsObjectTest()
         {
             var testObject = GetTerms();
-            Assert.AreEqual("1234", testObject.id);
-            Assert.AreEqual("MONTHLY", testObject.type);
-            Assert.AreEqual("2", testObject.occurrences);
-            Assert.IsNotNull(testObject.max_billing_amount);
-            Assert.IsNotNull(testObject.amount_range);
+            Assert.Equal("1234", testObject.id);
+            Assert.Equal("MONTHLY", testObject.type);
+            Assert.Equal("2", testObject.occurrences);
+            Assert.NotNull(testObject.max_billing_amount);
+            Assert.NotNull(testObject.amount_range);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void TermsConvertToJsonTest()
         {
-            Assert.IsFalse(GetTerms().ConvertToJson().Length == 0);
+            Assert.False(GetTerms().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void TermsToStringTest()
         {
-            Assert.IsFalse(GetTerms().ToString().Length == 0);
+            Assert.False(GetTerms().ToString().Length == 0);
         }
     }
 }

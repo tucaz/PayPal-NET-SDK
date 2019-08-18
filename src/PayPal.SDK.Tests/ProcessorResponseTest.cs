@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class ProcessorResponseTest
     {
         public static readonly string ProcessorResponseJson =
@@ -19,28 +20,28 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<ProcessorResponse>(ProcessorResponseJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void ProcessorResponseObjectTest()
         {
             var testObject = GetProcessorResponse();
-            Assert.AreEqual("1000", testObject.response_code);
-            Assert.AreEqual("2000", testObject.avs_code);
-            Assert.AreEqual("3000", testObject.cvv_code);
-            Assert.AreEqual("4000", testObject.advice_code);
-            Assert.AreEqual("5000", testObject.eci_submitted);
-            Assert.AreEqual("6000", testObject.vpas);
+            Assert.Equal("1000", testObject.response_code);
+            Assert.Equal("2000", testObject.avs_code);
+            Assert.Equal("3000", testObject.cvv_code);
+            Assert.Equal("4000", testObject.advice_code);
+            Assert.Equal("5000", testObject.eci_submitted);
+            Assert.Equal("6000", testObject.vpas);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void ProcessorResponseConvertToJsonTest()
         {
-            Assert.IsFalse(GetProcessorResponse().ConvertToJson().Length == 0);
+            Assert.False(GetProcessorResponse().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void ProcessorResponseToStringTest()
         {
-            Assert.IsFalse(GetProcessorResponse().ToString().Length == 0);
+            Assert.False(GetProcessorResponse().ToString().Length == 0);
         }
     }
 }

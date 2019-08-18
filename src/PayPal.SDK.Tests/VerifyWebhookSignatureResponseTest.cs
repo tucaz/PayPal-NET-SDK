@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class VerifyWebhookSignatureResponseTest
     {
         public static readonly string VerifyWebhookSignatureResponseJson =
@@ -15,11 +16,11 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<VerifyWebhookSignatureResponse>(VerifyWebhookSignatureResponseJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void VerifyWebhookSignatureObjectTest()
         {
             var testObject = GetVerifyWebhookResponseSignature();
-            Assert.AreEqual("TestSample", testObject.verification_status);
+            Assert.Equal("TestSample", testObject.verification_status);
         }
     }
 }

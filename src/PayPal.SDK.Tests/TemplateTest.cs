@@ -1,14 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using PayPal.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
+
 
 namespace PayPal.Api.Tests
 {
-    [TestClass()]
+    
     public class TemplateTest
     {
         public static readonly string TemplateJson =
@@ -56,29 +58,29 @@ namespace PayPal.Api.Tests
             return JsonFormatter.ConvertFromJson<InvoiceTemplate>(TemplateJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void TemplateObjectTest()
         {
             var template = GetTemplate();
-            Assert.AreEqual(true, template.@default);
-            Assert.AreEqual("Hours Template", template.name);
-            Assert.AreEqual(1, template.template_data.items.Count);
+            Assert.Equal(true, template.@default);
+            Assert.Equal("Hours Template", template.name);
+            Assert.Equal(1, template.template_data.items.Count);
 
             var template_data = template.template_data.items[0];
-            Assert.AreEqual("Nutri Bullet", template_data.name);
-            Assert.AreEqual(1, template_data.quantity);
+            Assert.Equal("Nutri Bullet", template_data.name);
+            Assert.Equal(1, template_data.quantity);
 
-            Assert.AreEqual(false, template.template_data.tax_calculated_after_discount);
-            Assert.AreEqual(false, template.template_data.tax_inclusive);
-            Assert.AreEqual("Thank you for your business.", template.template_data.note);
+            Assert.Equal(false, template.template_data.tax_calculated_after_discount);
+            Assert.Equal(false, template.template_data.tax_inclusive);
+            Assert.Equal("Thank you for your business.", template.template_data.note);
 
-            Assert.AreEqual(2, template.settings.Count);
+            Assert.Equal(2, template.settings.Count);
             var settings = template.settings[0];
-            Assert.AreEqual("items.date", settings.field_name);
-            Assert.AreEqual(true, settings.display_preference.hidden);
+            Assert.Equal("items.date", settings.field_name);
+            Assert.Equal(true, settings.display_preference.hidden);
 
             settings = template.settings[1];
-            Assert.AreEqual("custom", settings.field_name);
+            Assert.Equal("custom", settings.field_name);
         }
     }
 }

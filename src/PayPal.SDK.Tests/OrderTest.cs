@@ -1,12 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
     /// <summary>
     /// Summary description for OrderTest
     /// </summary>
-    [TestClass]
+    
     public class OrderTest : BaseTest
     {
         public static Order GetOrder()
@@ -16,26 +18,26 @@ namespace PayPal.Testing
             return order;
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void OrderObjectTest()
         {
             var order = GetOrder();
-            Assert.IsNotNull(order.amount);
+            Assert.NotNull(order.amount);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void OrderConvertToJsonTest()
         {
-            Assert.IsFalse(GetOrder().ConvertToJson().Length == 0);
+            Assert.False(GetOrder().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void OrderToStringTest()
         {
-            Assert.IsFalse(GetOrder().ToString().Length == 0);
+            Assert.False(GetOrder().ToString().Length == 0);
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void OrderGetTest()
         {
             try
@@ -47,7 +49,7 @@ namespace PayPal.Testing
                 var order = Order.Get(apiContext, orderId);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual(orderId, order.id);
+                Assert.Equal(orderId, order.id);
             }
             catch(ConnectionException)
             {
@@ -72,7 +74,7 @@ namespace PayPal.Testing
             return Order.Get(apiContext, orderId);
         }
 
-        [Ignore()]
+        [Fact(Skip="Ignore")]
         public void OrderAuthorizeTest()
         {
             var apiContext = TestingUtil.GetApiContext();
@@ -80,10 +82,10 @@ namespace PayPal.Testing
 
             // Authorize the order and verify it was successful (goes to 'Pending' state)
             var response = order.Authorize(apiContext);
-            Assert.AreEqual("Pending", response.state);
+            Assert.Equal("Pending", response.state);
         }
 
-        [Ignore()]
+        [Fact(Skip="Ignore")]
         public void OrderCaptureTest()
         {
             var apiContext = TestingUtil.GetApiContext();
@@ -92,10 +94,10 @@ namespace PayPal.Testing
             // Capture a payment for the order and verify it completed successfully
             var capture = CaptureTest.GetCapture();
             var response = order.Capture(apiContext, capture);
-            Assert.AreEqual("completed", response.state);
+            Assert.Equal("completed", response.state);
         }
 
-        [Ignore()]
+        [Fact(Skip="Ignore")]
         public void OrderDoVoidTest()
         {
             var apiContext = TestingUtil.GetApiContext();
@@ -103,7 +105,7 @@ namespace PayPal.Testing
 
             // Void the order and verify it was successfully voided
             var response = order.Void(apiContext);
-            Assert.AreEqual("voided", response.state);
+            Assert.Equal("voided", response.state);
         }
     }
 }

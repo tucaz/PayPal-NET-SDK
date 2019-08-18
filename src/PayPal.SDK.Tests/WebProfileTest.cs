@@ -1,10 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
 using System;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class WebProfileTest : BaseTest
     {
         public static readonly string WebProfileJson =
@@ -19,30 +20,30 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<WebProfile>(WebProfileJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebProfileObjectTest()
         {
             var webProfile = GetWebProfile();
-            Assert.AreEqual("Test profile", webProfile.name);
-            Assert.IsNotNull(webProfile.presentation);
-            Assert.IsNotNull(webProfile.input_fields);
-            Assert.IsNotNull(webProfile.flow_config);
-            Assert.AreEqual(true, webProfile.temporary);
+            Assert.Equal("Test profile", webProfile.name);
+            Assert.NotNull(webProfile.presentation);
+            Assert.NotNull(webProfile.input_fields);
+            Assert.NotNull(webProfile.flow_config);
+            Assert.Equal(true, webProfile.temporary);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebProfileConvertToJsonTest()
         {
-            Assert.IsFalse(GetWebProfile().ConvertToJson().Length == 0);
+            Assert.False(GetWebProfile().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebProfileToStringTest()
         {
-            Assert.IsFalse(GetWebProfile().ToString().Length == 0);
+            Assert.False(GetWebProfile().ToString().Length == 0);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void WebProfileGetListTest()
         {
             try
@@ -61,8 +62,8 @@ namespace PayPal.Testing
                 var profiles = WebProfile.GetList(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(profiles);
-                Assert.IsTrue(profiles.Count > 0);
+                Assert.NotNull(profiles);
+                Assert.True(profiles.Count > 0);
 
                 // Delete the profile
                 profile.id = createdProfile.id;
@@ -75,7 +76,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void WebProfileCreateAndGetTest()
         {
             try
@@ -89,15 +90,15 @@ namespace PayPal.Testing
                 var response = profile.Create(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(response);
-                Assert.IsNotNull(response.id);
+                Assert.NotNull(response);
+                Assert.NotNull(response.id);
 
                 // Get the profile
                 var profileId = response.id;
                 var retrievedProfile = WebProfile.Get(apiContext, profileId);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual(profileId, retrievedProfile.id);
+                Assert.Equal(profileId, retrievedProfile.id);
 
                 // Delete the profile
                 retrievedProfile.Delete(apiContext);
@@ -110,7 +111,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void WebProfileUpdateTest()
         {
             try
@@ -139,7 +140,7 @@ namespace PayPal.Testing
                 var retrievedProfile = WebProfile.Get(apiContext, profile.id);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual(newName, retrievedProfile.name);
+                Assert.Equal(newName, retrievedProfile.name);
 
                 // Delete the profile
                 profile.Delete(apiContext);
@@ -152,7 +153,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void WebProfilePartialUpdateTest()
         {
             try
@@ -199,8 +200,8 @@ namespace PayPal.Testing
                 var retrievedProfile = WebProfile.Get(apiContext, profile.id);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual(newName, retrievedProfile.presentation.brand_name);
-                Assert.IsTrue(string.IsNullOrEmpty(retrievedProfile.flow_config.landing_page_type));
+                Assert.Equal(newName, retrievedProfile.presentation.brand_name);
+                Assert.True(string.IsNullOrEmpty(retrievedProfile.flow_config.landing_page_type));
 
                 // Delete the profile
                 profile.Delete(apiContext);
@@ -213,7 +214,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void WebProfileDeleteTest()
         {
             try
@@ -236,7 +237,7 @@ namespace PayPal.Testing
                 profile.Delete(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual(204, (int)PayPalResource.LastResponseDetails.Value.StatusCode);
+                Assert.Equal(204, (int)PayPalResource.LastResponseDetails.Value.StatusCode);
             }
             catch(ConnectionException)
             {

@@ -1,11 +1,12 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api;
 using System.Collections.Generic;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class WebhookTest : BaseTest
     {
         public static readonly string WebhookJson =
@@ -19,25 +20,25 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Webhook>(WebhookJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebhookObjectTest()
         {
             var testObject = GetWebhook();
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebhookConvertToJsonTest()
         {
-            Assert.IsFalse(GetWebhook().ConvertToJson().Length == 0);
+            Assert.False(GetWebhook().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebhookToStringTest()
         {
-            Assert.IsFalse(GetWebhook().ToString().Length == 0);
+            Assert.False(GetWebhook().ToString().Length == 0);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void WebhookCreateAndGetTest()
         {
             try
@@ -51,16 +52,16 @@ namespace PayPal.Testing
                 var createdWebhook = webhook.Create(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(createdWebhook);
-                Assert.IsTrue(!string.IsNullOrEmpty(createdWebhook.id));
+                Assert.NotNull(createdWebhook);
+                Assert.True(!string.IsNullOrEmpty(createdWebhook.id));
 
                 var webhookId = createdWebhook.id;
                 var retrievedWebhook = Webhook.Get(apiContext, webhookId);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(retrievedWebhook);
-                Assert.AreEqual(webhookId, retrievedWebhook.id);
-                Assert.AreEqual(url, retrievedWebhook.url);
+                Assert.NotNull(retrievedWebhook);
+                Assert.Equal(webhookId, retrievedWebhook.id);
+                Assert.Equal(url, retrievedWebhook.url);
 
                 // Cleanup
                 retrievedWebhook.Delete(apiContext);
@@ -73,7 +74,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void WebhookGetListTest()
         {
             try
@@ -84,8 +85,8 @@ namespace PayPal.Testing
                 var webhookList = Webhook.GetAll(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(webhookList);
-                Assert.IsNotNull(webhookList.webhooks);
+                Assert.NotNull(webhookList);
+                Assert.NotNull(webhookList.webhooks);
             }
             catch(ConnectionException)
             {
@@ -94,7 +95,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void WebhookUpdateTest()
         {
             try
@@ -135,12 +136,12 @@ namespace PayPal.Testing
                 var updatedWebhook = createdWebhook.Update(apiContext, patchRequest);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(updatedWebhook);
-                Assert.AreEqual(createdWebhook.id, updatedWebhook.id);
-                Assert.AreEqual(newUrl, updatedWebhook.url);
-                Assert.IsNotNull(updatedWebhook.event_types);
-                Assert.AreEqual(1, updatedWebhook.event_types.Count);
-                Assert.AreEqual(newEventTypeName, updatedWebhook.event_types[0].name);
+                Assert.NotNull(updatedWebhook);
+                Assert.Equal(createdWebhook.id, updatedWebhook.id);
+                Assert.Equal(newUrl, updatedWebhook.url);
+                Assert.NotNull(updatedWebhook.event_types);
+                Assert.Equal(1, updatedWebhook.event_types.Count);
+                Assert.Equal(newEventTypeName, updatedWebhook.event_types[0].name);
 
                 // Cleanup
                 updatedWebhook.Delete(apiContext);
@@ -153,7 +154,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void WebhookDeleteTest()
         {
             try
@@ -169,7 +170,7 @@ namespace PayPal.Testing
                 createdWebhook.Delete(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual(204, (int)PayPalResource.LastResponseDetails.Value.StatusCode);
+                Assert.Equal(204, (int)PayPalResource.LastResponseDetails.Value.StatusCode);
             }
             catch(ConnectionException)
             {

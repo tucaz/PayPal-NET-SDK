@@ -1,10 +1,12 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class WebhookEventTypeTest : BaseTest
     {
         public static readonly string WebhookEventTypeJsonCreated = "{\"name\":\"PAYMENT.AUTHORIZATION.CREATED\"}";
@@ -15,36 +17,36 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<WebhookEventType>(WebhookEventTypeJsonCreated);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebhookEventTypeObjectTest()
         {
             var testObject = GetWebhookEventType();
-            Assert.AreEqual("PAYMENT.AUTHORIZATION.CREATED", testObject.name);
-            Assert.IsTrue(string.IsNullOrEmpty(testObject.description));
+            Assert.Equal("PAYMENT.AUTHORIZATION.CREATED", testObject.name);
+            Assert.True(string.IsNullOrEmpty(testObject.description));
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebhookEventTypeConvertToJsonTest()
         {
-            Assert.IsFalse(GetWebhookEventType().ConvertToJson().Length == 0);
+            Assert.False(GetWebhookEventType().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebhookEventTypeToStringTest()
         {
-            Assert.IsFalse(GetWebhookEventType().ToString().Length == 0);
+            Assert.False(GetWebhookEventType().ToString().Length == 0);
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void WebhookEventTypeSubscribedEventsTest()
         {
             var webhookEventTypeList = WebhookEventType.SubscribedEventTypes(TestingUtil.GetApiContext(), "45R80540W07069023");
-            Assert.IsNotNull(webhookEventTypeList);
-            Assert.IsNotNull(webhookEventTypeList.event_types);
-            Assert.AreEqual(2, webhookEventTypeList.event_types.Count);
+            Assert.NotNull(webhookEventTypeList);
+            Assert.NotNull(webhookEventTypeList.event_types);
+            Assert.Equal(2, webhookEventTypeList.event_types.Count);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void WebhookEventTypeAvailableEventsTest()
         {
             try
@@ -55,9 +57,9 @@ namespace PayPal.Testing
                 var webhookEventTypeList = WebhookEventType.AvailableEventTypes(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(webhookEventTypeList);
-                Assert.IsNotNull(webhookEventTypeList.event_types);
-                Assert.IsTrue(webhookEventTypeList.event_types.Count > 2);
+                Assert.NotNull(webhookEventTypeList);
+                Assert.NotNull(webhookEventTypeList.event_types);
+                Assert.True(webhookEventTypeList.event_types.Count > 2);
             }
             catch(ConnectionException)
             {

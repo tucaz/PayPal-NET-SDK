@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class TransactionTest
     {
         public static Transaction GetTransaction()
@@ -27,28 +28,28 @@ namespace PayPal.Testing
             return transactionList;
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void TransactionObjectTest()
         {
             var transaction = GetTransaction();
-            Assert.AreEqual("Test Description", transaction.description);
-            Assert.AreEqual("Test note to payee", transaction.note_to_payee);
-            Assert.IsNotNull(transaction.amount);
-            Assert.IsNotNull(transaction.payee);
-            Assert.IsNotNull(transaction.item_list);
-            Assert.IsNotNull(transaction.related_resources);
+            Assert.Equal("Test Description", transaction.description);
+            Assert.Equal("Test note to payee", transaction.note_to_payee);
+            Assert.NotNull(transaction.amount);
+            Assert.NotNull(transaction.payee);
+            Assert.NotNull(transaction.item_list);
+            Assert.NotNull(transaction.related_resources);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void TransactionConvertToJsonTest()
         {
-            Assert.IsFalse(GetTransaction().ConvertToJson().Length == 0);
+            Assert.False(GetTransaction().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void TransactionToStringTest()
         {
-            Assert.IsFalse(GetTransaction().ToString().Length == 0);
+            Assert.False(GetTransaction().ToString().Length == 0);
         }
     }
 }

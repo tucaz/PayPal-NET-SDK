@@ -1,10 +1,12 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using PayPal.Api;
 using System.Collections.Generic;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class PayoutItemTest : BaseTest
     {
         public static readonly string PayoutItemJson = 
@@ -19,33 +21,33 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<PayoutItem>(PayoutItemJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayoutItemObjectTest()
         {
             var testObject = GetPayoutItem();
-            Assert.IsNotNull(testObject);
-            Assert.AreEqual(PayoutRecipientType.EMAIL, testObject.recipient_type);
-            Assert.AreEqual("shirt-supplier-one@mail.com", testObject.receiver);
-            Assert.AreEqual("Thank you.", testObject.note);
-            Assert.AreEqual("item_1", testObject.sender_item_id);
-            Assert.IsNotNull(testObject.amount);
+            Assert.NotNull(testObject);
+            Assert.Equal(PayoutRecipientType.EMAIL, testObject.recipient_type);
+            Assert.Equal("shirt-supplier-one@mail.com", testObject.receiver);
+            Assert.Equal("Thank you.", testObject.note);
+            Assert.Equal("item_1", testObject.sender_item_id);
+            Assert.NotNull(testObject.amount);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayoutItemConvertToJsonTest()
         {
             var json = GetPayoutItem().ConvertToJson();
-            Assert.IsFalse(json.Length == 0);
-            Assert.IsTrue(json.Contains("\"recipient_type\":\"EMAIL\""));
+            Assert.False(json.Length == 0);
+            Assert.True(json.Contains("\"recipient_type\":\"EMAIL\""));
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayoutItemToStringTest()
         {
-            Assert.IsFalse(GetPayoutItem().ToString().Length == 0);
+            Assert.False(GetPayoutItem().ToString().Length == 0);
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void PayoutItemGetTest()
         {
             try
@@ -53,9 +55,9 @@ namespace PayPal.Testing
                 var payoutItemId = "G2CFT8SJRB7RN";
                 var payoutItemDetails = PayoutItem.Get(TestingUtil.GetApiContext(), payoutItemId);
                 this.RecordConnectionDetails();
-                Assert.IsNotNull(payoutItemDetails);
-                Assert.AreEqual(payoutItemId, payoutItemDetails.payout_item_id);
-                Assert.AreEqual("8NX77PFLN255E", payoutItemDetails.payout_batch_id);
+                Assert.NotNull(payoutItemDetails);
+                Assert.Equal(payoutItemId, payoutItemDetails.payout_item_id);
+                Assert.Equal("8NX77PFLN255E", payoutItemDetails.payout_batch_id);
             }
             catch(ConnectionException)
             {
@@ -63,7 +65,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void PayoutItemDetailsCancelTest()
         {
             try
@@ -77,9 +79,9 @@ namespace PayPal.Testing
                 var payoutBatch = PayoutTest.CreateSingleSynchronousPayoutBatch(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(payoutBatch);
-                Assert.IsNotNull(payoutBatch.items);
-                Assert.IsTrue(payoutBatch.items.Count > 0);
+                Assert.NotNull(payoutBatch);
+                Assert.NotNull(payoutBatch.items);
+                Assert.True(payoutBatch.items.Count > 0);
 
                 var payoutItem = payoutBatch.items[0];
 
@@ -88,8 +90,8 @@ namespace PayPal.Testing
                     var payoutItemDetails = PayoutItem.Cancel(apiContext, payoutItem.payout_item_id);
                     this.RecordConnectionDetails();
 
-                    Assert.IsNotNull(payoutItemDetails);
-                    Assert.AreEqual(PayoutTransactionStatus.RETURNED, payoutItemDetails.transaction_status);
+                    Assert.NotNull(payoutItemDetails);
+                    Assert.Equal(PayoutTransactionStatus.RETURNED, payoutItemDetails.transaction_status);
                 }
             }
             catch(ConnectionException)

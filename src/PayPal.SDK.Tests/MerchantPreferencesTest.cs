@@ -1,12 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
     /// <summary>
     /// Summary description for MerchantPreferencesTest
     /// </summary>
-    [TestClass]
+    
     public class MerchantPreferencesTest
     {
         public static readonly string MerchantPreferencesJson = 
@@ -22,28 +23,28 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<MerchantPreferences>(MerchantPreferencesJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void MerchantPreferencesObjectTest()
         {
             var testObject = GetMerchantPreferences();
-            Assert.AreEqual("http://www.return.com", testObject.return_url);
-            Assert.AreEqual("http://www.cancel.com", testObject.cancel_url);
-            Assert.AreEqual("YES", testObject.auto_bill_amount);
-            Assert.AreEqual("CONTINUE", testObject.initial_fail_amount_action);
-            Assert.AreEqual("0", testObject.max_fail_attempts);
-            Assert.IsNotNull(testObject.setup_fee);
+            Assert.Equal("http://www.return.com", testObject.return_url);
+            Assert.Equal("http://www.cancel.com", testObject.cancel_url);
+            Assert.Equal("YES", testObject.auto_bill_amount);
+            Assert.Equal("CONTINUE", testObject.initial_fail_amount_action);
+            Assert.Equal("0", testObject.max_fail_attempts);
+            Assert.NotNull(testObject.setup_fee);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void MerchantPreferencesConvertToJsonTest()
         {
-            Assert.IsFalse(GetMerchantPreferences().ConvertToJson().Length == 0);
+            Assert.False(GetMerchantPreferences().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void MerchantPreferencesToStringTest()
         {
-            Assert.IsFalse(GetMerchantPreferences().ToString().Length == 0);
+            Assert.False(GetMerchantPreferences().ToString().Length == 0);
         }
     }
 }

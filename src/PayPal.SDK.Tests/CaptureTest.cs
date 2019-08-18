@@ -1,11 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using PayPal.Api;
 using PayPal;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class CaptureTest : BaseTest
     {
         public static readonly string CaptureJson =
@@ -21,39 +22,39 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Capture>(CaptureJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void CaptureObjectTest()
         {
             var cap = GetCapture();
             var expected = AmountTest.GetAmount();
             var actual = cap.amount;
-            Assert.AreEqual(expected.currency, actual.currency);
-            Assert.AreEqual(expected.details.fee, actual.details.fee);
-            Assert.AreEqual(expected.details.shipping, actual.details.shipping);
-            Assert.AreEqual(expected.details.subtotal, actual.details.subtotal);
-            Assert.AreEqual(expected.details.tax, actual.details.tax);
-            Assert.AreEqual(expected.total, actual.total);
-            Assert.IsNotNull(cap.create_time);
-            Assert.AreEqual("001", cap.id);
-            Assert.AreEqual("1000", cap.parent_payment);
-            Assert.AreEqual("COMPLETED", cap.state);
+            Assert.Equal(expected.currency, actual.currency);
+            Assert.Equal(expected.details.fee, actual.details.fee);
+            Assert.Equal(expected.details.shipping, actual.details.shipping);
+            Assert.Equal(expected.details.subtotal, actual.details.subtotal);
+            Assert.Equal(expected.details.tax, actual.details.tax);
+            Assert.Equal(expected.total, actual.total);
+            Assert.NotNull(cap.create_time);
+            Assert.Equal("001", cap.id);
+            Assert.Equal("1000", cap.parent_payment);
+            Assert.Equal("COMPLETED", cap.state);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void CaptureConvertToJsonTest()
         {
             var cap = GetCapture();
-            Assert.IsFalse(cap.ConvertToJson().Length == 0);
+            Assert.False(cap.ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void CaptureToStringTest()
         {
             var cap = GetCapture();
-            Assert.IsFalse(cap.ToString().Length == 0);
+            Assert.False(cap.ToString().Length == 0);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void CaptureIdTest()
         {
             try
@@ -64,16 +65,16 @@ namespace PayPal.Testing
                 var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(pay);
-                Assert.IsNotNull(pay.transactions);
-                Assert.IsTrue(pay.transactions.Count > 0);
+                Assert.NotNull(pay);
+                Assert.NotNull(pay.transactions);
+                Assert.True(pay.transactions.Count > 0);
                 var transaction = pay.transactions[0];
 
-                Assert.IsNotNull(transaction.related_resources);
-                Assert.IsTrue(transaction.related_resources.Count > 0);
+                Assert.NotNull(transaction.related_resources);
+                Assert.True(transaction.related_resources.Count > 0);
 
                 var resource = transaction.related_resources[0];
-                Assert.IsNotNull(resource.authorization);
+                Assert.NotNull(resource.authorization);
 
                 var authorization = Authorization.Get(apiContext, resource.authorization.id);
                 this.RecordConnectionDetails();
@@ -89,12 +90,12 @@ namespace PayPal.Testing
                 var responseCapture = authorization.Capture(apiContext, cap);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(responseCapture);
+                Assert.NotNull(responseCapture);
 
                 var returnCapture = Capture.Get(apiContext, responseCapture.id);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual(responseCapture.id, returnCapture.id);
+                Assert.Equal(responseCapture.id, returnCapture.id);
             }
             catch(ConnectionException)
             {
@@ -103,7 +104,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void CaptureRefundTest()
         {
             try
@@ -114,16 +115,16 @@ namespace PayPal.Testing
                 var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(pay);
-                Assert.IsNotNull(pay.transactions);
-                Assert.IsTrue(pay.transactions.Count > 0);
+                Assert.NotNull(pay);
+                Assert.NotNull(pay.transactions);
+                Assert.True(pay.transactions.Count > 0);
                 var transaction = pay.transactions[0];
 
-                Assert.IsNotNull(transaction.related_resources);
-                Assert.IsTrue(transaction.related_resources.Count > 0);
+                Assert.NotNull(transaction.related_resources);
+                Assert.True(transaction.related_resources.Count > 0);
 
                 var resource = transaction.related_resources[0];
-                Assert.IsNotNull(resource.authorization);
+                Assert.NotNull(resource.authorization);
 
                 var authorization = Authorization.Get(apiContext, resource.authorization.id);
                 this.RecordConnectionDetails();
@@ -152,7 +153,7 @@ namespace PayPal.Testing
                 var responseRefund = response.Refund(apiContext, fund);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual("completed", responseRefund.state);
+                Assert.Equal("completed", responseRefund.state);
             }
             catch(ConnectionException)
             {
@@ -161,7 +162,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void CaptureNullIdTest()
         {
             TestingUtil.AssertThrownException<System.ArgumentNullException>(() => Capture.Get(new APIContext("token"), null));

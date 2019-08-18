@@ -1,10 +1,11 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class WebhookEventListTest
     {
         public static readonly string WebhookEventListJson = 
@@ -25,26 +26,26 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<WebhookEventList>(WebhookEventListJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebhookEventListObjectTest()
         {
             var testObject = GetWebhookEventList();
-            Assert.IsNotNull(testObject.events);
-            Assert.AreEqual(2, testObject.count);
-            Assert.IsNotNull(testObject.links);
-            Assert.IsTrue(testObject.links.Count == 2);
+            Assert.NotNull(testObject.events);
+            Assert.Equal(2, testObject.count);
+            Assert.NotNull(testObject.links);
+            Assert.True(testObject.links.Count == 2);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebhookEventListConvertToJsonTest()
         {
-            Assert.IsFalse(GetWebhookEventList().ConvertToJson().Length == 0);
+            Assert.False(GetWebhookEventList().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebhookEventListToStringTest()
         {
-            Assert.IsFalse(GetWebhookEventList().ToString().Length == 0);
+            Assert.False(GetWebhookEventList().ToString().Length == 0);
         }
     }
 }

@@ -1,11 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using System.Collections.Generic;
 using PayPal;
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
+    
     public class PayerTest
     {
         public static Payer GetPayerUsingPayPal()
@@ -28,25 +30,25 @@ namespace PayPal.Testing
             return pay;
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayerObjectTest()
         {
             var pay = GetPayerUsingCreditCard();
-            Assert.AreEqual("credit_card", pay.payment_method);
-            Assert.AreEqual("Joe", pay.payer_info.first_name);
-            Assert.IsNotNull(pay.funding_instruments);
+            Assert.Equal("credit_card", pay.payment_method);
+            Assert.Equal("Joe", pay.payer_info.first_name);
+            Assert.NotNull(pay.funding_instruments);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayerConvertToJsonTest()
         {
-            Assert.IsFalse(GetPayerUsingCreditCard().ConvertToJson().Length == 0);
+            Assert.False(GetPayerUsingCreditCard().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PayerToStringTest()
         {
-            Assert.IsFalse(GetPayerUsingCreditCard().ToString().Length == 0);
+            Assert.False(GetPayerUsingCreditCard().ToString().Length == 0);
         }
     }    
 }

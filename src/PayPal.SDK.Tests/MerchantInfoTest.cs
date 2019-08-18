@@ -2,15 +2,16 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
     /// <summary>
     /// Summary description for MerchantInfoTest
     /// </summary>
-    [TestClass]
+    
     public class MerchantInfoTest
     {
         public static readonly string MerchantInfoJson =
@@ -26,28 +27,28 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<MerchantInfo>(MerchantInfoJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void MerchantInfoObjectTest()
         {
             var testObject = GetMerchantInfo();
-            Assert.AreEqual("jziaja.test.merchant-facilitator@gmail.com", testObject.email);
-            Assert.AreEqual("Dennis", testObject.first_name);
-            Assert.AreEqual("Doctor", testObject.last_name);
-            Assert.AreEqual("Medical Professionals, LLC", testObject.business_name);
-            Assert.IsNotNull(testObject.phone);
-            Assert.IsNotNull(testObject.address);
+            Assert.Equal("jziaja.test.merchant-facilitator@gmail.com", testObject.email);
+            Assert.Equal("Dennis", testObject.first_name);
+            Assert.Equal("Doctor", testObject.last_name);
+            Assert.Equal("Medical Professionals, LLC", testObject.business_name);
+            Assert.NotNull(testObject.phone);
+            Assert.NotNull(testObject.address);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void MerchantInfoConvertToJsonTest()
         {
-            Assert.IsFalse(GetMerchantInfo().ConvertToJson().Length == 0);
+            Assert.False(GetMerchantInfo().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void MerchantInfoToStringTest()
         {
-            Assert.IsFalse(GetMerchantInfo().ToString().Length == 0);
+            Assert.False(GetMerchantInfo().ToString().Length == 0);
         }
     }
 }

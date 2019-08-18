@@ -1,9 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
+    
     public class ShippingAddressTest
     {
         public static string ShippingAddressJson =
@@ -21,30 +23,30 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<ShippingAddress>(ShippingAddressJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void ShippingAddressObjectTest()
         {
             var shipping = GetShippingAddress();
-            Assert.AreEqual("PayPalUser", shipping.recipient_name);
-            Assert.AreEqual("2211", shipping.line1);
-            Assert.AreEqual("N 1st St", shipping.line2);
-            Assert.AreEqual("San Jose", shipping.city);
-            Assert.AreEqual("95131", shipping.postal_code);
-            Assert.AreEqual("California", shipping.state);
-            Assert.AreEqual("US", shipping.country_code);
-            Assert.AreEqual("5032141716", shipping.phone);
+            Assert.Equal("PayPalUser", shipping.recipient_name);
+            Assert.Equal("2211", shipping.line1);
+            Assert.Equal("N 1st St", shipping.line2);
+            Assert.Equal("San Jose", shipping.city);
+            Assert.Equal("95131", shipping.postal_code);
+            Assert.Equal("California", shipping.state);
+            Assert.Equal("US", shipping.country_code);
+            Assert.Equal("5032141716", shipping.phone);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void ShippingAddressConvertToJsonTest()
         {
-            Assert.IsFalse(GetShippingAddress().ConvertToJson().Length == 0);
+            Assert.False(GetShippingAddress().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void ShippingAddressToStringTest()
         {
-            Assert.IsFalse(GetShippingAddress().ToString().Length == 0);
+            Assert.False(GetShippingAddress().ToString().Length == 0);
         }
     }
 }

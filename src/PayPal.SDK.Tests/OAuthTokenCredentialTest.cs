@@ -1,63 +1,64 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api;
 using System.Collections.Generic;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class OAuthTokenCredentialTest : BaseTest
     {
         #region Unit Tests
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void OAuthTokenCredentialCtorConfigTest()
         {
             var config = new Dictionary<string, string>();
             config[BaseConstants.ClientId] = "xxx";
             config[BaseConstants.ClientSecret] = "yyy";
             var oauthTokenCredential = new OAuthTokenCredential(config);
-            Assert.AreEqual("xxx", oauthTokenCredential.ClientId);
-            Assert.AreEqual("yyy", oauthTokenCredential.ClientSecret);
+            Assert.Equal("xxx", oauthTokenCredential.ClientId);
+            Assert.Equal("yyy", oauthTokenCredential.ClientSecret);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void OAuthTokenCredentialCtorClientInfoTest()
         {
             var oauthTokenCredential = new OAuthTokenCredential("aaa", "bbb");
-            Assert.AreEqual("aaa", oauthTokenCredential.ClientId);
-            Assert.AreEqual("bbb", oauthTokenCredential.ClientSecret);
+            Assert.Equal("aaa", oauthTokenCredential.ClientId);
+            Assert.Equal("bbb", oauthTokenCredential.ClientSecret);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void OAuthTokenCredentialCtorClientInfoConfigTest()
         {
             var config = new Dictionary<string, string>();
             config[BaseConstants.ClientId] = "xxx";
             config[BaseConstants.ClientSecret] = "yyy";
             var oauthTokenCredential = new OAuthTokenCredential("aaa", "bbb", config);
-            Assert.AreEqual("aaa", oauthTokenCredential.ClientId);
-            Assert.AreEqual("bbb", oauthTokenCredential.ClientSecret);
+            Assert.Equal("aaa", oauthTokenCredential.ClientId);
+            Assert.Equal("bbb", oauthTokenCredential.ClientSecret);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void OAuthTokenCredentialCtorEmptyConfigTest()
         {
             var config = new Dictionary<string, string>();
             var oauthTokenCredential = new OAuthTokenCredential(config);
-            Assert.IsTrue(string.IsNullOrEmpty(oauthTokenCredential.ClientId));
-            Assert.IsTrue(string.IsNullOrEmpty(oauthTokenCredential.ClientSecret));
+            Assert.True(string.IsNullOrEmpty(oauthTokenCredential.ClientId));
+            Assert.True(string.IsNullOrEmpty(oauthTokenCredential.ClientSecret));
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void OAuthTokenCredentialCtorNullValuesTest()
         {
             // If null values are passed in, OAuthTokenCredential uses the values specified in the config.
             var oauthTokenCredential = new OAuthTokenCredential(null, null, null);
-            Assert.IsTrue(!string.IsNullOrEmpty(oauthTokenCredential.ClientId));
-            Assert.IsTrue(!string.IsNullOrEmpty(oauthTokenCredential.ClientSecret));
+            Assert.True(!string.IsNullOrEmpty(oauthTokenCredential.ClientId));
+            Assert.True(!string.IsNullOrEmpty(oauthTokenCredential.ClientSecret));
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void OAuthTokenCredentialMissingClientIdTest()
         {
             var config = ConfigManager.Instance.GetProperties();
@@ -66,7 +67,7 @@ namespace PayPal.Testing
             TestingUtil.AssertThrownException<MissingCredentialException>(() => oauthTokenCredential.GetAccessToken());
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void OAuthTokenCredentialMissingClientSecretTest()
         {
             var config = ConfigManager.Instance.GetProperties();
@@ -77,7 +78,7 @@ namespace PayPal.Testing
         #endregion
 
         #region Functional Tests
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void OAuthTokenCredentialGetAccessTokenTest()
         {
             try
@@ -86,7 +87,7 @@ namespace PayPal.Testing
                 var accessToken = oauthTokenCredential.GetAccessToken();
                 this.RecordConnectionDetails();
 
-                Assert.IsTrue(accessToken.StartsWith("Bearer "));
+                Assert.True(accessToken.StartsWith("Bearer "));
             }
             catch(ConnectionException)
             {
@@ -95,7 +96,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void OAuthTokenCredentialInvalidClientIdTest()
         {
             try
@@ -113,7 +114,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void OAuthTokenCredentialInvalidClientSecretTest()
         {
             try

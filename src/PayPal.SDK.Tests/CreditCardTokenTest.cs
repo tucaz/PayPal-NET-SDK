@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
     public class CreditCardTokenTest
     {
         public static CreditCardToken GetCreditCardToken()
@@ -16,27 +17,27 @@ namespace PayPal.Testing
             return cardToken;
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void CreditCardTokenObjectTest()
         {
             var token = GetCreditCardToken();
-            Assert.AreEqual(token.credit_card_id, "CARD-8PV12506MG6587946KEBHH4A");
-            Assert.AreEqual(token.payer_id, "009");
+            Assert.Equal(token.credit_card_id, "CARD-8PV12506MG6587946KEBHH4A");
+            Assert.Equal(token.payer_id, "009");
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void CreditCardTokenConvertToJsonTest()
         {
             var token = GetCreditCardToken();
             string expected = "{\"credit_card_id\":\"CARD-8PV12506MG6587946KEBHH4A\",\"payer_id\":\"009\",\"expire_month\":10,\"expire_year\":2015}";
             string actual = token.ConvertToJson();
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void CreditCardTokenToStringTest()
         {
-            Assert.IsFalse(GetCreditCardToken().ToString().Length == 0);
+            Assert.False(GetCreditCardToken().ToString().Length == 0);
         }
     }
 }

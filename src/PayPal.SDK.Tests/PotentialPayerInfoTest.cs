@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class PotentialPayerInfoTest
     {
         public static readonly string PotentialPayerInfoJson =
@@ -16,25 +17,25 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<PotentialPayerInfo>(PotentialPayerInfoJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PotentialPayerInfoObjectTest()
         {
             var testObject = GetPotentialPayerInfo();
-            Assert.AreEqual("test@example.com", testObject.email);
-			Assert.AreEqual("1234", testObject.external_remember_me_id);
-			Assert.IsNotNull(testObject.billing_address);
+            Assert.Equal("test@example.com", testObject.email);
+			Assert.Equal("1234", testObject.external_remember_me_id);
+			Assert.NotNull(testObject.billing_address);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PotentialPayerInfoConvertToJsonTest()
         {
-            Assert.IsFalse(GetPotentialPayerInfo().ConvertToJson().Length == 0);
+            Assert.False(GetPotentialPayerInfo().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PotentialPayerInfoToStringTest()
         {
-            Assert.IsFalse(GetPotentialPayerInfo().ToString().Length == 0);
+            Assert.False(GetPotentialPayerInfo().ToString().Length == 0);
         }
     }
 }

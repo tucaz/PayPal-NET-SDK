@@ -1,11 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using System.Collections.Generic;
 using PayPal.Api;
 using PayPal;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class AuthorizationTest : BaseTest
     {
         public static readonly string AuthorizationJson =
@@ -21,33 +23,33 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Authorization>(AuthorizationJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void AuthorizationObjectTest()
         {
             var authorization = GetAuthorization();
-            Assert.AreEqual(authorization.id, "007");
-            Assert.IsNotNull(authorization.create_time);
-            Assert.AreEqual(authorization.parent_payment, "1000");
-            Assert.AreEqual(authorization.state, "Authorized");
-            Assert.IsNotNull(authorization.amount);
-            Assert.IsNotNull(authorization.links);
+            Assert.Equal(authorization.id, "007");
+            Assert.NotNull(authorization.create_time);
+            Assert.Equal(authorization.parent_payment, "1000");
+            Assert.Equal(authorization.state, "Authorized");
+            Assert.NotNull(authorization.amount);
+            Assert.NotNull(authorization.links);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void AuthorizationConvertToJsonTest()
         {
             var authorize = GetAuthorization();
-            Assert.IsFalse(authorize.ConvertToJson().Length == 0);
+            Assert.False(authorize.ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void AuthorizationToStringTest()
         {
             var authorize = GetAuthorization();
-            Assert.IsFalse(authorize.ToString().Length == 0);
+            Assert.False(authorize.ToString().Length == 0);
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void AuthorizationGetTest()
         {
             try
@@ -58,22 +60,22 @@ namespace PayPal.Testing
                 var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(pay);
-                Assert.IsNotNull(pay.transactions);
-                Assert.IsTrue(pay.transactions.Count > 0);
+                Assert.NotNull(pay);
+                Assert.NotNull(pay.transactions);
+                Assert.True(pay.transactions.Count > 0);
                 var transaction = pay.transactions[0];
 
-                Assert.IsNotNull(transaction.related_resources);
-                Assert.IsTrue(transaction.related_resources.Count > 0);
+                Assert.NotNull(transaction.related_resources);
+                Assert.True(transaction.related_resources.Count > 0);
 
                 var resource = transaction.related_resources[0];
-                Assert.IsNotNull(resource.authorization);
+                Assert.NotNull(resource.authorization);
 
                 var authorizationId = resource.authorization.id;
                 var authorize = Authorization.Get(apiContext, authorizationId);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual(authorizationId, authorize.id);
+                Assert.Equal(authorizationId, authorize.id);
             }
             catch(ConnectionException)
             {
@@ -82,7 +84,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void AuthorizationCaptureTest()
         {
             try
@@ -93,16 +95,16 @@ namespace PayPal.Testing
                 var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(pay);
-                Assert.IsNotNull(pay.transactions);
-                Assert.IsTrue(pay.transactions.Count > 0);
+                Assert.NotNull(pay);
+                Assert.NotNull(pay.transactions);
+                Assert.True(pay.transactions.Count > 0);
                 var transaction = pay.transactions[0];
 
-                Assert.IsNotNull(transaction.related_resources);
-                Assert.IsTrue(transaction.related_resources.Count > 0);
+                Assert.NotNull(transaction.related_resources);
+                Assert.True(transaction.related_resources.Count > 0);
 
                 var resource = transaction.related_resources[0];
-                Assert.IsNotNull(resource.authorization);
+                Assert.NotNull(resource.authorization);
 
                 var authorize = Authorization.Get(apiContext, resource.authorization.id);
                 this.RecordConnectionDetails();
@@ -118,7 +120,7 @@ namespace PayPal.Testing
                 var response = authorize.Capture(apiContext, cap);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual("completed", response.state);
+                Assert.Equal("completed", response.state);
             }
             catch(ConnectionException)
             {
@@ -127,7 +129,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void AuthorizationVoidTest()
         {
             try
@@ -138,16 +140,16 @@ namespace PayPal.Testing
                 var pay = PaymentTest.CreatePaymentAuthorization(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(pay);
-                Assert.IsNotNull(pay.transactions);
-                Assert.IsTrue(pay.transactions.Count > 0);
+                Assert.NotNull(pay);
+                Assert.NotNull(pay.transactions);
+                Assert.True(pay.transactions.Count > 0);
                 var transaction = pay.transactions[0];
 
-                Assert.IsNotNull(transaction.related_resources);
-                Assert.IsTrue(transaction.related_resources.Count > 0);
+                Assert.NotNull(transaction.related_resources);
+                Assert.True(transaction.related_resources.Count > 0);
 
                 var resource = transaction.related_resources[0];
-                Assert.IsNotNull(resource.authorization);
+                Assert.NotNull(resource.authorization);
 
                 var authorize = Authorization.Get(apiContext, resource.authorization.id);
                 this.RecordConnectionDetails();
@@ -155,7 +157,7 @@ namespace PayPal.Testing
                 var authorizationResponse = authorize.Void(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual("voided", authorizationResponse.state);
+                Assert.Equal("voided", authorizationResponse.state);
             }
             catch(ConnectionException)
             {
@@ -164,13 +166,13 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void AuthorizationNullIdTest()
         {
             TestingUtil.AssertThrownException<System.ArgumentNullException>(() => Authorization.Get(new APIContext("token"), null));
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void AuthroizationReauthorizeTest()
         {
             var authorization = Authorization.Get(TestingUtil.GetApiContext(), "7GH53639GA425732B");

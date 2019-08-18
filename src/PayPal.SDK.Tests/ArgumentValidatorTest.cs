@@ -1,13 +1,14 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Util;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class ArgumentValidatorTest
     {
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void EmptyStringMustThrow()
         {
             try
@@ -16,11 +17,11 @@ namespace PayPal.Testing
             }
             catch (Exception ex)
             {
-                Assert.IsTrue(ex is ArgumentNullException);
+                Assert.True(ex is ArgumentNullException);
             }
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void NullStringMustThrow()
         {
             try
@@ -30,11 +31,11 @@ namespace PayPal.Testing
             }
             catch (Exception ex)
             {
-                Assert.IsTrue(ex is ArgumentNullException);
+                Assert.True(ex is ArgumentNullException);
             }
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void BooleanMustDoesntThrow()
         {
             try
@@ -43,11 +44,11 @@ namespace PayPal.Testing
             }
             catch (Exception ex)
             {
-                Assert.IsFalse(ex is ArgumentNullException);
+                Assert.False(ex is ArgumentNullException);
             }
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void IntegerMustDoesntThrow()
         {
             try
@@ -56,11 +57,11 @@ namespace PayPal.Testing
             }
             catch (Exception ex)
             {
-                Assert.IsFalse(ex is ArgumentNullException);
+                Assert.False(ex is ArgumentNullException);
             }
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void ObjectMustDoesntThrow()
         {
             try
@@ -69,11 +70,11 @@ namespace PayPal.Testing
             }
             catch (Exception ex)
             {
-                Assert.IsFalse(ex is ArgumentNullException);
+                Assert.False(ex is ArgumentNullException);
             }
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void NullObjectMustThrow()
         {
             try
@@ -82,11 +83,11 @@ namespace PayPal.Testing
             }
             catch (Exception ex)
             {
-                Assert.IsTrue(ex is ArgumentNullException);
+                Assert.True(ex is ArgumentNullException);
             }
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void NullableBooleanMustThrow()
         {
             try
@@ -96,7 +97,7 @@ namespace PayPal.Testing
             }
             catch (Exception ex)
             {
-                Assert.IsTrue(ex is ArgumentNullException);
+                Assert.True(ex is ArgumentNullException);
             }
         }
     }

@@ -1,25 +1,22 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using PayPal.Api;
 
 namespace PayPal.Testing
 {
-    [TestClass]
-    public abstract class BaseTest
+    
+    public abstract class BaseTest : IDisposable
     {
         private bool hasPreviousRecordings;
 
-        public TestContext TestContext { get; set; }
-
-        [TestInitialize]
-        public virtual void Setup()
+        public BaseTest()
         {
             this.hasPreviousRecordings = false;
         }
 
-        [TestCleanup]
-        public virtual void TearDown()
+        void IDisposable.Dispose()
         {
             if(this.hasPreviousRecordings)
             {
@@ -39,7 +36,8 @@ namespace PayPal.Testing
             bool hasRequestDetails = PayPalResource.LastRequestDetails != null && PayPalResource.LastRequestDetails.Value != null;
             bool hasResponseDetails = PayPalResource.LastResponseDetails != null && PayPalResource.LastResponseDetails.Value != null;
 
-            Trace.WriteLine("  \"test\": \"" + this.TestContext.TestName + "\",");
+//            Trace.WriteLine("  \"test\": \"" + this.TestContext.TestName + "\",");
+            Trace.WriteLine("  \"test\": \"" + "ADD_TEST_NAME_HERE" + "\",");
             Trace.WriteLine("  \"success\": " + success.ToString().ToLower() + (hasRequestDetails || hasResponseDetails ? "," : ""));
 
             // Record the request details.

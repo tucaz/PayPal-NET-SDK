@@ -1,9 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass()]
+    
     public class RedirectUrlsTest
     {
         public static RedirectUrls GetRedirectUrls()
@@ -14,24 +16,24 @@ namespace PayPal.Testing
             return urls;
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void RedirectUrlsObjectTest()
         {
             var urls = GetRedirectUrls();
-            Assert.AreEqual(urls.cancel_url, "http://ebay.com/");
-            Assert.AreEqual(urls.return_url, "http://paypal.com/");
+            Assert.Equal(urls.cancel_url, "http://ebay.com/");
+            Assert.Equal(urls.return_url, "http://paypal.com/");
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void RedirectUrlsConvertToJsonTest()
         {
-            Assert.IsFalse(GetRedirectUrls().ConvertToJson().Length == 0);
+            Assert.False(GetRedirectUrls().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void RedirectUrlsToStringTest()
         {
-            Assert.IsFalse(GetRedirectUrls().ToString().Length == 0);
+            Assert.False(GetRedirectUrls().ToString().Length == 0);
         }
     }
 }

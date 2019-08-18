@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class PhoneTest
     {
         public static readonly string PhoneJson = "{\"country_code\":\"001\",\"national_number\":\"5032141716\"}";
@@ -13,24 +14,24 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Phone>(PhoneJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PhoneObjectTest()
         {
             var phone = GetPhone();
-            Assert.AreEqual("5032141716", phone.national_number);
-            Assert.AreEqual("001", phone.country_code);
+            Assert.Equal("5032141716", phone.national_number);
+            Assert.Equal("001", phone.country_code);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PhoneConvertToJsonTest()
         {
-            Assert.IsFalse(GetPhone().ConvertToJson().Length == 0);
+            Assert.False(GetPhone().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PhoneToStringTest()
         {
-            Assert.IsFalse(GetPhone().ToString().Length == 0);
+            Assert.False(GetPhone().ToString().Length == 0);
         }
     }
 }

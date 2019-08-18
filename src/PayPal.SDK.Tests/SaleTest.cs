@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using PayPal.Api;
 using System;
 using System.Net;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class SaleTest : BaseTest
     {
         public static readonly string SaleJson =
@@ -21,36 +23,36 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<Sale>(SaleJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void SaleObjectTest()
         {
             var sale = GetSale();
-            Assert.AreEqual("103", sale.parent_payment);
-            Assert.AreEqual("completed", sale.state);
-            Assert.IsNotNull(sale.create_time);
-            Assert.IsNotNull(sale.amount);
-            Assert.IsNotNull(sale.links);
+            Assert.Equal("103", sale.parent_payment);
+            Assert.Equal("completed", sale.state);
+            Assert.NotNull(sale.create_time);
+            Assert.NotNull(sale.amount);
+            Assert.NotNull(sale.links);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void SaleNullIdTest()
         {
             TestingUtil.AssertThrownException<System.ArgumentNullException>(() => Sale.Get(new APIContext("token"), null));
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void SaleConvertToJsonTest()
         {
-            Assert.IsFalse(GetSale().ConvertToJson().Length == 0);
+            Assert.False(GetSale().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void SaleToStringTest()
         {
-            Assert.IsFalse(GetSale().ToString().Length == 0);
+            Assert.False(GetSale().ToString().Length == 0);
         }
 
-        [Ignore]
+        [Fact(Skip="Ignore")]
         public void SaleGetTest()
         {
             try
@@ -62,8 +64,8 @@ namespace PayPal.Testing
                 var sale = Sale.Get(apiContext, saleId);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(sale);
-                Assert.AreEqual(saleId, sale.id);
+                Assert.NotNull(sale);
+                Assert.Equal(saleId, sale.id);
             }
             catch(ConnectionException)
             {
@@ -72,7 +74,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void SaleRefundTest()
         {
             try
@@ -100,8 +102,8 @@ namespace PayPal.Testing
                 var response = sale.Refund(apiContext, refund);
                 this.RecordConnectionDetails();
 
-                Assert.IsNotNull(response);
-                Assert.AreEqual("completed", response.state);
+                Assert.NotNull(response);
+                Assert.Equal("completed", response.state);
             }
             catch(ConnectionException)
             {

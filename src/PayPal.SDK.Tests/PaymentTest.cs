@@ -1,14 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using PayPal.Api;
 using PayPal;
 using PayPal.Util;
 using System;
 using System.Linq;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class PaymentTest : BaseTest
     {
         public static Payment GetPaymentAuthorization()
@@ -90,7 +91,7 @@ namespace PayPal.Testing
         }
 
         #region Unit Tests
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void PaymentNullAccessToken()
         {
             var payment = GetPaymentForSale();
@@ -100,7 +101,7 @@ namespace PayPal.Testing
         #endregion
 
         #region Functional Tests
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void PaymentStateTest()
         {
             try
@@ -111,7 +112,7 @@ namespace PayPal.Testing
                 var actual = CreatePaymentForSale(apiContext);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual("approved", actual.state);
+                Assert.Equal("approved", actual.state);
             }
             catch(ConnectionException)
             {
@@ -120,7 +121,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void PaymentCreateAndGetTest()
         {
             try
@@ -134,7 +135,7 @@ namespace PayPal.Testing
                 var retrievedPayment = Payment.Get(apiContext, pay.id);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual(pay.id, retrievedPayment.id);
+                Assert.Equal(pay.id, retrievedPayment.id);
             }
             catch (ConnectionException)
             {
@@ -143,7 +144,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void PaymentListHistoryTest()
         {
             try
@@ -154,7 +155,7 @@ namespace PayPal.Testing
                 var paymentHistory = Payment.List(apiContext, count: 10);
                 this.RecordConnectionDetails();
 
-                Assert.IsTrue(paymentHistory.count >= 0 && paymentHistory.count <= 10);
+                Assert.True(paymentHistory.count >= 0 && paymentHistory.count <= 10);
             }
             catch (ConnectionException)
             {
@@ -163,7 +164,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void FuturePaymentTest()
         {
             try
@@ -177,7 +178,7 @@ namespace PayPal.Testing
                 var retrievedPayment = FuturePayment.Get(apiContext, futurePayment.id);
                 this.RecordConnectionDetails();
 
-                Assert.AreEqual(futurePayment.id, retrievedPayment.id);
+                Assert.Equal(futurePayment.id, retrievedPayment.id);
             }
             catch (ConnectionException)
             {
@@ -186,7 +187,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void PaymentVerifyCreatePayPalPaymentForSaleResponse()
         {
             try
@@ -205,19 +206,19 @@ namespace PayPal.Testing
                 // Verify no errors were encountered while deserializing the response.
                 if (deserializationErrors.Any())
                 {
-                    Assert.Fail("Encountered errors while attempting to deserialize:" + Environment.NewLine + string.Join(Environment.NewLine, deserializationErrors));
+                    Assert.True(false, "Encountered errors while attempting to deserialize:" + Environment.NewLine + string.Join(Environment.NewLine, deserializationErrors));
                 }
 
                 // Verify the state of the response.
-                Assert.AreEqual("created", createdPayment.state);
-                Assert.IsTrue(createdPayment.id.StartsWith("PAY-"));
-                Assert.IsTrue(!string.IsNullOrEmpty(createdPayment.token));
+                Assert.Equal("created", createdPayment.state);
+                Assert.True(createdPayment.id.StartsWith("PAYID-"));
+                Assert.True(!string.IsNullOrEmpty(createdPayment.token));
 
                 // Verify the expected HATEOAS links: self, approval_url, & execute
-                Assert.AreEqual(3, createdPayment.links.Count);
-                Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Self));
-                Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.ApprovalUrl));
-                Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Execute));
+                Assert.Equal(3, createdPayment.links.Count);
+                Assert.NotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Self));
+                Assert.NotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.ApprovalUrl));
+                Assert.NotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Execute));
             }
             catch (ConnectionException)
             {
@@ -226,7 +227,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void PaymentVerifyCreatePayPalPaymentForOrderResponse()
         {
             try
@@ -244,19 +245,19 @@ namespace PayPal.Testing
                 // Verify no errors were encountered while deserializing the response.
                 if (deserializationErrors.Any())
                 {
-                    Assert.Fail("Encountered errors while attempting to deserialize:" + Environment.NewLine + string.Join(Environment.NewLine, deserializationErrors));
+                    Assert.True(false, "Encountered errors while attempting to deserialize:" + Environment.NewLine + string.Join(Environment.NewLine, deserializationErrors));
                 }
 
                 // Verify the state of the response.
-                Assert.AreEqual("created", createdPayment.state);
-                Assert.IsTrue(createdPayment.id.StartsWith("PAY-"));
-                Assert.IsTrue(!string.IsNullOrEmpty(createdPayment.token));
+                Assert.Equal("created", createdPayment.state);
+                Assert.True(createdPayment.id.StartsWith("PAY-"));
+                Assert.True(!string.IsNullOrEmpty(createdPayment.token));
 
                 // Verify the expected HATEOAS links: self, approval_url, & execute
-                Assert.AreEqual(3, createdPayment.links.Count);
-                Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Self));
-                Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.ApprovalUrl));
-                Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Execute));
+                Assert.Equal(3, createdPayment.links.Count);
+                Assert.NotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Self));
+                Assert.NotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.ApprovalUrl));
+                Assert.NotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Execute));
             }
             catch (ConnectionException ex)
             {
@@ -265,7 +266,7 @@ namespace PayPal.Testing
             }
         }
 
-        [TestMethod, TestCategory("Functional")]
+        [Fact, Trait("Category", "Functional")]
         public void PaymentVerifyCreateCreditCardPaymentForSaleResponse()
         {
             try
@@ -284,17 +285,17 @@ namespace PayPal.Testing
                 // Verify no errors were encountered while deserializing the response.
                 if (deserializationErrors.Any())
                 {
-                    Assert.Fail("Encountered errors while attempting to deserialize:" + Environment.NewLine + string.Join(Environment.NewLine, deserializationErrors));
+                    Assert.True(false, "Encountered errors while attempting to deserialize:" + Environment.NewLine + string.Join(Environment.NewLine, deserializationErrors));
                 }
 
                 // Verify the state of the response.
-                Assert.AreEqual("approved", createdPayment.state);
-                Assert.IsTrue(createdPayment.id.StartsWith("PAY-"));
-                Assert.IsTrue(string.IsNullOrEmpty(createdPayment.token));
+                Assert.Equal("approved", createdPayment.state);
+                Assert.True(createdPayment.id.StartsWith("PAY-"));
+                Assert.True(string.IsNullOrEmpty(createdPayment.token));
 
                 // Verify the expected HATEOAS links: self
-                Assert.AreEqual(1, createdPayment.links.Count);
-                Assert.IsNotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Self));
+                Assert.Equal(1, createdPayment.links.Count);
+                Assert.NotNull(createdPayment.GetHateoasLink(BaseConstants.HateoasLinkRelations.Self));
             }
             catch (ConnectionException)
             {

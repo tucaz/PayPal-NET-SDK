@@ -1,10 +1,11 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class WebhookEventTypeListTest
     {
         public static readonly string WebhookEventTypeListJson = 
@@ -17,24 +18,24 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<WebhookEventTypeList>(WebhookEventTypeListJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebhookEventTypeListObjectTest()
         {
             var testObject = GetWebhookEventTypeList();
-            Assert.IsNotNull(testObject.event_types);
-            Assert.IsTrue(testObject.event_types.Count == 2);
+            Assert.NotNull(testObject.event_types);
+            Assert.True(testObject.event_types.Count == 2);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebhookEventTypeListConvertToJsonTest()
         {
-            Assert.IsFalse(GetWebhookEventTypeList().ConvertToJson().Length == 0);
+            Assert.False(GetWebhookEventTypeList().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void WebhookEventTypeListToStringTest()
         {
-            Assert.IsFalse(GetWebhookEventTypeList().ToString().Length == 0);
+            Assert.False(GetWebhookEventTypeList().ToString().Length == 0);
         }
     }
 }

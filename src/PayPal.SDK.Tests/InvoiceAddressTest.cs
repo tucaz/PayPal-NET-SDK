@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class InvoiceAddressTest
     {
         public static readonly string InvoiceAddressJson =
@@ -20,29 +21,29 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<InvoiceAddress>(InvoiceAddressJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void AddressObjectTest()
         {
             var add = GetInvoiceAddress();
-            Assert.AreEqual("2211", add.line1);
-            Assert.AreEqual("N 1st St", add.line2);
-            Assert.AreEqual("San Jose", add.city);
-            Assert.AreEqual("California", add.state);
-            Assert.AreEqual("95131", add.postal_code);
-            Assert.AreEqual("US", add.country_code);
-            Assert.IsNotNull(add.phone);
+            Assert.Equal("2211", add.line1);
+            Assert.Equal("N 1st St", add.line2);
+            Assert.Equal("San Jose", add.city);
+            Assert.Equal("California", add.state);
+            Assert.Equal("95131", add.postal_code);
+            Assert.Equal("US", add.country_code);
+            Assert.NotNull(add.phone);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void AddressConvertToJsonTest()
         {
-            Assert.IsFalse(GetInvoiceAddress().ConvertToJson().Length == 0);
+            Assert.False(GetInvoiceAddress().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void AddressToStringTest()
         {
-            Assert.IsFalse(GetInvoiceAddress().ToString().Length == 0);
+            Assert.False(GetInvoiceAddress().ToString().Length == 0);
         }
     }
 }

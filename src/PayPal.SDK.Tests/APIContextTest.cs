@@ -1,48 +1,49 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
+
 
 namespace PayPal.Testing
 {
-    [TestClass]
+    
     public class APIContextTest
     {
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void APIContextValidConstructorTest()
         {
             var apiContext = new APIContext();
-            Assert.IsFalse(string.IsNullOrEmpty(apiContext.RequestId));
-            Assert.IsFalse(apiContext.MaskRequestId);
-            Assert.IsTrue(string.IsNullOrEmpty(apiContext.AccessToken));
-            Assert.IsNull(apiContext.Config);
-            Assert.IsNull(apiContext.HTTPHeaders);
-            Assert.IsNotNull(apiContext.SdkVersion);
+            Assert.False(string.IsNullOrEmpty(apiContext.RequestId));
+            Assert.False(apiContext.MaskRequestId);
+            Assert.True(string.IsNullOrEmpty(apiContext.AccessToken));
+            Assert.Null(apiContext.Config);
+            Assert.Null(apiContext.HTTPHeaders);
+            Assert.NotNull(apiContext.SdkVersion);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void APIContextValidConstructorWithAccessTokenTest()
         {
             var apiContext = new APIContext("abc");
-            Assert.IsFalse(string.IsNullOrEmpty(apiContext.RequestId));
-            Assert.IsFalse(apiContext.MaskRequestId);
-            Assert.AreEqual("abc", apiContext.AccessToken);
-            Assert.IsNull(apiContext.Config);
-            Assert.IsNull(apiContext.HTTPHeaders);
-            Assert.IsNotNull(apiContext.SdkVersion);
+            Assert.False(string.IsNullOrEmpty(apiContext.RequestId));
+            Assert.False(apiContext.MaskRequestId);
+            Assert.Equal("abc", apiContext.AccessToken);
+            Assert.Null(apiContext.Config);
+            Assert.Null(apiContext.HTTPHeaders);
+            Assert.NotNull(apiContext.SdkVersion);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void APIContextValidConstructorWithAccessTokenAndRequestIdTest()
         {
             var apiContext = new APIContext("abc", "xyz");
-            Assert.AreEqual("xyz", apiContext.RequestId);
-            Assert.IsFalse(apiContext.MaskRequestId);
-            Assert.AreEqual("abc", apiContext.AccessToken);
-            Assert.IsNull(apiContext.Config);
-            Assert.IsNull(apiContext.HTTPHeaders);
-            Assert.IsNotNull(apiContext.SdkVersion);
+            Assert.Equal("xyz", apiContext.RequestId);
+            Assert.False(apiContext.MaskRequestId);
+            Assert.Equal("abc", apiContext.AccessToken);
+            Assert.Null(apiContext.Config);
+            Assert.Null(apiContext.HTTPHeaders);
+            Assert.NotNull(apiContext.SdkVersion);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void APIContextInvalidAccessTokenConstructorTest()
         {
             TestingUtil.AssertThrownException<System.ArgumentNullException>(() => new APIContext(""));
@@ -51,20 +52,20 @@ namespace PayPal.Testing
             TestingUtil.AssertThrownException<System.ArgumentNullException>(() => new APIContext(null, "xyz"));
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void APIContextInvalidRequestIdConstructorTest()
         {
             TestingUtil.AssertThrownException<System.ArgumentNullException>(() => new APIContext("abc", ""));
             TestingUtil.AssertThrownException<System.ArgumentNullException>(() => new APIContext("abc", null));
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void APIContextResetRequestIdTest()
         {
             var apiContext = new APIContext();
             var originalRequestId = apiContext.RequestId;
             apiContext.ResetRequestId();
-            Assert.AreNotEqual(originalRequestId, apiContext.RequestId);
+            Assert.NotEqual(originalRequestId, apiContext.RequestId);
         }
     }
 }

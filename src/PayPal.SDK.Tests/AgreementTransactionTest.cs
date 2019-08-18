@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PayPal.Api;
+﻿using PayPal.Api;
+using Xunit;
 
 namespace PayPal.Testing
 {
     /// <summary>
     /// Summary description for AgreementTransaction
     /// </summary>
-    [TestClass]
+    
     public class AgreementTransactionTest
     {
         public static readonly string AgreementTransactionJson =
@@ -22,28 +22,28 @@ namespace PayPal.Testing
             return JsonFormatter.ConvertFromJson<AgreementTransaction>(AgreementTransactionJson);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void AgreementTransactionObjectTest()
         {
             var testObject = GetAgreementTransaction();
-            Assert.AreEqual("I-0LN988D3JACS", testObject.transaction_id);
-            Assert.AreEqual("Created", testObject.status);
-            Assert.AreEqual("Recurring Payment", testObject.transaction_type);
-            Assert.AreEqual("bbuyer@example.com", testObject.payer_email);
-            Assert.AreEqual("Betsy Buyer", testObject.payer_name);
-            Assert.AreEqual("GMT", testObject.time_zone);
+            Assert.Equal("I-0LN988D3JACS", testObject.transaction_id);
+            Assert.Equal("Created", testObject.status);
+            Assert.Equal("Recurring Payment", testObject.transaction_type);
+            Assert.Equal("bbuyer@example.com", testObject.payer_email);
+            Assert.Equal("Betsy Buyer", testObject.payer_name);
+            Assert.Equal("GMT", testObject.time_zone);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void AgreementTransactionConvertToJsonTest()
         {
-            Assert.IsFalse(GetAgreementTransaction().ConvertToJson().Length == 0);
+            Assert.False(GetAgreementTransaction().ConvertToJson().Length == 0);
         }
 
-        [TestMethod, TestCategory("Unit")]
+        [Fact, Trait("Category", "Unit")]
         public void AgreementTransactionToStringTest()
         {
-            Assert.IsFalse(GetAgreementTransaction().ToString().Length == 0);
+            Assert.False(GetAgreementTransaction().ToString().Length == 0);
         }
     }
 }
